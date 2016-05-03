@@ -8,7 +8,7 @@ p
     box-sizing:                         border-box;
     position:                           relative;
     overflow:                           hidden;
-    padding:                            2em 2em 1em;
+    padding:                            1em 2em;
     height:                             100%;
     width:                              100%;
     min-height:                         14em;
@@ -100,7 +100,7 @@ p
 
 .styla-widget__headline
 {
-    font-size:                          2em;
+    font-size:                          1.9em;
     line-height:                        1em;
     max-height:                         2em;
     overflow:                           hidden;
