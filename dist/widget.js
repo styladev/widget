@@ -36,7 +36,12 @@ module.exports = '0.0.1';
 },{}],4:[function(require,module,exports){
 
 /**
+ * Styla bite-sized widget
  *
+ * lite embeddable widget for non-styla pages
+ *
+ * @author "Mouse Braun <mouse@styla.com>"
+ * @author "Elias Liedholm <elias@styla.com>"
  */
 'use strict';
 
@@ -92,7 +97,6 @@ var StylaWidget = (function () {
                 });
 
                 _this.images = images;
-                console.log(res.stories);
                 var _els = res.stories.map(_this.buildStory);
 
                 document.body.appendChild(container);
@@ -120,13 +124,8 @@ var StylaWidget = (function () {
             var id = images[0].id;
             var imgObj = _this.images[id];
 
-<<<<<<< HEAD
-            storyLink.href = imgObj.pageUrl;
-            image.src = _this.getImageUrl(imgObj.fileName, 400);
-=======
             storyLink.href = _this.domain + 'story/' + externalPermalink + '/';
-            image.src = _this.getImageUrl(imgObj.fileName, 200);
->>>>>>> 9ca6851edbf9eec2c341b39a4b0aeccf400555f9
+            image.src = _this.getImageUrl(imgObj.fileName, 400);
             image.alt = imgObj.caption || title;
             image.title = title;
 

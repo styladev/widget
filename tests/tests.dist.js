@@ -59,7 +59,7 @@ module.exports={
 
 module.exports = {
     CONTAINER: 'styla-widget',
-    TEXT_WRAPPER: 'styla-widget__textWrap',
+    TEXT_WRAPPER: 'styla-widget__textwrap',
     HEADLINE: 'styla-widget__headline',
     HEADLINE_WRAPPER: 'styla-widget__headlinewrap',
     IMAGE: 'styla-widget__image',
@@ -166,7 +166,7 @@ var StylaWidget = (function () {
             var imgObj = _this.images[id];
 
             storyLink.href = _this.domain + 'story/' + externalPermalink + '/';
-            image.src = _this.getImageUrl(imgObj.fileName, 200);
+            image.src = _this.getImageUrl(imgObj.fileName, 400);
             image.alt = imgObj.caption || title;
             image.title = title;
 
@@ -175,12 +175,13 @@ var StylaWidget = (function () {
             story.appendChild(storyLink);
             imageWrapper.appendChild(image);
             storyLink.appendChild(imageWrapper);
+            storyLink.appendChild(textWrapper);
 
             headlineWrapper.appendChild(headline);
-            storyLink.appendChild(headlineWrapper);
+            textWrapper.appendChild(headlineWrapper);
 
             paragraph.innerHTML = _this.getDescription(JSON.parse(description));
-            storyLink.appendChild(paragraph);
+            textWrapper.appendChild(paragraph);
             _this.container.appendChild(story);
 
             return story;
