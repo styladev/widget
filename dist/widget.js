@@ -70,8 +70,11 @@ var StylaWidget = (function () {
      * @return {Object} this
      */
 
-    function StylaWidget(domain) {
+    function StylaWidget(_ref) {
         var _this = this;
+
+        var slug = _ref.slug;
+        var domain = _ref.domain;
 
         _classCallCheck(this, StylaWidget);
 
@@ -88,6 +91,7 @@ var StylaWidget = (function () {
                 });
 
                 _this.images = images;
+                console.log(res.stories);
                 var _els = res.stories.map(_this.buildStory);
 
                 document.body.appendChild(container);
@@ -96,10 +100,11 @@ var StylaWidget = (function () {
             return container;
         };
 
-        this.buildStory = function (_ref) {
-            var title = _ref.title;
-            var description = _ref.description;
-            var images = _ref.images;
+        this.buildStory = function (_ref2) {
+            var title = _ref2.title;
+            var description = _ref2.description;
+            var images = _ref2.images;
+            var externalPermalink = _ref2.externalPermalink;
 
             var create = _this.create;
             var story = create('div', _classesJs2['default'].STORY);
@@ -113,7 +118,7 @@ var StylaWidget = (function () {
             var id = images[0].id;
             var imgObj = _this.images[id];
 
-            storyLink.href = imgObj.pageUrl;
+            storyLink.href = _this.domain + 'story/' + externalPermalink + '/';
             image.src = _this.getImageUrl(imgObj.fileName, 200);
             image.alt = imgObj.caption || title;
             image.title = title;
@@ -133,9 +138,11 @@ var StylaWidget = (function () {
             return story;
         };
 
+        this.slug = slug;
+        this.domain = domain;
         this.version = _versionJs2['default'];
 
-        var url = 'https://www.amazine.com/api/feeds/user/' + domain + '?domain=' + domain + '&offset=0&limit=5';
+        var url = 'https://www.amazine.com/api/feeds/user/' + slug + '?domain=' + slug + '&offset=0&limit=5';
 
         _microbejsDistMicrobeHttpMin.http.get(url).then(this.buildStories);
 
