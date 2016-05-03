@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <link rel="stylesheet" href="../node_modules/qunitjs/qunit/qunit.css">
+    </head>
+    <body>
+        <div id="qunit"></div>
+        <div id="qunit-fixture"></div>
+    </body>
+    <script src="http://localhost/widget/dist/widget.js"></script>
+
+    <script type="text/javascript" defer>
+        window.onload = function()
+        {
+            document.getElementsByTagName( 'TITLE' )[0].textContent = 'StylaWidget - ' + new StylaWidget().version;
+        };
+    </script>
+
+    <script src="../node_modules/qunitjs/qunit/qunit.js" defer></script>
+    <script src="tests.dist.js" defer></script>
+</html>

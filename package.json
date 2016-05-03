@@ -1,0 +1,49 @@
+{
+  "name": "stylaWidget",
+  "version": "0.0.1",
+    "contributors": [
+    "Mouse Braun <mouse@styla.com>",
+    "Elias Liedholm <elias@styla.com>"
+  ],
+  "description": "small, bite-sized styla feeds",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/styladev/widget.git"
+  },
+  "scripts": {
+    "build": "./node_modules/.bin/gulp && npm test",
+    "buildTests": "./node_modules/.bin/gulp buildTests",
+    "demo": "./node_modules/.bin/gulp demo",
+    "gulp": "./node_modules/.bin/gulp",
+    "test": "node --harmony ./scripts/nightmare.js",
+    "versionBump": "node ./scripts/version_bump.js"
+  },
+  "devDependencies": {
+    "babelify": "^6.3.0",
+    "browserify": "^11.2.0",
+    "connect": "^3.4.0",
+    "gulp": "^3.9.0",
+    "gulp-header": "^1.7.1",
+    "gulp-uglify": "^1.5.1",
+    "microbejs": "^0.5.2",
+    "nightmare": "^2.1.1",
+    "promise": "^7.1.1",
+    "qunitjs": "^1.20.0",
+    "serve-static": "^1.10.0",
+    "vo": "^1.0.3"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/styladev/widget/issues"
+  },
+  "files": [
+    "CODE_OF_CONDUCT.md",
+    "README.md",
+    "src/",
+    "dist/"
+  ],
+  "homepage": "https://github.com/styladev/widget",
+  "main": "./dist/index.js",
+  "keywords": [
+  ]
+}
