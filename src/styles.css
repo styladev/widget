@@ -103,6 +103,7 @@ p
     font-size:                          1.9em;
     line-height:                        1em;
     max-height:                         2em;
+    padding-bottom:                     0.25em;
     overflow:                           hidden;
     margin:                             0;
     text-overflow:                      ellipsis;
@@ -118,7 +119,6 @@ p
     max-height:                         calc(100% - 5em);
     overflow:                           hidden;
     position:                           relative;
-    margin-top:                         0.5em;
     text-overflow:                      ellipsis;
     display:                            -webkit-box;
     -webkit-box-orient:                 vertical;
