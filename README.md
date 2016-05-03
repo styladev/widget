@@ -1,10 +1,22 @@
 Styla Widget  0.0.1
 ===================
 
+usage
+-----
+
+add this script to the html in your page:
+
 ```html
     <script>var d=document;var h=d.head;var s=d.createElement('SCRIPT');
     h.appendChild(s);s.src="http://css.css";</script>
 ```
+
+
+dev installation
+----------------
+
+`npm i`
+
 
 
 Contributing

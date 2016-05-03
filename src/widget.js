@@ -24,7 +24,7 @@ class StylaWidget
         http.get( url ).then( this.buildStories );
 
         return this;
-    }
+    };
 
 
     /**
@@ -56,7 +56,7 @@ class StylaWidget
         }
 
         return container;
-    }
+    };
 
 
     /**
