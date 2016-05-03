@@ -17,13 +17,14 @@
 'use strict';
 
 module.exports = {
-	CONTAINER: 'styla-widget',
-	HEADLINE: 'headline',
-	HEADLINE_WRAPPER: 'headlineWrap',
-	IMAGE: 'image',
-	IMAGE_WRAPPER: 'styla-widget__image--wrapper',
-	STORY: 'styla-widget__story',
-	STORY_BODY: 'bodyText'
+    CONTAINER: 'styla--widget',
+    HEADLINE: 'headline',
+    HEADLINE_WRAPPER: 'headlineWrap',
+    IMAGE: 'image',
+    IMAGE_WRAPPER: 'styla--widget__image--wrapper',
+    STORY: 'styla--widget__story',
+    STORY_BODY: 'bodyText',
+    STORY_LINK: 'styla--widget__link'
 };
 
 },{}],3:[function(require,module,exports){
@@ -32,8 +33,10 @@ module.exports = {
 module.exports = '0.0.1';
 
 },{}],4:[function(require,module,exports){
-// 'https://www.amazine.com/api/feeds/user/braunhamburg?offsetTimeCreated=1462191904587&offset=0&limit=5&domain=braunhamburg&_=1462191904020'
 
+/**
+ *
+ */
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -100,6 +103,7 @@ var StylaWidget = (function () {
 
             var create = _this.create;
             var story = create('div', _classesJs2['default'].STORY);
+            var storyLink = create('a', _classesJs2['default'].STORY_LINK);
 
             var image = create('img', _classesJs2['default'].IMAGE);
             var wrapper = create('div', _classesJs2['default'].HEADLINE_WRAPPER);
@@ -109,17 +113,21 @@ var StylaWidget = (function () {
             var id = images[0].id;
             var imgObj = _this.images[id];
 
+            storyLink.href = imgObj.pageUrl;
             image.src = _this.getImageUrl(imgObj.fileName, 200);
             image.alt = imgObj.caption || title;
             image.title = title;
-            story.appendChild(image);
 
             headline.textContent = title;
+
+            story.appendChild(storyLink);
+            storyLink.appendChild(image);
+
             wrapper.appendChild(headline);
-            story.appendChild(wrapper);
+            storyLink.appendChild(wrapper);
 
             storyBody.innerHTML = _this.getDescription(JSON.parse(description));
-            story.appendChild(storyBody);
+            storyLink.appendChild(storyBody);
             _this.container.appendChild(story);
 
             return story;

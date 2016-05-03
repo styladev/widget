@@ -1,5 +1,7 @@
-// 'https://www.amazine.com/api/feeds/user/braunhamburg?offsetTimeCreated=1462191904587&offset=0&limit=5&domain=braunhamburg&_=1462191904020'
 
+/**
+ *
+ */
 import version  from './version.js';
 import classes  from './classes.js';
 import { http } from 'microbejs/dist/microbe.http.min';
@@ -72,6 +74,7 @@ class StylaWidget
     {
         let create      = this.create;
         let story       = create( 'div', classes.STORY );
+        let storyLink   = create( 'a', classes.STORY_LINK );
 
         let image       = create( 'img', classes.IMAGE );
         let wrapper     = create( 'div', classes.HEADLINE_WRAPPER );
@@ -81,17 +84,21 @@ class StylaWidget
         let id          = images[0].id;
         let imgObj      = this.images[ id ];
 
+        storyLink.href  = imgObj.pageUrl;
         image.src       = this.getImageUrl( imgObj.fileName, 200 );
         image.alt       = imgObj.caption || title;
         image.title     = title;
-        story.appendChild( image );
 
         headline.textContent = title;
+
+        story.appendChild( storyLink );
+        storyLink.appendChild( image );
+
         wrapper.appendChild( headline );
-        story.appendChild( wrapper );
+        storyLink.appendChild( wrapper );
 
         storyBody.innerHTML = this.getDescription( JSON.parse( description ) );
-        story.appendChild( storyBody );
+        storyLink.appendChild( storyBody );
         this.container.appendChild( story );
 
         return story;
