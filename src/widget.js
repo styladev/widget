@@ -1,6 +1,11 @@
 
 /**
+ * Styla bite-sized widget
  *
+ * lite embeddable widget for non-styla pages
+ *
+ * @author "Mouse Braun <mouse@styla.com>"
+ * @author "Elias Liedholm <elias@styla.com>"
  */
 import version  from './version.js';
 import classes  from './classes.js';
@@ -17,11 +22,13 @@ class StylaWidget
      *
      * @return {Object} this
      */
-    constructor( domain )
+    constructor( { slug, domain } )
     {
+        this.slug       = slug;
+        this.domain     = domain;
         this.version    = version;
 
-        let url = `https://www.amazine.com/api/feeds/user/${domain}?domain=${domain}&offset=0&limit=5`;
+        let url         = `https://www.amazine.com/api/feeds/user/${slug}?domain=${slug}&offset=0&limit=5`;
 
         http.get( url ).then( this.buildStories );
 
@@ -51,8 +58,8 @@ class StylaWidget
         {
             resImages.forEach( function( _i ){ images[ _i.id ] = _i; })
 
-            this.images         = images;
-            let _els            = res.stories.map( this.buildStory );
+            this.images = images;
+            let _els    = res.stories.map( this.buildStory );
 
             document.body.appendChild( container );
         }
@@ -70,7 +77,7 @@ class StylaWidget
      *
      * @return {DOMElement} outer story element
      */
-    buildStory = ( { title, description, images } ) =>
+    buildStory = ( { title, description, images, externalPermalink } ) =>
     {
         let create              = this.create;
         let story               = create( 'div', classes.STORY );
@@ -85,7 +92,7 @@ class StylaWidget
         let id                  = images[0].id;
         let imgObj              = this.images[ id ];
 
-        storyLink.href          = imgObj.pageUrl;
+        storyLink.href          = this.domain + 'story/' + externalPermalink + '/';
         image.src               = this.getImageUrl( imgObj.fileName, 400 );
         image.alt               = imgObj.caption || title;
         image.title             = title;
