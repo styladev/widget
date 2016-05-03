@@ -17,11 +17,12 @@
 'use strict';
 
 module.exports = {
-	CONTAINER: 'container',
+	CONTAINER: 'styla-widget',
 	HEADLINE: 'headline',
 	HEADLINE_WRAPPER: 'headlineWrap',
 	IMAGE: 'image',
-	STORY: 'story',
+	IMAGE_WRAPPER: 'styla-widget__image--wrapper',
+	STORY: 'styla-widget__story',
 	STORY_BODY: 'bodyText'
 };
 
@@ -99,6 +100,7 @@ var StylaWidget = (function () {
 
             var create = _this.create;
             var story = create('div', _classesJs2['default'].STORY);
+
             var image = create('img', _classesJs2['default'].IMAGE);
             var wrapper = create('div', _classesJs2['default'].HEADLINE_WRAPPER);
             var headline = create('h1', _classesJs2['default'].HEADLINE);
@@ -131,17 +133,6 @@ var StylaWidget = (function () {
 
         return this;
     }
-
-    /**
-     * buildStories
-     *
-     * after recieving the story data, this parses and build the individual
-     * stories
-     *
-     * @param {String} res JSON response from the product api
-     *
-     * @return {DOMElement} container element
-     */
 
     _createClass(StylaWidget, [{
         key: 'create',
@@ -215,6 +206,17 @@ var StylaWidget = (function () {
 
 exports['default'] = StylaWidget;
 module.exports = exports['default'];
+
+/**
+ * buildStories
+ *
+ * after recieving the story data, this parses and build the individual
+ * stories
+ *
+ * @param {String} res JSON response from the product api
+ *
+ * @return {DOMElement} container element
+ */
 
 /**
  * ## buildStory

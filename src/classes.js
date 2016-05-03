@@ -1,8 +1,9 @@
 module.exports = {
-	CONTAINER 			: 'container',
+	CONTAINER 			: 'styla-widget',
 	HEADLINE 			: 'headline',
 	HEADLINE_WRAPPER 	: 'headlineWrap',
 	IMAGE 				: 'image',
-	STORY 				: 'story',
+	IMAGE_WRAPPER		: 'styla-widget__image--wrapper',
+	STORY 				: 'styla-widget__story',
 	STORY_BODY 			: 'bodyText'
 };

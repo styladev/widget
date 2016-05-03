@@ -72,6 +72,7 @@ class StylaWidget
     {
         let create      = this.create;
         let story       = create( 'div', classes.STORY );
+
         let image       = create( 'img', classes.IMAGE );
         let wrapper     = create( 'div', classes.HEADLINE_WRAPPER );
         let headline    = create( 'h1', classes.HEADLINE );
@@ -81,7 +82,7 @@ class StylaWidget
         let imgObj      = this.images[ id ];
 
         image.src       = this.getImageUrl( imgObj.fileName, 200 );
-        image.alt       = imgObj.caption || title;
+        image.alt       = imgObj.caption || title;
         image.title     = title;
         story.appendChild( image );
 
