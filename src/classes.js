@@ -1,10 +1,11 @@
 module.exports = {
-    CONTAINER           : 'styla--widget',
-    HEADLINE            : 'headline',
-    HEADLINE_WRAPPER    : 'headlineWrap',
-    IMAGE               : 'image',
-    IMAGE_WRAPPER       : 'styla--widget__image--wrapper',
-    STORY               : 'styla--widget__story',
-    STORY_BODY          : 'bodyText',
-    STORY_LINK          : 'styla--widget__link'
+    CONTAINER           : 'styla-widget',
+    TEXT_WRAPPER        : 'styla-widget__textWrap',
+    HEADLINE            : 'styla-widget__headline',
+    HEADLINE_WRAPPER    : 'styla-widget__headlinewrap',
+    IMAGE               : 'styla-widget__image',
+    IMAGE_WRAPPER       : 'styla-widget__imagewrap',
+    STORY               : 'styla-widget__story',
+    PARAGRAPH           : 'styla-widget__paragraph',
+    STORY_LINK          : 'styla-widget__link'
 };

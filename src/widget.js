@@ -1,6 +1,11 @@
 
 /**
+ * Styla bite-sized widget
  *
+ * lite embeddable widget for non-styla pages
+ *
+ * @author "Mouse Braun <mouse@styla.com>"
+ * @author "Elias Liedholm <elias@styla.com>"
  */
 import version  from './version.js';
 import classes  from './classes.js';
@@ -54,7 +59,6 @@ class StylaWidget
             resImages.forEach( function( _i ){ images[ _i.id ] = _i; })
 
             this.images = images;
-            console.log( res.stories );
             let _els    = res.stories.map( this.buildStory );
 
             document.body.appendChild( container );
@@ -75,33 +79,35 @@ class StylaWidget
      */
     buildStory = ( { title, description, images, externalPermalink } ) =>
     {
-        let create      = this.create;
-        let story       = create( 'div', classes.STORY );
-        let storyLink   = create( 'a', classes.STORY_LINK );
+        let create              = this.create;
+        let story               = create( 'div', classes.STORY );
+        let storyLink           = create( 'a', classes.STORY_LINK );
+        let imageWrapper        = create( 'div', classes.IMAGE_WRAPPER );
+        let image               = create( 'img', classes.IMAGE );
+        let textWrapper         = create( 'div', classes.TEXT_WRAPPER );
+        let headlineWrapper     = create( 'div', classes.HEADLINE_WRAPPER );
+        let headline            = create( 'h1', classes.HEADLINE );
+        let paragraph           = create( 'div', classes.PARAGRAPH );
 
-        let image       = create( 'img', classes.IMAGE );
-        let wrapper     = create( 'div', classes.HEADLINE_WRAPPER );
-        let headline    = create( 'h1', classes.HEADLINE );
-        let storyBody   = create( 'div', classes.STORY_BODY );
+        let id                  = images[0].id;
+        let imgObj              = this.images[ id ];
 
-        let id          = images[0].id;
-        let imgObj      = this.images[ id ];
+        storyLink.href          = this.domain + 'story/' + externalPermalink + '/';
+        image.src               = this.getImageUrl( imgObj.fileName, 200 );
+        image.alt               = imgObj.caption || title;
+        image.title             = title;
 
-        storyLink.href  = this.domain + 'story/' + externalPermalink + '/';
-        image.src       = this.getImageUrl( imgObj.fileName, 200 );
-        image.alt       = imgObj.caption || title;
-        image.title     = title;
-
-        headline.textContent = title;
+        headline.textContent    = title;
 
         story.appendChild( storyLink );
-        storyLink.appendChild( image );
+        imageWrapper.appendChild( image )
+        storyLink.appendChild( imageWrapper );
 
-        wrapper.appendChild( headline );
-        storyLink.appendChild( wrapper );
+        headlineWrapper.appendChild( headline );
+        storyLink.appendChild( headlineWrapper );
 
-        storyBody.innerHTML = this.getDescription( JSON.parse( description ) );
-        storyLink.appendChild( storyBody );
+        paragraph.innerHTML = this.getDescription( JSON.parse( description ) );
+        storyLink.appendChild( paragraph );
         this.container.appendChild( story );
 
         return story;
