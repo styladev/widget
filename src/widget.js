@@ -1,6 +1,7 @@
 // 'https://www.amazine.com/api/feeds/user/braunhamburg?offsetTimeCreated=1462191904587&offset=0&limit=5&domain=braunhamburg&_=1462191904020'
 
 import version  from './version.js';
+import classes  from './classes.js';
 import { http } from 'microbejs/dist/microbe.http.min';
 
 class StylaWidget
@@ -24,29 +25,20 @@ class StylaWidget
 
     buildStories = res =>
     {
-        try
+        res             = JSON.parse( res );
+        let container   = this.container = this.create( 'DIV', classes.CONTAINER );
+
+        let images      = {};
+        let resImages   = res.images;
+
+        if ( resImages )
         {
-            res         = JSON.parse( res );
+            resImages.forEach( function( _i ){ images[ _i.id ] = _i; })
 
-            let container   = this.container = document.createElement( 'DIV' );
+            this.images         = images;
+            let _els            = res.stories.map( this.buildStory );
 
-            container.className = 'container';
-
-            let images      = {};
-            let resImages   = res.images;
-
-            if ( resImages )
-            {
-                resImages.forEach( function( _i ){ images[ _i.id ] = _i; })
-
-                this.images         = images;
-                let _els            = res.stories.map( this.buildStory );
-                document.body.appendChild( container );
-            }
-        }
-        catch(e)
-        {
-            console.log( e );
+            document.body.appendChild( container );
         }
     }
 
@@ -62,17 +54,9 @@ class StylaWidget
      */
     buildStory = ( { title, description, images } ) =>
     {
-        let create = function( tag, className )
-        {
-            let _el         = document.createElement( tag.toUpperCase() );
-            _el.className   = className;
-
-            return _el;
-        }
-
-        let story = create( 'div', 'story' );
-
-        let image   = create( 'img', 'image' );
+        let create  = this.create;
+        let story   = create( 'div', classes.STORY );
+        let image   = create( 'img', classes.IMAGE );
 
         let id      = images[0].id;
         image.src   = this.getImageUrl( this.images[ id ].fileName, 200 );
@@ -80,21 +64,41 @@ class StylaWidget
         image.title = title;
         story.appendChild( image );
 
-        let wrapper  = create( 'div', 'headlineWrap' );
+        let wrapper  = create( 'div', classes.HEADLINE_WRAPPER );
 
-        let headline = create( 'H1', 'headline' );
-        headline.textContent= title;
+        let headline = create( 'H1', classes.HEADLINE );
+        console.log( title );
+        headline.textContent = title;
         wrapper.appendChild( headline );
 
         story.appendChild( wrapper );
 
-        let body            = document.createElement( 'DIV' );
-        body.className      = 'bodyText';
+        let body            = create( 'DIV', classes.STORY_BODY );
+        console.log( description );
         body.textContent    = description;
         story.appendChild( body );
         this.container.appendChild( story );
 
         return story;
+    }
+
+
+    /**
+     * ## create
+     *
+     * creates an element with the supplied tagname and classname
+     *
+     * @param {String} _tag tagname
+     * @param {String} _class className to add to the created element
+     *
+     * @return _DOMElement_ newly created element
+     */
+    create( _tag, _class )
+    {
+        let _el         = document.createElement( _tag.toUpperCase() );
+        _el.className   = _class;
+
+        return _el;
     }
 
 
