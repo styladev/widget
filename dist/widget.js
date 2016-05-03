@@ -16,9 +16,21 @@
 },{}],2:[function(require,module,exports){
 'use strict';
 
-module.exports = '0.0.1';
+module.exports = {
+	CONTAINER: 'container',
+	HEADLINE: 'headline',
+	HEADLINE_WRAPPER: 'headlineWrap',
+	IMAGE: 'image',
+	STORY: 'story',
+	STORY_BODY: 'bodyText'
+};
 
 },{}],3:[function(require,module,exports){
+'use strict';
+
+module.exports = '0.0.1';
+
+},{}],4:[function(require,module,exports){
 // 'https://www.amazine.com/api/feeds/user/braunhamburg?offsetTimeCreated=1462191904587&offset=0&limit=5&domain=braunhamburg&_=1462191904020'
 
 'use strict';
@@ -37,6 +49,10 @@ var _versionJs = require('./version.js');
 
 var _versionJs2 = _interopRequireDefault(_versionJs);
 
+var _classesJs = require('./classes.js');
+
+var _classesJs2 = _interopRequireDefault(_classesJs);
+
 var _microbejsDistMicrobeHttpMin = require('microbejs/dist/microbe.http.min');
 
 var StylaWidget = (function () {
@@ -44,6 +60,10 @@ var StylaWidget = (function () {
      * ## constructor
      *
      * grabs the feed from the api and starts everything
+     *
+     * @param {String} domain target domain to grab products from
+     *
+     * @return {Object} this
      */
 
     function StylaWidget(domain) {
@@ -52,30 +72,24 @@ var StylaWidget = (function () {
         _classCallCheck(this, StylaWidget);
 
         this.buildStories = function (res) {
-            try {
-                (function () {
-                    res = JSON.parse(res);
+            res = JSON.parse(res);
+            var container = _this.container = _this.create('DIV', _classesJs2['default'].CONTAINER);
 
-                    var container = _this.container = document.createElement('DIV');
+            var images = {};
+            var resImages = res.images;
 
-                    container.className = 'container';
+            if (resImages) {
+                resImages.forEach(function (_i) {
+                    images[_i.id] = _i;
+                });
 
-                    var images = {};
-                    var resImages = res.images;
+                _this.images = images;
+                var _els = res.stories.map(_this.buildStory);
 
-                    if (resImages) {
-                        resImages.forEach(function (_i) {
-                            images[_i.id] = _i;
-                        });
-
-                        _this.images = images;
-                        var _els = res.stories.map(_this.buildStory);
-                        document.body.appendChild(container);
-                    }
-                })();
-            } catch (e) {
-                console.log(e);
+                document.body.appendChild(container);
             }
+
+            return container;
         };
 
         this.buildStory = function (_ref) {
@@ -83,31 +97,27 @@ var StylaWidget = (function () {
             var description = _ref.description;
             var images = _ref.images;
 
-            var story = document.createElement('DIV');
-            story.className = 'story';
+            var create = _this.create;
+            var story = create('div', _classesJs2['default'].STORY);
+            var image = create('img', _classesJs2['default'].IMAGE);
+            var wrapper = create('div', _classesJs2['default'].HEADLINE_WRAPPER);
+            var headline = create('h1', _classesJs2['default'].HEADLINE);
+            var storyBody = create('div', _classesJs2['default'].STORY_BODY);
 
-            var image = document.createElement('IMG');
             var id = images[0].id;
-            image.src = _this.getImageUrl(_this.images[id].fileName, 200);
-            image.alt = title;
+            var imgObj = _this.images[id];
+
+            image.src = _this.getImageUrl(imgObj.fileName, 200);
+            image.alt = imgObj.caption || title;
             image.title = title;
-            image.className = 'image';
             story.appendChild(image);
 
-            var wrapper = document.createElement('DIV');
-            wrapper.className = 'headlineWrap';
-
-            var headline = document.createElement('H1');
-            headline.className = 'headline';
             headline.textContent = title;
             wrapper.appendChild(headline);
-
             story.appendChild(wrapper);
 
-            var body = document.createElement('DIV');
-            body.className = 'bodyText';
-            body.textContent = description;
-            story.appendChild(body);
+            storyBody.innerHTML = _this.getDescription(JSON.parse(description));
+            story.appendChild(storyBody);
             _this.container.appendChild(story);
 
             return story;
@@ -122,10 +132,75 @@ var StylaWidget = (function () {
         return this;
     }
 
+    /**
+     * buildStories
+     *
+     * after recieving the story data, this parses and build the individual
+     * stories
+     *
+     * @param {String} res JSON response from the product api
+     *
+     * @return {DOMElement} container element
+     */
+
     _createClass(StylaWidget, [{
+        key: 'create',
+
+        /**
+         * ## create
+         *
+         * creates an element with the supplied tagname and classname
+         *
+         * @param {String} _tag tagname
+         * @param {String} _class className to add to the created element
+         *
+         * @return _DOMElement_ newly created element
+         */
+        value: function create(_tag, _class) {
+            var _el = document.createElement(_tag.toUpperCase());
+            _el.className = _class;
+
+            return _el;
+        }
+    }, {
+        key: 'getDescription',
+
+        /**
+         * ## getDescription
+         *
+         * gets the first text description in the content and returns that
+         *
+         * @param {Array} _arr array filled w/ content
+         * @param {Number} i recursive index
+         *
+         * @return {String or Boolean} text content or false
+         */
+        value: function getDescription(_arr) {
+            var i = arguments.length <= 1 || arguments[1] === undefined ? 0 : arguments[1];
+
+            var text = _arr[i];
+
+            if (!text) {
+                return false;
+            } else if (text.type !== 'text') {
+                return this.getDescription(_arr, i + 1);
+            } else {
+                return text.content;
+            }
+        }
+    }, {
         key: 'getImageUrl',
 
-        // http://img.styla.com/resizer/sfh_250x0/herno-steppweste-hellbraun-the-one_83061_86820.jpeg
+        /**
+         * ## getImageUrl
+         *
+         * builds the image url
+         *
+         * @param {String} filename from the image data object
+         * @param {Number or String} size width to grab from the server
+         *
+         * @return {String} file name
+         */
         value: function getImageUrl(filename) {
             var size = arguments.length <= 1 || arguments[1] === undefined ? 200 : arguments[1];
 
@@ -151,4 +226,4 @@ module.exports = exports['default'];
  * @return {DOMElement} outer story element
  */
 
-},{"./version.js":2,"microbejs/dist/microbe.http.min":1}]},{},[3]);
+},{"./classes.js":2,"./version.js":3,"microbejs/dist/microbe.http.min":1}]},{},[4]);

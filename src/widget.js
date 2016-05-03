@@ -10,6 +10,10 @@ class StylaWidget
      * ## constructor
      *
      * grabs the feed from the api and starts everything
+     *
+     * @param {String} domain target domain to grab products from
+     *
+     * @return {Object} this
      */
     constructor( domain )
     {
@@ -23,6 +27,16 @@ class StylaWidget
     }
 
 
+    /**
+     * buildStories
+     *
+     * after recieving the story data, this parses and build the individual
+     * stories
+     *
+     * @param {String} res JSON response from the product api
+     *
+     * @return {DOMElement} container element
+     */
     buildStories = res =>
     {
         res             = JSON.parse( res );
@@ -40,6 +54,8 @@ class StylaWidget
 
             document.body.appendChild( container );
         }
+
+        return container;
     }
 
 
@@ -54,33 +70,31 @@ class StylaWidget
      */
     buildStory = ( { title, description, images } ) =>
     {
-        let create  = this.create;
-        let story   = create( 'div', classes.STORY );
-        let image   = create( 'img', classes.IMAGE );
+        let create      = this.create;
+        let story       = create( 'div', classes.STORY );
+        let image       = create( 'img', classes.IMAGE );
+        let wrapper     = create( 'div', classes.HEADLINE_WRAPPER );
+        let headline    = create( 'h1', classes.HEADLINE );
+        let storyBody   = create( 'div', classes.STORY_BODY );
 
-        let id      = images[0].id;
-        image.src   = this.getImageUrl( this.images[ id ].fileName, 200 );
-        image.alt   = title;
-        image.title = title;
+        let id          = images[0].id;
+        let imgObj      = this.images[ id ];
+
+        image.src       = this.getImageUrl( imgObj.fileName, 200 );
+        image.alt       = imgObj.caption || title;
+        image.title     = title;
         story.appendChild( image );
 
-        let wrapper  = create( 'div', classes.HEADLINE_WRAPPER );
-
-        let headline = create( 'H1', classes.HEADLINE );
-        console.log( title );
         headline.textContent = title;
         wrapper.appendChild( headline );
-
         story.appendChild( wrapper );
 
-        let body            = create( 'DIV', classes.STORY_BODY );
-        console.log( description );
-        body.textContent    = description;
-        story.appendChild( body );
+        storyBody.innerHTML = this.getDescription( JSON.parse( description ) );
+        story.appendChild( storyBody );
         this.container.appendChild( story );
 
         return story;
-    }
+    };
 
 
     /**
@@ -99,10 +113,48 @@ class StylaWidget
         _el.className   = _class;
 
         return _el;
-    }
+    };
 
 
-    // http://img.styla.com/resizer/sfh_250x0/herno-steppweste-hellbraun-the-one_83061_86820.jpeg
+    /**
+     * ## getDescription
+     *
+     * gets the first text description in the content and returns that
+     *
+     * @param {Array} _arr array filled w/ content
+     * @param {Number} i recursive index
+     *
+     * @return {String or Boolean} text content or false
+     */
+    getDescription( _arr, i = 0 )
+    {
+        let text = _arr[ i ]
+
+        if ( !text )
+        {
+            return false
+        }
+        else if ( text.type !== 'text' )
+        {
+            return this.getDescription( _arr, i + 1 );
+        }
+        else
+        {
+            return text.content;
+        }
+    };
+
+
+    /**
+     * ## getImageUrl
+     *
+     * builds the image url
+     *
+     * @param {String} filename from the image data object
+     * @param {Number or String} size width to grab from the server
+     *
+     * @return {String} file name
+     */
     getImageUrl( filename, size = 200 )
     {
         let url = `//img.styla.com/resizer/sfh_${size}x0/`;
