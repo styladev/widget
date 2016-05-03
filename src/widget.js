@@ -86,7 +86,7 @@ class StylaWidget
         let imgObj              = this.images[ id ];
 
         storyLink.href          = imgObj.pageUrl;
-        image.src               = this.getImageUrl( imgObj.fileName, 200 );
+        image.src               = this.getImageUrl( imgObj.fileName, 400 );
         image.alt               = imgObj.caption || title;
         image.title             = title;
 
@@ -95,12 +95,13 @@ class StylaWidget
         story.appendChild( storyLink );
         imageWrapper.appendChild( image )
         storyLink.appendChild( imageWrapper );
+        storyLink.appendChild( textWrapper );
 
         headlineWrapper.appendChild( headline );
-        storyLink.appendChild( headlineWrapper );
+        textWrapper.appendChild( headlineWrapper );
 
         paragraph.innerHTML = this.getDescription( JSON.parse( description ) );
-        storyLink.appendChild( paragraph );
+        textWrapper.appendChild( paragraph );
         this.container.appendChild( story );
 
         return story;
