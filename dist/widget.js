@@ -17,14 +17,15 @@
 'use strict';
 
 module.exports = {
-    CONTAINER: 'styla--widget',
-    HEADLINE: 'headline',
-    HEADLINE_WRAPPER: 'headlineWrap',
-    IMAGE: 'image',
-    IMAGE_WRAPPER: 'styla--widget__image--wrapper',
-    STORY: 'styla--widget__story',
-    STORY_BODY: 'bodyText',
-    STORY_LINK: 'styla--widget__link'
+    CONTAINER: 'styla-widget',
+    TEXT_WRAPPER: 'styla-widget__textWrap',
+    HEADLINE: 'styla-widget__headline',
+    HEADLINE_WRAPPER: 'styla-widget__headlinewrap',
+    IMAGE: 'styla-widget__image',
+    IMAGE_WRAPPER: 'styla-widget__imagewrap',
+    STORY: 'styla-widget__story',
+    PARAGRAPH: 'styla-widget__paragraph',
+    STORY_LINK: 'styla-widget__link'
 };
 
 },{}],3:[function(require,module,exports){
@@ -104,11 +105,12 @@ var StylaWidget = (function () {
             var create = _this.create;
             var story = create('div', _classesJs2['default'].STORY);
             var storyLink = create('a', _classesJs2['default'].STORY_LINK);
-
+            var imageWrapper = create('div', _classesJs2['default'].IMAGE_WRAPPER);
             var image = create('img', _classesJs2['default'].IMAGE);
-            var wrapper = create('div', _classesJs2['default'].HEADLINE_WRAPPER);
+            var textWrapper = create('div', _classesJs2['default'].TEXT_WRAPPER);
+            var headlineWrapper = create('div', _classesJs2['default'].HEADLINE_WRAPPER);
             var headline = create('h1', _classesJs2['default'].HEADLINE);
-            var storyBody = create('div', _classesJs2['default'].STORY_BODY);
+            var paragraph = create('div', _classesJs2['default'].PARAGRAPH);
 
             var id = images[0].id;
             var imgObj = _this.images[id];
@@ -121,13 +123,14 @@ var StylaWidget = (function () {
             headline.textContent = title;
 
             story.appendChild(storyLink);
-            storyLink.appendChild(image);
+            imageWrapper.appendChild(image);
+            storyLink.appendChild(imageWrapper);
 
-            wrapper.appendChild(headline);
-            storyLink.appendChild(wrapper);
+            headlineWrapper.appendChild(headline);
+            storyLink.appendChild(headlineWrapper);
 
-            storyBody.innerHTML = _this.getDescription(JSON.parse(description));
-            storyLink.appendChild(storyBody);
+            paragraph.innerHTML = _this.getDescription(JSON.parse(description));
+            storyLink.appendChild(paragraph);
             _this.container.appendChild(story);
 
             return story;
