@@ -1,4 +1,4 @@
-Styla Widget  0.0.1
+Styla Widget  0.0.2
 ===================
 
 usage
@@ -33,4 +33,3 @@ Need to report something? [hr](mailto:hr)
 
 
 See more examples on the [demo page](./demo/index.html)
-
