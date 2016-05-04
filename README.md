@@ -19,7 +19,7 @@ add this script to the html in your page:
 
 Technical limitations
 -----
-The widget container must be allowed a *minimum width of 250px*. 
+The widget container must be allowed a **minimum width of 250px**.
 
 dev installation
 ----------------
