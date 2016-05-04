@@ -59,7 +59,7 @@ module.exports={
 
 module.exports = {
     CONTAINER: 'styla-widget',
-    TEXT_WRAPPER: 'styla-widget__textWrap',
+    TEXT_WRAPPER: 'styla-widget__textwrap',
     HEADLINE: 'styla-widget__headline',
     HEADLINE_WRAPPER: 'styla-widget__headlinewrap',
     IMAGE: 'styla-widget__image',
@@ -122,6 +122,10 @@ var StylaWidget = (function () {
 
         var slug = _ref.slug;
         var domain = _ref.domain;
+        var _ref$limit = _ref.limit;
+        var limit = _ref$limit === undefined ? 5 : _ref$limit;
+        var _ref$offset = _ref.offset;
+        var offset = _ref$offset === undefined ? 0 : _ref$offset;
 
         _classCallCheck(this, StylaWidget);
 
@@ -166,7 +170,7 @@ var StylaWidget = (function () {
             var imgObj = _this.images[id];
 
             storyLink.href = _this.domain + 'story/' + externalPermalink + '/';
-            image.src = _this.getImageUrl(imgObj.fileName, 200);
+            image.src = _this.getImageUrl(imgObj.fileName, 400);
             image.alt = imgObj.caption || title;
             image.title = title;
 
@@ -175,12 +179,13 @@ var StylaWidget = (function () {
             story.appendChild(storyLink);
             imageWrapper.appendChild(image);
             storyLink.appendChild(imageWrapper);
+            storyLink.appendChild(textWrapper);
 
             headlineWrapper.appendChild(headline);
-            storyLink.appendChild(headlineWrapper);
+            textWrapper.appendChild(headlineWrapper);
 
             paragraph.innerHTML = _this.getDescription(JSON.parse(description));
-            storyLink.appendChild(paragraph);
+            textWrapper.appendChild(paragraph);
             _this.container.appendChild(story);
 
             return story;
@@ -190,7 +195,7 @@ var StylaWidget = (function () {
         this.domain = domain;
         this.version = _versionJs2['default'];
 
-        var url = 'https://www.amazine.com/api/feeds/user/' + slug + '?domain=' + slug + '&offset=0&limit=5';
+        var url = 'https://www.amazine.com/api/feeds/user/' + slug + '?domain=' + slug + '&offset=' + offset + '&limit=' + limit;
 
         _microbejsDistMicrobeHttpMin.http.get(url).then(this.buildStories);
 
@@ -256,11 +261,9 @@ var StylaWidget = (function () {
          * @return {String} file name
          */
         value: function getImageUrl(filename) {
-            var size = arguments.length <= 1 || arguments[1] === undefined ? 200 : arguments[1];
+            var size = arguments.length <= 1 || arguments[1] === undefined ? 400 : arguments[1];
 
-            var url = '//img.styla.com/resizer/sfh_' + size + 'x0/';
-
-            return url + ('_' + filename);
+            return '//img.styla.com/resizer/sfh_' + size + 'x0/_' + filename;
         }
     }]);
 
@@ -271,7 +274,7 @@ exports['default'] = StylaWidget;
 module.exports = exports['default'];
 
 /**
- * buildStories
+ * ## buildStories
  *
  * after recieving the story data, this parses and build the individual
  * stories

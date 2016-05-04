@@ -6,7 +6,7 @@
  * Released under the MIT license
  * https://github.com/styladev/widget/license.md
  *
- * Date: Tue May 03 2016
+ * Date: Wed May 04 2016
  * */
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 (function (global){
@@ -36,7 +36,12 @@ module.exports = '0.0.1';
 },{}],4:[function(require,module,exports){
 
 /**
+ * Styla bite-sized widget
  *
+ * lite embeddable widget for non-styla pages
+ *
+ * @author "Mouse Braun <mouse@styla.com>"
+ * @author "Elias Liedholm <elias@styla.com>"
  */
 'use strict';
 
@@ -76,6 +81,10 @@ var StylaWidget = (function () {
 
         var slug = _ref.slug;
         var domain = _ref.domain;
+        var _ref$limit = _ref.limit;
+        var limit = _ref$limit === undefined ? 5 : _ref$limit;
+        var _ref$offset = _ref.offset;
+        var offset = _ref$offset === undefined ? 0 : _ref$offset;
 
         _classCallCheck(this, StylaWidget);
 
@@ -92,7 +101,6 @@ var StylaWidget = (function () {
                 });
 
                 _this.images = images;
-                console.log(res.stories);
                 var _els = res.stories.map(_this.buildStory);
 
                 document.body.appendChild(container);
@@ -120,13 +128,8 @@ var StylaWidget = (function () {
             var id = images[0].id;
             var imgObj = _this.images[id];
 
-<<<<<<< HEAD
-            storyLink.href = imgObj.pageUrl;
-            image.src = _this.getImageUrl(imgObj.fileName, 400);
-=======
             storyLink.href = _this.domain + 'story/' + externalPermalink + '/';
-            image.src = _this.getImageUrl(imgObj.fileName, 200);
->>>>>>> 9ca6851edbf9eec2c341b39a4b0aeccf400555f9
+            image.src = _this.getImageUrl(imgObj.fileName, 400);
             image.alt = imgObj.caption || title;
             image.title = title;
 
@@ -151,7 +154,7 @@ var StylaWidget = (function () {
         this.domain = domain;
         this.version = _versionJs2['default'];
 
-        var url = 'https://www.amazine.com/api/feeds/user/' + slug + '?domain=' + slug + '&offset=0&limit=5';
+        var url = 'https://www.amazine.com/api/feeds/user/' + slug + '?domain=' + slug + '&offset=' + offset + '&limit=' + limit;
 
         _microbejsDistMicrobeHttpMin.http.get(url).then(this.buildStories);
 
@@ -217,11 +220,9 @@ var StylaWidget = (function () {
          * @return {String} file name
          */
         value: function getImageUrl(filename) {
-            var size = arguments.length <= 1 || arguments[1] === undefined ? 200 : arguments[1];
+            var size = arguments.length <= 1 || arguments[1] === undefined ? 400 : arguments[1];
 
-            var url = '//img.styla.com/resizer/sfh_' + size + 'x0/';
-
-            return url + ('_' + filename);
+            return '//img.styla.com/resizer/sfh_' + size + 'x0/_' + filename;
         }
     }]);
 
@@ -232,7 +233,7 @@ exports['default'] = StylaWidget;
 module.exports = exports['default'];
 
 /**
- * buildStories
+ * ## buildStories
  *
  * after recieving the story data, this parses and build the individual
  * stories

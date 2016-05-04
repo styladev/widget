@@ -22,13 +22,13 @@ class StylaWidget
      *
      * @return {Object} this
      */
-    constructor( { slug, domain } )
+    constructor( { slug, domain, limit = 5, offset = 0 } )
     {
         this.slug       = slug;
         this.domain     = domain;
         this.version    = version;
 
-        let url         = `https://www.amazine.com/api/feeds/user/${slug}?domain=${slug}&offset=0&limit=5`;
+        let url         = `https://www.amazine.com/api/feeds/user/${slug}?domain=${slug}&offset=${offset}&limit=${limit}`;
 
         http.get( url ).then( this.buildStories );
 
@@ -37,7 +37,7 @@ class StylaWidget
 
 
     /**
-     * buildStories
+     * ## buildStories
      *
      * after recieving the story data, this parses and build the individual
      * stories
@@ -173,11 +173,9 @@ class StylaWidget
      *
      * @return {String} file name
      */
-    getImageUrl( filename, size = 200 )
+    getImageUrl( filename, size = 400 )
     {
-        let url = `//img.styla.com/resizer/sfh_${size}x0/`;
-
-        return url + `_${filename}`;
+        return `//img.styla.com/resizer/sfh_${size}x0/_${filename}`;
     }
 }
 
