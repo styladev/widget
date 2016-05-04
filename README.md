@@ -1,7 +1,9 @@
 Styla Widget  0.0.2
 ===================
+The Styla Widget™ is a simple way to display stories from a Styla Magazine in a
+smaller format, anywhere on your site.
 
-usage
+Using the Widget
 -----
 
 add this script to the html in your page:
