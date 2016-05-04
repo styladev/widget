@@ -17,7 +17,7 @@ add this script to the html in your page:
     h.appendChild(s);s.src="http://css.css";</script>
 ```
 
-Technical limitations
+Technical requirements
 -----
 The widget container must be allowed a **minimum width of 250px**.
 
