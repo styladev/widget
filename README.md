@@ -8,7 +8,7 @@ Stories can be filtered based on author, tag and category.
 
 Using the Widget
 -----
-
+Setting up the widget is easy and requires only basic HTML knowledge.
 
 add this script to the html in your page:
 
@@ -20,6 +20,9 @@ add this script to the html in your page:
 Technical requirements
 -----
 The widget container must be allowed a **minimum width of 250px**.
+
+Animated GIFs will be displayed as still images to reduce loading time and the
+impact on performance of a client website.
 
 dev installation
 ----------------
