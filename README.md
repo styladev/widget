@@ -1,8 +1,15 @@
-Styla Widget  0.0.1
+Styla Widget  0.0.2
 ===================
+The Styla Widget™ is a simple way to display stories from a Styla Magazine in a
+smaller format, anywhere on your site. A story in the widget functions as
+a teaser and will send the reader directly to the magazine when clicked on.
 
-usage
+Stories can be filtered based on author, tag and category.
+
+Using the Widget
 -----
+Setting up the widget requires only basic HTML knowledge. It's built to adapt 
+to the available space it is given.
 
 add this script to the html in your page:
 
@@ -11,6 +18,12 @@ add this script to the html in your page:
     h.appendChild(s);s.src="http://css.css";</script>
 ```
 
+Technical requirements
+-----
+The widget container must be allowed a **minimum width of 250px**.
+
+Animated GIFs will be displayed as still images to reduce loading time and the
+impact on performance of a client website.
 
 dev installation
 ----------------
@@ -33,4 +46,3 @@ Need to report something? [hr](mailto:hr)
 
 
 See more examples on the [demo page](./demo/index.html)
-
