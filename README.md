@@ -8,7 +8,8 @@ Stories can be filtered based on author, tag and category.
 
 Using the Widget
 -----
-Setting up the widget is easy and requires only basic HTML knowledge.
+Setting up the widget requires only basic HTML knowledge. It's built to adapt 
+to the available space it is given.
 
 add this script to the html in your page:
 
