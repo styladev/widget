@@ -4,10 +4,11 @@ The Styla Widget™ is a simple way to display stories from a Styla Magazine in 
 smaller format, anywhere on your site. A story in the widget functions as
 a teaser and will send the reader directly to the magazine when clicked on.
 
-The widget can filter stories based on author, tag and category.
+Stories can be filtered based on author, tag and category.
 
 Using the Widget
 -----
+
 
 add this script to the html in your page:
 
@@ -16,6 +17,9 @@ add this script to the html in your page:
     h.appendChild(s);s.src="http://css.css";</script>
 ```
 
+Technical limitations
+-----
+The widget container must be allowed a *minimum width of 250px*. 
 
 dev installation
 ----------------
