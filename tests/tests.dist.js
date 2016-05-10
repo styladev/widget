@@ -106,6 +106,8 @@ var _classesJs2 = _interopRequireDefault(_classesJs);
 
 var _microbejsDistMicrobeHttpMin = require('microbejs/dist/microbe.http.min');
 
+var domainConfigAPI = 'https://www.amazine.com/api/config/';
+
 var StylaWidget = (function () {
     /**
      * ## constructor
@@ -120,9 +122,10 @@ var StylaWidget = (function () {
     function StylaWidget(_ref) {
         var _this = this;
 
-        var slug = _ref.slug;
-        var domain = _ref.domain;
-        var domainConfigAPI = _ref.domainConfigAPI;
+        var _ref$slug = _ref.slug;
+        var slug = _ref$slug === undefined ? '' : _ref$slug;
+        var _ref$tag = _ref.tag;
+        var tag = _ref$tag === undefined ? false : _ref$tag;
         var _ref$limit = _ref.limit;
         var limit = _ref$limit === undefined ? 5 : _ref$limit;
         var _ref$offset = _ref.offset;
@@ -136,6 +139,8 @@ var StylaWidget = (function () {
 
             var _buildStories = function _buildStories(domainConfig) {
                 _this.domainConfig = domainConfig = JSON.parse(domainConfig);
+                var domainConfigEmbed = domainConfig.embed;
+                _this.domain = domainConfigEmbed.magazineUrl + '/' + domainConfigEmbed.rootPath;
                 var styling = _this.buildStyles(domainConfig);
 
                 /* Include webfonts */
@@ -202,6 +207,7 @@ var StylaWidget = (function () {
             textWrapper.appendChild(headlineWrapper);
 
             paragraph.innerHTML = _this.getDescription(JSON.parse(description));
+            paragraph.innerHTML = paragraph.textContent;
             textWrapper.appendChild(paragraph);
             _this.container.appendChild(story);
 
@@ -209,11 +215,11 @@ var StylaWidget = (function () {
         };
 
         this.slug = slug;
-        this.domain = domain;
+        this.tag = tag;
         this.domainConfigAPI = domainConfigAPI;
         this.version = _versionJs2['default'];
 
-        var url = 'https://www.amazine.com/api/feeds/user/' + slug + '?domain=' + slug + '&offset=' + offset + '&limit=' + limit;
+        var url = tag ? 'https://www.amazine.com/api/feeds/userTag/' + slug + '/tag/' + tag + '?offset=' + offset + '&limit=' + limit + '&domain=' + slug : 'https://www.amazine.com/api/feeds/user/' + slug + '?domain=' + slug + '&offset=' + offset + '&limit=' + limit;
 
         _microbejsDistMicrobeHttpMin.http.get(url).then(this.buildStories);
 
@@ -335,6 +341,10 @@ var StylaWidget = (function () {
     return StylaWidget;
 })();
 
+if (!window.config) {
+    window.config = {};
+}
+var widget = new StylaWidget(window.config);
 exports['default'] = StylaWidget;
 module.exports = exports['default'];
 

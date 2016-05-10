@@ -11,6 +11,8 @@ import version  from './version.js';
 import classes  from './classes.js';
 import { http } from 'microbejs/dist/microbe.http.min';
 
+const domainConfigAPI   = 'https://www.amazine.com/api/config/'
+
 class StylaWidget
 {
     /**
@@ -22,14 +24,15 @@ class StylaWidget
      *
      * @return {Object} this
      */
-    constructor( { slug, domain, domainConfigAPI, limit = 5, offset = 0 } )
+    constructor( { slug = '', tag = false, limit = 5, offset = 0 } )
     {
         this.slug       = slug;
-        this.domain     = domain;
+        this.tag        = tag;
         this.domainConfigAPI = domainConfigAPI;
         this.version    = version;
 
-        let url         = `https://www.amazine.com/api/feeds/user/${slug}?domain=${slug}&offset=${offset}&limit=${limit}`;
+        let url         = tag ? `https://www.amazine.com/api/feeds/userTag/${slug}/tag/${tag}?offset=${offset}&limit=${limit}&domain=${slug}` :
+                                `https://www.amazine.com/api/feeds/user/${slug}?domain=${slug}&offset=${offset}&limit=${limit}`;
 
         http.get( url ).then( this.buildStories );
 
@@ -55,6 +58,8 @@ class StylaWidget
         let _buildStories = domainConfig =>
         {
             this.domainConfig = domainConfig = JSON.parse( domainConfig );
+            let domainConfigEmbed = domainConfig.embed;
+            this.domain     = domainConfigEmbed.magazineUrl + '/' + domainConfigEmbed.rootPath;
             let styling     = this.buildStyles( domainConfig );
 
             /* Include webfonts */
@@ -123,7 +128,8 @@ class StylaWidget
         headlineWrapper.appendChild( headline );
         textWrapper.appendChild( headlineWrapper );
 
-        paragraph.innerHTML = this.getDescription( JSON.parse( description ) );
+        paragraph.innerHTML     = this.getDescription( JSON.parse( description ) );
+        paragraph.innerHTML     = paragraph.textContent;
         textWrapper.appendChild( paragraph );
         this.container.appendChild( story );
 
@@ -258,4 +264,9 @@ class StylaWidget
 
 }
 
+if (!window.config)
+{
+    window.config = {};
+}
+let widget = new StylaWidget( window.config );
 export default StylaWidget;

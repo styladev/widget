@@ -103,9 +103,9 @@ p
     font-size:                          1.9em;
     line-height:                        1em;
     max-height:                         2em;
-    padding-bottom:                     0.25em;
     overflow:                           hidden;
     margin:                             0;
+    margin-bottom:                      0.25em;
     text-overflow:                      ellipsis;
     display:                            -webkit-box;
     -webkit-box-orient:                 vertical;
