@@ -122,6 +122,7 @@ var StylaWidget = (function () {
 
         var slug = _ref.slug;
         var domain = _ref.domain;
+        var domainConfigAPI = _ref.domainConfigAPI;
         var _ref$limit = _ref.limit;
         var limit = _ref$limit === undefined ? 5 : _ref$limit;
         var _ref$offset = _ref.offset;
@@ -129,23 +130,39 @@ var StylaWidget = (function () {
 
         _classCallCheck(this, StylaWidget);
 
-        this.buildStories = function (res) {
-            res = JSON.parse(res);
+        this.buildStories = function (stories) {
+            stories = JSON.parse(stories);
             var container = _this.container = _this.create('DIV', _classesJs2['default'].CONTAINER);
 
-            var images = {};
-            var resImages = res.images;
+            var _buildStories = function _buildStories(domainConfig) {
+                _this.domainConfig = domainConfig = JSON.parse(domainConfig);
+                var styling = _this.buildStyles(domainConfig);
 
-            if (resImages) {
-                resImages.forEach(function (_i) {
-                    images[_i.id] = _i;
-                });
+                /* Include webfonts */
+                if (domainConfig.embed.customFontUrl) {
+                    var fonts = _this.includeFonts(domainConfig);
+                    document.head.appendChild(fonts);
+                };
 
-                _this.images = images;
-                var _els = res.stories.map(_this.buildStory);
+                var images = {};
+                var resImages = stories.images;
 
-                document.body.appendChild(container);
-            }
+                if (resImages) {
+                    resImages.forEach(function (_i) {
+                        images[_i.id] = _i;
+                    });
+
+                    _this.images = images;
+                    var _els = stories.stories.map(_this.buildStory);
+
+                    document.head.appendChild(styling);
+                    document.body.appendChild(container);
+                }
+            };
+
+            _microbejsDistMicrobeHttpMin.http.get(_this.domainConfigAPI + _this.slug).then(_buildStories)['catch'](function (e) {
+                console.log(e);
+            });
 
             return container;
         };
@@ -193,6 +210,7 @@ var StylaWidget = (function () {
 
         this.slug = slug;
         this.domain = domain;
+        this.domainConfigAPI = domainConfigAPI;
         this.version = _versionJs2['default'];
 
         var url = 'https://www.amazine.com/api/feeds/user/' + slug + '?domain=' + slug + '&offset=' + offset + '&limit=' + limit;
@@ -265,6 +283,53 @@ var StylaWidget = (function () {
 
             return '//img.styla.com/resizer/sfh_' + size + 'x0/_' + filename;
         }
+    }, {
+        key: 'buildStyles',
+
+        /**
+        * ## buildStyles
+        *
+        * builds the styles
+        * @param {Object} domain configuration of magazine
+        *
+        * @return {Object} style element
+        *
+        */
+
+        value: function buildStyles(domainConfig) {
+            var theme = domainConfig.theme;
+            var css = '.' + _classesJs2['default'].HEADLINE + '\n            {\n                font-family:        ' + theme.hff + ';\n                font-weight:        ' + theme.hfw + ';\n                font-style:         ' + theme.hfs + ';\n                text-decoration:    ' + theme.htd + ';\n                letter-spacing:     ' + theme.hls + ';\n                color:              ' + theme.htc + '\n            }\n            .' + _classesJs2['default'].PARAGRAPH + '\n            {\n                font-family:        ' + theme.sff + ';\n                font-weight:        ' + theme.sfw + ';\n                color:              ' + theme.stc + '\n            }\n            ';
+
+            var el = document.createElement('style');
+            el.type = 'text/css';
+            el.id = _classesJs2['default'].CONTAINER + '__styling';
+
+            var t = document.createTextNode(css);
+            el.appendChild(t);
+
+            return el;
+        }
+    }, {
+        key: 'includeFonts',
+
+        /**
+        * ## includeFonts
+        *
+        * includes webfonts
+        * @param {Object} domain configuration of magazine
+        *
+        * @return {Object} link element
+        *
+        */
+
+        value: function includeFonts(domainConfig) {
+            var el = document.createElement('link');
+            el.type = 'text/css';
+            el.rel = 'stylesheet';
+            el.href = domainConfig.embed.customFontUrl;
+
+            return el;
+        }
     }]);
 
     return StylaWidget;
@@ -307,6 +372,10 @@ var _srcWidget = require('../src/widget');
 
 var _srcWidget2 = _interopRequireDefault(_srcWidget);
 
+var _unitStyling = require('./unit/styling');
+
+var _unitStyling2 = _interopRequireDefault(_unitStyling);
+
 var stylaWidget = new _srcWidget2['default']({
     slug: 'braunhamburg',
     domain: 'http://www.braun-hamburg.de/stories/'
@@ -317,8 +386,63 @@ window.onload = function () {
 };
 
 (0, _unitVersionTest2['default'])(stylaWidget);
+(0, _unitStyling2['default'])(stylaWidget);
 
-},{"../src/widget":5,"./unit/versionTest":7}],7:[function(require,module,exports){
+},{"../src/widget":5,"./unit/styling":7,"./unit/versionTest":8}],7:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+var domainConfig = {
+    "embed": {
+        customFontUrl: "//fonts.googleapis.com/css?family=Roboto:400,400italic,700"
+    },
+    "theme": {
+        "hff": "Helvetica",
+        "hfw": "700",
+        "hfsc": "1em",
+        "hfs": "normal",
+        "htd": "none",
+        "hls": "0em",
+        "htc": "#000000",
+        "htt": "none",
+        "sff": "Helvetica",
+        "sfw": "200",
+        "stc": "#000000",
+        "strm": "…",
+        "strmw": "inherit",
+        "strmd": "none",
+
+        "hfsi": "48px"
+    }
+};
+
+var tests = function tests(stylaWidget) {
+    QUnit.test('elementExists', function (assert) {
+        var styleNode = stylaWidget.buildStyles(domainConfig);
+        assert.ok(styleNode);
+        assert.ok(styleNode.type);
+        assert.equal(styleNode.type, 'text/css');
+    });
+
+    QUnit.test('stylesCorrect', function (assert) {
+        var styleNode = stylaWidget.buildStyles(domainConfig);
+        var styleString = ".styla-widget__headline\n            {\n                font-family:        Helvetica;\n                font-weight:        700;\n                font-style:         normal;\n                text-decoration:    none;\n                letter-spacing:     0em;\n                color:              #000000\n            }\n            .styla-widget__paragraph\n            {\n                font-family:        Helvetica;\n                font-weight:        200;\n                color:              #000000\n            }\n\n        ";
+        assert.equal(styleNode.innerHTML.replace(/\s/g, ''), styleString.replace(/\s/g, ''));
+    });
+
+    QUnit.test('fontImport', function (assert) {
+        var fontNode = stylaWidget.includeFonts(domainConfig);
+        assert.ok(fontNode);
+        assert.equal(fontNode.href.replace(/^[a-z]+:\/\//i, '//'), '//fonts.googleapis.com/css?family=Roboto:400,400italic,700');
+    });
+};
+
+exports["default"] = tests;
+module.exports = exports["default"];
+
+},{}],8:[function(require,module,exports){
 
 /* global document, QUnit  */
 'use strict';

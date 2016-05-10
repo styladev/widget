@@ -22,10 +22,11 @@ class StylaWidget
      *
      * @return {Object} this
      */
-    constructor( { slug, domain, limit = 5, offset = 0 } )
+    constructor( { slug, domain, domainConfigAPI, limit = 5, offset = 0 } )
     {
         this.slug       = slug;
         this.domain     = domain;
+        this.domainConfigAPI = domainConfigAPI;
         this.version    = version;
 
         let url         = `https://www.amazine.com/api/feeds/user/${slug}?domain=${slug}&offset=${offset}&limit=${limit}`;
@@ -46,23 +47,38 @@ class StylaWidget
      *
      * @return {DOMElement} container element
      */
-    buildStories = res =>
+    buildStories = stories =>
     {
-        res             = JSON.parse( res );
+        stories             = JSON.parse( stories );
         let container   = this.container = this.create( 'DIV', classes.CONTAINER );
 
-        let images      = {};
-        let resImages   = res.images;
-
-        if ( resImages )
+        let _buildStories = domainConfig =>
         {
-            resImages.forEach( function( _i ){ images[ _i.id ] = _i; })
+            this.domainConfig = domainConfig = JSON.parse( domainConfig );
+            let styling     = this.buildStyles( domainConfig );
 
-            this.images = images;
-            let _els    = res.stories.map( this.buildStory );
+            /* Include webfonts */
+            if ( domainConfig.embed.customFontUrl ){
+                let fonts   = this.includeFonts( domainConfig )
+                document.head.appendChild( fonts )
+            };
 
-            document.body.appendChild( container );
-        }
+            let images      = {};
+            let resImages   = stories.images;
+
+            if ( resImages )
+            {
+                resImages.forEach( function( _i ){ images[ _i.id ] = _i; })
+
+                this.images = images;
+                let _els    = stories.stories.map( this.buildStory );
+
+                document.head.appendChild( styling );
+                document.body.appendChild( container );
+            }
+        };
+
+        http.get( this.domainConfigAPI + this.slug ).then( _buildStories ).catch( function(e){console.log(e)} );
 
         return container;
     };
@@ -176,7 +192,70 @@ class StylaWidget
     getImageUrl( filename, size = 400 )
     {
         return `//img.styla.com/resizer/sfh_${size}x0/_${filename}`;
-    }
+    };
+
+
+    /**
+    * ## buildStyles
+    *
+    * builds the styles
+    * @param {Object} domain configuration of magazine
+    *
+    * @return {Object} style element
+    *
+    */
+
+    buildStyles( domainConfig )
+    {
+        let theme = domainConfig.theme;
+        let css =
+            `.${classes.HEADLINE}
+            {
+                font-family:        ${theme.hff};
+                font-weight:        ${theme.hfw};
+                font-style:         ${theme.hfs};
+                text-decoration:    ${theme.htd};
+                letter-spacing:     ${theme.hls};
+                color:              ${theme.htc}
+            }
+            .${classes.PARAGRAPH}
+            {
+                font-family:        ${theme.sff};
+                font-weight:        ${theme.sfw};
+                color:              ${theme.stc}
+            }
+            `;
+
+        let el = document.createElement('style');
+        el.type = 'text/css';
+        el.id = `${classes.CONTAINER}__styling`
+
+        let t = document.createTextNode(css)
+        el.appendChild(t)
+
+        return el
+    };
+
+    /**
+    * ## includeFonts
+    *
+    * includes webfonts
+    * @param {Object} domain configuration of magazine
+    *
+    * @return {Object} link element
+    *
+    */
+
+    includeFonts ( domainConfig )
+    {
+        let el = document.createElement('link')
+        el.type = 'text/css'
+        el.rel = 'stylesheet'
+        el.href = domainConfig.embed.customFontUrl
+
+        return el
+    };
+
 }
 
 export default StylaWidget;

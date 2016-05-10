@@ -1,6 +1,7 @@
 
 import versionTest      from './unit/versionTest';
 import StylaWidget 		from '../src/widget';
+import stylingTest      from './unit/styling';
 
 
 let stylaWidget = new StylaWidget( {
@@ -16,3 +17,4 @@ window.onload = function()
 
 
 versionTest( stylaWidget );
+stylingTest( stylaWidget );
