@@ -23,7 +23,16 @@ slug `MAGAZINE_NAME` to match the name of the magazine.
 ```
 
 ###Positioning###
-The widget is responsive 🎉
+The Widget is responsive 🎉, and will automagically fit stories into the space
+that it is given. For this to work, the desired width and height must be set on
+the wrapping element.
+
+If no height is set the widget will take as much height that is needed to
+display the amount of stories it is set to display. If a height is set however,
+it will only display the amount of stories that actually fits within that height.
+The height of a story is relative to the base font-size of the widget. If the font
+size isset to 14px, one story will be exactly 14 times that value, in this case
+196px.
 
 ###Additional options###
 
