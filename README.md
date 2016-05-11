@@ -24,7 +24,7 @@ slug `MAGAZINE_NAME` to match the name of the magazine.
 
 ###Additional options###
 
-Stories can be filtered based on tags by adding `tag : 'TAG',` to the config
+Stories can be filtered based on tags by adding `tag : 'TAG',` to the configuration
 object.
 
 The amount of stories can be adjusted by setting the limit: `limit: 10`. The
