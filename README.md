@@ -11,11 +11,28 @@ Using the Widget
 Setting up the widget requires only basic HTML knowledge. It's built to adapt
 to the available space it is given.
 
-add this script to the html in your page:
+To use the widget, a client must include this script on their site. Modify the
+slug `MAGAZINE_NAME` to match the name of the magazine.
 
 ```html
     <script>
-    window.stylaWidget = {slug : 'CLIENT_DOMAIN', tag : 'TAG'};
+    window.stylaWidget = {slug : 'MAGAZINE_NAME'};
+    var d=document;var h=d.head;var s=d.createElement('SCRIPT');
+    h.appendChild(s);s.src="../dist/widget.js";
+    </script>
+```
+
+Additional options can be added to modify the content of the widget.
+
+Stories can be filtered based on tags by adding `tag : 'TAG',`.
+
+The amount of stories can be adjusted by setting the limit: `limit: 10`. The
+default is 5 stories. Please note that the widget will only display the amount
+of stories that actually fits within the space its given.
+
+```html
+    <script>
+    window.stylaWidget = {slug : 'MAGAZINE_NAME', tag : 'TAG', limit: 10};
     var d=document;var h=d.head;var s=d.createElement('SCRIPT');
     h.appendChild(s);s.src="../dist/widget.js";
     </script>
