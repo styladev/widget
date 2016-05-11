@@ -22,6 +22,9 @@ slug `MAGAZINE_NAME` to match the name of the magazine.
     </script>
 ```
 
+###Positioning###
+The widget is responsive 🎉
+
 ###Additional options###
 
 Stories can be filtered based on tags by adding `tag : 'TAG',` to the configuration
@@ -39,7 +42,7 @@ of stories that actually fits within the space its given.
     </script>
 ```
 
-Technical requirements
+Technical requirements and limitations
 -----
 The widget container must be allowed a **minimum width of 250px**.
 
