@@ -2,7 +2,6 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <link rel="stylesheet" href="../src/styles.css">
         <title>Styla Widget demo</title>
         <style>
             body {
@@ -24,9 +23,8 @@
         <div class="content"></div>
     </body>
 
-    <script>
-    window.config = {slug : 'engelhornsports', tag : 'winter'};
+    <script>window.stylaWidget = {slug : 'engelhornsports', tag : 'winter'};
     var d=document;var h=d.head;var s=d.createElement('SCRIPT');
-    h.appendChild(s);s.src="../dist/widget.js";</script>
+    h.appendChild(s);s.src="../dist/widget.min.js";</script>
 
 </html>
