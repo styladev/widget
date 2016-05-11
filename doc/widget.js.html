@@ -10,8 +10,6 @@
   </script>
   <script src="doc-script.js"></script>
   <script src="widget.js"></script>
-  <script src="fileSearch.js"></script>
-  <link rel="stylesheet" href="fileSearch.css" />
 </head>
 <body>
   <div id="sidebar_wrapper">
@@ -76,11 +74,11 @@
   <div class="details">
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>"Mouse Braun <a href="&#x6D;&#x61;&#x69;&#108;t&#x6F;:&#x6D;&#111;&#x75;s&#x65;&#64;&#115;&#x74;&#121;&#108;&#97;&#x2E;&#99;o&#x6D;">&#x6D;&#111;&#x75;s&#x65;&#64;&#115;&#x74;&#121;&#108;&#97;&#x2E;&#99;o&#x6D;</a>"</span>
+      <span>"Mouse Braun <a href="&#109;&#97;i&#108;&#116;&#111;:&#109;o&#x75;&#x73;&#101;&#x40;&#x73;&#116;&#121;&#108;&#x61;&#x2E;&#99;&#x6F;&#x6D;">&#109;o&#x75;&#x73;&#101;&#x40;&#x73;&#116;&#121;&#108;&#x61;&#x2E;&#99;&#x6F;&#x6D;</a>"</span>
     </div>
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>"Elias Liedholm <a href="&#109;&#97;&#x69;&#108;&#116;&#111;:&#x65;&#x6C;&#x69;&#x61;&#x73;&#x40;&#115;&#x74;y&#108;&#x61;.&#x63;o&#x6D;">&#x65;&#x6C;&#x69;&#x61;&#x73;&#x40;&#115;&#x74;y&#108;&#x61;.&#x63;o&#x6D;</a>"</span>
+      <span>"Elias Liedholm <a href="&#109;&#97;&#x69;&#x6C;&#116;&#x6F;:&#101;&#x6C;&#105;&#x61;&#x73;&#64;&#x73;&#x74;&#121;&#108;&#x61;.&#x63;&#111;m">&#101;&#x6C;&#105;&#x61;&#x73;&#64;&#x73;&#x74;&#121;&#108;&#x61;.&#x63;&#111;m</a>"</span>
     </div>
   </div>
 </div>
@@ -110,7 +108,6 @@
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="kr">const</span> <span class="nx">baseStyles</span>        <span class="o">=</span> <span class="s1">&#39;styla-widget-css-goes-here&#39;</span><span class="p">;</span>
-<span class="kr">const</span> <span class="nx">head</span>              <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">head</span><span class="p">;</span>
 <span class="kr">const</span> <span class="nx">wrapperID</span>         <span class="o">=</span> <span class="s1">&#39;styla-widget&#39;</span><span class="p">;</span>
 
 <span class="kr">class</span> <span class="nx">StylaWidget</span>
@@ -148,8 +145,14 @@
 </div>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-    <span class="nx">constructor</span><span class="p">(</span> <span class="p">{</span> <span class="nx">slug</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="nx">tag</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span> <span class="nx">limit</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="nx">offset</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">}</span> <span class="p">)</span>
+    <span class="nx">constructor</span><span class="p">(</span> <span class="p">{</span> <span class="nx">slug</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="nx">tag</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span> <span class="nx">limit</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="nx">offset</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">target</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">body</span> <span class="p">}</span> <span class="p">)</span>
     <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span> <span class="k">typeof</span> <span class="nx">target</span> <span class="o">===</span> <span class="s1">&#39;string&#39;</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="nx">target</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span> <span class="nx">target</span> <span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">target</span>             <span class="o">=</span> <span class="nx">target</span><span class="p">;</span>
+
         <span class="k">this</span><span class="p">.</span><span class="nx">slug</span>               <span class="o">=</span> <span class="nx">slug</span><span class="p">;</span>
         <span class="k">this</span><span class="p">.</span><span class="nx">tag</span>                <span class="o">=</span> <span class="nx">tag</span><span class="p">;</span>
         <span class="k">this</span><span class="p">.</span><span class="nx">domainConfigAPI</span>    <span class="o">=</span> <span class="nx">domainConfigAPI</span><span class="p">;</span>
@@ -200,7 +203,6 @@ stories</p>
         <td class="code highlight"><div class="highlight"><pre>
     <span class="nx">buildStories</span> <span class="o">=</span> <span class="nx">stories</span> <span class="o">=&gt;</span>
     <span class="p">{</span>
-        <span class="kd">let</span> <span class="nx">head</span>        <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">head</span><span class="p">;</span>
         <span class="nx">stories</span>         <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span> <span class="nx">stories</span> <span class="p">);</span>
         <span class="kd">let</span> <span class="nx">container</span>   <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">container</span>    <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span> <span class="s1">&#39;DIV&#39;</span><span class="p">,</span> <span class="nx">classes</span><span class="p">.</span><span class="nx">CONTAINER</span> <span class="p">);</span>
         <span class="kd">let</span> <span class="nx">wrapper</span>     <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">wrapper</span>      <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span> <span class="s1">&#39;DIV&#39;</span> <span class="p">);</span>
@@ -213,6 +215,8 @@ stories</p>
             <span class="k">this</span><span class="p">.</span><span class="nx">domain</span>             <span class="o">=</span> <span class="nx">domainConfigEmbed</span><span class="p">.</span><span class="nx">magazineUrl</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span>
                                         <span class="nx">domainConfigEmbed</span><span class="p">.</span><span class="nx">rootPath</span><span class="p">;</span>
             <span class="kd">let</span> <span class="nx">styling</span>             <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">buildStyles</span><span class="p">(</span> <span class="nx">domainConfig</span> <span class="p">);</span>
+
+            <span class="kd">let</span> <span class="nx">head</span>                <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">head</span><span class="p">;</span>
 
             <span class="k">this</span><span class="p">.</span><span class="nx">includeBaseStyles</span><span class="p">(</span> <span class="nx">head</span> <span class="p">);</span>
 
@@ -231,9 +235,8 @@ stories</p>
                 <span class="k">this</span><span class="p">.</span><span class="nx">images</span> <span class="o">=</span> <span class="nx">images</span><span class="p">;</span>
                 <span class="kd">let</span> <span class="nx">_els</span>    <span class="o">=</span> <span class="nx">stories</span><span class="p">.</span><span class="nx">stories</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">buildStory</span> <span class="p">);</span>
 
-                <span class="nx">head</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span> <span class="nx">styling</span> <span class="p">);</span>
-
-                <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span> <span class="nx">wrapper</span> <span class="p">);</span>
+                <span class="nb">document</span><span class="p">.</span><span class="nx">head</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span> <span class="nx">styling</span> <span class="p">);</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span> <span class="nx">wrapper</span> <span class="p">);</span>
             <span class="p">}</span>
         <span class="p">};</span>
 
@@ -524,10 +527,8 @@ stories</p>
         <span class="p">{</span>
             <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">getDescription</span><span class="p">(</span> <span class="nx">_arr</span><span class="p">,</span> <span class="nx">i</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">);</span>
         <span class="p">}</span>
-        <span class="k">else</span>
-        <span class="p">{</span>
-            <span class="k">return</span> <span class="nx">text</span><span class="p">.</span><span class="nx">content</span><span class="p">;</span>
-        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="nx">text</span><span class="p">.</span><span class="nx">content</span><span class="p">;</span>
     <span class="p">};</span>
 
 
@@ -602,10 +603,10 @@ stories</p>
 </div>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-    <span class="nx">includeBaseStyles</span><span class="p">(</span> <span class="nx">target</span> <span class="o">=</span> <span class="nx">head</span> <span class="p">)</span>
+    <span class="nx">includeBaseStyles</span><span class="p">()</span>
     <span class="p">{</span>
         <span class="kd">let</span> <span class="nx">el</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">buildStyleTag</span><span class="p">(</span> <span class="nx">baseStyles</span> <span class="p">);</span>
-        <span class="nx">target</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span> <span class="nx">el</span> <span class="p">);</span>
+        <span class="nb">document</span><span class="p">.</span><span class="nx">head</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span> <span class="nx">el</span> <span class="p">);</span>
 
         <span class="k">return</span> <span class="nx">el</span><span class="p">;</span>
     <span class="p">};</span>
@@ -644,14 +645,14 @@ stories</p>
 </div>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-    <span class="nx">includeFonts</span><span class="p">(</span> <span class="nx">domainConfig</span><span class="p">,</span> <span class="nx">target</span> <span class="o">=</span> <span class="nx">head</span> <span class="p">)</span>
+    <span class="nx">includeFonts</span><span class="p">(</span> <span class="nx">domainConfig</span> <span class="p">)</span>
     <span class="p">{</span>
         <span class="kd">let</span> <span class="nx">el</span>  <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span> <span class="s1">&#39;link&#39;</span> <span class="p">);</span>
         <span class="nx">el</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s1">&#39;text/css&#39;</span><span class="p">;</span>
         <span class="nx">el</span><span class="p">.</span><span class="nx">rel</span>  <span class="o">=</span> <span class="s1">&#39;stylesheet&#39;</span><span class="p">;</span>
         <span class="nx">el</span><span class="p">.</span><span class="nx">href</span> <span class="o">=</span> <span class="nx">domainConfig</span><span class="p">.</span><span class="nx">embed</span><span class="p">.</span><span class="nx">customFontUrl</span><span class="p">;</span>
 
-        <span class="nx">target</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span> <span class="nx">el</span> <span class="p">);</span>
+        <span class="nb">document</span><span class="p">.</span><span class="nx">head</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span> <span class="nx">el</span> <span class="p">);</span>
 
         <span class="k">return</span> <span class="nx">el</span><span class="p">;</span>
     <span class="p">};</span>

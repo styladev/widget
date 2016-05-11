@@ -1,6 +1,6 @@
 {
   "name": "stylaWidget",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "contributors": [
     "Mouse Braun <mouse@styla.com>",
     "Elias Liedholm <elias@styla.com>"
@@ -17,7 +17,7 @@
     "gulp": "./node_modules/.bin/gulp",
     "test": "node --harmony ./scripts/nightmare.js",
     "versionBump": "node ./scripts/version_bump.js",
-    "doc":"docker -o doc/ -i src --sidebar true --js dist/widget.js --extras fileSearch -c manni && cp ./doc/widget.js.html ./doc/index.html"
+    "doc":"docker -o doc/ -i src --sidebar true --js dist/widget.js -c manni && cp ./doc/widget.js.html ./doc/index.html"
   },
   "devDependencies": {
     "babelify": "^6.3.0",

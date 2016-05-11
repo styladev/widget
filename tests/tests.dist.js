@@ -1,7 +1,7 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 module.exports={
   "name": "stylaWidget",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "contributors": [
     "Mouse Braun <mouse@styla.com>",
     "Elias Liedholm <elias@styla.com>"
@@ -18,7 +18,7 @@ module.exports={
     "gulp": "./node_modules/.bin/gulp",
     "test": "node --harmony ./scripts/nightmare.js",
     "versionBump": "node ./scripts/version_bump.js",
-    "doc":"docker -o doc/ -i src --sidebar true --js dist/widget.js --extras fileSearch -c manni && cp ./doc/widget.js.html ./doc/index.html"
+    "doc":"docker -o doc/ -i src --sidebar true --js dist/widget.js -c manni && cp ./doc/widget.js.html ./doc/index.html"
   },
   "devDependencies": {
     "babelify": "^6.3.0",
@@ -57,7 +57,7 @@ module.exports={
 },{}],2:[function(require,module,exports){
 'use strict';
 
-module.exports = '0.1.0';
+module.exports = '0.1.1';
 
 },{}],3:[function(require,module,exports){
 'use strict';

@@ -31,7 +31,7 @@ class StylaWidget
      *
      * @return _Object_ this
      */
-    constructor( { slug = '', tag = false, limit = 5, offset = 0, target = document.head } )
+    constructor( { slug = '', tag = false, limit = 5, offset = 0, target = document.body } )
     {
         if ( typeof target === 'string' )
         {
@@ -78,13 +78,13 @@ class StylaWidget
                                         domainConfigEmbed.rootPath;
             let styling             = this.buildStyles( domainConfig );
 
-            let target = this.target;
+            let head                = document.head;
 
-            this.includeBaseStyles( target );
+            this.includeBaseStyles( head );
 
             if ( domainConfig.embed.customFontUrl )
             {
-                this.includeFonts( domainConfig, target );
+                this.includeFonts( domainConfig, head );
             };
 
             let images      = {};
@@ -98,8 +98,7 @@ class StylaWidget
                 let _els    = stories.stories.map( this.buildStory );
 
                 document.head.appendChild( styling );
-
-                document.body.appendChild( wrapper );
+                this.target.appendChild( wrapper );
             }
         };
 
@@ -262,10 +261,8 @@ class StylaWidget
         {
             return this.getDescription( _arr, i + 1 );
         }
-        else
-        {
-            return text.content;
-        }
+
+        return text.content;
     };
 
 
@@ -292,10 +289,10 @@ class StylaWidget
      *
      * @return _DOMElement_ style tag
      */
-    includeBaseStyles( target = this.target )
+    includeBaseStyles()
     {
         let el = this.buildStyleTag( baseStyles );
-        target.appendChild( el );
+        document.head.appendChild( el );
 
         return el;
     };
@@ -310,14 +307,14 @@ class StylaWidget
      *
      * @return _DOMElement_ link element
      */
-    includeFonts( domainConfig, target = this.target )
+    includeFonts( domainConfig )
     {
         let el  = document.createElement( 'link' );
         el.type = 'text/css';
         el.rel  = 'stylesheet';
         el.href = domainConfig.embed.customFontUrl;
 
-        target.appendChild( el );
+        document.head.appendChild( el );
 
         return el;
     };

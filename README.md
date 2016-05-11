@@ -1,4 +1,4 @@
-Styla Widget  0.1.0
+Styla Widget  0.1.1
 ===================
 The Styla Widget™ is a simple way to display stories from a Styla Magazine in a
 smaller format, anywhere on your site. A story in the widget functions as
@@ -16,11 +16,12 @@ slug `MAGAZINE_NAME` to match the name of the magazine.
     <script>
     window.stylaWidget = {slug : 'MAGAZINE_NAME'};
     var d=document;var h=d.head;var s=d.createElement('SCRIPT');
-    h.appendChild(s);s.src="../dist/widget.js";
+    h.appendChild(s);s.src="../dist/widget.min.js";
     </script>
 ```
 
 ###Positioning###
+
 The Widget is responsive 🎉, and will automagically fit stories into the space
 that it is given. For this to work, the desired width and height must be set on
 the wrapping element.
@@ -39,18 +40,25 @@ size isset to 14px, one story will be exactly 14 times that value, in this case
 
 ###Additional options###
 
-Stories can be filtered based on tags by adding `tag : 'TAG',` to the configuration
-object.
+```javascript
+window.stylaWidget = {
+    slug        // Magazine name
+    tag         // (default: none) Filter stories by tag
+    limit       // (default: 5) Amount of entries to retrieve. Please note that
+                // the widget will only display the amount of stories that
+                // actually fits within the space its given.
+    offset      // (default: 0) amount of entries to skip
+    target      // (default: document.body) mount point of the widget. Accepts
+                // DOM elements and selector strings
+};
+```
 
-The amount of stories can be adjusted by setting the limit: `limit: 10`. The
-default is 5 stories. Please note that the widget will only display the amount
-of stories that actually fits within the space its given.
 
 ```html
     <script>
-    window.stylaWidget = {slug : 'MAGAZINE_NAME', tag : 'TAG', limit: 10};
+    window.stylaWidget = {slug : 'MAGAZINE_NAME', limit:6, offset:12};
     var d=document;var h=d.head;var s=d.createElement('SCRIPT');
-    h.appendChild(s);s.src="../dist/widget.js";
+    h.appendChild(s);s.src="../dist/widget.min.js";
     </script>
 ```
 
@@ -63,6 +71,8 @@ impact on performance of a client website.
 dev installation
 ----------------
 
+`git clone git@github.com:styladev/widget.git`
+`cd widget`
 `npm i`
 
 
@@ -77,7 +87,7 @@ This project adheres to the [Contributor Covenant](http://contributor-covenant.o
 
 [Code of Conduct](https://github.com/styladev/widget/blob/master/CODE_OF_CONDUCT.md)
 
-Need to report something? [hr](mailto:hr)
+Need to report something? [hr](mailto:janine@styla.com)
 
 
 See more examples on the [demo page](./demo/index.html)

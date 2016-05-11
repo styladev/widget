@@ -1,5 +1,5 @@
 /*!
- * Styla bite-sized widget v0.1.0
+ * Styla bite-sized widget v0.1.1
  * https://github.com/styladev/widget
  *
  * Copyright 2016 Styla GmbH and other contributors
@@ -31,7 +31,7 @@ module.exports = {
 },{}],3:[function(require,module,exports){
 'use strict';
 
-module.exports = '0.1.0';
+module.exports = '0.1.1';
 
 },{}],4:[function(require,module,exports){
 
@@ -95,7 +95,7 @@ var StylaWidget = (function () {
         var _ref$offset = _ref.offset;
         var offset = _ref$offset === undefined ? 0 : _ref$offset;
         var _ref$target = _ref.target;
-        var target = _ref$target === undefined ? document.head : _ref$target;
+        var target = _ref$target === undefined ? document.body : _ref$target;
 
         _classCallCheck(this, StylaWidget);
 
@@ -111,12 +111,12 @@ var StylaWidget = (function () {
                 _this.domain = domainConfigEmbed.magazineUrl + '/' + domainConfigEmbed.rootPath;
                 var styling = _this.buildStyles(domainConfig);
 
-                var target = _this.target;
+                var head = document.head;
 
-                _this.includeBaseStyles(target);
+                _this.includeBaseStyles(head);
 
                 if (domainConfig.embed.customFontUrl) {
-                    _this.includeFonts(domainConfig, target);
+                    _this.includeFonts(domainConfig, head);
                 };
 
                 var images = {};
@@ -131,8 +131,7 @@ var StylaWidget = (function () {
                     var _els = stories.stories.map(_this.buildStory);
 
                     document.head.appendChild(styling);
-
-                    document.body.appendChild(wrapper);
+                    _this.target.appendChild(wrapper);
                 }
             };
 
@@ -187,7 +186,11 @@ var StylaWidget = (function () {
             return story;
         };
 
+        if (typeof target === 'string') {
+            target = document.querySelector(target);
+        }
         this.target = target;
+
         this.slug = slug;
         this.tag = tag;
         this.domainConfigAPI = domainConfigAPI;
@@ -284,9 +287,9 @@ var StylaWidget = (function () {
                 return false;
             } else if (text.type !== 'text') {
                 return this.getDescription(_arr, i + 1);
-            } else {
-                return text.content;
             }
+
+            return text.content;
         }
     }, {
         key: 'getImageUrl',
@@ -316,9 +319,9 @@ var StylaWidget = (function () {
          *
          * @return _DOMElement_ style tag
          */
-        value: function includeBaseStyles(target) {
+        value: function includeBaseStyles() {
             var el = this.buildStyleTag(baseStyles);
-            target.appendChild(el);
+            document.head.appendChild(el);
 
             return el;
         }
@@ -334,13 +337,13 @@ var StylaWidget = (function () {
          *
          * @return _DOMElement_ link element
          */
-        value: function includeFonts(domainConfig, target) {
+        value: function includeFonts(domainConfig) {
             var el = document.createElement('link');
             el.type = 'text/css';
             el.rel = 'stylesheet';
             el.href = domainConfig.embed.customFontUrl;
 
-            target.appendChild(el);
+            document.head.appendChild(el);
 
             return el;
         }
