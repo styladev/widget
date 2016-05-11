@@ -1,4 +1,4 @@
-Styla Widget  0.1.1
+Styla Widget  0.1.2
 ===================
 The Styla Widget™ is a simple way to display stories from a Styla Magazine in a
 smaller format, anywhere on your site. A story in the widget functions as
