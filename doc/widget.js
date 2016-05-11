@@ -307,7 +307,7 @@ var StylaWidget = (function () {
         value: function getImageUrl(filename) {
             var size = arguments.length <= 1 || arguments[1] === undefined ? 400 : arguments[1];
 
-            return '//img.styla.com/resizer/sfh_' + size + 'x0/_' + filename;
+            return '//img.styla.com/resizer/sfh_' + size + 'x0/_' + filename + '?still';
         }
     }, {
         key: 'includeBaseStyles',

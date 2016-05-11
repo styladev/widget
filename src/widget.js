@@ -278,7 +278,7 @@ class StylaWidget
      */
     getImageUrl( filename, size = 400 )
     {
-        return `//img.styla.com/resizer/sfh_${size}x0/_${filename}`;
+        return `//img.styla.com/resizer/sfh_${size}x0/_${filename}?still`;
     };
 
 
@@ -319,7 +319,6 @@ class StylaWidget
         return el;
     };
 };
-
 
 if ( ! window.stylaWidget )
 {
