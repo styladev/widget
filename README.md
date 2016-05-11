@@ -8,14 +8,17 @@ Stories can be filtered based on author, tag and category.
 
 Using the Widget
 -----
-Setting up the widget requires only basic HTML knowledge. It's built to adapt 
+Setting up the widget requires only basic HTML knowledge. It's built to adapt
 to the available space it is given.
 
 add this script to the html in your page:
 
 ```html
-    <script>var d=document;var h=d.head;var s=d.createElement('SCRIPT');
-    h.appendChild(s);s.src="http://css.css";</script>
+    <script>
+    window.stylaWidget = {slug : 'CLIENT_DOMAIN', tag : 'TAG'};
+    var d=document;var h=d.head;var s=d.createElement('SCRIPT');
+    h.appendChild(s);s.src="../dist/widget.js";
+    </script>
 ```
 
 Technical requirements
