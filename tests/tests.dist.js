@@ -287,7 +287,7 @@ var StylaWidget = (function () {
         value: function getImageUrl(filename) {
             var size = arguments.length <= 1 || arguments[1] === undefined ? 400 : arguments[1];
 
-            return '//img.styla.com/resizer/sfh_' + size + 'x0/_' + filename;
+            return '//img.styla.com/resizer/sfh_' + size + 'x0/_' + filename + '?still';
         }
     }, {
         key: 'buildStyles',
@@ -341,10 +341,10 @@ var StylaWidget = (function () {
     return StylaWidget;
 })();
 
-if (!window.config) {
-    window.config = {};
+if (!window.stylaWidget) {
+    window.stylaWidget = {};
 }
-var widget = new StylaWidget(window.config);
+var widget = new StylaWidget(window.stylaWidget);
 exports['default'] = StylaWidget;
 module.exports = exports['default'];
 
