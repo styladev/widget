@@ -70,7 +70,6 @@ var _reportError = function _reportError(e) {
     exchanged for css in the gulp build
  */
 var baseStyles = '#styla-widget p{margin:0}#styla-widget .styla-widget{box-sizing:border-box;position:relative;overflow:hidden;padding:1em 2em;height:100%;width:100%;min-height:14em;display:flex;flex-direction:column;flex-wrap:wrap;font-size:14px}#styla-widget .styla-widget__story{margin-bottom:1em;margin-right:2em;height:14em;position:relative;width:100%;flex-grow:1}#styla-widget .styla-widget__story:nth-child(even){text-align:right}#styla-widget .styla-widget__link{position:absolute;height:14em;top:50%;margin-top:-7em;width:100%;display:flex;align-items:center;text-decoration:none;color:inherit}#styla-widget .styla-widget__imagewrap{display:block;vertical-align:top;flex-grow:1;height:100%;margin:0 6% 0 0;flex:none;max-width:40%;float:left}#styla-widget .styla-widget__story:nth-child(even) .styla-widget__imagewrap{margin:0 0 0 6%;float:right;clear:both;order:2}#styla-widget .styla-widget__image{height:100%;max-width:100%;max-height:100%;object-fit:contain}#styla-widget .styla-widget__textwrap{display:block;flex-grow:1;max-height:100%;overflow:hidden;max-width:54%;float:left}#styla-widget .styla-widget__story:nth-child(even) .styla-widget__textwrap{float:right}#styla-widget .styla-widget__headlinewrap{height:4.25em;padding-top:.25em;display:flex;flex-direction:column;justify-content:center}#styla-widget .styla-widget__headline,#styla-widget .styla-widget__paragraph{overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-box-orient:vertical}#styla-widget .styla-widget__headline{font-size:1.9em;line-height:1em;max-height:2em;margin:0 0 .25em;-webkit-line-clamp:2}#styla-widget .styla-widget__paragraph{font-size:1em;line-height:1.5em;max-height:calc(100% - 5em);position:relative;-webkit-line-clamp:5}#styla-widget .styla-widget__paragraph:after{content:'...';position:absolute;left:0;top:7.5em;display:block;background-color:#FFF;width:100%;height:2em}#styla-widget .styla-widget__paragraph p+p{display:none}';
-var head = document.head;
 var wrapperID = 'styla-widget';
 
 var StylaWidget = (function () {
@@ -95,11 +94,12 @@ var StylaWidget = (function () {
         var limit = _ref$limit === undefined ? 5 : _ref$limit;
         var _ref$offset = _ref.offset;
         var offset = _ref$offset === undefined ? 0 : _ref$offset;
+        var _ref$target = _ref.target;
+        var target = _ref$target === undefined ? document.head : _ref$target;
 
         _classCallCheck(this, StylaWidget);
 
         this.buildStories = function (stories) {
-            var head = document.head;
             stories = JSON.parse(stories);
             var container = _this.container = _this.create('DIV', _classesJs2['default'].CONTAINER);
             var wrapper = _this.wrapper = _this.create('DIV');
@@ -111,10 +111,12 @@ var StylaWidget = (function () {
                 _this.domain = domainConfigEmbed.magazineUrl + '/' + domainConfigEmbed.rootPath;
                 var styling = _this.buildStyles(domainConfig);
 
-                _this.includeBaseStyles(head);
+                var target = _this.target;
+
+                _this.includeBaseStyles(target);
 
                 if (domainConfig.embed.customFontUrl) {
-                    _this.includeFonts(domainConfig, head);
+                    _this.includeFonts(domainConfig, target);
                 };
 
                 var images = {};
@@ -128,7 +130,7 @@ var StylaWidget = (function () {
                     _this.images = images;
                     var _els = stories.stories.map(_this.buildStory);
 
-                    head.appendChild(styling);
+                    document.head.appendChild(styling);
 
                     document.body.appendChild(wrapper);
                 }
@@ -185,6 +187,7 @@ var StylaWidget = (function () {
             return story;
         };
 
+        this.target = target;
         this.slug = slug;
         this.tag = tag;
         this.domainConfigAPI = domainConfigAPI;
@@ -313,9 +316,7 @@ var StylaWidget = (function () {
          *
          * @return _DOMElement_ style tag
          */
-        value: function includeBaseStyles() {
-            var target = arguments.length <= 0 || arguments[0] === undefined ? head : arguments[0];
-
+        value: function includeBaseStyles(target) {
             var el = this.buildStyleTag(baseStyles);
             target.appendChild(el);
 
@@ -333,9 +334,7 @@ var StylaWidget = (function () {
          *
          * @return _DOMElement_ link element
          */
-        value: function includeFonts(domainConfig) {
-            var target = arguments.length <= 1 || arguments[1] === undefined ? head : arguments[1];
-
+        value: function includeFonts(domainConfig, target) {
             var el = document.createElement('link');
             el.type = 'text/css';
             el.rel = 'stylesheet';

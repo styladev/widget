@@ -18,7 +18,6 @@ const _reportError      = function( e ){ console.log( 'err', e ) };
     exchanged for css in the gulp build
  */
 const baseStyles        = 'styla-widget-css-goes-here';
-const head              = document.head;
 const wrapperID         = 'styla-widget';
 
 class StylaWidget
@@ -32,8 +31,14 @@ class StylaWidget
      *
      * @return _Object_ this
      */
-    constructor( { slug = '', tag = false, limit = 5, offset = 0 } )
+    constructor( { slug = '', tag = false, limit = 5, offset = 0, target = document.head } )
     {
+        if ( typeof target === 'string' )
+        {
+            target = document.querySelector( target );
+        }
+        this.target             = target;
+
         this.slug               = slug;
         this.tag                = tag;
         this.domainConfigAPI    = domainConfigAPI;
@@ -60,7 +65,6 @@ class StylaWidget
      */
     buildStories = stories =>
     {
-        let head        = document.head;
         stories         = JSON.parse( stories );
         let container   = this.container    = this.create( 'DIV', classes.CONTAINER );
         let wrapper     = this.wrapper      = this.create( 'DIV' );
@@ -74,11 +78,13 @@ class StylaWidget
                                         domainConfigEmbed.rootPath;
             let styling             = this.buildStyles( domainConfig );
 
-            this.includeBaseStyles( head );
+            let target = this.target;
+
+            this.includeBaseStyles( target );
 
             if ( domainConfig.embed.customFontUrl )
             {
-                this.includeFonts( domainConfig, head );
+                this.includeFonts( domainConfig, target );
             };
 
             let images      = {};
@@ -91,7 +97,7 @@ class StylaWidget
                 this.images = images;
                 let _els    = stories.stories.map( this.buildStory );
 
-                head.appendChild( styling );
+                document.head.appendChild( styling );
 
                 document.body.appendChild( wrapper );
             }
@@ -286,7 +292,7 @@ class StylaWidget
      *
      * @return _DOMElement_ style tag
      */
-    includeBaseStyles( target = head )
+    includeBaseStyles( target = this.target )
     {
         let el = this.buildStyleTag( baseStyles );
         target.appendChild( el );
@@ -304,7 +310,7 @@ class StylaWidget
      *
      * @return _DOMElement_ link element
      */
-    includeFonts( domainConfig, target = head )
+    includeFonts( domainConfig, target = this.target )
     {
         let el  = document.createElement( 'link' );
         el.type = 'text/css';

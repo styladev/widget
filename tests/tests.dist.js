@@ -12,17 +12,19 @@ module.exports={
     "url": "git+https://github.com/styladev/widget.git"
   },
   "scripts": {
-    "build": "./node_modules/.bin/gulp && npm test",
+    "build": "./node_modules/.bin/gulp && npm run doc && npm test",
     "buildTests": "./node_modules/.bin/gulp buildTests",
     "css-min": "./node_modules/.bin/gulp css-min",
     "gulp": "./node_modules/.bin/gulp",
     "test": "node --harmony ./scripts/nightmare.js",
-    "versionBump": "node ./scripts/version_bump.js"
+    "versionBump": "node ./scripts/version_bump.js",
+    "doc":"docker -o doc/ -i src --sidebar true --js dist/widget.js --extras fileSearch -c manni && cp ./doc/widget.js.html ./doc/index.html"
   },
   "devDependencies": {
     "babelify": "^6.3.0",
     "browserify": "^11.2.0",
     "connect": "^3.4.0",
+    "docker": "git://github.com/nicolasbrugneaux/docker.git#patch-1",
     "gulp": "^3.9.0",
     "gulp-css-wrap": "^0.1.2",
     "gulp-header": "^1.7.1",

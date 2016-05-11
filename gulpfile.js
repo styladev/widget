@@ -84,7 +84,8 @@ gulp.task( 'css-min', function()
 } );
 
 
-gulp.task( 'default', [], function()
+gulp.task( 'default', function()
 {
     gulp.start( [ 'css-min', 'browserifyFiles', 'min', 'buildTests' ] );
 } );
+
