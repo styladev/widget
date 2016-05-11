@@ -22,7 +22,7 @@ slug `MAGAZINE_NAME` to match the name of the magazine.
     </script>
 ```
 
-*Additional options*
+###Additional options###
 
 Stories can be filtered based on tags by adding `tag : 'TAG',`.
 
