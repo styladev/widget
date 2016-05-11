@@ -187,6 +187,7 @@ var StylaWidget = (function () {
             var headlineWrapper = create('div', _classesJs2['default'].HEADLINE_WRAPPER);
             var headline = create('h1', _classesJs2['default'].HEADLINE);
             var paragraph = create('div', _classesJs2['default'].PARAGRAPH);
+            paragraph.innerHTML = paragraph.textContent;
 
             var id = images[0].id;
             var imgObj = _this.images[id];

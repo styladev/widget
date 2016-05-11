@@ -1,16 +1,18 @@
-var gulp            = require( 'gulp' );
-var fs              = require( 'fs' );
-var browserify      = require( 'browserify' );
-var babelify        = require( 'babelify' );
-var uglify          = require( 'gulp-uglify' );
-var header          = require( 'gulp-header' );
+const gulp          = require( 'gulp' );
+const fs            = require( 'fs' );
+const browserify    = require( 'browserify' );
+const babelify      = require( 'babelify' );
+const uglify        = require( 'gulp-uglify' );
+const header        = require( 'gulp-header' );
+const minifycss     = require( 'gulp-minify-css' );
+const rename        = require( 'gulp-rename' );
 
-var _package        = require( './package.json' );
+const _package      = require( './package.json' );
 
-var now             = new Date();
-var year            = now.getUTCFullYear();
+const now           = new Date();
+const year          = now.getUTCFullYear();
 
-var licenceLong     = '/*!\n' +
+const licenceLong   = '/*!\n' +
                       ' * Styla bite-sized widget v' + _package.version + '\n' +
                       ' * ' + _package.homepage + '\n' +
                       ' *\n' +
@@ -22,38 +24,38 @@ var licenceLong     = '/*!\n' +
                       ' *' +
                       ' */\n';
 
-var licenceShort    = '/*! Styla Widget v' + _package.version + ' | (c) ' + ( 2016 === year ? year : '2015-' + year ) + ' Styla GmbH | ' + _package.homepage + '/license.md */\n';
+const licenceShort  = '/*! Styla Widget v' + _package.version + ' | (c) ' + ( 2016 === year ? year : '2015-' + year ) + ' Styla GmbH | ' + _package.homepage + '/license.md */\n';
 
 
-function browserifyFiles( file )
+gulp.task( 'browserifyFiles', function()
 {
-    browserify( './src/' + file + '.js' )
+    browserify( './src/widget.js' )
         .transform( babelify, { stage : 0 } )
         .bundle()
-        .pipe( fs.createWriteStream( __dirname + '/dist/' + file + '.js' ) )
+        .pipe( fs.createWriteStream( __dirname + '/dist/widget.js' ) )
         .on( 'finish', function()
         {
-            gulp.src( './dist/' + file + '.js' )
+            gulp.src( './dist/widget.js' )
                 .pipe( header( licenceLong ) )
                 .pipe( gulp.dest( './dist/' ) )
         } );
-};
+} );
 
 
-function min( file )
+gulp.task( 'min', function()
 {
-    browserify( './src/' + file + '.js' )
+    browserify( './src/widget.js' )
         .transform( babelify, { stage : 0 } )
         .bundle()
-        .pipe( fs.createWriteStream( __dirname + '/dist/' + file + '.min.js' ) )
+        .pipe( fs.createWriteStream( __dirname + '/dist/widget.min.js' ) )
         .on( 'finish', function()
         {
-            gulp.src( './dist/' + file + '.min.js' )
+            gulp.src( './dist/widget.min.js' )
                 .pipe( uglify() )
                 .pipe( header( licenceShort ) )
                 .pipe( gulp.dest( './dist/' ) )
         } );
-}
+} );
 
 
 gulp.task( 'buildTests', function()
@@ -65,21 +67,17 @@ gulp.task( 'buildTests', function()
 } );
 
 
+gulp.task( 'css-min', function()
+{
+    return gulp.src( './src/styles.css' )
+        .pipe( gulp.dest( './dist' ) )
+        .pipe( rename( { suffix: '.min' } ) )
+        .pipe( minifycss() )
+        .pipe( gulp.dest( 'dist' ) );
+} );
+
+
 gulp.task( 'default', [], function()
 {
-    gulp.start( [ 'compile', 'compileEmbed', 'buildTests' ] );
-} );
-
-
-gulp.task( 'compile', [], function()
-{
-    browserifyFiles( 'widget' );
-    min( 'widget' );
-} );
-
-
-gulp.task( 'compileEmbed', [], function()
-{
-    browserifyFiles( 'widgetEmbed' );
-    min( 'widgetEmbed' );
+    gulp.start( [ 'browserifyFiles', 'css-min', 'min', 'buildTests' ] );
 } );

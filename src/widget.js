@@ -109,6 +109,7 @@ class StylaWidget
         let headlineWrapper     = create( 'div', classes.HEADLINE_WRAPPER );
         let headline            = create( 'h1', classes.HEADLINE );
         let paragraph           = create( 'div', classes.PARAGRAPH );
+        paragraph.innerHTML     =  paragraph.textContent;
 
         let id                  = images[0].id;
         let imgObj              = this.images[ id ];
