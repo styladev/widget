@@ -11,7 +11,15 @@ import version  from './version.js';
 import classes  from './classes.js';
 import { http } from 'microbejs/dist/microbe.http.min';
 
-const domainConfigAPI   = 'https://www.amazine.com/api/config/'
+const domainConfigAPI   = 'https://www.amazine.com/api/config/';
+const _reportError      = function( e ){ console.log( 'err', e ) };
+
+/*
+    exchanged for css in the gulp build
+ */
+const baseStyles        = 'styla-widget-css-goes-here';
+const head              = document.head;
+const wrapperID         = 'styla-widget';
 
 class StylaWidget
 {
@@ -22,17 +30,17 @@ class StylaWidget
      *
      * @param {String} domain target domain to grab products from
      *
-     * @return {Object} this
+     * @return _Object_ this
      */
     constructor( { slug = '', tag = false, limit = 5, offset = 0 } )
     {
-        this.slug       = slug;
-        this.tag        = tag;
-        this.domainConfigAPI = domainConfigAPI;
-        this.version    = version;
+        this.slug               = slug;
+        this.tag                = tag;
+        this.domainConfigAPI    = domainConfigAPI;
+        this.version            = version;
 
-        let url         = tag ? `https://www.amazine.com/api/feeds/userTag/${slug}/tag/${tag}?offset=${offset}&limit=${limit}&domain=${slug}` :
-                                `https://www.amazine.com/api/feeds/user/${slug}?domain=${slug}&offset=${offset}&limit=${limit}`;
+        let url  = tag ? `https://www.amazine.com/api/feeds/userTag/${slug}/tag/${tag}?offset=${offset}&limit=${limit}&domain=${slug}` :
+                        `https://www.amazine.com/api/feeds/user/${slug}?domain=${slug}&offset=${offset}&limit=${limit}`;
 
         http.get( url ).then( this.buildStories );
 
@@ -48,24 +56,29 @@ class StylaWidget
      *
      * @param {String} res JSON response from the product api
      *
-     * @return {DOMElement} container element
+     * @return _DOMElement_ container element
      */
     buildStories = stories =>
     {
-        stories             = JSON.parse( stories );
-        let container   = this.container = this.create( 'DIV', classes.CONTAINER );
+        let head        = document.head;
+        stories         = JSON.parse( stories );
+        let container   = this.container    = this.create( 'DIV', classes.CONTAINER );
+        let wrapper     = this.wrapper      = this.create( 'DIV' );
+        wrapper.id      = wrapperID;
 
         let _buildStories = domainConfig =>
         {
-            this.domainConfig = domainConfig = JSON.parse( domainConfig );
-            let domainConfigEmbed = domainConfig.embed;
-            this.domain     = domainConfigEmbed.magazineUrl + '/' + domainConfigEmbed.rootPath;
-            let styling     = this.buildStyles( domainConfig );
+            this.domainConfig       = domainConfig = JSON.parse( domainConfig );
+            let domainConfigEmbed   = domainConfig.embed;
+            this.domain             = domainConfigEmbed.magazineUrl + '/' +
+                                        domainConfigEmbed.rootPath;
+            let styling             = this.buildStyles( domainConfig );
 
-            /* Include webfonts */
-            if ( domainConfig.embed.customFontUrl ){
-                let fonts   = this.includeFonts( domainConfig )
-                document.head.appendChild( fonts )
+            this.includeBaseStyles( head );
+
+            if ( domainConfig.embed.customFontUrl )
+            {
+                this.includeFonts( domainConfig, head );
             };
 
             let images      = {};
@@ -78,12 +91,13 @@ class StylaWidget
                 this.images = images;
                 let _els    = stories.stories.map( this.buildStory );
 
-                document.head.appendChild( styling );
-                document.body.appendChild( container );
+                head.appendChild( styling );
+
+                document.body.appendChild( wrapper );
             }
         };
 
-        http.get( this.domainConfigAPI + this.slug ).then( _buildStories ).catch( function(e){console.log(e)} );
+        http.get( this.domainConfigAPI + this.slug ).then( _buildStories ).catch( _reportError );
 
         return container;
     };
@@ -92,23 +106,23 @@ class StylaWidget
     /**
      * ## buildStory
      *
-     * builds each story off the reatrieved json
+     * builds each story off the retrieved json
      *
      * @param {Object} json image data
      *
-     * @return {DOMElement} outer story element
+     * @return _DOMElement_ outer story element
      */
     buildStory = ( { title, description, images, externalPermalink } ) =>
     {
         let create              = this.create;
-        let story               = create( 'div', classes.STORY );
-        let storyLink           = create( 'a', classes.STORY_LINK );
-        let imageWrapper        = create( 'div', classes.IMAGE_WRAPPER );
-        let image               = create( 'img', classes.IMAGE );
-        let textWrapper         = create( 'div', classes.TEXT_WRAPPER );
-        let headlineWrapper     = create( 'div', classes.HEADLINE_WRAPPER );
-        let headline            = create( 'h1', classes.HEADLINE );
-        let paragraph           = create( 'div', classes.PARAGRAPH );
+        let story               = create( 'div',    classes.STORY );
+        let storyLink           = create( 'a',      classes.STORY_LINK );
+        let imageWrapper        = create( 'div',    classes.IMAGE_WRAPPER );
+        let image               = create( 'img',    classes.IMAGE );
+        let textWrapper         = create( 'div',    classes.TEXT_WRAPPER );
+        let headlineWrapper     = create( 'div',    classes.HEADLINE_WRAPPER );
+        let headline            = create( 'h1',     classes.HEADLINE );
+        let paragraph           = create( 'div',    classes.PARAGRAPH );
 
         let id                  = images[0].id;
         let imgObj              = this.images[ id ];
@@ -131,9 +145,69 @@ class StylaWidget
         paragraph.innerHTML     = this.getDescription( JSON.parse( description ) );
         paragraph.innerHTML     = paragraph.textContent;
         textWrapper.appendChild( paragraph );
-        this.container.appendChild( story );
+
+        let container = this.container;
+
+        container.appendChild( story );
+        this.wrapper.appendChild( container );
 
         return story;
+    };
+
+
+    /**
+    * ## buildStyles
+    *
+    * builds the styles
+    *
+    * @param {Object} domain configuration of magazine
+    *
+    * @return _Object_ style element
+    */
+    buildStyles( domainConfig )
+    {
+        let theme   = domainConfig.theme;
+        let css     =
+            `.${classes.HEADLINE}
+            {
+                font-family:        ${theme.hff};
+                font-weight:        ${theme.hfw};
+                font-style:         ${theme.hfs};
+                text-decoration:    ${theme.htd};
+                letter-spacing:     ${theme.hls};
+                color:              ${theme.htc}
+            }
+            .${classes.PARAGRAPH}
+            {
+                font-family:        ${theme.sff};
+                font-weight:        ${theme.sfw};
+                color:              ${theme.stc}
+            }
+            `;
+
+        return this.buildStyleTag( css );
+    };
+
+
+    /**
+    * ## buildStyleTag
+    *
+    * builds a style tag and appends it to the DOM
+    *
+    * @param {Object} domain configuration of magazine
+    *
+    * @return _DOMElement_ style element
+    */
+    buildStyleTag( css )
+    {
+        let el  = document.createElement( 'style' );
+        el.type = 'text/css';
+        el.id   = `${classes.CONTAINER}__styling`
+
+        let t   = document.createTextNode( css );
+        el.appendChild( t );
+
+        return el;
     };
 
 
@@ -150,7 +224,11 @@ class StylaWidget
     create( _tag, _class )
     {
         let _el         = document.createElement( _tag.toUpperCase() );
-        _el.className   = _class;
+
+        if ( _class )
+        {
+            _el.className   = _class;
+        }
 
         return _el;
     };
@@ -164,7 +242,7 @@ class StylaWidget
      * @param {Array} _arr array filled w/ content
      * @param {Number} i recursive index
      *
-     * @return {String or Boolean} text content or false
+     * @return _String or Boolean_ text content or false
      */
     getDescription( _arr, i = 0 )
     {
@@ -193,7 +271,7 @@ class StylaWidget
      * @param {String} filename from the image data object
      * @param {Number or String} size width to grab from the server
      *
-     * @return {String} file name
+     * @return _String_ file name
      */
     getImageUrl( filename, size = 400 )
     {
@@ -202,71 +280,46 @@ class StylaWidget
 
 
     /**
-    * ## buildStyles
-    *
-    * builds the styles
-    * @param {Object} domain configuration of magazine
-    *
-    * @return {Object} style element
-    *
-    */
-
-    buildStyles( domainConfig )
+     * ## includeBaseStyles
+     *
+     * includes the base styles.
+     *
+     * @return _DOMElement_ style tag
+     */
+    includeBaseStyles( target = head )
     {
-        let theme = domainConfig.theme;
-        let css =
-            `.${classes.HEADLINE}
-            {
-                font-family:        ${theme.hff};
-                font-weight:        ${theme.hfw};
-                font-style:         ${theme.hfs};
-                text-decoration:    ${theme.htd};
-                letter-spacing:     ${theme.hls};
-                color:              ${theme.htc}
-            }
-            .${classes.PARAGRAPH}
-            {
-                font-family:        ${theme.sff};
-                font-weight:        ${theme.sfw};
-                color:              ${theme.stc}
-            }
-            `;
+        let el = this.buildStyleTag( baseStyles );
+        target.appendChild( el );
 
-        let el = document.createElement('style');
-        el.type = 'text/css';
-        el.id = `${classes.CONTAINER}__styling`
-
-        let t = document.createTextNode(css)
-        el.appendChild(t)
-
-        return el
+        return el;
     };
+
 
     /**
-    * ## includeFonts
-    *
-    * includes webfonts
-    * @param {Object} domain configuration of magazine
-    *
-    * @return {Object} link element
-    *
-    */
-
-    includeFonts ( domainConfig )
+     * ## includeFonts
+     *
+     * includes webfonts
+     *
+     * @param {Object} domain configuration of magazine
+     *
+     * @return _DOMElement_ link element
+     */
+    includeFonts( domainConfig, target = head )
     {
-        let el = document.createElement('link')
-        el.type = 'text/css'
-        el.rel = 'stylesheet'
-        el.href = domainConfig.embed.customFontUrl
+        let el  = document.createElement( 'link' );
+        el.type = 'text/css';
+        el.rel  = 'stylesheet';
+        el.href = domainConfig.embed.customFontUrl;
 
-        return el
+        target.appendChild( el );
+
+        return el;
     };
+};
 
-}
-
-if (!window.stylaWidget)
+if ( ! window.stylaWidget )
 {
     window.stylaWidget = {};
 }
-let widget = new StylaWidget( window.stylaWidget );
-export default StylaWidget;
+
+window.stylaWidget.instance = new StylaWidget( window.stylaWidget );
