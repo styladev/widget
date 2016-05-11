@@ -1,12 +1,12 @@
 /*!
- * Styla bite-sized widget v0.0.2
+ * Styla bite-sized widget v0.1.0
  * https://github.com/styladev/widget
  *
  * Copyright 2016 Styla GmbH and other contributors
  * Released under the MIT license
  * https://github.com/styladev/widget/license.md
  *
- * Date: Tue May 10 2016
+ * Date: Wed May 11 2016
  * */
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 (function (global){
@@ -31,7 +31,7 @@ module.exports = {
 },{}],3:[function(require,module,exports){
 'use strict';
 
-module.exports = '0.0.2';
+module.exports = '0.1.0';
 
 },{}],4:[function(require,module,exports){
 
@@ -44,10 +44,6 @@ module.exports = '0.0.2';
  * @author "Elias Liedholm <elias@styla.com>"
  */
 'use strict';
-
-Object.defineProperty(exports, '__esModule', {
-    value: true
-});
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
@@ -66,6 +62,16 @@ var _classesJs2 = _interopRequireDefault(_classesJs);
 var _microbejsDistMicrobeHttpMin = require('microbejs/dist/microbe.http.min');
 
 var domainConfigAPI = 'https://www.amazine.com/api/config/';
+var _reportError = function _reportError(e) {
+    console.log('err', e);
+};
+
+/*
+    exchanged for css in the gulp build
+ */
+var baseStyles = '#styla-widget p{margin:0}#styla-widget .styla-widget{box-sizing:border-box;position:relative;overflow:hidden;padding:1em 2em;height:100%;width:100%;min-height:14em;display:flex;flex-direction:column;flex-wrap:wrap;font-size:14px}#styla-widget .styla-widget__story{margin-bottom:1em;margin-right:2em;height:14em;position:relative;width:100%;flex-grow:1}#styla-widget .styla-widget__story:nth-child(even){text-align:right}#styla-widget .styla-widget__link{position:absolute;height:14em;top:50%;margin-top:-7em;width:100%;display:flex;align-items:center;text-decoration:none;color:inherit}#styla-widget .styla-widget__imagewrap{display:block;vertical-align:top;flex-grow:1;height:100%;margin:0 6% 0 0;flex:none;max-width:40%;float:left}#styla-widget .styla-widget__story:nth-child(even) .styla-widget__imagewrap{margin:0 0 0 6%;float:right;clear:both;order:2}#styla-widget .styla-widget__image{height:100%;max-width:100%;max-height:100%;object-fit:contain}#styla-widget .styla-widget__textwrap{display:block;flex-grow:1;max-height:100%;overflow:hidden;max-width:54%;float:left}#styla-widget .styla-widget__story:nth-child(even) .styla-widget__textwrap{float:right}#styla-widget .styla-widget__headlinewrap{height:4.25em;padding-top:.25em;display:flex;flex-direction:column;justify-content:center}#styla-widget .styla-widget__headline,#styla-widget .styla-widget__paragraph{overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-box-orient:vertical}#styla-widget .styla-widget__headline{font-size:1.9em;line-height:1em;max-height:2em;margin:0 0 .25em;-webkit-line-clamp:2}#styla-widget .styla-widget__paragraph{font-size:1em;line-height:1.5em;max-height:calc(100% - 5em);position:relative;-webkit-line-clamp:5}#styla-widget .styla-widget__paragraph:after{content:'...';position:absolute;left:0;top:7.5em;display:block;background-color:#FFF;width:100%;height:2em}#styla-widget .styla-widget__paragraph p+p{display:none}';
+var head = document.head;
+var wrapperID = 'styla-widget';
 
 var StylaWidget = (function () {
     /**
@@ -75,7 +81,7 @@ var StylaWidget = (function () {
      *
      * @param {String} domain target domain to grab products from
      *
-     * @return {Object} this
+     * @return _Object_ this
      */
 
     function StylaWidget(_ref) {
@@ -93,8 +99,11 @@ var StylaWidget = (function () {
         _classCallCheck(this, StylaWidget);
 
         this.buildStories = function (stories) {
+            var head = document.head;
             stories = JSON.parse(stories);
             var container = _this.container = _this.create('DIV', _classesJs2['default'].CONTAINER);
+            var wrapper = _this.wrapper = _this.create('DIV');
+            wrapper.id = wrapperID;
 
             var _buildStories = function _buildStories(domainConfig) {
                 _this.domainConfig = domainConfig = JSON.parse(domainConfig);
@@ -102,10 +111,10 @@ var StylaWidget = (function () {
                 _this.domain = domainConfigEmbed.magazineUrl + '/' + domainConfigEmbed.rootPath;
                 var styling = _this.buildStyles(domainConfig);
 
-                /* Include webfonts */
+                _this.includeBaseStyles(head);
+
                 if (domainConfig.embed.customFontUrl) {
-                    var fonts = _this.includeFonts(domainConfig);
-                    document.head.appendChild(fonts);
+                    _this.includeFonts(domainConfig, head);
                 };
 
                 var images = {};
@@ -119,14 +128,13 @@ var StylaWidget = (function () {
                     _this.images = images;
                     var _els = stories.stories.map(_this.buildStory);
 
-                    document.head.appendChild(styling);
-                    document.body.appendChild(container);
+                    head.appendChild(styling);
+
+                    document.body.appendChild(wrapper);
                 }
             };
 
-            _microbejsDistMicrobeHttpMin.http.get(_this.domainConfigAPI + _this.slug).then(_buildStories)['catch'](function (e) {
-                console.log(e);
-            });
+            _microbejsDistMicrobeHttpMin.http.get(_this.domainConfigAPI + _this.slug).then(_buildStories)['catch'](_reportError);
 
             return container;
         };
@@ -146,7 +154,6 @@ var StylaWidget = (function () {
             var headlineWrapper = create('div', _classesJs2['default'].HEADLINE_WRAPPER);
             var headline = create('h1', _classesJs2['default'].HEADLINE);
             var paragraph = create('div', _classesJs2['default'].PARAGRAPH);
-            paragraph.innerHTML = paragraph.textContent;
 
             var id = images[0].id;
             var imgObj = _this.images[id];
@@ -169,7 +176,11 @@ var StylaWidget = (function () {
             paragraph.innerHTML = _this.getDescription(JSON.parse(description));
             paragraph.innerHTML = paragraph.textContent;
             textWrapper.appendChild(paragraph);
-            _this.container.appendChild(story);
+
+            var container = _this.container;
+
+            container.appendChild(story);
+            _this.wrapper.appendChild(container);
 
             return story;
         };
@@ -187,6 +198,46 @@ var StylaWidget = (function () {
     }
 
     _createClass(StylaWidget, [{
+        key: 'buildStyles',
+
+        /**
+        * ## buildStyles
+        *
+        * builds the styles
+        *
+        * @param {Object} domain configuration of magazine
+        *
+        * @return _Object_ style element
+        */
+        value: function buildStyles(domainConfig) {
+            var theme = domainConfig.theme;
+            var css = '.' + _classesJs2['default'].HEADLINE + '\n            {\n                font-family:        ' + theme.hff + ';\n                font-weight:        ' + theme.hfw + ';\n                font-style:         ' + theme.hfs + ';\n                text-decoration:    ' + theme.htd + ';\n                letter-spacing:     ' + theme.hls + ';\n                color:              ' + theme.htc + '\n            }\n            .' + _classesJs2['default'].PARAGRAPH + '\n            {\n                font-family:        ' + theme.sff + ';\n                font-weight:        ' + theme.sfw + ';\n                color:              ' + theme.stc + '\n            }\n            ';
+
+            return this.buildStyleTag(css);
+        }
+    }, {
+        key: 'buildStyleTag',
+
+        /**
+        * ## buildStyleTag
+        *
+        * builds a style tag and appends it to the DOM
+        *
+        * @param {Object} domain configuration of magazine
+        *
+        * @return _DOMElement_ style element
+        */
+        value: function buildStyleTag(css) {
+            var el = document.createElement('style');
+            el.type = 'text/css';
+            el.id = _classesJs2['default'].CONTAINER + '__styling';
+
+            var t = document.createTextNode(css);
+            el.appendChild(t);
+
+            return el;
+        }
+    }, {
         key: 'create',
 
         /**
@@ -201,7 +252,10 @@ var StylaWidget = (function () {
          */
         value: function create(_tag, _class) {
             var _el = document.createElement(_tag.toUpperCase());
-            _el.className = _class;
+
+            if (_class) {
+                _el.className = _class;
+            }
 
             return _el;
         }
@@ -216,7 +270,7 @@ var StylaWidget = (function () {
          * @param {Array} _arr array filled w/ content
          * @param {Number} i recursive index
          *
-         * @return {String or Boolean} text content or false
+         * @return _String or Boolean_ text content or false
          */
         value: function getDescription(_arr) {
             var i = arguments.length <= 1 || arguments[1] === undefined ? 0 : arguments[1];
@@ -242,7 +296,7 @@ var StylaWidget = (function () {
          * @param {String} filename from the image data object
          * @param {Number or String} size width to grab from the server
          *
-         * @return {String} file name
+         * @return _String_ file name
          */
         value: function getImageUrl(filename) {
             var size = arguments.length <= 1 || arguments[1] === undefined ? 400 : arguments[1];
@@ -250,28 +304,20 @@ var StylaWidget = (function () {
             return '//img.styla.com/resizer/sfh_' + size + 'x0/_' + filename;
         }
     }, {
-        key: 'buildStyles',
+        key: 'includeBaseStyles',
 
         /**
-        * ## buildStyles
-        *
-        * builds the styles
-        * @param {Object} domain configuration of magazine
-        *
-        * @return {Object} style element
-        *
-        */
+         * ## includeBaseStyles
+         *
+         * includes the base styles.
+         *
+         * @return _DOMElement_ style tag
+         */
+        value: function includeBaseStyles() {
+            var target = arguments.length <= 0 || arguments[0] === undefined ? head : arguments[0];
 
-        value: function buildStyles(domainConfig) {
-            var theme = domainConfig.theme;
-            var css = '.' + _classesJs2['default'].HEADLINE + '\n            {\n                font-family:        ' + theme.hff + ';\n                font-weight:        ' + theme.hfw + ';\n                font-style:         ' + theme.hfs + ';\n                text-decoration:    ' + theme.htd + ';\n                letter-spacing:     ' + theme.hls + ';\n                color:              ' + theme.htc + '\n            }\n            .' + _classesJs2['default'].PARAGRAPH + '\n            {\n                font-family:        ' + theme.sff + ';\n                font-weight:        ' + theme.sfw + ';\n                color:              ' + theme.stc + '\n            }\n            ';
-
-            var el = document.createElement('style');
-            el.type = 'text/css';
-            el.id = _classesJs2['default'].CONTAINER + '__styling';
-
-            var t = document.createTextNode(css);
-            el.appendChild(t);
+            var el = this.buildStyleTag(baseStyles);
+            target.appendChild(el);
 
             return el;
         }
@@ -279,20 +325,23 @@ var StylaWidget = (function () {
         key: 'includeFonts',
 
         /**
-        * ## includeFonts
-        *
-        * includes webfonts
-        * @param {Object} domain configuration of magazine
-        *
-        * @return {Object} link element
-        *
-        */
-
+         * ## includeFonts
+         *
+         * includes webfonts
+         *
+         * @param {Object} domain configuration of magazine
+         *
+         * @return _DOMElement_ link element
+         */
         value: function includeFonts(domainConfig) {
+            var target = arguments.length <= 1 || arguments[1] === undefined ? head : arguments[1];
+
             var el = document.createElement('link');
             el.type = 'text/css';
             el.rel = 'stylesheet';
             el.href = domainConfig.embed.customFontUrl;
+
+            target.appendChild(el);
 
             return el;
         }
@@ -301,12 +350,13 @@ var StylaWidget = (function () {
     return StylaWidget;
 })();
 
-if (!window.config) {
-    window.config = {};
+;
+
+if (!window.stylaWidget) {
+    window.stylaWidget = {};
 }
-var widget = new StylaWidget(window.config);
-exports['default'] = StylaWidget;
-module.exports = exports['default'];
+
+window.stylaWidget.instance = new StylaWidget(window.stylaWidget);
 
 /**
  * ## buildStories
@@ -316,17 +366,17 @@ module.exports = exports['default'];
  *
  * @param {String} res JSON response from the product api
  *
- * @return {DOMElement} container element
+ * @return _DOMElement_ container element
  */
 
 /**
  * ## buildStory
  *
- * builds each story off the reatrieved json
+ * builds each story off the retrieved json
  *
  * @param {Object} json image data
  *
- * @return {DOMElement} outer story element
+ * @return _DOMElement_ outer story element
  */
 
 },{"./classes.js":2,"./version.js":3,"microbejs/dist/microbe.http.min":1}]},{},[4]);
