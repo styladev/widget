@@ -67,7 +67,7 @@ class StylaWidget
     {
         stories         = JSON.parse( stories );
         let container   = this.container    = this.create( 'DIV', classes.CONTAINER );
-        let wrapper     = this.wrapper      = this.create( 'DIV' );
+        let wrapper     = this.wrapper      = this.create( 'DIV', classes.WRAPPER );
         wrapper.id      = wrapperID;
 
         let _buildStories = domainConfig =>
@@ -207,7 +207,7 @@ class StylaWidget
     {
         let el  = document.createElement( 'style' );
         el.type = 'text/css';
-        el.id   = `${classes.CONTAINER}__styling`
+        el.id   = `styla-widget__styling`
 
         let t   = document.createTextNode( css );
         el.appendChild( t );

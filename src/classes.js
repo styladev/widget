@@ -1,5 +1,6 @@
 module.exports = {
-    CONTAINER           : 'styla-widget',
+    WRAPPER             : 'styla-widget__wrapper',
+    CONTAINER           : 'styla-widget__container',
     TEXT_WRAPPER        : 'styla-widget__textwrap',
     HEADLINE            : 'styla-widget__headline',
     HEADLINE_WRAPPER    : 'styla-widget__headlinewrap',

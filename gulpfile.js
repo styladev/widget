@@ -78,7 +78,6 @@ gulp.task( 'css-min', function()
 {
     return gulp.src( './src/styles.css' )
                 .pipe( rename( { suffix: '.min' } ) )
-                .pipe( cssWrap( { selector: '#styla-widget' } ) )
                 .pipe( minifycss() )
                 .pipe( gulp.dest( 'dist' ) );
 } );
@@ -88,4 +87,3 @@ gulp.task( 'default', function()
 {
     gulp.start( [ 'css-min', 'browserifyFiles', 'min', 'buildTests' ] );
 } );
-

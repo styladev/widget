@@ -11,20 +11,21 @@
                 height: 100vh;
             }
 
-            .styla-widget {
+            .target {
                 background: #FFF;
                 box-shadow: 3px 3px 0px #ccc;
                 height: 90%;
                 top: 5%;
+                position: relative;
             }
         </style>
     </head>
     <body>
-        <div class="content"></div>
+        <div class="target"></div>
     </body>
 
 
-    <script>window.stylaWidget = {slug : 'engelhornsports', tag : 'winter'};
+    <script>window.stylaWidget = {slug : 'engelhornsports', tag : 'winter', target: '.target'};
     var d=document;var h=d.head;var s=d.createElement('SCRIPT');
     h.appendChild(s);s.src="../dist/widget.min.js";</script>
 

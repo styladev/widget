@@ -1,9 +1,14 @@
-p
+#styla-widget p
 {
     margin:                             0;
 }
 
-.styla-widget
+#styla-widget.styla-widget__wrapper {
+    width: 100%;
+    height: 100%;
+}
+
+#styla-widget .styla-widget__container
 {
     box-sizing:                         border-box;
     position:                           relative;
@@ -18,7 +23,7 @@ p
     font-size:                          14px;
 }
 
-.styla-widget__story
+#styla-widget .styla-widget__story
 {
     margin-bottom:                      1em;
     margin-right:                       2em;
@@ -28,12 +33,12 @@ p
     flex-grow:                          1;
 }
 
-.styla-widget__story:nth-child(even)
+#styla-widget .styla-widget__story:nth-child(even)
 {
     text-align:                         right;
 }
 
-.styla-widget__link
+#styla-widget .styla-widget__link
 {
     position:                           absolute;
     height:                             14em;
@@ -46,7 +51,7 @@ p
     color:                              inherit;
 }
 
-.styla-widget__imagewrap
+#styla-widget .styla-widget__imagewrap
 {
     display:                            block;
     vertical-align:                     top;
@@ -58,7 +63,7 @@ p
     float:                              left;
 }
 
-.styla-widget__story:nth-child(even) .styla-widget__imagewrap
+#styla-widget .styla-widget__story:nth-child(even) .styla-widget__imagewrap
 {
     margin:                             0 0 0 6%;
     float:                              right;
@@ -66,7 +71,7 @@ p
     order:                              2
 }
 
-.styla-widget__image
+#styla-widget .styla-widget__image
 {
     height:                             100%;
     max-width:                          100%;
@@ -74,7 +79,7 @@ p
     object-fit:                         contain;
 }
 
-.styla-widget__textwrap
+#styla-widget .styla-widget__textwrap
 {
     display:                            block;
     flex-grow:                          1;
@@ -83,12 +88,12 @@ p
     float:                              left;
 }
 
-.styla-widget__story:nth-child(even) .styla-widget__textwrap
+#styla-widget .styla-widget__story:nth-child(even) .styla-widget__textwrap
 {
     float:                              right;
 }
 
-.styla-widget__headlinewrap
+#styla-widget .styla-widget__headlinewrap
 {
     height:                             4.25em;
     padding-top:                        0.25em;
@@ -97,7 +102,7 @@ p
     justify-content:                    center;
 }
 
-.styla-widget__headline
+#styla-widget .styla-widget__headline
 {
     font-size:                          1.9em;
     line-height:                        1em;
@@ -112,7 +117,7 @@ p
     -webkit-line-clamp:                 2;
 }
 
-.styla-widget__paragraph
+#styla-widget .styla-widget__paragraph
 {
     font-size:                          1em;
     line-height:                        1.5em;
@@ -126,7 +131,7 @@ p
     -webkit-line-clamp:                 5;
 }
 
-.styla-widget__paragraph:after
+#styla-widget .styla-widget__paragraph:after
 {
     content:                            '...';
     position:                           absolute;
@@ -139,7 +144,7 @@ p
 }
 
 /* Multiple paragraphs causes issues when truncating the text */
-.styla-widget__paragraph p + p
+#styla-widget .styla-widget__paragraph p + p
 {
     display:                            none;
 }
