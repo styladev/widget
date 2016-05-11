@@ -197,7 +197,7 @@ class StylaWidget
      */
     getImageUrl( filename, size = 400 )
     {
-        return `//img.styla.com/resizer/sfh_${size}x0/_${filename}`;
+        return `//img.styla.com/resizer/sfh_${size}x0/_${filename}?still`;
     };
 
 
@@ -264,9 +264,9 @@ class StylaWidget
 
 }
 
-if (!window.config)
+if (!window.stylaWidget)
 {
-    window.config = {};
+    window.stylaWidget = {};
 }
-let widget = new StylaWidget( window.config );
+let widget = new StylaWidget( window.stylaWidget );
 export default StylaWidget;
