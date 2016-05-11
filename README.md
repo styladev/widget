@@ -24,7 +24,8 @@ slug `MAGAZINE_NAME` to match the name of the magazine.
 
 ###Additional options###
 
-Stories can be filtered based on tags by adding `tag : 'TAG',`.
+Stories can be filtered based on tags by adding `tag : 'TAG',` to the config
+object.
 
 The amount of stories can be adjusted by setting the limit: `limit: 10`. The
 default is 5 stories. Please note that the widget will only display the amount
