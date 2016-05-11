@@ -11,7 +11,7 @@
     "url": "git+https://github.com/styladev/widget.git"
   },
   "scripts": {
-    "build": "./node_modules/.bin/gulp && npm test",
+    "build": "./node_modules/.bin/gulp && npm run doc && npm test",
     "buildTests": "./node_modules/.bin/gulp buildTests",
     "css-min": "./node_modules/.bin/gulp css-min",
     "gulp": "./node_modules/.bin/gulp",
