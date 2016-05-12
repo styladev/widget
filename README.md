@@ -95,4 +95,4 @@ This project adheres to the [Contributor Covenant](http://contributor-covenant.o
 Need to report something? [hr](mailto:janine@styla.com)
 
 
-See more examples on the [demo page](./demo/index.html)
+See a live example on the [demo page](http://static.styla.com/test/widget/)
