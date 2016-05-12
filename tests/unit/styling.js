@@ -51,6 +51,12 @@ let tests = function( stylaWidget )
                 font-weight:        200;
                 color:              #000000
             }
+            .styla-widget__paragraph:after
+            {
+                content:            '…';
+                font-weight:        inherit;
+                text-decoration:    none
+            }
 
         `;
         assert.equal ( styleNode.innerHTML.replace( /\s/g, '' ), styleString.replace( /\s/g, '' ) )

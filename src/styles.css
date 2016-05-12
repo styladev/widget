@@ -95,18 +95,17 @@
 
 #styla-widget .styla-widget__headlinewrap
 {
-    height:                             4.25em;
-    padding-top:                        0.25em;
+    height:                             5em;
     display:                            flex;
     flex-direction:                     column;
-    justify-content:                    center;
+    justify-content:                    flex-end;
 }
 
 #styla-widget .styla-widget__headline
 {
     font-size:                          1.9em;
-    line-height:                        1em;
-    max-height:                         2em;
+    line-height:                        1.2em;
+    max-height:                         2.4em;
     overflow:                           hidden;
     margin:                             0;
     margin-bottom:                      0.25em;
@@ -125,15 +124,10 @@
     overflow:                           hidden;
     position:                           relative;
     word-wrap:                          break-word;
-    text-overflow:                      ellipsis;
-    display:                            -webkit-box;
-    -webkit-box-orient:                 vertical;
-    -webkit-line-clamp:                 5;
 }
 
 #styla-widget .styla-widget__paragraph:after
 {
-    content:                            '...';
     position:                           absolute;
     left:                               0;
     top:                                7.5em;
