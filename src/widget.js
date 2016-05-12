@@ -92,7 +92,7 @@ class StylaWidget
 
             if ( resImages )
             {
-                resImages.forEach( function( _i ){ images[ _i.id ] = _i; })
+                resImages.forEach( function( _i ){ images[ _i.id ] = _i; });
 
                 this.images = images;
                 let _els    = stories.stories.map( this.buildStory );
