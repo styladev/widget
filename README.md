@@ -20,7 +20,7 @@ slug `MAGAZINE_NAME` to match the name of the magazine.
     <script>
     window.stylaWidget = {slug : 'MAGAZINE_NAME', target : '.styla-widget__target'};
     var d=document;var h=d.head;var s=d.createElement('SCRIPT');
-    h.appendChild(s);s.src="../dist/widget.min.js";
+    h.appendChild(s);s.src="//widget.styla.com/widget.min.js";
     </script>
 ```
 
