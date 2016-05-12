@@ -1,15 +1,16 @@
 Styla Widget  0.1.4
-
 ===================
+
 The Styla Widget™ is a simple way to display stories from a Styla Magazine in a
 smaller format, anywhere on your site. A story in the widget functions as
 a teaser and will send the reader directly to the magazine when clicked on.
 
-Visit the <a href="http://static.styla.com/test/widget/">demo page</a> to see the
+Visit the [demo page](a href="http://static.styla.com/test/widget/") to see the
 widget in action.
 
 Using the Widget
------
+----------------
+
 Setting up the widget requires only basic HTML knowledge. It's built to adapt
 to the available space it is given.
 
@@ -25,7 +26,7 @@ slug `MAGAZINE_NAME` to match the name of the magazine.
     </script>
 ```
 
-###Positioning###
+### Positioning
 
 The Widget is responsive 🎉, and will automagically fit stories into the space
 that it is given. For this to work, the desired width and height must be set on
@@ -43,7 +44,8 @@ The height of a story is relative to the base font-size of the widget. If the fo
 size isset to 14px, one story will be exactly 14 times that value, in this case
 196px.
 
-###Additional options###
+
+###Additional options
 
 ```javascript
 window.stylaWidget = {
@@ -63,15 +65,16 @@ window.stylaWidget = {
     <script>
     window.stylaWidget = {slug : 'MAGAZINE_NAME', limit:6, offset:12};
     var d=document;var h=d.head;var s=d.createElement('SCRIPT');
-    h.appendChild(s);s.src="../dist/widget.min.js";
+    h.appendChild(s);s.src="//widget.styla.com/widget.min.js";
     </script>
 ```
 
 Technical requirements and limitations
------
+--------------------------------------
 
 Animated GIFs will be displayed as still images to reduce loading time and the
 impact on performance of a client website.
+
 
 dev installation
 ----------------
