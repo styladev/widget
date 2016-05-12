@@ -1,5 +1,5 @@
 /*!
- * Styla bite-sized widget v0.1.2
+ * Styla bite-sized widget v0.1.4
  * https://github.com/styladev/widget
  *
  * Copyright 2016 Styla GmbH and other contributors
@@ -32,7 +32,7 @@ module.exports = {
 },{}],3:[function(require,module,exports){
 'use strict';
 
-module.exports = '0.1.2';
+module.exports = '0.1.4';
 
 },{}],4:[function(require,module,exports){
 
@@ -160,7 +160,7 @@ var StylaWidget = (function () {
             var id = images[0].id;
             var imgObj = _this.images[id];
 
-            storyLink.href = _this.domain + 'story/' + externalPermalink + '/';
+            storyLink.href = '//' + _this.domain + 'story/' + externalPermalink + '/';
             image.src = _this.getImageUrl(imgObj.fileName, 400);
             image.alt = imgObj.caption || title;
             image.title = title;
