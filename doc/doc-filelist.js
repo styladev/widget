@@ -1,1 +1,0 @@
-var tree={"files":["classes.js","styles.css","version.js","widget.js"]};

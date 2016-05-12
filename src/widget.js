@@ -132,7 +132,7 @@ class StylaWidget
         let id                  = images[0].id;
         let imgObj              = this.images[ id ];
 
-        storyLink.href          = this.domain + 'story/' + externalPermalink + '/';
+        storyLink.href          = '//' + this.domain + 'story/' + externalPermalink + '/';
         image.src               = this.getImageUrl( imgObj.fileName, 400 );
         image.alt               = imgObj.caption || title;
         image.title             = title;
