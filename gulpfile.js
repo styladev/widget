@@ -5,7 +5,6 @@ const babelify      = require( 'babelify' );
 const uglify        = require( 'gulp-uglify' );
 const header        = require( 'gulp-header' );
 const minifycss     = require( 'gulp-minify-css' );
-const cssWrap       = require( 'gulp-css-wrap' );
 const rename        = require( 'gulp-rename' );
 const replace       = require( 'gulp-replace' );
 
@@ -15,7 +14,6 @@ const now           = new Date();
 const year          = now.getUTCFullYear();
 const version       = _package.version;
 const homepage      = _package.homepage;
-const widgetCss     = fs.readFileSync( './dist/styles.min.css', 'utf8' );
 
 const licenceLong   = '/*!\n' +
                       ' * Styla bite-sized widget v' + version + '\n' +
@@ -40,6 +38,8 @@ gulp.task( 'browserifyFiles', function()
         .pipe( fs.createWriteStream( __dirname + '/dist/widget.js' ) )
         .on( 'finish', function()
         {
+            var widgetCss     = fs.readFileSync( './dist/styles.min.css', 'utf8' );
+
             gulp.src( './dist/widget.js' )
                 .pipe( header( licenceLong ) )
                 .pipe( replace( /styla-widget-css-goes-here/, widgetCss ) )
@@ -56,6 +56,8 @@ gulp.task( 'min', function()
         .pipe( fs.createWriteStream( __dirname + '/dist/widget.min.js' ) )
         .on( 'finish', function()
         {
+            var widgetCss     = fs.readFileSync( './dist/styles.min.css', 'utf8' );
+
             gulp.src( './dist/widget.min.js' )
                 .pipe( uglify() )
                 .pipe( header( licenceShort ) )

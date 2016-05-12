@@ -39,6 +39,8 @@ class StylaWidget
         }
         this.target             = target;
 
+        this.http               = http;
+        this.classes            = classes;
         this.slug               = slug;
         this.tag                = tag;
         this.domainConfigAPI    = domainConfigAPI;

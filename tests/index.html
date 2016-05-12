@@ -4,15 +4,21 @@
         <meta charset="utf-8">
         <title></title>
         <link rel="stylesheet" href="../node_modules/qunitjs/qunit/qunit.css">
+        <style>
+            .styla-widget__wrapper
+            {
+                display: none;
+            }
+        </style>
     </head>
     <body>
         <div id="qunit"></div>
         <div id="qunit-fixture"></div>
     </body>
 
-    <script>window.stylaWidget = {slug : 'braunhamburg'};
+    <script>window.stylaWidget = {slug : 'styla-womenfashion'};
     var d=document;var h=d.head;var s=d.createElement('SCRIPT');
-    h.appendChild(s);s.src="../dist/widget.min.js";</script>
+    h.appendChild(s);s.src="../dist/widget.js";</script>
 
     <script src="../node_modules/qunitjs/qunit/qunit.js" defer></script>
     <script src="tests.dist.js" defer></script>
