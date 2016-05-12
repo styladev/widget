@@ -121,7 +121,7 @@ var tests = function tests(stylaWidget) {
 
     QUnit.test('stylesCorrect', function (assert) {
         var styleNode = stylaWidget.buildStyles(domainConfig);
-        var styleString = ".styla-widget__headline\n            {\n                font-family:        Helvetica;\n                font-weight:        700;\n                font-style:         normal;\n                text-decoration:    none;\n                letter-spacing:     0em;\n                color:              #000000\n            }\n            .styla-widget__paragraph\n            {\n                font-family:        Helvetica;\n                font-weight:        200;\n                color:              #000000\n            }\n\n        ";
+        var styleString = ".styla-widget__headline\n            {\n                font-family:        Helvetica;\n                font-weight:        700;\n                font-style:         normal;\n                text-decoration:    none;\n                letter-spacing:     0em;\n                color:              #000000\n            }\n            .styla-widget__paragraph\n            {\n                font-family:        Helvetica;\n                font-weight:        200;\n                color:              #000000\n            }\n            .styla-widget__paragraph:after\n            {\n                content:            '…';\n                font-weight:        inherit;\n                text-decoration:    none\n            }\n\n        ";
         assert.equal(styleNode.innerHTML.replace(/\s/g, ''), styleString.replace(/\s/g, ''));
     });
 

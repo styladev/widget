@@ -125,15 +125,10 @@
     overflow:                           hidden;
     position:                           relative;
     word-wrap:                          break-word;
-    text-overflow:                      ellipsis;
-    display:                            -webkit-box;
-    -webkit-box-orient:                 vertical;
-    -webkit-line-clamp:                 5;
 }
 
 #styla-widget .styla-widget__paragraph:after
 {
-    content:                            '...';
     position:                           absolute;
     left:                               0;
     top:                                7.5em;

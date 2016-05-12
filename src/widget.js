@@ -188,6 +188,12 @@ class StylaWidget
                 font-weight:        ${theme.sfw};
                 color:              ${theme.stc}
             }
+            .${classes.PARAGRAPH}:after
+            {
+                content:            '${theme.strm}';
+                font-weight:        ${theme.strmw};
+                text-decoration:    ${theme.strmd}
+            }
             `;
 
         return this.buildStyleTag( css );
