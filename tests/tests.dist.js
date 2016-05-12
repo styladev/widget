@@ -26,7 +26,6 @@ module.exports={
     "connect": "^3.4.0",
     "docker": "git://github.com/nicolasbrugneaux/docker.git#patch-1",
     "gulp": "^3.9.0",
-    "gulp-css-wrap": "^0.1.2",
     "gulp-header": "^1.7.1",
     "gulp-minify-css": "^1.2.4",
     "gulp-rename": "^1.2.2",
@@ -72,6 +71,10 @@ var _unitStyling = require('./unit/styling');
 
 var _unitStyling2 = _interopRequireDefault(_unitStyling);
 
+var _unitStories = require('./unit/stories');
+
+var _unitStories2 = _interopRequireDefault(_unitStories);
+
 window.onload = function () {
     var widget = window.stylaWidget.instance;
 
@@ -79,9 +82,54 @@ window.onload = function () {
 
     (0, _unitVersionTest2['default'])(widget);
     (0, _unitStyling2['default'])(widget);
+    (0, _unitStories2['default'])(widget);
 };
 
-},{"./unit/styling":4,"./unit/versionTest":5}],4:[function(require,module,exports){
+},{"./unit/stories":4,"./unit/styling":5,"./unit/versionTest":6}],4:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+var tests = function tests(stylaWidget) {
+    QUnit.test('buildStory', function (assert) {
+        var buildStoryTest = assert.async();
+        var url = "https://www.amazine.com/api/feeds/user/" + stylaWidget.slug + "?domain=" + stylaWidget.slug + "&offset=0&limit=5";
+        stylaWidget.http.get(url).then(function (stories) {
+            var images = {};
+            stories = JSON.parse(stories);
+            stories.images.forEach(function (_i) {
+                images[_i.id] = _i;
+            });
+            stylaWidget.images = images;
+
+            var story = stories.stories.map(stylaWidget.buildStory);
+            assert.ok(story[0].nodeType === 1, "Story is a dom element");
+            assert.equal(story[0].className, stylaWidget.classes.STORY, "Story has correct class name");
+            buildStoryTest();
+        })["catch"](function (e) {
+            return console.log(e);
+        });
+    });
+
+    QUnit.test('buildStories', function (assert) {
+        var buildStoriesTest = assert.async();
+        var url = "https://www.amazine.com/api/feeds/user/" + stylaWidget.slug + "?domain=" + stylaWidget.slug + "&offset=0&limit=5";
+        stylaWidget.http.get(url).then(function (stories) {
+            var container = stylaWidget.buildStories(stories);
+            assert.ok(container.nodeType === 1, "Container is a dom element");
+            assert.equal(container.className, stylaWidget.classes.CONTAINER, "Container has correct class name");
+            buildStoriesTest();
+        })["catch"](function (e) {
+            return console.log(e);
+        });
+    });
+};
+
+exports["default"] = tests;
+module.exports = exports["default"];
+
+},{}],5:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -135,7 +183,7 @@ var tests = function tests(stylaWidget) {
 exports["default"] = tests;
 module.exports = exports["default"];
 
-},{}],5:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 
 /* global document, QUnit  */
 'use strict';

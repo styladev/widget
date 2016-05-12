@@ -192,6 +192,8 @@ var StylaWidget = (function () {
         }
         this.target = target;
 
+        this.http = _microbejsDistMicrobeHttpMin.http;
+        this.classes = _classesJs2['default'];
         this.slug = slug;
         this.tag = tag;
         this.domainConfigAPI = domainConfigAPI;

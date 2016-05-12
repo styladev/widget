@@ -1,6 +1,7 @@
 
 import versionTest      from './unit/versionTest';
 import stylingTest      from './unit/styling';
+import storiesTest      from './unit/stories';
 
 window.onload = function()
 {
@@ -10,5 +11,5 @@ window.onload = function()
 
     versionTest( widget );
     stylingTest( widget );
+    storiesTest( widget );
 };
-
