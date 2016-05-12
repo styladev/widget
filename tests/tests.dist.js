@@ -18,7 +18,7 @@ module.exports={
     "gulp": "./node_modules/.bin/gulp",
     "test": "node --harmony ./scripts/nightmare.js",
     "versionBump": "node ./scripts/version_bump.js",
-    "doc":"docker -o doc/ -i src --sidebar true --js dist/widget.js -c manni && cp ./doc/widget.js.html ./doc/index.html"
+    "doc":"docker -o dist/doc/ -i src --sidebar true --js dist/widget.js -c manni && cp ./dist/doc/widget.js.html ./dist/doc/index.html"
   },
   "devDependencies": {
     "babelify": "^6.3.0",
