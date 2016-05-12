@@ -4,6 +4,9 @@ The Styla Widget™ is a simple way to display stories from a Styla Magazine in 
 smaller format, anywhere on your site. A story in the widget functions as
 a teaser and will send the reader directly to the magazine when clicked on.
 
+Visit the <a href="http://static.styla.com/test/widget/">demo page</a> to see the
+widget in action.
+
 Using the Widget
 -----
 Setting up the widget requires only basic HTML knowledge. It's built to adapt
