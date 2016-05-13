@@ -6,7 +6,7 @@
  * Released under the MIT license
  * https://github.com/styladev/widget/license.md
  *
- * Date: Thu May 12 2016
+ * Date: Fri May 13 2016
  * */
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 (function (global){
@@ -26,7 +26,9 @@ module.exports = {
     IMAGE_WRAPPER: 'styla-widget__imagewrap',
     STORY: 'styla-widget__story',
     PARAGRAPH: 'styla-widget__paragraph',
-    STORY_LINK: 'styla-widget__link'
+    STORY_LINK: 'styla-widget__link',
+    BASE_STYLES: 'styla-widget__base-styling',
+    STYLES: 'styla-widget__styling'
 };
 
 },{}],3:[function(require,module,exports){
@@ -216,7 +218,7 @@ var StylaWidget = (function () {
         *
         * @param {Object} domain configuration of magazine
         *
-        * @return _Object_ style element
+        * @return _DOMElement_ style element
         */
         value: function buildStyles(domainConfig) {
             var theme = domainConfig.theme;
@@ -239,7 +241,7 @@ var StylaWidget = (function () {
         value: function buildStyleTag(css) {
             var el = document.createElement('style');
             el.type = 'text/css';
-            el.id = 'styla-widget__styling';
+            el.className = _classesJs2['default'].STYLES;
 
             var t = document.createTextNode(css);
             el.appendChild(t);
@@ -324,6 +326,7 @@ var StylaWidget = (function () {
          */
         value: function includeBaseStyles() {
             var el = this.buildStyleTag(baseStyles);
+            el.className = _classesJs2['default'].BASE_STYLES;
             document.head.appendChild(el);
 
             return el;

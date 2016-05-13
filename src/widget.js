@@ -169,7 +169,7 @@ class StylaWidget
     *
     * @param {Object} domain configuration of magazine
     *
-    * @return _Object_ style element
+    * @return _DOMElement_ style element
     */
     buildStyles( domainConfig )
     {
@@ -213,9 +213,9 @@ class StylaWidget
     */
     buildStyleTag( css )
     {
-        let el  = document.createElement( 'style' );
-        el.type = 'text/css';
-        el.id   = `styla-widget__styling`
+        let el          = document.createElement( `style` );
+        el.type         = `text/css`;
+        el.className    = classes.STYLES;
 
         let t   = document.createTextNode( css );
         el.appendChild( t );
@@ -300,6 +300,7 @@ class StylaWidget
     includeBaseStyles()
     {
         let el = this.buildStyleTag( baseStyles );
+        el.className = classes.BASE_STYLES;
         document.head.appendChild( el );
 
         return el;

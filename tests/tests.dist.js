@@ -67,13 +67,9 @@ var _unitVersionTest = require('./unit/versionTest');
 
 var _unitVersionTest2 = _interopRequireDefault(_unitVersionTest);
 
-var _unitStyling = require('./unit/styling');
+var _unitWidgetTest = require('./unit/widgetTest');
 
-var _unitStyling2 = _interopRequireDefault(_unitStyling);
-
-var _unitStories = require('./unit/stories');
-
-var _unitStories2 = _interopRequireDefault(_unitStories);
+var _unitWidgetTest2 = _interopRequireDefault(_unitWidgetTest);
 
 window.onload = function () {
     var widget = window.stylaWidget.instance;
@@ -81,109 +77,10 @@ window.onload = function () {
     document.getElementsByTagName('TITLE')[0].textContent = 'StylaWidget - ' + widget.version;
 
     (0, _unitVersionTest2['default'])(widget);
-    (0, _unitStyling2['default'])(widget);
-    (0, _unitStories2['default'])(widget);
+    (0, _unitWidgetTest2['default'])(widget);
 };
 
-},{"./unit/stories":4,"./unit/styling":5,"./unit/versionTest":6}],4:[function(require,module,exports){
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-var tests = function tests(stylaWidget) {
-    QUnit.test('buildStory', function (assert) {
-        var buildStoryTest = assert.async();
-        var url = "https://www.amazine.com/api/feeds/user/" + stylaWidget.slug + "?domain=" + stylaWidget.slug + "&offset=0&limit=5";
-        stylaWidget.http.get(url).then(function (stories) {
-            var images = {};
-            stories = JSON.parse(stories);
-            stories.images.forEach(function (_i) {
-                images[_i.id] = _i;
-            });
-            stylaWidget.images = images;
-
-            var story = stories.stories.map(stylaWidget.buildStory);
-            assert.ok(story[0].nodeType === 1, "Story is a dom element");
-            assert.equal(story[0].className, stylaWidget.classes.STORY, "Story has correct class name");
-            buildStoryTest();
-        })["catch"](function (e) {
-            return console.log(e);
-        });
-    });
-
-    QUnit.test('buildStories', function (assert) {
-        var buildStoriesTest = assert.async();
-        var url = "https://www.amazine.com/api/feeds/user/" + stylaWidget.slug + "?domain=" + stylaWidget.slug + "&offset=0&limit=5";
-        stylaWidget.http.get(url).then(function (stories) {
-            var container = stylaWidget.buildStories(stories);
-            assert.ok(container.nodeType === 1, "Container is a dom element");
-            assert.equal(container.className, stylaWidget.classes.CONTAINER, "Container has correct class name");
-            buildStoriesTest();
-        })["catch"](function (e) {
-            return console.log(e);
-        });
-    });
-};
-
-exports["default"] = tests;
-module.exports = exports["default"];
-
-},{}],5:[function(require,module,exports){
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-var domainConfig = {
-    "embed": {
-        customFontUrl: "//fonts.googleapis.com/css?family=Roboto:400,400italic,700"
-    },
-    "theme": {
-        "hff": "Helvetica",
-        "hfw": "700",
-        "hfsc": "1em",
-        "hfs": "normal",
-        "htd": "none",
-        "hls": "0em",
-        "htc": "#000000",
-        "htt": "none",
-        "sff": "Helvetica",
-        "sfw": "200",
-        "stc": "#000000",
-        "strm": "…",
-        "strmw": "inherit",
-        "strmd": "none",
-
-        "hfsi": "48px"
-    }
-};
-
-var tests = function tests(stylaWidget) {
-    QUnit.test('elementExists', function (assert) {
-        var styleNode = stylaWidget.buildStyles(domainConfig);
-        assert.ok(styleNode);
-        assert.ok(styleNode.type);
-        assert.equal(styleNode.type, 'text/css');
-    });
-
-    QUnit.test('stylesCorrect', function (assert) {
-        var styleNode = stylaWidget.buildStyles(domainConfig);
-        var styleString = ".styla-widget__headline\n            {\n                font-family:        Helvetica;\n                font-weight:        700;\n                font-style:         normal;\n                text-decoration:    none;\n                letter-spacing:     0em;\n                color:              #000000\n            }\n            .styla-widget__paragraph\n            {\n                font-family:        Helvetica;\n                font-weight:        200;\n                color:              #000000\n            }\n            .styla-widget__paragraph:after\n            {\n                content:            '…';\n                font-weight:        inherit;\n                text-decoration:    none\n            }\n\n        ";
-        assert.equal(styleNode.innerHTML.replace(/\s/g, ''), styleString.replace(/\s/g, ''));
-    });
-
-    QUnit.test('fontImport', function (assert) {
-        var fontNode = stylaWidget.includeFonts(domainConfig);
-        assert.ok(fontNode);
-        assert.equal(fontNode.href.replace(/^[a-z]+:\/\//i, '//'), '//fonts.googleapis.com/css?family=Roboto:400,400italic,700');
-    });
-};
-
-exports["default"] = tests;
-module.exports = exports["default"];
-
-},{}],6:[function(require,module,exports){
+},{"./unit/versionTest":4,"./unit/widgetTest":5}],4:[function(require,module,exports){
 
 /* global document, QUnit  */
 'use strict';
@@ -221,4 +118,128 @@ var tests = function tests(stylaWidget) {
 exports['default'] = tests;
 module.exports = exports['default'];
 
-},{"../../package.json":1,"../../src/version.js":2}]},{},[3]);
+},{"../../package.json":1,"../../src/version.js":2}],5:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+    value: true
+});
+var tests = function tests(stylaWidget) {
+    QUnit.module('widget.js');
+
+    QUnit.test('buildStories', function (assert) {
+        var buildStoriesTest = assert.async();
+        var url = 'https://www.amazine.com/api/feeds/user/' + stylaWidget.slug + '?domain=' + stylaWidget.slug + '&offset=0&limit=5';
+        stylaWidget.http.get(url).then(function (stories) {
+            var container = stylaWidget.buildStories(stories);
+            assert.ok(container.nodeType === 1, 'Container is a dom element');
+            assert.equal(container.className, stylaWidget.classes.CONTAINER, 'Container has correct class name');
+            buildStoriesTest();
+        })['catch'](function (e) {
+            return console.log(e);
+        });
+    });
+
+    QUnit.test('buildStory', function (assert) {
+        var buildStoryTest = assert.async();
+        var url = 'https://www.amazine.com/api/feeds/user/' + stylaWidget.slug + '?domain=' + stylaWidget.slug + '&offset=0&limit=5';
+        stylaWidget.http.get(url).then(function (stories) {
+            var images = {};
+            stories = JSON.parse(stories);
+            stories.images.forEach(function (_i) {
+                images[_i.id] = _i;
+            });
+            stylaWidget.images = images;
+
+            var story = stories.stories.map(stylaWidget.buildStory);
+            assert.ok(story[0].nodeType === 1, 'Story is a dom element');
+            assert.equal(story[0].className, stylaWidget.classes.STORY, 'Story has correct class name');
+            buildStoryTest();
+        })['catch'](function (e) {
+            return console.log(e);
+        });
+    });
+
+    QUnit.test('buildStyles', function (assert) {
+        var buildStyles = assert.async();
+
+        stylaWidget.http.get(stylaWidget.domainConfigAPI + stylaWidget.slug).then(function (domainConfig) {
+            domainConfig = JSON.parse(domainConfig);
+
+            var el = stylaWidget.buildStyles(domainConfig);
+
+            assert.ok(el.nodeType === 1, 'Styles is a dom element');
+            assert.equal(el.textContent[0], '.', 'Styles css is set');
+            buildStyles();
+        })['catch'](function (e) {
+            return console.log(e);
+        });
+    });
+
+    QUnit.test('buildStyleTag', function (assert) {
+        var el = stylaWidget.buildStyleTag('moon');
+
+        assert.ok(el.nodeType === 1, 'StyleTag is a dom element');
+        assert.equal(el.tagName, 'STYLE', 'StyleTag is a style tag');
+        assert.equal(el.className, stylaWidget.classes.STYLES, 'StyleTag class is set');
+        assert.equal(el.type, 'text/css', 'StyleTag is a css tag');
+    });
+
+    QUnit.test('create', function (assert) {
+        var el = stylaWidget.create('moon', 'doge');
+
+        assert.ok(el.nodeType === 1, 'element is a dom element');
+        assert.equal(el.tagName, 'MOON', 'element is a style tag');
+        assert.equal(el.className, 'doge', 'element has the correct class');
+    });
+
+    QUnit.test('getDescription', function (assert) {
+        var _arr = [{ type: 'moon' }, { type: 'text', content: 'doge' }, { type: 'moon' }, { type: 'moon' }];
+
+        var text = stylaWidget.getDescription(_arr);
+
+        assert.equal(text, 'doge');
+    });
+
+    QUnit.test('getImageUrl', function (assert) {
+        var url = stylaWidget.getImageUrl('moon', 399);
+
+        assert.equal(url, '//img.styla.com/resizer/sfh_399x0/_moon?still');
+    });
+
+    QUnit.test('includeBaseStyles', function (assert) {
+        var el = stylaWidget.includeBaseStyles();
+
+        assert.ok(el.nodeType === 1, 'StyleTag is a dom element');
+        assert.equal(el.tagName, 'STYLE', 'StyleTag is a style tag');
+        assert.equal(el.className, stylaWidget.classes.BASE_STYLES, 'StyleTag class is set');
+        assert.equal(el.type, 'text/css', 'StyleTag is a css tag');
+        assert.equal(el.parentNode, document.head, 'StyleTag is mounted correctly');
+        assert.equal(el.textContent.indexOf('#styla-widget'), 0, 'StyleTag contains the correct info');
+    });
+
+    QUnit.test('includeFonts', function (assert) {
+        var buildStyles = assert.async();
+
+        stylaWidget.http.get(stylaWidget.domainConfigAPI + stylaWidget.slug).then(function (domainConfig) {
+            domainConfig = JSON.parse(domainConfig);
+
+            var el = stylaWidget.includeFonts(domainConfig);
+
+            assert.ok(el.nodeType === 1, 'Font tag is a dom element');
+            assert.equal(el.tagName, 'LINK', 'font tag is a style tag');
+            assert.equal(el.rel, 'stylesheet', 'font tag class is set');
+            assert.equal(el.type, 'text/css', 'font tag is a css tag');
+            assert.equal(el.href, window.location.protocol + domainConfig.embed.customFontUrl, 'font tag points to the right css');
+
+            buildStyles();
+        })['catch'](function (e) {
+            return console.log(e);
+        });
+    });
+};
+
+exports['default'] = tests;
+module.exports = exports['default'];
+
+},{}]},{},[3]);
