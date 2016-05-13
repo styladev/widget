@@ -1,5 +1,5 @@
 /*!
- * Styla bite-sized widget v0.1.4
+ * Styla bite-sized widget v0.1.5
  * https://github.com/styladev/widget
  *
  * Copyright 2016 Styla GmbH and other contributors
@@ -26,13 +26,15 @@ module.exports = {
     IMAGE_WRAPPER: 'styla-widget__imagewrap',
     STORY: 'styla-widget__story',
     PARAGRAPH: 'styla-widget__paragraph',
-    STORY_LINK: 'styla-widget__link'
+    STORY_LINK: 'styla-widget__link',
+    BASE_STYLES: 'styla-widget__base-styling',
+    STYLES: 'styla-widget__styling'
 };
 
 },{}],3:[function(require,module,exports){
 'use strict';
 
-module.exports = '0.1.4';
+module.exports = '0.1.5';
 
 },{}],4:[function(require,module,exports){
 
@@ -228,7 +230,7 @@ var StylaWidget = (function () {
         *
         * @param {Object} domain configuration of magazine
         *
-        * @return _Object_ style element
+        * @return _DOMElement_ style element
         */
         value: function buildStyles(domainConfig) {
             var theme = domainConfig.theme;
@@ -251,7 +253,7 @@ var StylaWidget = (function () {
         value: function buildStyleTag(css) {
             var el = document.createElement('style');
             el.type = 'text/css';
-            el.id = 'styla-widget__styling';
+            el.className = _classesJs2['default'].STYLES;
 
             var t = document.createTextNode(css);
             el.appendChild(t);
@@ -336,6 +338,7 @@ var StylaWidget = (function () {
          */
         value: function includeBaseStyles() {
             var el = this.buildStyleTag(baseStyles);
+            el.className = _classesJs2['default'].BASE_STYLES;
             document.head.appendChild(el);
 
             return el;

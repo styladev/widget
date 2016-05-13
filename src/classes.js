@@ -8,5 +8,7 @@ module.exports = {
     IMAGE_WRAPPER       : 'styla-widget__imagewrap',
     STORY               : 'styla-widget__story',
     PARAGRAPH           : 'styla-widget__paragraph',
-    STORY_LINK          : 'styla-widget__link'
+    STORY_LINK          : 'styla-widget__link',
+    BASE_STYLES         : 'styla-widget__base-styling',
+    STYLES              : 'styla-widget__styling'
 };

@@ -1,7 +1,6 @@
 
 import versionTest      from './unit/versionTest';
-import stylingTest      from './unit/styling';
-import storiesTest      from './unit/stories';
+import widgetTest       from './unit/widgetTest';
 
 window.onload = function()
 {
@@ -10,6 +9,5 @@ window.onload = function()
     document.getElementsByTagName( 'TITLE' )[0].textContent = 'StylaWidget - ' + widget.version;
 
     versionTest( widget );
-    stylingTest( widget );
-    storiesTest( widget );
+    widgetTest( widget );
 };
