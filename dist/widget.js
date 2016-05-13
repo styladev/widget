@@ -6,7 +6,7 @@
  * Released under the MIT license
  * https://github.com/styladev/widget/license.md
  *
- * Date: Thu May 12 2016
+ * Date: Fri May 13 2016
  * */
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 (function (global){
@@ -107,7 +107,13 @@ var StylaWidget = (function () {
             wrapper.id = wrapperID;
 
             var _buildStories = function _buildStories(domainConfig) {
+
                 _this.domainConfig = domainConfig = JSON.parse(domainConfig);
+
+                if (Object.keys(_this.domainConfig).length === 0) {
+                    throw "Styla Widget error: Could not find magazine, please check if slug is configured correctly.";
+                };
+
                 var domainConfigEmbed = domainConfig.embed;
                 _this.domain = domainConfigEmbed.magazineUrl + '/' + domainConfigEmbed.rootPath;
                 var styling = _this.buildStyles(domainConfig);
@@ -189,6 +195,12 @@ var StylaWidget = (function () {
 
         if (typeof target === 'string') {
             target = document.querySelector(target);
+            if (typeof target === 'undefined' || target === null) {
+                console.log("%c Styla Widget error: Can't find target element in DOM. Widget will render directly in body", 'color: red');
+                target = document.body;
+            } else if (target.offsetWidth < 250) {
+                throw "Styla Widget error: Target element too small to render widget ¯\\_(ツ)_/¯";
+            }
         }
         this.target = target;
 

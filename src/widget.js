@@ -36,6 +36,15 @@ class StylaWidget
         if ( typeof target === 'string' )
         {
             target = document.querySelector( target );
+            if ( typeof target === 'undefined' || target === null )
+            {
+                console.log( "%c Styla Widget error: Can't find target element in DOM. Widget will render directly in body", 'color: red' )
+                target = document.body
+            }
+            else if ( target.offsetWidth < 250 )
+            {
+                throw "Styla Widget error: Target element too small to render widget ¯\\_(ツ)_/¯"
+            }
         }
         this.target             = target;
 
@@ -74,7 +83,14 @@ class StylaWidget
 
         let _buildStories = domainConfig =>
         {
+
             this.domainConfig       = domainConfig = JSON.parse( domainConfig );
+
+            if ( Object.keys( this.domainConfig ).length === 0 )
+            {
+                throw "Styla Widget error: Could not find magazine, please check if slug is configured correctly."
+            };
+
             let domainConfigEmbed   = domainConfig.embed;
             this.domain             = domainConfigEmbed.magazineUrl + '/' +
                                         domainConfigEmbed.rootPath;
