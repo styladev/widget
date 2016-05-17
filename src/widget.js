@@ -58,14 +58,14 @@ class StylaWidget
         let url  = tag ? `https://www.amazine.com/api/feeds/userTag/${slug}/tag/${tag}?offset=${offset}&limit=${limit}&domain=${slug}` :
                         `https://www.amazine.com/api/feeds/user/${slug}?domain=${slug}&offset=${offset}&limit=${limit}`;
 
-        http.get( url ).then( this.buildStories );
+        http.get( url ).then( this.getDomainConfig );
 
         return this;
-    };
+    }
 
 
     /**
-     * ## buildStories
+     * ## getDomainConfig
      *
      * after recieving the story data, this parses and build the individual
      * stories
@@ -74,56 +74,46 @@ class StylaWidget
      *
      * @return _DOMElement_ container element
      */
-    buildStories = stories =>
+    buildStories = domainConfig =>
     {
-        stories         = JSON.parse( stories );
-        let container   = this.container    = this.create( 'DIV', classes.CONTAINER );
-        let wrapper     = this.wrapper      = this.create( 'DIV', classes.WRAPPER );
-        wrapper.id      = wrapperID;
+        this.domainConfig       = domainConfig = JSON.parse( domainConfig );
 
-        let _buildStories = domainConfig =>
+        let stories             = this.stories;
+
+        if ( Object.keys( domainConfig ).length === 0 )
         {
-
-            this.domainConfig       = domainConfig = JSON.parse( domainConfig );
-
-            if ( Object.keys( this.domainConfig ).length === 0 )
-            {
-                throw "Styla Widget error: Could not find magazine, please check if slug is configured correctly."
-            };
-
-            let domainConfigEmbed   = domainConfig.embed;
-            this.domain             = domainConfigEmbed.magazineUrl + '/' +
-                                        domainConfigEmbed.rootPath;
-            let styling             = this.buildStyles( domainConfig );
-
-            let head                = document.head;
-
-            this.includeBaseStyles( head );
-
-            if ( domainConfig.embed.customFontUrl )
-            {
-                this.includeFonts( domainConfig, head );
-            };
-
-            let images      = {};
-            let resImages   = stories.images;
-
-            if ( resImages )
-            {
-                resImages.forEach( function( _i ){ images[ _i.id ] = _i; });
-
-                this.images = images;
-                let _els    = stories.stories.map( this.buildStory );
-
-                document.head.appendChild( styling );
-                this.target.appendChild( wrapper );
-            }
+            throw "Styla Widget error: Could not find magazine, please check if slug is configured correctly."
         };
 
-        http.get( this.domainConfigAPI + this.slug ).then( _buildStories ).catch( _reportError );
+        let domainConfigEmbed   = domainConfig.embed;
+        this.domain             = domainConfigEmbed.magazineUrl + '/' +
+                                    domainConfigEmbed.rootPath;
+        let styling             = this.compileStyles( domainConfig );
 
-        return container;
-    };
+        let head                = document.head;
+
+        this.includeBaseStyles( head );
+
+        if ( domainConfig.embed.customFontUrl )
+        {
+            this.includeFonts( domainConfig, head );
+        };
+
+        let images      = {};
+        let resImages   = stories.images;
+
+        if ( resImages )
+        {
+            resImages.forEach( function( _i ){ images[ _i.id ] = _i; });
+
+            this.images = images;
+            let _els    = stories.stories.map( this.buildStory );
+
+            document.head.appendChild( styling );
+            this.target.appendChild( this.wrapper );
+        }
+    }
+
 
 
     /**
@@ -150,7 +140,7 @@ class StylaWidget
         let id                  = images[0].id;
         let imgObj              = this.images[ id ];
 
-        storyLink.href          = '//' + this.domain + 'story/' + externalPermalink + '/';
+        storyLink.href          = '//' + this.domain + '/story/' + externalPermalink + '/';
         image.src               = this.getImageUrl( imgObj.fileName, 400 );
         image.alt               = imgObj.caption || title;
         image.title             = title;
@@ -175,19 +165,41 @@ class StylaWidget
         this.wrapper.appendChild( container );
 
         return story;
-    };
+    }
 
 
     /**
-    * ## buildStyles
-    *
-    * builds the styles
-    *
-    * @param {Object} domain configuration of magazine
-    *
-    * @return _DOMElement_ style element
-    */
-    buildStyles( domainConfig )
+     * ## buildStyleTag
+     *
+     * builds a style tag and appends it to the DOM
+     *
+     * @param {Object} domain configuration of magazine
+     *
+     * @return _DOMElement_ style element
+     */
+    buildStyleTag( css )
+    {
+        let el          = document.createElement( `style` );
+        el.type         = `text/css`;
+        el.className    = classes.STYLES;
+
+        let t   = document.createTextNode( css );
+        el.appendChild( t );
+
+        return el;
+    }
+
+
+    /**
+     * ## compileStyles
+     *
+     * compiles the styles and returns them added to the style tag
+     *
+     * @param {Object} domain configuration of magazine
+     *
+     * @return _DOMElement_ style element
+     */
+    compileStyles( domainConfig )
     {
         let theme   = domainConfig.theme;
         let css     =
@@ -215,29 +227,7 @@ class StylaWidget
             `;
 
         return this.buildStyleTag( css );
-    };
-
-
-    /**
-    * ## buildStyleTag
-    *
-    * builds a style tag and appends it to the DOM
-    *
-    * @param {Object} domain configuration of magazine
-    *
-    * @return _DOMElement_ style element
-    */
-    buildStyleTag( css )
-    {
-        let el          = document.createElement( `style` );
-        el.type         = `text/css`;
-        el.className    = classes.STYLES;
-
-        let t   = document.createTextNode( css );
-        el.appendChild( t );
-
-        return el;
-    };
+    }
 
 
     /**
@@ -260,7 +250,7 @@ class StylaWidget
         }
 
         return _el;
-    };
+    }
 
 
     /**
@@ -287,7 +277,30 @@ class StylaWidget
         }
 
         return text.content;
-    };
+    }
+
+
+    /**
+     * ## getDomainConfig
+     *
+     * after recieving the story data this sends it to buildStories for
+     * processing
+     *
+     * @param {String} res JSON response from the product api
+     *
+     * @return _DOMElement_ container element
+     */
+    getDomainConfig = stories =>
+    {
+        this.stories    = JSON.parse( stories );
+        let container   = this.container    = this.create( 'DIV', classes.CONTAINER );
+        let wrapper     = this.wrapper      = this.create( 'DIV', classes.WRAPPER );
+        wrapper.id      = wrapperID;
+
+        http.get( this.domainConfigAPI + this.slug ).then( this.buildStories ).catch( _reportError );
+
+        return container;
+    }
 
 
     /**
@@ -303,7 +316,7 @@ class StylaWidget
     getImageUrl( filename, size = 400 )
     {
         return `//img.styla.com/resizer/sfh_${size}x0/_${filename}?still`;
-    };
+    }
 
 
     /**
@@ -320,7 +333,7 @@ class StylaWidget
         document.head.appendChild( el );
 
         return el;
-    };
+    }
 
 
     /**
@@ -342,7 +355,7 @@ class StylaWidget
         document.head.appendChild( el );
 
         return el;
-    };
+    }
 };
 
 if ( ! window.stylaWidget )

@@ -1,12 +1,12 @@
 /*!
- * Styla bite-sized widget v0.1.5
+ * Styla bite-sized widget v0.1.6
  * https://github.com/styladev/widget
  *
  * Copyright 2016 Styla GmbH and other contributors
  * Released under the MIT license
  * https://github.com/styladev/widget/license.md
  *
- * Date: Fri May 13 2016
+ * Date: Tue May 17 2016
  * */
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 (function (global){
@@ -34,7 +34,7 @@ module.exports = {
 },{}],3:[function(require,module,exports){
 'use strict';
 
-module.exports = '0.1.5';
+module.exports = '0.1.6';
 
 },{}],4:[function(require,module,exports){
 
@@ -102,51 +102,52 @@ var StylaWidget = (function () {
 
         _classCallCheck(this, StylaWidget);
 
-        this.buildStories = function (stories) {
-            stories = JSON.parse(stories);
+        this.getDomainConfig = function (stories) {
+            _this.stories = JSON.parse(stories);
             var container = _this.container = _this.create('DIV', _classesJs2['default'].CONTAINER);
             var wrapper = _this.wrapper = _this.create('DIV', _classesJs2['default'].WRAPPER);
             wrapper.id = wrapperID;
 
-            var _buildStories = function _buildStories(domainConfig) {
-
-                _this.domainConfig = domainConfig = JSON.parse(domainConfig);
-
-                if (Object.keys(_this.domainConfig).length === 0) {
-                    throw "Styla Widget error: Could not find magazine, please check if slug is configured correctly.";
-                };
-
-                var domainConfigEmbed = domainConfig.embed;
-                _this.domain = domainConfigEmbed.magazineUrl + '/' + domainConfigEmbed.rootPath;
-                var styling = _this.buildStyles(domainConfig);
-
-                var head = document.head;
-
-                _this.includeBaseStyles(head);
-
-                if (domainConfig.embed.customFontUrl) {
-                    _this.includeFonts(domainConfig, head);
-                };
-
-                var images = {};
-                var resImages = stories.images;
-
-                if (resImages) {
-                    resImages.forEach(function (_i) {
-                        images[_i.id] = _i;
-                    });
-
-                    _this.images = images;
-                    var _els = stories.stories.map(_this.buildStory);
-
-                    document.head.appendChild(styling);
-                    _this.target.appendChild(wrapper);
-                }
-            };
-
-            _microbejsDistMicrobeHttpMin.http.get(_this.domainConfigAPI + _this.slug).then(_buildStories)['catch'](_reportError);
+            _microbejsDistMicrobeHttpMin.http.get(_this.domainConfigAPI + _this.slug).then(_this.buildStories)['catch'](_reportError);
 
             return container;
+        };
+
+        this.buildStories = function (domainConfig) {
+            _this.domainConfig = domainConfig = JSON.parse(domainConfig);
+
+            var stories = _this.stories;
+
+            if (Object.keys(domainConfig).length === 0) {
+                throw "Styla Widget error: Could not find magazine, please check if slug is configured correctly.";
+            };
+
+            var domainConfigEmbed = domainConfig.embed;
+            _this.domain = domainConfigEmbed.magazineUrl + '/' + domainConfigEmbed.rootPath;
+            var styling = _this.compileStyles(domainConfig);
+
+            var head = document.head;
+
+            _this.includeBaseStyles(head);
+
+            if (domainConfig.embed.customFontUrl) {
+                _this.includeFonts(domainConfig, head);
+            };
+
+            var images = {};
+            var resImages = stories.images;
+
+            if (resImages) {
+                resImages.forEach(function (_i) {
+                    images[_i.id] = _i;
+                });
+
+                _this.images = images;
+                var _els = stories.stories.map(_this.buildStory);
+
+                document.head.appendChild(styling);
+                _this.target.appendChild(_this.wrapper);
+            }
         };
 
         this.buildStory = function (_ref2) {
@@ -168,7 +169,7 @@ var StylaWidget = (function () {
             var id = images[0].id;
             var imgObj = _this.images[id];
 
-            storyLink.href = '//' + _this.domain + 'story/' + externalPermalink + '/';
+            storyLink.href = '//' + _this.domain + '/story/' + externalPermalink + '/';
             image.src = _this.getImageUrl(imgObj.fileName, 400);
             image.alt = imgObj.caption || title;
             image.title = title;
@@ -215,41 +216,34 @@ var StylaWidget = (function () {
 
         var url = tag ? 'https://www.amazine.com/api/feeds/userTag/' + slug + '/tag/' + tag + '?offset=' + offset + '&limit=' + limit + '&domain=' + slug : 'https://www.amazine.com/api/feeds/user/' + slug + '?domain=' + slug + '&offset=' + offset + '&limit=' + limit;
 
-        _microbejsDistMicrobeHttpMin.http.get(url).then(this.buildStories);
+        _microbejsDistMicrobeHttpMin.http.get(url).then(this.getDomainConfig);
 
         return this;
     }
 
+    /**
+     * ## getDomainConfig
+     *
+     * after recieving the story data this sends it to buildStories for
+     * processing
+     *
+     * @param {String} res JSON response from the product api
+     *
+     * @return _DOMElement_ container element
+     */
+
     _createClass(StylaWidget, [{
-        key: 'buildStyles',
-
-        /**
-        * ## buildStyles
-        *
-        * builds the styles
-        *
-        * @param {Object} domain configuration of magazine
-        *
-        * @return _DOMElement_ style element
-        */
-        value: function buildStyles(domainConfig) {
-            var theme = domainConfig.theme;
-            var css = '.' + _classesJs2['default'].HEADLINE + '\n            {\n                font-family:        ' + theme.hff + ';\n                font-weight:        ' + theme.hfw + ';\n                font-style:         ' + theme.hfs + ';\n                text-decoration:    ' + theme.htd + ';\n                letter-spacing:     ' + theme.hls + ';\n                color:              ' + theme.htc + '\n            }\n            .' + _classesJs2['default'].PARAGRAPH + '\n            {\n                font-family:        ' + theme.sff + ';\n                font-weight:        ' + theme.sfw + ';\n                color:              ' + theme.stc + '\n            }\n            .' + _classesJs2['default'].PARAGRAPH + ':after\n            {\n                content:            \'' + theme.strm + '\';\n                font-weight:        ' + theme.strmw + ';\n                text-decoration:    ' + theme.strmd + '\n            }\n            ';
-
-            return this.buildStyleTag(css);
-        }
-    }, {
         key: 'buildStyleTag',
 
         /**
-        * ## buildStyleTag
-        *
-        * builds a style tag and appends it to the DOM
-        *
-        * @param {Object} domain configuration of magazine
-        *
-        * @return _DOMElement_ style element
-        */
+         * ## buildStyleTag
+         *
+         * builds a style tag and appends it to the DOM
+         *
+         * @param {Object} domain configuration of magazine
+         *
+         * @return _DOMElement_ style element
+         */
         value: function buildStyleTag(css) {
             var el = document.createElement('style');
             el.type = 'text/css';
@@ -260,8 +254,24 @@ var StylaWidget = (function () {
 
             return el;
         }
+
+        /**
+         * ## compileStyles
+         *
+         * compiles the styles and returns them added to the style tag
+         *
+         * @param {Object} domain configuration of magazine
+         *
+         * @return _DOMElement_ style element
+         */
     }, {
-        key: 'create',
+        key: 'compileStyles',
+        value: function compileStyles(domainConfig) {
+            var theme = domainConfig.theme;
+            var css = '.' + _classesJs2['default'].HEADLINE + '\n            {\n                font-family:        ' + theme.hff + ';\n                font-weight:        ' + theme.hfw + ';\n                font-style:         ' + theme.hfs + ';\n                text-decoration:    ' + theme.htd + ';\n                letter-spacing:     ' + theme.hls + ';\n                color:              ' + theme.htc + '\n            }\n            .' + _classesJs2['default'].PARAGRAPH + '\n            {\n                font-family:        ' + theme.sff + ';\n                font-weight:        ' + theme.sfw + ';\n                color:              ' + theme.stc + '\n            }\n            .' + _classesJs2['default'].PARAGRAPH + ':after\n            {\n                content:            \'' + theme.strm + '\';\n                font-weight:        ' + theme.strmw + ';\n                text-decoration:    ' + theme.strmd + '\n            }\n            ';
+
+            return this.buildStyleTag(css);
+        }
 
         /**
          * ## create
@@ -273,6 +283,8 @@ var StylaWidget = (function () {
          *
          * @return _DOMElement_ newly created element
          */
+    }, {
+        key: 'create',
         value: function create(_tag, _class) {
             var _el = document.createElement(_tag.toUpperCase());
 
@@ -282,8 +294,6 @@ var StylaWidget = (function () {
 
             return _el;
         }
-    }, {
-        key: 'getDescription',
 
         /**
          * ## getDescription
@@ -295,6 +305,8 @@ var StylaWidget = (function () {
          *
          * @return _String or Boolean_ text content or false
          */
+    }, {
+        key: 'getDescription',
         value: function getDescription(_arr) {
             var i = arguments.length <= 1 || arguments[1] === undefined ? 0 : arguments[1];
 
@@ -308,8 +320,6 @@ var StylaWidget = (function () {
 
             return text.content;
         }
-    }, {
-        key: 'getImageUrl',
 
         /**
          * ## getImageUrl
@@ -321,13 +331,13 @@ var StylaWidget = (function () {
          *
          * @return _String_ file name
          */
+    }, {
+        key: 'getImageUrl',
         value: function getImageUrl(filename) {
             var size = arguments.length <= 1 || arguments[1] === undefined ? 400 : arguments[1];
 
             return '//img.styla.com/resizer/sfh_' + size + 'x0/_' + filename + '?still';
         }
-    }, {
-        key: 'includeBaseStyles',
 
         /**
          * ## includeBaseStyles
@@ -336,6 +346,8 @@ var StylaWidget = (function () {
          *
          * @return _DOMElement_ style tag
          */
+    }, {
+        key: 'includeBaseStyles',
         value: function includeBaseStyles() {
             var el = this.buildStyleTag(baseStyles);
             el.className = _classesJs2['default'].BASE_STYLES;
@@ -343,8 +355,6 @@ var StylaWidget = (function () {
 
             return el;
         }
-    }, {
-        key: 'includeFonts',
 
         /**
          * ## includeFonts
@@ -355,6 +365,8 @@ var StylaWidget = (function () {
          *
          * @return _DOMElement_ link element
          */
+    }, {
+        key: 'includeFonts',
         value: function includeFonts(domainConfig) {
             var el = document.createElement('link');
             el.type = 'text/css';
@@ -379,7 +391,7 @@ if (!window.stylaWidget) {
 window.stylaWidget.instance = new StylaWidget(window.stylaWidget);
 
 /**
- * ## buildStories
+ * ## getDomainConfig
  *
  * after recieving the story data, this parses and build the individual
  * stories

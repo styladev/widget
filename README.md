@@ -1,4 +1,4 @@
-Styla Widget  0.1.5
+Styla Widget  0.1.6
 ===================
 
 The Styla Widget™ is a simple way to display stories from a Styla Magazine in a
@@ -99,3 +99,15 @@ Need to report something? [hr](mailto:janine@styla.com)
 
 
 See a live example on the [demo page](http://static.styla.com/test/widget/)
+
+
+Change log
+==========
+
+0.1.6
+    + change log added
+    + fixed a bug where links were malformed missing a `/`
+
+
+
+

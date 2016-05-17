@@ -17,7 +17,7 @@ let tests = function( stylaWidget )
     } );
 
 
-    QUnit.test( 'buildStory', function( assert )
+    QUnit.test( 'getDomainCofig', function( assert )
     {
         let buildStoryTest = assert.async();
         let url = `https://www.amazine.com/api/feeds/user/${stylaWidget.slug}?domain=${stylaWidget.slug}&offset=0&limit=5`
@@ -28,7 +28,7 @@ let tests = function( stylaWidget )
             stories.images.forEach( function( _i ){ images[ _i.id ] = _i; });
             stylaWidget.images = images;
 
-            let story = stories.stories.map( stylaWidget.buildStory );
+            let story = stories.stories.map( stylaWidget.getDomainCofig );
             assert.ok ( story[0].nodeType === 1, 'Story is a dom element' );
             assert.equal ( story[0].className, stylaWidget.classes.STORY, 'Story has correct class name' );
             buildStoryTest();
