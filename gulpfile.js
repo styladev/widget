@@ -32,6 +32,8 @@ const licenceShort  = '/*! Styla Widget v' + version + ' | (c) ' + ( 2016 === ye
 
 gulp.task( 'browserifyFiles', function()
 {
+    gulp.start( [ 'css-min' ] );
+
     return browserify( './src/widget.js' )
         .transform( babelify, { stage : 0 } )
         .bundle()
@@ -87,5 +89,5 @@ gulp.task( 'css-min', function()
 
 gulp.task( 'default', function()
 {
-    gulp.start( [ 'css-min', 'browserifyFiles', 'min', 'buildTests' ] );
+    gulp.start( [ 'browserifyFiles', 'min', 'buildTests' ] );
 } );
