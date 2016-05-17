@@ -9,16 +9,17 @@
  */
 import version  from './version.js';
 import classes  from './classes.js';
+
 import { http } from 'microbejs/dist/microbe.http.min';
 
-const domainConfigAPI   = 'https://www.amazine.com/api/config/';
-const _reportError      = function( e ){ console.log( 'err', e ) };
+const domainConfigAPI   = `https://www.amazine.com/api/config/`;
+const _reportError      = function( e ){ console.log( `err`, e ) };
 
 /*
     exchanged for css in the gulp build
  */
-const baseStyles        = 'styla-widget-css-goes-here';
-const wrapperID         = 'styla-widget';
+const baseStyles        = `styla-widget-css-goes-here`;
+const wrapperID         = `styla-widget`;
 
 class StylaWidget
 {
@@ -31,23 +32,23 @@ class StylaWidget
      *
      * @return _Object_ this
      */
-    constructor( { slug = '', tag = false, limit = 5, offset = 0, target = document.body } )
+    constructor( { slug = ``, tag = false, limit = 5, offset = 0, target = document.body } )
     {
-        if ( typeof target === 'string' )
+        if ( typeof target === `string` )
         {
             target = document.querySelector( target );
-            if ( typeof target === 'undefined' || target === null )
+            if ( typeof target === `undefined` || target === null )
             {
-                console.log( "%c Styla Widget error: Can't find target element in DOM. Widget will render directly in body", 'color: red' )
+                console.log( `%c Styla Widget error: Can't find target element in DOM. Widget will render directly in body`, `color: red` );
                 target = document.body
             }
             else if ( target.offsetWidth < 250 )
             {
-                throw "Styla Widget error: Target element too small to render widget ¯\\_(ツ)_/¯"
+                throw `Styla Widget error: Target element too small to render widget ¯\\_(ツ)_/¯`;
             }
         }
-        this.target             = target;
 
+        this.target             = target;
         this.http               = http;
         this.classes            = classes;
         this.slug               = slug;
@@ -77,8 +78,8 @@ class StylaWidget
     buildHeadline( title )
     {
         let create              = this.create;
-        let headlineWrapper     = create( 'div', classes.HEADLINE_WRAPPER );
-        let headline            = create( 'h1',  classes.HEADLINE );
+        let headlineWrapper     = create( `div`, classes.HEADLINE_WRAPPER );
+        let headline            = create( `h1`,  classes.HEADLINE );
 
         headline.textContent    = title;
 
@@ -102,13 +103,14 @@ class StylaWidget
     buildImage( images, title )
     {
         let create              = this.create;
-        let imageWrapper        = create( 'div',    classes.IMAGE_WRAPPER );
+        let imageWrapper        = create( `div`, classes.IMAGE_WRAPPER );
         let id                  = images[0].id;
         let imgObj              = this.images[ id ];
-        let image               = create( 'img', classes.IMAGE );
+        let image               = create( `img`, classes.IMAGE );
         image.src               = this.getImageUrl( imgObj.fileName, 400 );
         image.alt               = imgObj.caption || title;
         image.title             = title;
+
         imageWrapper.appendChild( image );
 
         return imageWrapper;
@@ -121,17 +123,18 @@ class StylaWidget
      * after recieving the story data, this parses and build the individual
      * stories
      *
-     * @param {String} res JSON response from the product api
+     * @param {String} domainConfig JSON response from the product api
+     * @param {Object} parsedDomainConfig parsed JSON object for testing
      *
-     * @return _DOMElement_ container element
+     * @return _DOMElement_ wrapper element
      */
-    buildStories = domainConfig =>
+    buildStories = ( domainConfig, parsedDomainConfig ) =>
     {
-        this.domainConfig       = domainConfig = JSON.parse( domainConfig );
+        this.domainConfig       = domainConfig = parsedDomainConfig || JSON.parse( domainConfig );
 
         if ( Object.keys( domainConfig ).length === 0 )
         {
-            throw "Styla Widget error: Could not find magazine, please check if slug is configured correctly."
+            throw `Styla Widget error: Could not find magazine, please check if slug is configured correctly.`;
         }
 
         this.setDomain( domainConfig );
@@ -148,10 +151,13 @@ class StylaWidget
             this.images = images;
             let _els    = stories.stories.map( this.buildStory );
 
-            let styling             = this.compileStyles( domainConfig );
+            let styling = this.compileStyles( domainConfig );
+
             document.head.appendChild( styling );
             this.target.appendChild( this.wrapper );
         }
+
+        return this.wrapper;
     }
 
 
@@ -168,9 +174,9 @@ class StylaWidget
     {
         let create              = this.create;
 
-        let story               = create( 'div',    classes.STORY );
-        let storyLink           = create( 'a',      classes.STORY_LINK );
-        storyLink.href          = '//' + this.domain + '/story/' + externalPermalink + '/';
+        let story               = create( `div`,    classes.STORY );
+        let storyLink           = create( `a`,      classes.STORY_LINK );
+        storyLink.href          = `//${this.domain}/story/${externalPermalink}/`;
         story.appendChild( storyLink );
 
 
@@ -200,12 +206,12 @@ class StylaWidget
     buildStoryText( title, description )
     {
         let create          = this.create;
-        let textWrapper     = create( 'div',    classes.TEXT_WRAPPER );
+        let textWrapper     = create( `div`,    classes.TEXT_WRAPPER );
 
         let headlineWrapper = this.buildHeadline( title );
         textWrapper.appendChild( headlineWrapper );
 
-        let paragraph       = create( 'div',    classes.PARAGRAPH );
+        let paragraph       = create( `div`,    classes.PARAGRAPH );
         paragraph.innerHTML = this.getDescription( JSON.parse( description ) );
         paragraph.innerHTML = paragraph.textContent;
         textWrapper.appendChild( paragraph );
@@ -269,8 +275,7 @@ class StylaWidget
                 content:            '${theme.strm}';
                 font-weight:        ${theme.strmw};
                 text-decoration:    ${theme.strmd};
-            }
-            `;
+            }`;
 
         return this.buildStyleTag( css );
     }
@@ -317,7 +322,7 @@ class StylaWidget
         {
             return false
         }
-        else if ( text.type !== 'text' )
+        else if ( text.type !== `text` )
         {
             return this.getDescription( _arr, i + 1 );
         }
@@ -339,8 +344,8 @@ class StylaWidget
     getDomainConfig = stories =>
     {
         this.stories    = JSON.parse( stories );
-        let container   = this.container    = this.create( 'DIV', classes.CONTAINER );
-        let wrapper     = this.wrapper      = this.create( 'DIV', classes.WRAPPER );
+        let container   = this.container    = this.create( `DIV`, classes.CONTAINER );
+        let wrapper     = this.wrapper      = this.create( `DIV`, classes.WRAPPER );
         wrapper.id      = wrapperID;
 
         http.get( this.domainConfigAPI + this.slug ).then( this.buildStories ).catch( _reportError );
@@ -380,10 +385,12 @@ class StylaWidget
 
         head.appendChild( el );
 
-        if ( domainConfigEmbed.customFontUrl )
+        if ( domainConfig.embed.customFontUrl )
         {
             this.includeFonts( domainConfig, head );
         }
+
+        return el;
     }
 
 
@@ -398,9 +405,9 @@ class StylaWidget
      */
     includeFonts( domainConfig )
     {
-        let el  = document.createElement( 'link' );
-        el.type = 'text/css';
-        el.rel  = 'stylesheet';
+        let el  = document.createElement( `link` );
+        el.type = `text/css`;
+        el.rel  = `stylesheet`;
         el.href = domainConfig.embed.customFontUrl;
 
         document.head.appendChild( el );
@@ -414,13 +421,16 @@ class StylaWidget
      *
      * takes pieces of the domainConfig and builds the domain
      *
+     * @param {Object} domainConfig main config object
      *
+     * @return _String_ domain address
      */
-    setDomain( dominConfig )
+    setDomain( domainConfig )
     {
-        let domainConfigEmbed   = domainConfig.embed;
-        return this.domain      = domainConfigEmbed.magazineUrl + '/' +
-                                    domainConfigEmbed.rootPath;
+        let embed   = domainConfig.embed;
+        let domain  = this.domain = `${embed.magazineUrl}/${embed.rootPath}`;
+
+        return domain;
     }
 };
 
