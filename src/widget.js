@@ -65,7 +65,58 @@ class StylaWidget
 
 
     /**
-     * ## getDomainConfig
+     * ## buildHeadline
+     *
+     * builds the headline and headline wrapper and fills the wrapper with the
+     * element and text
+     *
+     * @param {String} title story headline
+     *
+     * @return _DOMElement_ headlineWrapper
+     */
+    buildHeadline( title )
+    {
+        let create              = this.create;
+        let headlineWrapper     = create( 'div', classes.HEADLINE_WRAPPER );
+        let headline            = create( 'h1',  classes.HEADLINE );
+
+        headline.textContent    = title;
+
+        headlineWrapper.appendChild( headline );
+
+        return headlineWrapper;
+    }
+
+
+    /**
+     * ## buildImage
+     *
+     * builds the headline and headline wrapper and fills the wrapper with the
+     * element and text
+     *
+     * @param {Array} images array of images from the product api
+     * @param {String} title story headline
+     *
+     * @return _DOMElement_ imageWrapper
+     */
+    buildImage( images, title )
+    {
+        let create              = this.create;
+        let imageWrapper        = create( 'div',    classes.IMAGE_WRAPPER );
+        let id                  = images[0].id;
+        let imgObj              = this.images[ id ];
+        let image               = create( 'img', classes.IMAGE );
+        image.src               = this.getImageUrl( imgObj.fileName, 400 );
+        image.alt               = imgObj.caption || title;
+        image.title             = title;
+        imageWrapper.appendChild( image );
+
+        return imageWrapper;
+    }
+
+
+    /**
+     * ## buildStories
      *
      * after recieving the story data, this parses and build the individual
      * stories
@@ -115,7 +166,6 @@ class StylaWidget
     }
 
 
-
     /**
      * ## buildStory
      *
@@ -128,36 +178,15 @@ class StylaWidget
     buildStory = ( { title, description, images, externalPermalink } ) =>
     {
         let create              = this.create;
+
         let story               = create( 'div',    classes.STORY );
         let storyLink           = create( 'a',      classes.STORY_LINK );
-        let imageWrapper        = create( 'div',    classes.IMAGE_WRAPPER );
-        let image               = create( 'img',    classes.IMAGE );
-        let textWrapper         = create( 'div',    classes.TEXT_WRAPPER );
-        let headlineWrapper     = create( 'div',    classes.HEADLINE_WRAPPER );
-        let headline            = create( 'h1',     classes.HEADLINE );
-        let paragraph           = create( 'div',    classes.PARAGRAPH );
-
-        let id                  = images[0].id;
-        let imgObj              = this.images[ id ];
-
         storyLink.href          = '//' + this.domain + '/story/' + externalPermalink + '/';
-        image.src               = this.getImageUrl( imgObj.fileName, 400 );
-        image.alt               = imgObj.caption || title;
-        image.title             = title;
-
-        headline.textContent    = title;
-
         story.appendChild( storyLink );
-        imageWrapper.appendChild( image )
-        storyLink.appendChild( imageWrapper );
-        storyLink.appendChild( textWrapper );
 
-        headlineWrapper.appendChild( headline );
-        textWrapper.appendChild( headlineWrapper );
 
-        paragraph.innerHTML     = this.getDescription( JSON.parse( description ) );
-        paragraph.innerHTML     = paragraph.textContent;
-        textWrapper.appendChild( paragraph );
+        storyLink.appendChild( this.buildImage( images, title ) );
+        storyLink.appendChild( this.buildStoryText( title, description ) );
 
         let container = this.container;
 
@@ -165,6 +194,34 @@ class StylaWidget
         this.wrapper.appendChild( container );
 
         return story;
+    }
+
+
+    /**
+     * ## buildStoryText
+     *
+     * builds the story text (including headline and content), combines them
+     * and returns the outer wrapper
+     *
+     * @param {String} title story headline
+     * @param {String} description copy of the story to be inserted
+     *
+     * @return _DOMElement_ style element
+     */
+    buildStoryText( title, description )
+    {
+        let create          = this.create;
+        let textWrapper     = create( 'div',    classes.TEXT_WRAPPER );
+
+        let headlineWrapper = this.buildHeadline( title );
+        textWrapper.appendChild( headlineWrapper );
+
+        let paragraph       = create( 'div',    classes.PARAGRAPH );
+        paragraph.innerHTML = this.getDescription( JSON.parse( description ) );
+        paragraph.innerHTML = paragraph.textContent;
+        textWrapper.appendChild( paragraph );
+
+        return textWrapper;
     }
 
 
@@ -210,19 +267,19 @@ class StylaWidget
                 font-style:         ${theme.hfs};
                 text-decoration:    ${theme.htd};
                 letter-spacing:     ${theme.hls};
-                color:              ${theme.htc}
+                color:              ${theme.htc};
             }
             .${classes.PARAGRAPH}
             {
                 font-family:        ${theme.sff};
                 font-weight:        ${theme.sfw};
-                color:              ${theme.stc}
+                color:              ${theme.stc};
             }
             .${classes.PARAGRAPH}:after
             {
                 content:            '${theme.strm}';
                 font-weight:        ${theme.strmw};
-                text-decoration:    ${theme.strmd}
+                text-decoration:    ${theme.strmd};
             }
             `;
 
@@ -306,7 +363,7 @@ class StylaWidget
     /**
      * ## getImageUrl
      *
-     * builds the image url
+     * uses the filename and size to create the full image url
      *
      * @param {String} filename from the image data object
      * @param {Number or String} size width to grab from the server
@@ -322,7 +379,7 @@ class StylaWidget
     /**
      * ## includeBaseStyles
      *
-     * includes the base styles.
+     * creates the base styles DOM element and adds it to the head
      *
      * @return _DOMElement_ style tag
      */
@@ -339,7 +396,7 @@ class StylaWidget
     /**
      * ## includeFonts
      *
-     * includes webfonts
+     * includes the webfonts link element
      *
      * @param {Object} domain configuration of magazine
      *
