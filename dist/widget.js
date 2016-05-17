@@ -72,7 +72,7 @@ var _reportError = function _reportError(e) {
 /*
     exchanged for css in the gulp build
  */
-var baseStyles = '#styla-widget p{margin:0}#styla-widget.styla-widget__wrapper{width:100%;height:100%}#styla-widget .styla-widget__container{box-sizing:border-box;position:relative;overflow:hidden;padding:1em 2em;height:100%;width:100%;min-height:14em;display:flex;flex-direction:column;flex-wrap:wrap;font-size:14px}#styla-widget .styla-widget__story{margin-bottom:1em;margin-right:2em;height:14em;position:relative;width:100%;flex-grow:1}#styla-widget .styla-widget__story:nth-child(even){text-align:right}#styla-widget .styla-widget__link{position:absolute;height:14em;top:50%;margin-top:-7em;width:100%;display:flex;align-items:center;text-decoration:none;color:inherit}#styla-widget .styla-widget__imagewrap{display:block;vertical-align:top;flex-grow:1;height:100%;margin:0 6% 0 0;flex:none;max-width:40%;float:left}#styla-widget .styla-widget__story:nth-child(even) .styla-widget__imagewrap{margin:0 0 0 6%;float:right;clear:both;order:2}#styla-widget .styla-widget__image{height:100%;max-width:100%;max-height:100%;object-fit:contain}#styla-widget .styla-widget__textwrap{display:block;flex-grow:1;max-height:100%;overflow:hidden;float:left}#styla-widget .styla-widget__story:nth-child(even) .styla-widget__textwrap{float:right}#styla-widget .styla-widget__headlinewrap{height:5em;display:flex;flex-direction:column;justify-content:flex-end}#styla-widget .styla-widget__headline{font-size:1.9em;line-height:1.2em;max-height:2.4em;overflow:hidden;margin:0 0 .25em;word-wrap:break-word;text-overflow:ellipsis;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2}#styla-widget .styla-widget__paragraph{font-size:1em;line-height:1.5em;max-height:calc(100% - 5em);overflow:hidden;position:relative;word-wrap:break-word}#styla-widget .styla-widget__paragraph:after{position:absolute;left:0;top:7.5em;display:block;background-color:#FFF;width:100%;height:2em}#styla-widget .styla-widget__paragraph p+p{display:none}';
+var baseStyles = '#styla-widget p{margin:0}#styla-widget.styla-widget__wrapper{width:100%;height:100%}#styla-widget .styla-widget__container{box-sizing:border-box;position:relative;overflow:hidden;padding:1em 2em;height:100%;width:100%;min-height:14em;display:flex;flex-direction:column;flex-wrap:wrap;font-size:14px}#styla-widget .styla-widget__story{margin-bottom:1em;margin-right:2em;height:14em;position:relative;width:100%;flex-grow:1}#styla-widget .styla-widget__story:nth-child(even){text-align:right}#styla-widget .styla-widget__link{position:absolute;height:14em;top:50%;margin-top:-7em;width:100%;display:flex;align-items:center;text-decoration:none;color:inherit}#styla-widget .styla-widget__imagewrap{display:block;vertical-align:top;flex-grow:1;height:100%;margin:0 6% 0 0;flex:none;max-width:40%;float:left}#styla-widget .styla-widget__story:nth-child(even) .styla-widget__imagewrap{margin:0 0 0 6%;float:right;clear:both;order:2}#styla-widget .styla-widget__image{height:100%;max-width:100%;max-height:100%;object-fit:contain}#styla-widget .styla-widget__textwrap{display:block;flex-grow:1;max-height:100%;overflow:hidden;float:left}#styla-widget .styla-widget__story:nth-child(even) .styla-widget__textwrap{float:right}#styla-widget .styla-widget__headlinewrap{height:5em;display:flex;flex-direction:column;justify-content:flex-end}#styla-widget .styla-widget__headline{font-size:1.9em;line-height:1.25em;max-height:2.5em;overflow:hidden;margin:0 0 .25em;word-wrap:break-word;text-overflow:ellipsis;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2}#styla-widget .styla-widget__paragraph{font-size:1em;line-height:1.5em;max-height:calc(100% - 5em);overflow:hidden;position:relative;word-wrap:break-word}#styla-widget .styla-widget__paragraph:after{position:absolute;left:0;top:7.5em;display:block;background-color:#FFF;width:100%;height:2em}#styla-widget .styla-widget__paragraph p+p{display:none}';
 var wrapperID = 'styla-widget';
 
 var StylaWidget = (function () {
@@ -101,17 +101,6 @@ var StylaWidget = (function () {
         var target = _ref$target === undefined ? document.body : _ref$target;
 
         _classCallCheck(this, StylaWidget);
-
-        this.getDomainConfig = function (stories) {
-            _this.stories = JSON.parse(stories);
-            var container = _this.container = _this.create('DIV', _classesJs2['default'].CONTAINER);
-            var wrapper = _this.wrapper = _this.create('DIV', _classesJs2['default'].WRAPPER);
-            wrapper.id = wrapperID;
-
-            _microbejsDistMicrobeHttpMin.http.get(_this.domainConfigAPI + _this.slug).then(_this.buildStories)['catch'](_reportError);
-
-            return container;
-        };
 
         this.buildStories = function (domainConfig) {
             _this.domainConfig = domainConfig = JSON.parse(domainConfig);
@@ -196,6 +185,17 @@ var StylaWidget = (function () {
             return story;
         };
 
+        this.getDomainConfig = function (stories) {
+            _this.stories = JSON.parse(stories);
+            var container = _this.container = _this.create('DIV', _classesJs2['default'].CONTAINER);
+            var wrapper = _this.wrapper = _this.create('DIV', _classesJs2['default'].WRAPPER);
+            wrapper.id = wrapperID;
+
+            _microbejsDistMicrobeHttpMin.http.get(_this.domainConfigAPI + _this.slug).then(_this.buildStories)['catch'](_reportError);
+
+            return container;
+        };
+
         if (typeof target === 'string') {
             target = document.querySelector(target);
             if (typeof target === 'undefined' || target === null) {
@@ -224,8 +224,8 @@ var StylaWidget = (function () {
     /**
      * ## getDomainConfig
      *
-     * after recieving the story data this sends it to buildStories for
-     * processing
+     * after recieving the story data, this parses and build the individual
+     * stories
      *
      * @param {String} res JSON response from the product api
      *
@@ -322,6 +322,19 @@ var StylaWidget = (function () {
         }
 
         /**
+         * ## getDomainConfig
+         *
+         * after recieving the story data this sends it to buildStories for
+         * processing
+         *
+         * @param {String} res JSON response from the product api
+         *
+         * @return _DOMElement_ container element
+         */
+    }, {
+        key: 'getImageUrl',
+
+        /**
          * ## getImageUrl
          *
          * builds the image url
@@ -331,8 +344,6 @@ var StylaWidget = (function () {
          *
          * @return _String_ file name
          */
-    }, {
-        key: 'getImageUrl',
         value: function getImageUrl(filename) {
             var size = arguments.length <= 1 || arguments[1] === undefined ? 400 : arguments[1];
 
@@ -389,17 +400,6 @@ if (!window.stylaWidget) {
 }
 
 window.stylaWidget.instance = new StylaWidget(window.stylaWidget);
-
-/**
- * ## getDomainConfig
- *
- * after recieving the story data, this parses and build the individual
- * stories
- *
- * @param {String} res JSON response from the product api
- *
- * @return _DOMElement_ container element
- */
 
 /**
  * ## buildStory
