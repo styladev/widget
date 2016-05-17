@@ -129,28 +129,16 @@ class StylaWidget
     {
         this.domainConfig       = domainConfig = JSON.parse( domainConfig );
 
-        let stories             = this.stories;
-
         if ( Object.keys( domainConfig ).length === 0 )
         {
             throw "Styla Widget error: Could not find magazine, please check if slug is configured correctly."
-        };
+        }
 
-        let domainConfigEmbed   = domainConfig.embed;
-        this.domain             = domainConfigEmbed.magazineUrl + '/' +
-                                    domainConfigEmbed.rootPath;
-        let styling             = this.compileStyles( domainConfig );
-
-        let head                = document.head;
-
-        this.includeBaseStyles( head );
-
-        if ( domainConfig.embed.customFontUrl )
-        {
-            this.includeFonts( domainConfig, head );
-        };
+        this.setDomain( domainConfig );
+        this.includeBaseStyles( domainConfig );
 
         let images      = {};
+        let stories     = this.stories;
         let resImages   = stories.images;
 
         if ( resImages )
@@ -160,6 +148,7 @@ class StylaWidget
             this.images = images;
             let _els    = stories.stories.map( this.buildStory );
 
+            let styling             = this.compileStyles( domainConfig );
             document.head.appendChild( styling );
             this.target.appendChild( this.wrapper );
         }
@@ -381,15 +370,20 @@ class StylaWidget
      *
      * creates the base styles DOM element and adds it to the head
      *
-     * @return _DOMElement_ style tag
+     * @return _Void_
      */
-    includeBaseStyles()
+    includeBaseStyles( domainConfig )
     {
-        let el = this.buildStyleTag( baseStyles );
-        el.className = classes.BASE_STYLES;
-        document.head.appendChild( el );
+        let head        = document.head;
+        let el          = this.buildStyleTag( baseStyles );
+        el.className    = classes.BASE_STYLES;
 
-        return el;
+        head.appendChild( el );
+
+        if ( domainConfigEmbed.customFontUrl )
+        {
+            this.includeFonts( domainConfig, head );
+        }
     }
 
 
@@ -412,6 +406,21 @@ class StylaWidget
         document.head.appendChild( el );
 
         return el;
+    }
+
+
+    /**
+     * ## setDomain
+     *
+     * takes pieces of the domainConfig and builds the domain
+     *
+     *
+     */
+    setDomain( dominConfig )
+    {
+        let domainConfigEmbed   = domainConfig.embed;
+        return this.domain      = domainConfigEmbed.magazineUrl + '/' +
+                                    domainConfigEmbed.rootPath;
     }
 };
 

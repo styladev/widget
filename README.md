@@ -107,6 +107,7 @@ Change log
 0.1.6
     + change log added
     + fixed a bug where links were malformed missing a `/`
+    + internal refactoring
 
 
 
