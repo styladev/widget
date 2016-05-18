@@ -1,3 +1,9 @@
+/**
+ * ## classes.js
+ *
+ * this sets class constants throughout the widget for the sake of future
+ * flexability
+ */
 module.exports = {
     WRAPPER             : 'styla-widget__wrapper',
     CONTAINER           : 'styla-widget__container',

@@ -79,10 +79,11 @@ impact on performance of a client website.
 dev installation
 ----------------
 
-`git clone git@github.com:styladev/widget.git`
-`cd widget`
-`npm i`
-
+```
+git clone git@github.com:styladev/widget.git
+cd widget
+npm i
+```
 
 
 Contributing
@@ -104,7 +105,8 @@ See a live example on the [demo page](http://static.styla.com/test/widget/)
 Change log
 ==========
 
-0.1.6
+#### 0.1.6
+
     + change log added
     + fixed a bug where links were malformed missing a `/`
     + internal refactoring
