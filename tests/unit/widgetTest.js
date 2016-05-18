@@ -146,7 +146,7 @@ QUnit.test( 'buildStories', function( assert )
                 assert.equal( children.length, 2, 'textWrapper has 2 children' );
 
                 assert.equal( children[ 0 ].innerHTML, '<h1 class="styla-widget__headline">moon?</h1>', 'headline is set right' );
-                assert.ok( children[ 1 ].innerHTML, 'description', 'description is set right' );
+                assert.equal( children[ 1 ].innerHTML, 'description', 'description is set right' );
             } );
 
 
@@ -229,7 +229,7 @@ QUnit.test( 'buildStories', function( assert )
 
                 let text = stylaWidget.getDescription( _arr );
 
-                assert.equal( text, 'doge' );
+                assert.equal( text, 'doge', 'story text is set correctly' );
             } );
 
 
@@ -264,7 +264,7 @@ QUnit.test( 'buildStories', function( assert )
             {
                 let url = stylaWidget.getImageUrl( 'moon', 399 );
 
-                assert.equal( url, '//img.styla.com/resizer/sfh_399x0/_moon?still' );
+                assert.equal( url, '//img.styla.com/resizer/sfh_399x0/_moon?still', 'image url is set correctly' );
             } );
 
 

@@ -18,7 +18,7 @@ module.exports={
     "gulp": "./node_modules/.bin/gulp",
     "test": "node --harmony ./scripts/nightmare.js",
     "versionBump": "node ./scripts/version_bump.js",
-    "doc":"docker -o dist/doc/ -i src --sidebar true --js dist/widget.js -c manni && cp ./dist/doc/widget.js.html ./dist/doc/index.html"
+    "doc":"docker -o dist/doc/ -i src --sidebar true --js dist/widget.js -c manni && cp ./dist/doc/widget.js.html ./dist/doc/index.html && cp ./src/distIndex.html ./dist/index.html"
   },
   "devDependencies": {
     "babelify": "^6.3.0",
@@ -258,7 +258,7 @@ var tests = function tests(stylaWidget) {
                 assert.equal(children.length, 2, 'textWrapper has 2 children');
 
                 assert.equal(children[0].innerHTML, '<h1 class="styla-widget__headline">moon?</h1>', 'headline is set right');
-                assert.ok(children[1].innerHTML, 'description', 'description is set right');
+                assert.equal(children[1].innerHTML, 'description', 'description is set right');
             });
 
             /**
@@ -328,7 +328,7 @@ var tests = function tests(stylaWidget) {
 
                 var text = stylaWidget.getDescription(_arr);
 
-                assert.equal(text, 'doge');
+                assert.equal(text, 'doge', 'story text is set correctly');
             });
 
             /**
@@ -360,7 +360,7 @@ var tests = function tests(stylaWidget) {
             QUnit.test('getImageUrl', function (assert) {
                 var url = stylaWidget.getImageUrl('moon', 399);
 
-                assert.equal(url, '//img.styla.com/resizer/sfh_399x0/_moon?still');
+                assert.equal(url, '//img.styla.com/resizer/sfh_399x0/_moon?still', 'image url is set correctly');
             });
 
             /**
