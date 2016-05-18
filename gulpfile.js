@@ -21,13 +21,13 @@ const licenceLong   = '/*!\n' +
                       ' *\n' +
                       ' * Copyright ' + ( 2016 === year ? year : '2016-' + year ) + ' Styla GmbH and other contributors\n' +
                       ' * Released under the MIT license\n' +
-                      ' * ' + homepage + '/license.md\n' +
+                      ' * ' + homepage + '/blob/master/license.md\n' +
                       ' *\n' +
                       ' * Date: ' + now.toDateString() + '\n' +
                       ' *' +
                       ' */\n';
 
-const licenceShort  = '/*! Styla Widget v' + version + ' | (c) ' + ( 2016 === year ? year : '2015-' + year ) + ' Styla GmbH | ' + homepage + '/license.md */\n';
+const licenceShort  = '/*! Styla Widget v' + version + ' | (c) ' + ( 2016 === year ? year : '2015-' + year ) + ' Styla GmbH | ' + homepage + '/blob/master/license.md */\n';
 
 
 gulp.task( 'browserifyFiles', function()
