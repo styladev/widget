@@ -39,7 +39,7 @@ class StylaWidget
             target = document.querySelector( target );
             if ( typeof target === `undefined` || target === null )
             {
-                console.log( `%c Styla Widget error: Can't find target element in DOM. Widget will render directly in body`, `color: red` );
+                console.log( `%c Styla Widget error: Cant find target element in DOM. Widget will render directly in body`, `color: red` );
                 target = document.body
             }
             else if ( target.offsetWidth < 250 )
