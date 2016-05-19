@@ -29,15 +29,16 @@ class StylaWidget
         if ( typeof target === `string` )
         {
             target = document.querySelector( target );
-            if ( typeof target === `undefined` || target === null )
-            {
-                console.log( `%c Styla Widget error: Cant find target element in DOM. Widget will render directly in body`, `color: red` );
-                target = document.body
-            }
-            else if ( target.offsetWidth < 250 )
-            {
-                throw `Styla Widget error: Target element too small to render widget ¯\\_(ツ)_/¯`;
-            }
+        }
+
+        if ( typeof target === `undefined` || target === null )
+        {
+            console.log( `%c Styla Widget error: Cant find target element in DOM. Widget will render directly in body`, `color: red` );
+            target = document.body
+        }
+        else if ( target.offsetWidth < 250 )
+        {
+            throw `Styla Widget error: Target element too small to render widget ¯\\_(ツ)_/¯`;
         }
 
         this.target             = target;
@@ -54,5 +55,12 @@ class StylaWidget
     }
 };
 
+window.stylaWidget = window.stylaWidget || {};
 
-window.stylaWidget = new StylaWidget( window.stylaWidget );
+let onLoad = typeof window.onload === 'function' ? window.onload : function(){};
+
+window.onload = function( e )
+{
+    onLoad( e );
+    window.stylaWidget = new StylaWidget( window.stylaWidget );
+};
