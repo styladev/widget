@@ -119,6 +119,10 @@ exports['default'] = tests;
 module.exports = exports['default'];
 
 },{"../../package.json":1,"../../src/version.js":2}],5:[function(require,module,exports){
+
+// import build    from './build.js';
+// import classes  from './classes.js';
+
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -150,11 +154,11 @@ var tests = function tests(stylaWidget) {
                 var headline = headlineWrapper.childNodes;
 
                 assert.ok(headlineWrapper.nodeType === 1, 'headlineWrapper is a dom element');
-                assert.equal(headlineWrapper.className, stylaWidget.classes.HEADLINE_WRAPPER, 'headlineWrapper has correct class name');
+                assert.equal(headlineWrapper.className, classes.HEADLINE_WRAPPER, 'headlineWrapper has correct class name');
                 assert.equal(headline.length, 1, 'headlineWrapper has only one child');
 
                 headline = headline[0];
-                assert.equal(headline.className, stylaWidget.classes.HEADLINE, 'headline has correct class name');
+                assert.equal(headline.className, classes.HEADLINE, 'headline has correct class name');
                 assert.equal(headline.textContent, 'moon?', 'headline has correct text');
             });
 
@@ -170,7 +174,7 @@ var tests = function tests(stylaWidget) {
              * @return _DOMElement_ imageWrapper
              */
             QUnit.test('buildImage', function (assert) {
-                var classes = stylaWidget.classes;
+                var classes = classes;
                 var id = Object.keys(stylaWidget.images)[0];
                 var imageWrapper = stylaWidget.buildImage([{ id: id }], 'moon?');
 
@@ -182,7 +186,7 @@ var tests = function tests(stylaWidget) {
                 assert.equal(image.length, 1, 'imageWrapper has only one child');
 
                 image = image[0];
-                assert.equal(image.className, stylaWidget.classes.IMAGE, 'image has correct class name');
+                assert.equal(image.className, classes.IMAGE, 'image has correct class name');
                 assert.equal(image.title, 'moon?', 'image has correct title');
             });
 
@@ -200,7 +204,7 @@ var tests = function tests(stylaWidget) {
             QUnit.test('buildStories', function (assert) {
                 var wrapper = stylaWidget.buildStories(false, domainConfig);
                 assert.ok(wrapper.nodeType === 1, 'Wrapper is a dom element');
-                assert.equal(wrapper.className, stylaWidget.classes.WRAPPER, 'Wrapper has correct class name');
+                assert.equal(wrapper.className, classes.WRAPPER, 'Wrapper has correct class name');
             });
 
             /**
@@ -225,13 +229,13 @@ var tests = function tests(stylaWidget) {
                 var story = stylaWidget.buildStory(storyObj);
 
                 assert.ok(story.nodeType === 1, 'Wrapper is a dom element');
-                assert.equal(story.className, stylaWidget.classes.STORY, 'Wrapper has correct class name');
+                assert.equal(story.className, classes.STORY, 'Wrapper has correct class name');
 
                 var storyLink = story.childNodes;
                 assert.equal(storyLink.length, 1, 'story has only one child');
                 storyLink = storyLink[0];
 
-                assert.equal(storyLink.className, stylaWidget.classes.STORY_LINK, 'storyLink has correct class name');
+                assert.equal(storyLink.className, classes.STORY_LINK, 'storyLink has correct class name');
 
                 var href = storyLink.href.replace(/^https?:/, '');
                 assert.equal(href, '//' + stylaWidget.domain + '/story/externalPermalink/', 'storyLink has correct href');
@@ -252,7 +256,7 @@ var tests = function tests(stylaWidget) {
                 var textWrapper = stylaWidget.buildStoryText('moon?', '[{"type":"text","content":"description"}]');
 
                 assert.ok(textWrapper.nodeType === 1, 'Wrapper is a dom element');
-                assert.equal(textWrapper.className, stylaWidget.classes.TEXT_WRAPPER, 'Wrapper has correct class name');
+                assert.equal(textWrapper.className, classes.TEXT_WRAPPER, 'Wrapper has correct class name');
 
                 var children = textWrapper.childNodes;
                 assert.equal(children.length, 2, 'textWrapper has 2 children');
@@ -275,7 +279,7 @@ var tests = function tests(stylaWidget) {
 
                 assert.ok(el.nodeType === 1, 'StyleTag is a dom element');
                 assert.equal(el.tagName, 'STYLE', 'StyleTag is a style tag');
-                assert.equal(el.className, stylaWidget.classes.STYLES, 'StyleTag class is set');
+                assert.equal(el.className, classes.STYLES, 'StyleTag class is set');
                 assert.equal(el.type, 'text/css', 'StyleTag is a css tag');
             });
 
@@ -344,7 +348,7 @@ var tests = function tests(stylaWidget) {
             QUnit.test('getDomainConfig', function (assert) {
                 var el = stylaWidget.getDomainConfig(stories);
                 assert.ok(el.nodeType === 1, 'Story is a dom element');
-                assert.equal(el.className, stylaWidget.classes.CONTAINER, 'Story has correct class name');
+                assert.equal(el.className, classes.CONTAINER, 'Story has correct class name');
             });
 
             /**
@@ -375,7 +379,7 @@ var tests = function tests(stylaWidget) {
 
                 assert.ok(el.nodeType === 1, 'StyleTag is a dom element');
                 assert.equal(el.tagName, 'STYLE', 'StyleTag is a style tag');
-                assert.equal(el.className, stylaWidget.classes.BASE_STYLES, 'StyleTag class is set');
+                assert.equal(el.className, classes.BASE_STYLES, 'StyleTag class is set');
                 assert.equal(el.type, 'text/css', 'StyleTag is a css tag');
                 assert.equal(el.parentNode, document.head, 'StyleTag is mounted correctly');
                 assert.equal(el.textContent.indexOf('#styla-widget'), 0, 'StyleTag contains the correct info');

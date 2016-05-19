@@ -42,7 +42,7 @@ let build = {
      *
      * @return _DOMElement_ headlineWrapper
      */
-    buildHeadline : function( title )
+    buildHeadline( title )
     {
         let create              = build.create;
         let headlineWrapper     = create( `div`, classes.HEADLINE_WRAPPER );
@@ -67,7 +67,7 @@ let build = {
      *
      * @return _DOMElement_ imageWrapper
      */
-    buildImage : function( images, title )
+    buildImage( images, title )
     {
         let create              = build.create;
         let imageWrapper        = create( `div`, classes.IMAGE_WRAPPER );
@@ -95,7 +95,7 @@ let build = {
      *
      * @return _DOMElement_ wrapper element
      */
-    buildStories : function( resDomainConfig, parsedDomainConfig )
+    buildStories( resDomainConfig, parsedDomainConfig )
     {
         domainConfig = parsedDomainConfig || JSON.parse( resDomainConfig );
 
@@ -137,7 +137,7 @@ let build = {
      *
      * @return _DOMElement_ outer story element
      */
-    buildStory : function( { title, description, images, externalPermalink } )
+    buildStory( { title, description, images, externalPermalink } )
     {
         let create              = build.create;
 
@@ -170,7 +170,7 @@ let build = {
      *
      * @return _DOMElement_ style element
      */
-    buildStoryText : function( title, description )
+    buildStoryText( title, description )
     {
         let create          = build.create;
         let textWrapper     = create( `div`,    classes.TEXT_WRAPPER );
@@ -196,7 +196,7 @@ let build = {
      *
      * @return _DOMElement_ style element
      */
-    buildStyleTag : function( css )
+    buildStyleTag( css )
     {
         let el          = document.createElement( `style` );
         el.type         = `text/css`;
@@ -217,7 +217,7 @@ let build = {
      *
      * @return _DOMElement_ style element
      */
-    compileStyles : function()
+    compileStyles()
     {
         let theme   = domainConfig.theme;
         let css     =
@@ -257,7 +257,7 @@ let build = {
      *
      * @return _DOMElement_ newly created element
      */
-    create : function( _tag, _class )
+    create( _tag, _class )
     {
         let _el = document.createElement( _tag.toUpperCase() );
 
@@ -280,7 +280,7 @@ let build = {
      *
      * @return _String or Boolean_ text content or false
      */
-    getDescription : function( _arr, i = 0 )
+    getDescription( _arr, i = 0 )
     {
         let text = _arr[ i ]
 
@@ -307,7 +307,7 @@ let build = {
      *
      * @return _DOMElement_ container element
      */
-    getDomainConfig : function( stories )
+    getDomainConfig( stories )
     {
         self = this;
 
@@ -332,7 +332,7 @@ let build = {
      *
      * @return _String_ file name
      */
-    getImageUrl : function( filename, size = 400 )
+    getImageUrl( filename, size = 400 )
     {
         return `//img.styla.com/resizer/sfh_${size}x0/_${filename}?still`;
     },
@@ -345,7 +345,7 @@ let build = {
      *
      * @return _Void_
      */
-    includeBaseStyles : function()
+    includeBaseStyles()
     {
         let head        = document.head;
         let el          = build.buildStyleTag( baseStyles );
@@ -369,7 +369,7 @@ let build = {
      *
      * @return _DOMElement_ link element
      */
-    includeFonts : function()
+    includeFonts()
     {
         let el  = document.createElement( `link` );
         el.type = `text/css`;
@@ -389,7 +389,7 @@ let build = {
      *
      * @return _String_ domain address
      */
-    setDomain : function()
+    setDomain()
     {
         let embed   = domainConfig.embed;
         let domain  = self.domain = `${embed.magazineUrl}/${embed.rootPath}`;
