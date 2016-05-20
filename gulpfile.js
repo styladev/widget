@@ -75,6 +75,14 @@ gulp.task( 'buildTests', function()
         .transform( babelify, { stage : 0 } )
         .bundle()
         .pipe( fs.createWriteStream( __dirname + '/tests/tests.dist.js' ) )
+        .on( 'finish', function()
+        {
+            var widgetCss     = fs.readFileSync( './dist/styles.min.css', 'utf8' );
+
+            gulp.src( './tests/tests.dist.js' )
+                .pipe( replace( /styla-widget-css-goes-here/, widgetCss ) )
+                .pipe( gulp.dest( './tests/' ) )
+        } );
 } );
 
 

@@ -34,7 +34,7 @@ class StylaWidget
         if ( typeof target === `undefined` || target === null )
         {
             console.error( `Styla Widget error: Cant find target element in DOM. Widget will render directly in body` );
-            target = document.body
+            target = document.body;
         }
         else if ( target.offsetWidth < 250 )
         {
@@ -47,11 +47,24 @@ class StylaWidget
         this.version            = version;
 
         let url  = tag ? `https://live.styla.com/api/feeds/tags/${tag}?offset=${offset}&limit=${limit}&domain=${slug}` :
-                        `https://www.amazine.com/api/feeds/user/${slug}?domain=${slug}&offset=${offset}&limit=${limit}`;
+                        `https://live.styla.com/api/feeds/user/${slug}?domain=${slug}&offset=${offset}&limit=${limit}`;
 
         http.get( url ).then( build.getDomainConfig.bind( this ) );
 
         return this;
+    }
+
+
+    /**
+     * ## destroy
+     *
+     * removes the styla widget from the DOM
+     *
+     * @return _Void_
+     */
+    destroy()
+    {
+
     }
 };
 
@@ -61,6 +74,6 @@ let alsoOnLoad = typeof window.onload === 'function' ? window.onload : function
 
 window.onload = function( e )
 {
-    alsoOnLoad( e );
     window.stylaWidget = new StylaWidget( window.stylaWidget );
+    alsoOnLoad( e );
 };

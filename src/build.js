@@ -14,7 +14,7 @@ import { http } from 'microbejs/dist/microbe.http.min';
  */
 const baseStyles        = `styla-widget-css-goes-here`;
 const wrapperID         = `styla-widget`;
-const domainConfigAPI   = `https://www.amazine.com/api/config/`;
+const domainConfigAPI   = `https://live.styla.com/api/config/`;
 const _reportError      = function( e ){ console.log( `err`, e ) };
 
 /*
@@ -64,14 +64,17 @@ let build = {
      *
      * @param {Array} images array of images from the product api
      * @param {String} title story headline
+     * @param {Object} context sub for self - needed for testing
      *
      * @return _DOMElement_ imageWrapper
      */
-    buildImage( images, title )
+    buildImage( images, title, context )
     {
+        self                    = self || context;
         let create              = build.create;
         let imageWrapper        = create( `div`, classes.IMAGE_WRAPPER );
         let id                  = images[0].id;
+
         let imgObj              = self.images[ id ];
         let image               = create( `img`, classes.IMAGE );
         image.src               = build.getImageUrl( imgObj.fileName, 400 );
