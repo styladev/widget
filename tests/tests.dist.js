@@ -468,10 +468,6 @@ var _unitVersionTest = require('./unit/versionTest');
 
 var _unitVersionTest2 = _interopRequireDefault(_unitVersionTest);
 
-var _unitWidgetTest = require('./unit/widgetTest');
-
-var _unitWidgetTest2 = _interopRequireDefault(_unitWidgetTest);
-
 var _unitBuildTest = require('./unit/buildTest');
 
 var _unitBuildTest2 = _interopRequireDefault(_unitBuildTest);
@@ -482,11 +478,10 @@ window.onload = function () {
     document.getElementsByTagName('TITLE')[0].textContent = 'StylaWidget - ' + widget.version;
 
     (0, _unitVersionTest2['default'])(widget);
-    (0, _unitWidgetTest2['default'])(widget);
     (0, _unitBuildTest2['default'])(widget);
 };
 
-},{"./unit/buildTest":7,"./unit/versionTest":8,"./unit/widgetTest":9}],7:[function(require,module,exports){
+},{"./unit/buildTest":7,"./unit/versionTest":8}],7:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -848,62 +843,4 @@ var tests = function tests(stylaWidget) {
 exports['default'] = tests;
 module.exports = exports['default'];
 
-},{"../../package.json":2,"../../src/version.js":5}],9:[function(require,module,exports){
-'use strict';
-
-Object.defineProperty(exports, '__esModule', {
-    value: true
-});
-
-var tests = function tests(stylaWidget) {
-    QUnit.module('widget.js');
-
-    /**
-     * ## constructor
-     *
-     * grabs the feed from the api and starts everything
-     *
-     * @param {String} domain target domain to grab products from
-     *
-     * @return _Object_ this
-     */
-    QUnit.test('constructor', function (assert) {
-        assert.ok(true);
-        // let headlineWrapper = stylaWidget.buildHeadline( 'moon?' );
-        // let headline        = headlineWrapper.childNodes;
-
-        // assert.ok( headlineWrapper.nodeType === 1, 'headlineWrapper is a dom element' );
-        // assert.equal( headlineWrapper.className, classes.HEADLINE_WRAPPER, 'headlineWrapper has correct class name' );
-        // assert.equal( headline.length, 1, 'headlineWrapper has only one child' );
-
-        // headline = headline[0];
-        // assert.equal( headline.className, classes.HEADLINE, 'headline has correct class name' );
-        // assert.equal( headline.textContent, 'moon?', 'headline has correct text' );
-    });
-
-    /**
-     * ## destroy
-     *
-     * removes the styla widget from the DOM
-     *
-     * @return _Void_
-     */
-    QUnit.test('destroy', function (assert) {
-        assert.ok(true);
-        // let headlineWrapper = stylaWidget.buildHeadline( 'moon?' );
-        // let headline        = headlineWrapper.childNodes;
-
-        // assert.ok( headlineWrapper.nodeType === 1, 'headlineWrapper is a dom element' );
-        // assert.equal( headlineWrapper.className, classes.HEADLINE_WRAPPER, 'headlineWrapper has correct class name' );
-        // assert.equal( headline.length, 1, 'headlineWrapper has only one child' );
-
-        // headline = headline[0];
-        // assert.equal( headline.className, classes.HEADLINE, 'headline has correct class name' );
-        // assert.equal( headline.textContent, 'moon?', 'headline has correct text' );
-    });
-};
-
-exports['default'] = tests;
-module.exports = exports['default'];
-
-},{}]},{},[6]);
+},{"../../package.json":2,"../../src/version.js":5}]},{},[6]);
