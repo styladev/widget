@@ -255,18 +255,18 @@ let build = {
      *
      * creates an element with the supplied tagname and classname
      *
-     * @param {String} _tag tagname
-     * @param {String} _class className to add to the created element
+     * @param {String} tag tagname
+     * @param {String} clss className to add to the created element
      *
      * @return _DOMElement_ newly created element
      */
-    create( _tag, _class )
+    create( tag, clss )
     {
-        let _el = document.createElement( _tag.toUpperCase() );
+        let _el = document.createElement( tag.toUpperCase() );
 
-        if ( _class )
+        if ( clss )
         {
-            _el.className = _class;
+            _el.className = clss;
         }
 
         return _el;
@@ -278,14 +278,14 @@ let build = {
      *
      * gets the first text description in the content and returns that
      *
-     * @param {Array} _arr array filled w/ content
+     * @param {Array} arr array filled w/ content
      * @param {Number} i recursive index
      *
      * @return _String or Boolean_ text content or false
      */
-    getDescription( _arr, i = 0 )
+    getDescription( arr, i = 0 )
     {
-        let text = _arr[ i ]
+        let text = arr[ i ]
 
         if ( !text )
         {
@@ -293,7 +293,7 @@ let build = {
         }
         else if ( text.type !== `text` )
         {
-            return build.getDescription( _arr, i + 1 );
+            return build.getDescription( arr, i + 1 );
         }
 
         return text.content;
