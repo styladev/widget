@@ -65,7 +65,6 @@ class StylaWidget
     destroy()
     {
         let wrapper = this.wrapper;
-console.log( this.wrapper, wrapper );
         wrapper.parentNode.removeChild( wrapper );
         return wrapper;
     }
