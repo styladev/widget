@@ -24,7 +24,14 @@ class StylaWidget
      *
      * @return _Object_ this
      */
-    constructor( { slug = ``, tag = false, limit = 5, offset = 0, target = document.body } )
+    constructor( {
+                    slug    = ``,
+                    tag     = false,
+                    limit   = 5,
+                    offset  = 0,
+                    target  = document.body,
+                    newTab  = false
+                    } )
     {
         if ( typeof target === `string` )
         {
@@ -45,6 +52,7 @@ class StylaWidget
         this.slug               = slug;
         this.tag                = tag;
         this.version            = version;
+        this.newTab             = newTab;
 
         let url  = tag ? `https://live.styla.com/api/feeds/tags/${tag}?offset=${offset}&limit=${limit}&domain=${slug}` :
                         `https://live.styla.com/api/feeds/user/${slug}?domain=${slug}&offset=${offset}&limit=${limit}`;

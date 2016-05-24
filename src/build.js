@@ -147,6 +147,12 @@ let build = {
         let story               = create( `div`,    classes.STORY );
         let storyLink           = create( `a`,      classes.STORY_LINK );
         storyLink.href          = `//${self.domain}/story/${externalPermalink}/`;
+
+        if ( self.newTab )
+        {
+            storyLink.setAttribute( 'target', '_blank' );
+        }
+
         story.appendChild( storyLink );
 
 
