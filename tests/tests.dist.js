@@ -6,7 +6,7 @@
 },{}],2:[function(require,module,exports){
 module.exports={
   "name": "stylaWidget",
-  "version": "0.2.0",
+  "version": "0.2.2",
   "contributors": [
     "Mouse Braun <mouse@styla.com>",
     "Elias Liedholm <elias@styla.com>"
@@ -23,7 +23,8 @@ module.exports={
     "gulp": "./node_modules/.bin/gulp",
     "test": "node --harmony ./scripts/nightmare.js",
     "versionBump": "node ./scripts/version_bump.js",
-    "doc":"docker -o dist/doc/ -i src --sidebar true --js dist/widget.js -c manni && cp ./dist/doc/widget.js.html ./dist/doc/index.html && cp ./src/distIndex.html ./dist/index.html"
+    "md": "./node_modules/.bin/gulp md",
+    "doc": "npm run md && docker -o dist/doc/ -i src --sidebar true --js dist/widget.js -c manni && cp ./dist/doc/widget.js.html ./dist/doc/index.html"
   },
   "devDependencies": {
     "babelify": "^6.3.0",
@@ -32,6 +33,7 @@ module.exports={
     "docker": "git://github.com/nicolasbrugneaux/docker.git#patch-1",
     "gulp": "^3.9.0",
     "gulp-header": "^1.7.1",
+    "gulp-marked": "^1.0.0",
     "gulp-minify-css": "^1.2.4",
     "gulp-rename": "^1.2.2",
     "gulp-replace": "^0.5.4",
@@ -39,6 +41,7 @@ module.exports={
     "microbejs": "^0.5.2",
     "nightmare": "^2.1.1",
     "promise": "^7.1.1",
+    "pygmentize-bundled": "^2.3.0",
     "qunitjs": "^1.20.0",
     "serve-static": "^1.10.0",
     "vo": "^1.0.3"
@@ -50,11 +53,10 @@ module.exports={
   "files": [
     "CODE_OF_CONDUCT.md",
     "README.md",
-    "src/",
     "dist/"
   ],
   "homepage": "https://github.com/styladev/widget",
-  "main": "./dist/index.js",
+  "main": "./dist/widget.min.js",
   "keywords": []
 }
 
@@ -217,6 +219,11 @@ var build = {
         var story = create('div', _classesJs2['default'].STORY);
         var storyLink = create('a', _classesJs2['default'].STORY_LINK);
         storyLink.href = '//' + self.domain + '/story/' + externalPermalink + '/';
+
+        if (self.newTab) {
+            storyLink.setAttribute('target', '_blank');
+        }
+
         story.appendChild(storyLink);
 
         storyLink.appendChild(build.buildImage(images, title));
@@ -295,16 +302,16 @@ var build = {
      *
      * creates an element with the supplied tagname and classname
      *
-     * @param {String} _tag tagname
-     * @param {String} _class className to add to the created element
+     * @param {String} tag tagname
+     * @param {String} clss className to add to the created element
      *
      * @return _DOMElement_ newly created element
      */
-    create: function create(_tag, _class) {
-        var _el = document.createElement(_tag.toUpperCase());
+    create: function create(tag, clss) {
+        var _el = document.createElement(tag.toUpperCase());
 
-        if (_class) {
-            _el.className = _class;
+        if (clss) {
+            _el.className = clss;
         }
 
         return _el;
@@ -315,20 +322,20 @@ var build = {
      *
      * gets the first text description in the content and returns that
      *
-     * @param {Array} _arr array filled w/ content
+     * @param {Array} arr array filled w/ content
      * @param {Number} i recursive index
      *
      * @return _String or Boolean_ text content or false
      */
-    getDescription: function getDescription(_arr) {
+    getDescription: function getDescription(arr) {
         var i = arguments.length <= 1 || arguments[1] === undefined ? 0 : arguments[1];
 
-        var text = _arr[i];
+        var text = arr[i];
 
         if (!text) {
             return false;
         } else if (text.type !== 'text') {
-            return build.getDescription(_arr, i + 1);
+            return build.getDescription(arr, i + 1);
         }
 
         return text.content;
@@ -457,7 +464,7 @@ module.exports = {
 },{}],5:[function(require,module,exports){
 'use strict';
 
-module.exports = '0.2.0';
+module.exports = '0.2.2';
 
 },{}],6:[function(require,module,exports){
 'use strict';

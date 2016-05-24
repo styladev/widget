@@ -7,6 +7,13 @@ const header        = require( 'gulp-header' );
 const minifycss     = require( 'gulp-minify-css' );
 const rename        = require( 'gulp-rename' );
 const replace       = require( 'gulp-replace' );
+const marked        = require( 'gulp-marked' );
+
+
+
+const pygmentize    = require( 'pygmentize-bundled' );
+// const highlight     = require( 'highlightjs' );
+
 
 const _package      = require( './package.json' );
 
@@ -92,6 +99,22 @@ gulp.task( 'css-min', function()
                 .pipe( rename( { suffix: '.min' } ) )
                 .pipe( minifycss() )
                 .pipe( gulp.dest( 'dist' ) );
+} );
+
+
+gulp.task( 'md', function()
+{
+    return gulp.src( 'README.md' )
+        .pipe( marked( {
+            highlight: function( code, lang, callback )
+            {
+                pygmentize( { lang: lang, format: 'html' }, code, function( err, result )
+                {
+                    callback( err, result.toString() );
+                } );
+            }
+        } ) )
+        .pipe( gulp.dest( 'dist' ) );
 } );
 
 

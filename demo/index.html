@@ -11,7 +11,7 @@
                 height: 100vh;
             }
 
-            .target {
+            .styla-widget__target {
                 background: #FFF;
                 box-shadow: 3px 3px 0px #ccc;
                 height: 90%;
@@ -21,12 +21,12 @@
         </style>
     </head>
     <body>
-        <div class="target"></div>
+
+
+    <div class="styla-widget__target" style="width: 400px;"></div>
+    <script>window.stylaWidget = {newTab:true,slug : 'lavogi', target : '.styla-widget__target'};
+    var d=document;var h=d.head;var s=d.createElement('SCRIPT');h.appendChild(s);
+    s.src="../dist/widget.js";</script>
+
     </body>
-
-
-    <script>window.stylaWidget = {slug : 'braunhamburg',tag:'lifestyle', target: '.target'};
-    var d=document;var h=d.head;var s=d.createElement('SCRIPT');
-    h.appendChild(s);s.src="../dist/widget.js";</script>
-
 </html>

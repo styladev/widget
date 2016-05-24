@@ -1,4 +1,4 @@
-Styla Widget  0.2.1
+Styla Widget  0.2.2
 ===================
 
 The Styla Widget™ is a simple way to display stories from a Styla Magazine in a
@@ -18,12 +18,10 @@ To use the widget, a client must include this script on their site. Modify the
 slug `MAGAZINE_NAME` to match the name of the magazine.
 
 ```html
-    <div class=".styla-widget__target" style="width: 400px;"></div>
-    <script>
-    window.stylaWidget = {slug : 'MAGAZINE_NAME', target : '.styla-widget__target'};
-    var d=document;var h=d.head;var s=d.createElement('SCRIPT');
-    h.appendChild(s);s.src="//widget.styla.com/widget.min.js";
-    </script>
+    <div class="styla-widget__target" style="width: 400px;"></div>
+    <script>window.stylaWidget = {slug : 'lavogi', target : '.styla-widget__target'};
+    var d=document;var h=d.head;var s=d.createElement('SCRIPT');h.appendChild(s);
+    s.src="//widget.styla.com/widget.min.js";</script>
 ```
 
 ### Positioning
@@ -45,9 +43,9 @@ size isset to 14px, one story will be exactly 14 times that value, in this case
 196px.
 
 
-###Additional options
+### Additional options
 
-```javascript
+```js
 window.stylaWidget = {
     slug        // Magazine name
     tag         // (default: none) Filter stories by tag
@@ -57,6 +55,7 @@ window.stylaWidget = {
     offset      // (default: 0) amount of entries to skip
     target      // (default: document.body) mount point of the widget. Accepts
                 // DOM elements and selector strings
+    newTab      // (default: false) open links in a new tab
 };
 ```
 
@@ -96,8 +95,6 @@ This project adheres to the [Contributor Covenant](http://contributor-covenant.o
 
 [Code of Conduct](https://github.com/styladev/widget/blob/master/CODE_OF_CONDUCT.md)
 
-Need to report something? [hr](mailto:janine@styla.com)
-
 
 See a live example on the [demo page](http://static.styla.com/test/widget/)
 
@@ -105,9 +102,23 @@ See a live example on the [demo page](http://static.styla.com/test/widget/)
 Change log
 ==========
 
+#### 0.2.2
+
+    + added newTab
+
+
+#### 0.2.1
+
+    + gulp build adjusted for doc
+
+
+#### 0.2.0
+
+    + build object seperated from the widget
+
+
 #### 0.1.6
 
-    + change log added
     + fixed a bug where links were malformed missing a `/`
     + internal refactoring
 
