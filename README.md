@@ -24,6 +24,9 @@ slug `MAGAZINE_NAME` to match the name of the magazine.
     s.src="//widget.styla.com/widget.min.js";</script>
 ```
 
+See a live example on the [demo page](http://static.styla.com/test/widget/)
+
+
 ### Positioning
 
 The Widget is responsive 🎉, and will automagically fit stories into the space
@@ -95,8 +98,6 @@ This project adheres to the [Contributor Covenant](http://contributor-covenant.o
 
 [Code of Conduct](https://github.com/styladev/widget/blob/master/CODE_OF_CONDUCT.md)
 
-
-See a live example on the [demo page](http://static.styla.com/test/widget/)
 
 
 Change log
