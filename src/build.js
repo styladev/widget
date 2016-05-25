@@ -151,6 +151,9 @@ let build = {
         if ( self.newTab )
         {
             storyLink.setAttribute( 'target', '_blank' );
+        } else if ( self.iframe )
+        {
+            storyLink.setAttribute( 'target', '_top' );
         }
 
         story.appendChild( storyLink );

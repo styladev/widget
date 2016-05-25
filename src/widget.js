@@ -30,7 +30,8 @@ class StylaWidget
                     limit   = 5,
                     offset  = 0,
                     target  = document.body,
-                    newTab  = false
+                    newTab  = false,
+                    iframe  = false
                     } )
     {
         if ( typeof target === `string` )
@@ -53,6 +54,7 @@ class StylaWidget
         this.tag                = tag;
         this.version            = version;
         this.newTab             = newTab;
+        this.iframe             = iframe;
 
         let url  = tag ? `https://live.styla.com/api/feeds/tags/${tag}?offset=${offset}&limit=${limit}&domain=${slug}` :
                         `https://live.styla.com/api/feeds/user/${slug}?domain=${slug}&offset=${offset}&limit=${limit}`;

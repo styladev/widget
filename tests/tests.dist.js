@@ -6,7 +6,7 @@
 },{}],2:[function(require,module,exports){
 module.exports={
   "name": "stylaWidget",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "contributors": [
     "Mouse Braun <mouse@styla.com>",
     "Elias Liedholm <elias@styla.com>"
@@ -222,6 +222,8 @@ var build = {
 
         if (self.newTab) {
             storyLink.setAttribute('target', '_blank');
+        } else if (self.iframe) {
+            storyLink.setAttribute('target', '_top');
         }
 
         story.appendChild(storyLink);
@@ -464,7 +466,7 @@ module.exports = {
 },{}],5:[function(require,module,exports){
 'use strict';
 
-module.exports = '0.2.2';
+module.exports = '0.2.3';
 
 },{}],6:[function(require,module,exports){
 'use strict';
