@@ -1,4 +1,4 @@
-Styla Widget  0.2.2
+Styla Widget  0.2.3
 ===================
 
 The Styla Widget™ is a simple way to display stories from a Styla Magazine in a
@@ -59,6 +59,7 @@ window.stylaWidget = {
     target      // (default: document.body) mount point of the widget. Accepts
                 // DOM elements and selector strings
     newTab      // (default: false) open links in a new tab
+    iframe      // (default: false) open links on parent frame (top)
 };
 ```
 
@@ -103,6 +104,10 @@ This project adheres to the [Contributor Covenant](http://contributor-covenant.o
 Change log
 ==========
 
+#### 0.2.3
+
+    + added iframe
+
 #### 0.2.2
 
     + added newTab
@@ -122,7 +127,3 @@ Change log
 
     + fixed a bug where links were malformed missing a `/`
     + internal refactoring
-
-
-
-
