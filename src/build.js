@@ -46,7 +46,7 @@ let build = {
     {
         let create              = build.create;
         let headlineWrapper     = create( `div`, classes.HEADLINE_WRAPPER );
-        let headline            = create( `h1`,  classes.HEADLINE );
+        let headline            = create( `h3`,  classes.HEADLINE );
 
         headline.textContent    = title;
 
