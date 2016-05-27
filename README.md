@@ -1,4 +1,4 @@
-Styla Widget  0.2.2
+Styla Widget  0.2.4
 ===================
 
 The Styla Widget™ is a simple way to display stories from a Styla Magazine in a
@@ -101,6 +101,11 @@ See a live example on the [demo page](http://static.styla.com/test/widget/)
 
 Change log
 ==========
+
+#### 0.2.4
+
+    + src and liscence are now included with npm install
+
 
 #### 0.2.2
 

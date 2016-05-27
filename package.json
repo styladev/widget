@@ -1,6 +1,6 @@
 {
   "name": "stylaWidget",
-  "version": "0.2.2",
+  "version": "0.2.4",
   "contributors": [
     "Mouse Braun <mouse@styla.com>",
     "Elias Liedholm <elias@styla.com>"
@@ -47,7 +47,9 @@
   "files": [
     "CODE_OF_CONDUCT.md",
     "README.md",
-    "dist/"
+    "liscence.md",
+    "dist/",
+    "src/"
   ],
   "homepage": "https://github.com/styladev/widget",
   "main": "./dist/widget.min.js",
