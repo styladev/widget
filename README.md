@@ -1,5 +1,5 @@
-Styla Widget  0.2.4
-===================
+Styla Widget  0.2.5
+=======
 
 The Styla Widget™ is a simple way to display stories from a Styla Magazine in a
 smaller format, anywhere on your site. A story in the widget functions as
@@ -23,6 +23,9 @@ slug `MAGAZINE_NAME` to match the name of the magazine.
     var d=document;var h=d.head;var s=d.createElement('SCRIPT');h.appendChild(s);
     s.src="//widget.styla.com/widget.min.js";</script>
 ```
+
+See a live example on the [demo page](http://static.styla.com/test/widget/)
+
 
 ### Positioning
 
@@ -56,6 +59,7 @@ window.stylaWidget = {
     target      // (default: document.body) mount point of the widget. Accepts
                 // DOM elements and selector strings
     newTab      // (default: false) open links in a new tab
+    iframe      // (default: false) open links on parent frame (top)
 };
 ```
 
@@ -96,8 +100,6 @@ This project adheres to the [Contributor Covenant](http://contributor-covenant.o
 [Code of Conduct](https://github.com/styladev/widget/blob/master/CODE_OF_CONDUCT.md)
 
 
-See a live example on the [demo page](http://static.styla.com/test/widget/)
-
 
 Change log
 ==========
@@ -105,6 +107,11 @@ Change log
 #### 0.2.4
 
     + src and liscence are now included with npm install
+
+
+#### 0.2.3
+
+    + added iframe
 
 
 #### 0.2.2
@@ -126,7 +133,3 @@ Change log
 
     + fixed a bug where links were malformed missing a `/`
     + internal refactoring
-
-
-
-
