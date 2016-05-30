@@ -1,4 +1,4 @@
-Styla Widget  0.2.7
+Styla Widget  0.3.0
 =======
 
 The Styla Widget™ is a simple way to display stories from a Styla Magazine in a
@@ -105,6 +105,12 @@ This project adheres to the [Contributor Covenant](http://contributor-covenant.o
 
 Change log
 ==========
+
+#### 0.3.0
+
+    + title and size options added
+    + alternate "recommended stories" build added
+
 
 #### 0.2.4
 
