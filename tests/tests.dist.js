@@ -6,7 +6,7 @@
 },{}],2:[function(require,module,exports){
 module.exports={
   "name": "stylaWidget",
-  "version": "0.2.3",
+  "version": "0.2.6",
   "contributors": [
     "Mouse Braun <mouse@styla.com>",
     "Elias Liedholm <elias@styla.com>"
@@ -53,7 +53,9 @@ module.exports={
   "files": [
     "CODE_OF_CONDUCT.md",
     "README.md",
-    "dist/"
+    "liscence.md",
+    "dist/",
+    "src/"
   ],
   "homepage": "https://github.com/styladev/widget",
   "main": "./dist/widget.min.js",
@@ -85,7 +87,7 @@ var _microbejsDistMicrobeHttpMin = require('microbejs/dist/microbe.http.min');
 /*
     exchanged for css in the gulp build
  */
-var baseStyles = '#styla-widget p{margin:0}#styla-widget.styla-widget__wrapper{width:100%;height:100%}#styla-widget .styla-widget__container{box-sizing:border-box;position:relative;overflow:hidden;padding:1em 2em;height:100%;width:100%;min-height:14em;display:flex;flex-direction:column;flex-wrap:wrap;font-size:14px}#styla-widget .styla-widget__story{margin-bottom:1em;margin-right:2em;height:14em;position:relative;width:100%;flex-grow:1}#styla-widget .styla-widget__story:nth-child(even){text-align:right}#styla-widget .styla-widget__link{position:absolute;height:14em;top:50%;margin-top:-7em;width:100%;display:flex;align-items:center;text-decoration:none;color:inherit}#styla-widget .styla-widget__imagewrap{display:block;vertical-align:top;flex-grow:1;height:100%;margin:0 6% 0 0;flex:none;max-width:40%;float:left}#styla-widget .styla-widget__story:nth-child(even) .styla-widget__imagewrap{margin:0 0 0 6%;float:right;clear:both;order:2}#styla-widget .styla-widget__image{height:100%;max-width:100%;max-height:100%;object-fit:contain}#styla-widget .styla-widget__textwrap{display:block;flex-grow:1;max-height:100%;overflow:hidden;float:left}#styla-widget .styla-widget__story:nth-child(even) .styla-widget__textwrap{float:right}#styla-widget .styla-widget__headlinewrap{height:5em;display:flex;flex-direction:column;justify-content:flex-end}#styla-widget .styla-widget__headline{font-size:1.9em;line-height:1.25em;max-height:2.5em;overflow:hidden;margin:0 0 .25em;word-wrap:break-word;text-overflow:ellipsis;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2}#styla-widget .styla-widget__paragraph{font-size:1em;line-height:1.5em;max-height:calc(100% - 5em);overflow:hidden;position:relative;word-wrap:break-word}#styla-widget .styla-widget__paragraph:after{position:absolute;left:0;top:7.5em;display:block;background-color:#FFF;width:100%;height:2em}#styla-widget .styla-widget__paragraph p+p{display:none}';
+var baseStyles = '#styla-widget p{margin:0}#styla-widget.styla-widget__wrapper{width:100%;height:100%}#styla-widget .styla-widget__container{box-sizing:border-box;position:relative;overflow:hidden;padding:1em 2em;height:100%;width:100%;min-height:14em;display:flex;flex-direction:column;flex-wrap:wrap;font-size:14px}#styla-widget .styla-widget__story{margin-bottom:1em;overflow:hidden;height:5em;position:relative;width:100%;flex-grow:1}#styla-widget .styla-widget__link{position:absolute;height:5em;width:100%;display:flex;text-decoration:none;color:inherit}#styla-widget__link>div{display:inline-block}#styla-widget .styla-widget__imagewrap{height:85px;margin:0 3% 0 0}#styla-widget .styla-widget__image{object-fit:contain}#styla-widget .styla-widget__textwrap{display:block;flex-grow:1;max-height:100%;overflow:hidden;float:left}#styla-widget .styla-widget__headlinewrap{height:2em;display:flex;flex-direction:column;justify-content:flex-end}#styla-widget .styla-widget__headline{font-size:1.4em;line-height:1.25em;max-height:2.5em;overflow:hidden;margin:0 0 .25em;word-wrap:break-word;text-overflow:ellipsis;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2}#styla-widget .styla-widget__paragraph{font-size:1em;line-height:1.5em;height:3em;overflow:hidden;position:relative;word-wrap:break-word}#styla-widget .styla-widget__paragraph:after{position:absolute;left:0;top:7.5em;display:block;background-color:#FFF;width:100%;height:2em}';
 var wrapperID = 'styla-widget';
 var domainConfigAPI = 'https://live.styla.com/api/config/';
 var _reportError = function _reportError(e) {
@@ -119,7 +121,7 @@ var build = {
     buildHeadline: function buildHeadline(title) {
         var create = build.create;
         var headlineWrapper = create('div', _classesJs2['default'].HEADLINE_WRAPPER);
-        var headline = create('h1', _classesJs2['default'].HEADLINE);
+        var headline = create('h3', _classesJs2['default'].HEADLINE);
 
         headline.textContent = title;
 
@@ -148,7 +150,7 @@ var build = {
 
         var imgObj = self.images[id];
         var image = create('img', _classesJs2['default'].IMAGE);
-        image.src = build.getImageUrl(imgObj.fileName, 400);
+        image.src = build.getImageUrl(imgObj.fileName, self.size);
         image.alt = imgObj.caption || title;
         image.title = title;
 
@@ -358,6 +360,10 @@ var build = {
 
         self.stories = JSON.parse(stories);
         var container = self.container = build.create('DIV', _classesJs2['default'].CONTAINER);
+
+        var title = self.title = build.create('DIV', 'title');
+        title.text = self.title;
+
         var wrapper = self.wrapper = build.create('DIV', _classesJs2['default'].WRAPPER);
         wrapper.id = wrapperID;
 
@@ -466,7 +472,7 @@ module.exports = {
 },{}],5:[function(require,module,exports){
 'use strict';
 
-module.exports = '0.2.3';
+module.exports = '0.2.6';
 
 },{}],6:[function(require,module,exports){
 'use strict';

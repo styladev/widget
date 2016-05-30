@@ -77,7 +77,7 @@ let build = {
 
         let imgObj              = self.images[ id ];
         let image               = create( `img`, classes.IMAGE );
-        image.src               = build.getImageUrl( imgObj.fileName, 400 );
+        image.src               = build.getImageUrl( imgObj.fileName, self.size );
         image.alt               = imgObj.caption || title;
         image.title             = title;
 
@@ -151,13 +151,13 @@ let build = {
         if ( self.newTab )
         {
             storyLink.setAttribute( 'target', '_blank' );
-        } else if ( self.iframe )
+        } 
+        else if ( self.iframe )
         {
             storyLink.setAttribute( 'target', '_top' );
         }
 
         story.appendChild( storyLink );
-
 
         storyLink.appendChild( build.buildImage( images, title ) );
         storyLink.appendChild( build.buildStoryText( title, description ) );
@@ -294,7 +294,7 @@ let build = {
      */
     getDescription( arr, i = 0 )
     {
-        let text = arr[ i ]
+        let text = arr[ i ];
 
         if ( !text )
         {
@@ -325,6 +325,10 @@ let build = {
 
         self.stories    = JSON.parse( stories );
         let container   = self.container    = build.create( `DIV`, classes.CONTAINER );
+
+        let title       = self.title        = build.create( `DIV`, 'title' );
+        title.text      = self.title;
+
         let wrapper     = self.wrapper      = build.create( `DIV`, classes.WRAPPER );
         wrapper.id      = wrapperID;
 
