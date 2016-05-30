@@ -233,7 +233,7 @@ let build = {
     {
         let theme   = domainConfig.theme;
         let css     =
-            `.${classes.HEADLINE}
+            `.${classes.HEADLINE}, .${classes.TITLE}
             {
                 font-family:        ${theme.hff};
                 font-weight:        ${theme.hfw};
@@ -326,8 +326,13 @@ let build = {
         self.stories    = JSON.parse( stories );
         let container   = self.container    = build.create( `DIV`, classes.CONTAINER );
 
-        let title       = self.title        = build.create( `DIV`, 'title' );
-        title.text      = self.title;
+        if ( self.title )
+        {
+            let text        = self.title;
+            let title       = self.title = build.create( `DIV`, classes.TITLE );
+            title.innerHTML = text + '<hr>';
+            container.appendChild( title );
+        }
 
         let wrapper     = self.wrapper      = build.create( `DIV`, classes.WRAPPER );
         wrapper.id      = wrapperID;

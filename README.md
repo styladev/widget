@@ -1,4 +1,4 @@
-Styla Widget  0.2.6
+Styla Widget  0.2.7
 =======
 
 The Styla Widget™ is a simple way to display stories from a Styla Magazine in a
@@ -60,6 +60,8 @@ window.stylaWidget = {
                 // DOM elements and selector strings
     newTab      // (default: false) open links in a new tab
     iframe      // (default: false) open links on parent frame (top)
+    size        // (default: 400) requested size (in pixels) of the image
+    title       // (default: false) header title
 };
 ```
 

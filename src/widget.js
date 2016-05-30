@@ -51,14 +51,14 @@ class StylaWidget
             throw `Styla Widget error: Target element too small to render widget ¯\\_(ツ)_/¯`;
         }
 
+        this.iframe             = iframe;
+        this.newTab             = newTab;
         this.size               = size;
-        this.target             = target;
         this.slug               = slug;
         this.tag                = tag;
-        this.version            = version;
-        this.newTab             = newTab;
-        this.iframe             = iframe;
+        this.target             = target;
         this.title              = title;
+        this.version            = version;
 
         let url  = tag ? `https://live.styla.com/api/feeds/tags/${tag}?offset=${offset}&limit=${limit}&domain=${slug}` :
                         `https://live.styla.com/api/feeds/user/${slug}?domain=${slug}&offset=${offset}&limit=${limit}`;

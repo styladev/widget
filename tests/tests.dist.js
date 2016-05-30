@@ -6,7 +6,7 @@
 },{}],2:[function(require,module,exports){
 module.exports={
   "name": "stylaWidget",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "contributors": [
     "Mouse Braun <mouse@styla.com>",
     "Elias Liedholm <elias@styla.com>"
@@ -87,7 +87,7 @@ var _microbejsDistMicrobeHttpMin = require('microbejs/dist/microbe.http.min');
 /*
     exchanged for css in the gulp build
  */
-var baseStyles = '#styla-widget p{margin:0}#styla-widget.styla-widget__wrapper{width:100%;height:100%}#styla-widget .styla-widget__container{box-sizing:border-box;position:relative;overflow:hidden;padding:1em 2em;height:100%;width:100%;min-height:14em;display:flex;flex-direction:column;flex-wrap:wrap;font-size:14px}#styla-widget .styla-widget__story{margin-bottom:1em;overflow:hidden;height:5em;position:relative;width:100%;flex-grow:1}#styla-widget .styla-widget__link{position:absolute;height:5em;width:100%;display:flex;text-decoration:none;color:inherit}#styla-widget__link>div{display:inline-block}#styla-widget .styla-widget__imagewrap{height:85px;margin:0 3% 0 0}#styla-widget .styla-widget__image{object-fit:contain}#styla-widget .styla-widget__textwrap{display:block;flex-grow:1;max-height:100%;overflow:hidden;float:left}#styla-widget .styla-widget__headlinewrap{height:2em;display:flex;flex-direction:column;justify-content:flex-end}#styla-widget .styla-widget__headline{font-size:1.4em;line-height:1.25em;max-height:2.5em;overflow:hidden;margin:0 0 .25em;word-wrap:break-word;text-overflow:ellipsis;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2}#styla-widget .styla-widget__paragraph{font-size:1em;line-height:1.5em;height:3em;overflow:hidden;position:relative;word-wrap:break-word}#styla-widget .styla-widget__paragraph:after{position:absolute;left:0;top:7.5em;display:block;background-color:#FFF;width:100%;height:2em}';
+var baseStyles = '#styla-widget p{margin:0}#styla-widget.styla-widget__wrapper{width:100%;height:100%}#styla-widget .styla-widget__container{box-sizing:border-box;position:relative;overflow:hidden;padding:1em 2em;height:100%;width:100%;min-height:14em;display:flex;flex-direction:column;flex-wrap:wrap;font-size:14px}#styla-widget .styla-widget__story{margin-bottom:1em;overflow:hidden;height:5em;position:relative;width:100%;flex-grow:1}#styla-widget .styla-widget__link{position:absolute;height:5em;width:100%;display:flex;text-decoration:none;color:inherit}#styla-widget__link>div{display:inline-block}#styla-widget .styla-widget__imagewrap{height:85px;margin:0 3% 0 0}#styla-widget .styla-widget__image{object-fit:contain}#styla-widget .styla-widget__textwrap{display:block;flex-grow:1;max-height:100%;overflow:hidden;float:left}#styla-widget .styla-widget__headlinewrap{height:2em;display:flex;flex-direction:column;justify-content:flex-end}#styla-widget .styla-widget__headline,#styla-widget .styla-widget__title{font-size:1.4em;line-height:1.25em;max-height:2.5em;overflow:hidden;margin:0 0 .25em;word-wrap:break-word;text-overflow:ellipsis;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2}#styla-widget .styla-widget__title{font-size:2em;text-align:center;margin-bottom:30px}#styla-widget .styla-widget__paragraph{font-size:1em;line-height:1.5em;height:3em;overflow:hidden;position:relative;word-wrap:break-word;text-overflow:ellipsis}#styla-widget .styla-widget__paragraph:after{position:absolute;left:0;top:7.5em;display:block;background-color:#FFF;width:100%;height:2em}';
 var wrapperID = 'styla-widget';
 var domainConfigAPI = 'https://live.styla.com/api/config/';
 var _reportError = function _reportError(e) {
@@ -296,7 +296,7 @@ var build = {
      */
     compileStyles: function compileStyles() {
         var theme = domainConfig.theme;
-        var css = '.' + _classesJs2['default'].HEADLINE + '\n            {\n                font-family:        ' + theme.hff + ';\n                font-weight:        ' + theme.hfw + ';\n                font-style:         ' + theme.hfs + ';\n                text-decoration:    ' + theme.htd + ';\n                letter-spacing:     ' + theme.hls + ';\n                color:              ' + theme.htc + ';\n            }\n            .' + _classesJs2['default'].PARAGRAPH + '\n            {\n                font-family:        ' + theme.sff + ';\n                font-weight:        ' + theme.sfw + ';\n                color:              ' + theme.stc + ';\n            }\n            .' + _classesJs2['default'].PARAGRAPH + ':after\n            {\n                content:            \'' + theme.strm + '\';\n                font-weight:        ' + theme.strmw + ';\n                text-decoration:    ' + theme.strmd + ';\n            }';
+        var css = '.' + _classesJs2['default'].HEADLINE + ', .' + _classesJs2['default'].TITLE + '\n            {\n                font-family:        ' + theme.hff + ';\n                font-weight:        ' + theme.hfw + ';\n                font-style:         ' + theme.hfs + ';\n                text-decoration:    ' + theme.htd + ';\n                letter-spacing:     ' + theme.hls + ';\n                color:              ' + theme.htc + ';\n            }\n            .' + _classesJs2['default'].PARAGRAPH + '\n            {\n                font-family:        ' + theme.sff + ';\n                font-weight:        ' + theme.sfw + ';\n                color:              ' + theme.stc + ';\n            }\n            .' + _classesJs2['default'].PARAGRAPH + ':after\n            {\n                content:            \'' + theme.strm + '\';\n                font-weight:        ' + theme.strmw + ';\n                text-decoration:    ' + theme.strmd + ';\n            }';
 
         return build.buildStyleTag(css);
     },
@@ -361,8 +361,12 @@ var build = {
         self.stories = JSON.parse(stories);
         var container = self.container = build.create('DIV', _classesJs2['default'].CONTAINER);
 
-        var title = self.title = build.create('DIV', 'title');
-        title.text = self.title;
+        if (self.title) {
+            var text = self.title;
+            var title = self.title = build.create('DIV', _classesJs2['default'].TITLE);
+            title.innerHTML = text + '<hr>';
+            container.appendChild(title);
+        }
 
         var wrapper = self.wrapper = build.create('DIV', _classesJs2['default'].WRAPPER);
         wrapper.id = wrapperID;
@@ -455,24 +459,25 @@ module.exports = exports['default'];
 'use strict';
 
 module.exports = {
-    WRAPPER: 'styla-widget__wrapper',
+    BASE_STYLES: 'styla-widget__base-styling',
     CONTAINER: 'styla-widget__container',
-    TEXT_WRAPPER: 'styla-widget__textwrap',
     HEADLINE: 'styla-widget__headline',
     HEADLINE_WRAPPER: 'styla-widget__headlinewrap',
     IMAGE: 'styla-widget__image',
     IMAGE_WRAPPER: 'styla-widget__imagewrap',
-    STORY: 'styla-widget__story',
     PARAGRAPH: 'styla-widget__paragraph',
+    STORY: 'styla-widget__story',
     STORY_LINK: 'styla-widget__link',
-    BASE_STYLES: 'styla-widget__base-styling',
-    STYLES: 'styla-widget__styling'
+    STYLES: 'styla-widget__styling',
+    TEXT_WRAPPER: 'styla-widget__textwrap',
+    TITLE: 'styla-widget__title',
+    WRAPPER: 'styla-widget__wrapper'
 };
 
 },{}],5:[function(require,module,exports){
 'use strict';
 
-module.exports = '0.2.6';
+module.exports = '0.2.7';
 
 },{}],6:[function(require,module,exports){
 'use strict';
