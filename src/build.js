@@ -13,6 +13,7 @@ import { http } from 'microbejs/dist/microbe.http.min';
     exchanged for css in the gulp build
  */
 const baseStyles        = `styla-widget-css-goes-here`;
+const specificStyles    = `styla-build-specific-css-goes-here`;
 const wrapperID         = `styla-widget`;
 const domainConfigAPI   = `https://live.styla.com/api/config/`;
 const _reportError      = function( e ){ console.log( `err`, e ) };
@@ -369,7 +370,7 @@ let build = {
     includeBaseStyles()
     {
         let head        = document.head;
-        let el          = build.buildStyleTag( baseStyles );
+        let el          = build.buildStyleTag( baseStyles + specificStyles );
         el.className    = classes.BASE_STYLES;
 
         head.appendChild( el );

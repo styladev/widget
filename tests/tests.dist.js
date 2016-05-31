@@ -6,7 +6,7 @@
 },{}],2:[function(require,module,exports){
 module.exports={
   "name": "stylaWidget",
-  "version": "0.2.7",
+  "version": "0.3.0",
   "contributors": [
     "Mouse Braun <mouse@styla.com>",
     "Elias Liedholm <elias@styla.com>"
@@ -87,7 +87,8 @@ var _microbejsDistMicrobeHttpMin = require('microbejs/dist/microbe.http.min');
 /*
     exchanged for css in the gulp build
  */
-var baseStyles = '#styla-widget p{margin:0}#styla-widget.styla-widget__wrapper{width:100%;height:100%}#styla-widget .styla-widget__container{box-sizing:border-box;position:relative;overflow:hidden;padding:1em 2em;height:100%;width:100%;min-height:14em;display:flex;flex-direction:column;flex-wrap:wrap;font-size:14px}#styla-widget .styla-widget__story{margin-bottom:1em;overflow:hidden;height:5em;position:relative;width:100%;flex-grow:1}#styla-widget .styla-widget__link{position:absolute;height:5em;width:100%;display:flex;text-decoration:none;color:inherit}#styla-widget__link>div{display:inline-block}#styla-widget .styla-widget__imagewrap{height:85px;margin:0 3% 0 0}#styla-widget .styla-widget__image{object-fit:contain}#styla-widget .styla-widget__textwrap{display:block;flex-grow:1;max-height:100%;overflow:hidden;float:left}#styla-widget .styla-widget__headlinewrap{height:2em;display:flex;flex-direction:column;justify-content:flex-end}#styla-widget .styla-widget__headline,#styla-widget .styla-widget__title{font-size:1.4em;line-height:1.25em;max-height:2.5em;overflow:hidden;margin:0 0 .25em;word-wrap:break-word;text-overflow:ellipsis;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2}#styla-widget .styla-widget__title{font-size:2em;text-align:center;margin-bottom:30px}#styla-widget .styla-widget__paragraph{font-size:1em;line-height:1.5em;height:3em;overflow:hidden;position:relative;word-wrap:break-word;text-overflow:ellipsis}#styla-widget .styla-widget__paragraph:after{position:absolute;left:0;top:7.5em;display:block;background-color:#FFF;width:100%;height:2em}';
+var baseStyles = 'styla-widget-css-goes-here';
+var specificStyles = 'styla-build-specific-css-goes-here';
 var wrapperID = 'styla-widget';
 var domainConfigAPI = 'https://live.styla.com/api/config/';
 var _reportError = function _reportError(e) {
@@ -401,7 +402,7 @@ var build = {
      */
     includeBaseStyles: function includeBaseStyles() {
         var head = document.head;
-        var el = build.buildStyleTag(baseStyles);
+        var el = build.buildStyleTag(baseStyles + specificStyles);
         el.className = _classesJs2['default'].BASE_STYLES;
 
         head.appendChild(el);
@@ -477,7 +478,7 @@ module.exports = {
 },{}],5:[function(require,module,exports){
 'use strict';
 
-module.exports = '0.2.7';
+module.exports = '0.3.0';
 
 },{}],6:[function(require,module,exports){
 'use strict';

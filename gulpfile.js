@@ -7,13 +7,6 @@ const header        = require( 'gulp-header' );
 const minifycss     = require( 'gulp-minify-css' );
 const rename        = require( 'gulp-rename' );
 const replace       = require( 'gulp-replace' );
-const marked        = require( 'gulp-marked' );
-
-
-
-const pygmentize    = require( 'pygmentize-bundled' );
-// const highlight     = require( 'highlightjs' );
-
 
 const _package      = require( './package.json' );
 
@@ -47,12 +40,8 @@ gulp.task( 'browserifyFiles', function()
         .pipe( fs.createWriteStream( __dirname + '/dist/widget.js' ) )
         .on( 'finish', function()
         {
-            var widgetCss     = fs.readFileSync( './dist/styles.min.css', 'utf8' );
-
-            gulp.src( './dist/widget.js' )
-                .pipe( header( licenceLong ) )
-                .pipe( replace( /styla-widget-css-goes-here/, widgetCss ) )
-                .pipe( gulp.dest( './dist/' ) )
+            insertStyles( 'widget', 'widget.js', '' );
+            insertStyles( 'stories', 'widget.js', '' );
         } );
 } );
 
@@ -65,13 +54,8 @@ gulp.task( 'min', function()
         .pipe( fs.createWriteStream( __dirname + '/dist/widget.min.js' ) )
         .on( 'finish', function()
         {
-            var widgetCss     = fs.readFileSync( './dist/styles.min.css', 'utf8' );
-
-            gulp.src( './dist/widget.min.js' )
-                .pipe( uglify() )
-                .pipe( header( licenceShort ) )
-                .pipe( replace( /styla-widget-css-goes-here/, widgetCss ) )
-                .pipe( gulp.dest( './dist/' ) )
+            insertStyles( 'widget' );
+            insertStyles( 'stories' );
         } );
 } );
 
@@ -84,37 +68,55 @@ gulp.task( 'buildTests', function()
         .pipe( fs.createWriteStream( __dirname + '/tests/tests.dist.js' ) )
         .on( 'finish', function()
         {
-            var widgetCss     = fs.readFileSync( './dist/styles.min.css', 'utf8' );
+            // insertStyles( 'stories' );
+            // var widgetCss     = fs.readFileSync( './dist/styles.min.css', 'utf8' );
 
-            gulp.src( './tests/tests.dist.js' )
-                .pipe( replace( /styla-widget-css-goes-here/, widgetCss ) )
-                .pipe( gulp.dest( './tests/' ) )
+            // gulp.src( './tests/tests.dist.js' )
+            //     .pipe( replace( /styla-widget-css-goes-here/, widgetCss ) )
+            //     .pipe( gulp.dest( './tests/' ) )
         } );
 } );
 
 
+var insertStyles = function( target = 'widget', file = 'widget.min.js', suffix = '.min', folder = 'dist' )
+{
+    let stylesCss   = fs.readFileSync( `./dist/styles.min.css`, 'utf8' );
+    let specificCss = fs.readFileSync( `./dist/${target}.min.css`, 'utf8' );
+
+    let _g = gulp.src( `./${folder}/${file}` );
+
+    if ( suffix === '.min' )
+    {
+        _g.pipe( uglify() ).pipe( header( licenceShort ) );
+    }
+    else
+    {
+        _g.pipe( header( licenceLong ) );
+    }
+    
+        return _g.pipe( replace( /styla-widget-css-goes-here/, stylesCss ) )
+                .pipe( replace( /styla-build-specific-css-goes-here/, specificCss ) )
+                .pipe( rename( `${target}${suffix}.js` ) )
+                .pipe( gulp.dest( `./${folder}/` ) );
+};
+
+
 gulp.task( 'css-min', function()
 {
-    return gulp.src( './src/styles.css' )
-                .pipe( rename( { suffix: '.min' } ) )
-                .pipe( minifycss() )
-                .pipe( gulp.dest( 'dist' ) );
-} );
-
-
-gulp.task( 'md', function()
-{
-    return gulp.src( 'README.md' )
-        .pipe( marked( {
-            highlight: function( code, lang, callback )
-            {
-                pygmentize( { lang: lang, format: 'html' }, code, function( err, result )
-                {
-                    callback( err, result.toString() );
-                } );
-            }
-        } ) )
+    gulp.src( './src/widget.css' )
+        .pipe( rename( { suffix: '.min' } ) )
+        .pipe( minifycss() )
         .pipe( gulp.dest( 'dist' ) );
+
+    gulp.src( './src/stories.css' )
+        .pipe( rename( { suffix: '.min' } ) )
+        .pipe( minifycss() )
+        .pipe( gulp.dest( 'dist' ) );
+
+    return gulp.src( './src/styles.css' )
+            .pipe( rename( { suffix: '.min' } ) )
+            .pipe( minifycss() )
+            .pipe( gulp.dest( 'dist' ) );
 } );
 
 
