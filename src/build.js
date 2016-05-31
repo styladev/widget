@@ -78,20 +78,18 @@ let build = {
         self                    = self || context;
         let create              = build.create;
         let imageWrapper        = create( `div`, classes.IMAGE_WRAPPER );
-
+        let size                = self.size;
         let id                  = images[0].id;
         let imgObj              = self.images[ id ];
-
-        // let imageIds            = Object.keys( self.images );
-        // let imgObj              = self.images[ imageIds[ 0 ] ];
-
+        
         let image               = create( `img`, classes.IMAGE );
-        image.src               = build.getImageUrl( imgObj.fileName, self.size );
+
+        image.src               = build.getImageUrl( imgObj.fileName, size );
         image.alt               = imgObj.caption || title;
         image.title             = title;
 
         imageWrapper.appendChild( image );
-
+        
         return imageWrapper;
     },
 
@@ -128,7 +126,6 @@ let build = {
             resImages.forEach( function( _i ){ images[ _i.id ] = _i; });
 
             self.images = images;
-            console.log( stories );
             let _els    = stories.stories.map( build.buildStory );
 
             let styling = build.compileStyles();

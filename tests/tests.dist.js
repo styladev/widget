@@ -151,15 +151,13 @@ var build = {
         self = self || context;
         var create = build.create;
         var imageWrapper = create('div', _classesJs2['default'].IMAGE_WRAPPER);
-
+        var size = self.size;
         var id = images[0].id;
         var imgObj = self.images[id];
 
-        // let imageIds            = Object.keys( self.images );
-        // let imgObj              = self.images[ imageIds[ 0 ] ];
-
         var image = create('img', _classesJs2['default'].IMAGE);
-        image.src = build.getImageUrl(imgObj.fileName, self.size);
+
+        image.src = build.getImageUrl(imgObj.fileName, size);
         image.alt = imgObj.caption || title;
         image.title = title;
 
@@ -199,7 +197,6 @@ var build = {
             });
 
             self.images = images;
-            console.log(stories);
             var _els = stories.stories.map(build.buildStory);
 
             var styling = build.compileStyles();
@@ -589,7 +586,6 @@ var tests = function tests(stylaWidget) {
              */
             QUnit.test('buildImage', function (assert) {
                 var id = stylaWidget.stories.images[0].id;
-
                 var imageWrapper = _srcBuildJs2['default'].buildImage([{ id: id }], 'moon?', stylaWidget);
 
                 assert.ok(imageWrapper.nodeType === 1, 'imageWrapper is a dom element');

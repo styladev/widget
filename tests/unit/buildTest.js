@@ -57,7 +57,6 @@ let tests = function( stylaWidget )
             QUnit.test( 'buildImage', function( assert )
             {
                 let id              = stylaWidget.stories.images[0].id;
-
                 let imageWrapper    = build.buildImage( [ { id : id } ], 'moon?', stylaWidget );
 
                 assert.ok( imageWrapper.nodeType === 1, 'imageWrapper is a dom element' );
