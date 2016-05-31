@@ -25,16 +25,18 @@ class StylaWidget
      * @return _Object_ this
      */
     constructor( {
-                    iframe  = false,
-                    ignore  = false,
-                    limit   = 5,
-                    newTab  = false,
-                    offset  = 0,
-                    size    = 400,
-                    slug    = false,
-                    tag     = false,
-                    target  = document.body,
-                    title   = false
+                    api         = 'https://live.styla.com',
+                    iframe      = false,
+                    ignore      = false,
+                    limit       = 5,
+                    newTab      = false,
+                    offset      = 0,
+                    size        = 400,
+                    storiesApi  = false,
+                    slug        = false,
+                    tag         = false,
+                    target      = document.body,
+                    title       = false
                     } )
     {
         if ( typeof target === `string` )
@@ -56,7 +58,7 @@ class StylaWidget
             throw `Styla Widget error: No slug defined, cannot render widget`;
         }
 
-
+        this.api        = api;
         this.iframe     = iframe;
         this.ignore     = ignore;
 
@@ -67,15 +69,16 @@ class StylaWidget
         this.offset     = offset;
         this.size       = size;
         this.slug       = slug;
+        this.storiesApi = storiesApi;
         this.tag        = tag;
         this.target     = target;
         this.title      = title;
 
 
-        let url = tag ? `https://live.styla.com/api/feeds/tags/${tag}?offset=${offset}&limit=${limit + ignoreBonus}&domain=${slug}` :
-                        `https://live.styla.com/api/feeds/user/${slug}?domain=${slug}&offset=${offset}&limit=${limit + ignoreBonus}`;
+        let url = tag ? `${api}/api/feeds/tags/${tag}?offset=${offset}&limit=${limit + ignoreBonus}&domain=${slug}` :
+                        `${api}/api/feeds/user/${slug}?domain=${slug}&offset=${offset}&limit=${limit + ignoreBonus}`;
 
-        http.get( url ).then( build.getDomainConfig.bind( this ) );
+        http.get( storiesApi || url ).then( build.getDomainConfig.bind( this ) );
 
         return this;
     }

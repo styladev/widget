@@ -6,7 +6,7 @@
 },{}],2:[function(require,module,exports){
 module.exports={
   "name": "stylaWidget",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "contributors": [
     "Mouse Braun <mouse@styla.com>",
     "Elias Liedholm <elias@styla.com>"
@@ -90,7 +90,6 @@ var _microbejsDistMicrobeHttpMin = require('microbejs/dist/microbe.http.min');
 var baseStyles = 'styla-widget-css-goes-here';
 var specificStyles = 'styla-build-specific-css-goes-here';
 var wrapperID = 'styla-widget';
-var domainConfigAPI = 'https://live.styla.com/api/config/';
 var _reportError = function _reportError(e) {
     console.log('err', e);
 };
@@ -152,9 +151,13 @@ var build = {
         self = self || context;
         var create = build.create;
         var imageWrapper = create('div', _classesJs2['default'].IMAGE_WRAPPER);
-        var id = images[0].id;
 
+        var id = images[0].id;
         var imgObj = self.images[id];
+
+        // let imageIds            = Object.keys( self.images );
+        // let imgObj              = self.images[ imageIds[ 0 ] ];
+
         var image = create('img', _classesJs2['default'].IMAGE);
         image.src = build.getImageUrl(imgObj.fileName, self.size);
         image.alt = imgObj.caption || title;
@@ -196,6 +199,7 @@ var build = {
             });
 
             self.images = images;
+            console.log(stories);
             var _els = stories.stories.map(build.buildStory);
 
             var styling = build.compileStyles();
@@ -214,7 +218,7 @@ var build = {
      * no matter what it will always build the number of stories set in the limit
      *
      * @param {Object} json image data
-     * @pa
+     * @param {Number} i iterator
      *
      * @return _DOMElement_ outer story element
      */
@@ -225,7 +229,6 @@ var build = {
         var externalPermalink = _ref.externalPermalink;
         var id = _ref.id;
 
-        console.log(id);
         if (self.ignore + '' !== id + '' && i - ignored < self.limit) {
             var create = build.create;
 
@@ -310,7 +313,11 @@ var build = {
      */
     compileStyles: function compileStyles() {
         var theme = domainConfig.theme;
-        var css = '.' + _classesJs2['default'].HEADLINE + ', .' + _classesJs2['default'].TITLE + '\n            {\n                font-family:        ' + theme.hff + ';\n                font-weight:        ' + theme.hfw + ';\n                font-style:         ' + theme.hfs + ';\n                text-decoration:    ' + theme.htd + ';\n                letter-spacing:     ' + theme.hls + ';\n                color:              ' + theme.htc + ';\n            }\n            .' + _classesJs2['default'].PARAGRAPH + '\n            {\n                font-family:        ' + theme.sff + ';\n                font-weight:        ' + theme.sfw + ';\n                color:              ' + theme.stc + ';\n            }\n            .' + _classesJs2['default'].PARAGRAPH + ':after\n            {\n                content:            \'' + theme.strm + '\';\n                font-weight:        ' + theme.strmw + ';\n                text-decoration:    ' + theme.strmd + ';\n            }';
+        var css = '';
+
+        if (theme) {
+            var _css = '.' + _classesJs2['default'].HEADLINE + ', .' + _classesJs2['default'].TITLE + '\n                {\n                    font-family:        ' + theme.hff + ';\n                    font-weight:        ' + theme.hfw + ';\n                    font-style:         ' + theme.hfs + ';\n                    text-decoration:    ' + theme.htd + ';\n                    letter-spacing:     ' + theme.hls + ';\n                    color:              ' + theme.htc + ';\n                }\n                .' + _classesJs2['default'].PARAGRAPH + '\n                {\n                    font-family:        ' + theme.sff + ';\n                    font-weight:        ' + theme.sfw + ';\n                    color:              ' + theme.stc + ';\n                }\n                .' + _classesJs2['default'].PARAGRAPH + ':after\n                {\n                    content:            \'' + theme.strm + '\';\n                    font-weight:        ' + theme.strmw + ';\n                    text-decoration:    ' + theme.strmd + ';\n                }';
+        }
 
         return build.buildStyleTag(css);
     },
@@ -385,6 +392,7 @@ var build = {
         var wrapper = self.wrapper = build.create('DIV', _classesJs2['default'].WRAPPER);
         wrapper.id = wrapperID;
 
+        var domainConfigAPI = 'https://live.styla.com/api/config/';
         _microbejsDistMicrobeHttpMin.http.get(domainConfigAPI + self.slug).then(build.buildStories)['catch'](_reportError);
 
         return container;
@@ -491,7 +499,7 @@ module.exports = {
 },{}],5:[function(require,module,exports){
 'use strict';
 
-module.exports = '0.3.0';
+module.exports = '0.3.1';
 
 },{}],6:[function(require,module,exports){
 'use strict';

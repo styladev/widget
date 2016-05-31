@@ -15,7 +15,6 @@ import { http } from 'microbejs/dist/microbe.http.min';
 const baseStyles        = `styla-widget-css-goes-here`;
 const specificStyles    = `styla-build-specific-css-goes-here`;
 const wrapperID         = `styla-widget`;
-const domainConfigAPI   = `https://live.styla.com/api/config/`;
 const _reportError      = function( e ){ console.log( `err`, e ) };
 
 /*
@@ -79,9 +78,13 @@ let build = {
         self                    = self || context;
         let create              = build.create;
         let imageWrapper        = create( `div`, classes.IMAGE_WRAPPER );
-        let id                  = images[0].id;
 
+        let id                  = images[0].id;
         let imgObj              = self.images[ id ];
+
+        // let imageIds            = Object.keys( self.images );
+        // let imgObj              = self.images[ imageIds[ 0 ] ];
+
         let image               = create( `img`, classes.IMAGE );
         image.src               = build.getImageUrl( imgObj.fileName, self.size );
         image.alt               = imgObj.caption || title;
@@ -125,6 +128,7 @@ let build = {
             resImages.forEach( function( _i ){ images[ _i.id ] = _i; });
 
             self.images = images;
+            console.log( stories );
             let _els    = stories.stories.map( build.buildStory );
 
             let styling = build.compileStyles();
@@ -247,28 +251,33 @@ let build = {
     compileStyles()
     {
         let theme   = domainConfig.theme;
-        let css     =
-            `.${classes.HEADLINE}, .${classes.TITLE}
-            {
-                font-family:        ${theme.hff};
-                font-weight:        ${theme.hfw};
-                font-style:         ${theme.hfs};
-                text-decoration:    ${theme.htd};
-                letter-spacing:     ${theme.hls};
-                color:              ${theme.htc};
-            }
-            .${classes.PARAGRAPH}
-            {
-                font-family:        ${theme.sff};
-                font-weight:        ${theme.sfw};
-                color:              ${theme.stc};
-            }
-            .${classes.PARAGRAPH}:after
-            {
-                content:            '${theme.strm}';
-                font-weight:        ${theme.strmw};
-                text-decoration:    ${theme.strmd};
-            }`;
+        let css     = ``;
+
+        if ( theme )
+        {
+            let css     =
+                `.${classes.HEADLINE}, .${classes.TITLE}
+                {
+                    font-family:        ${theme.hff};
+                    font-weight:        ${theme.hfw};
+                    font-style:         ${theme.hfs};
+                    text-decoration:    ${theme.htd};
+                    letter-spacing:     ${theme.hls};
+                    color:              ${theme.htc};
+                }
+                .${classes.PARAGRAPH}
+                {
+                    font-family:        ${theme.sff};
+                    font-weight:        ${theme.sfw};
+                    color:              ${theme.stc};
+                }
+                .${classes.PARAGRAPH}:after
+                {
+                    content:            '${theme.strm}';
+                    font-weight:        ${theme.strmw};
+                    text-decoration:    ${theme.strmd};
+                }`;
+        }
 
         return build.buildStyleTag( css );
     },
@@ -344,7 +353,7 @@ let build = {
         if ( self.title )
         {
             let text        = self.title;
-            let title       = self.title = build.create( `DIV`, classes.TITLE );
+            let title       = self.title    = build.create( `DIV`, classes.TITLE );
             title.innerHTML = text + '<hr>';
             container.appendChild( title );
         }
@@ -352,6 +361,7 @@ let build = {
         let wrapper     = self.wrapper      = build.create( `DIV`, classes.WRAPPER );
         wrapper.id      = wrapperID;
 
+        let domainConfigAPI   = `https://live.styla.com/api/config/`;
         http.get( domainConfigAPI + self.slug ).then( build.buildStories ).catch( _reportError );
 
         return container;
