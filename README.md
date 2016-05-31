@@ -88,6 +88,7 @@ dev installation
 git clone git@github.com:styladev/widget.git
 cd widget
 npm i
+npm run gulp
 ```
 
 
