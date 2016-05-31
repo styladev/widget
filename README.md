@@ -50,17 +50,19 @@ size isset to 14px, one story will be exactly 14 times that value, in this case
 
 ```js
 window.stylaWidget = {
-    slug        // Magazine name
-    tag         // (default: none) Filter stories by tag
+    iframe      // (default: false) open links on parent frame (top)
+    ignore      // (default: false) story id to ignore when rendering (generally 
+                // this represents the story that you're on) 
     limit       // (default: 5) Amount of entries to retrieve. Please note that
                 // the widget will only display the amount of stories that
                 // actually fits within the space its given.
+    newTab      // (default: false) open links in a new tab
     offset      // (default: 0) amount of entries to skip
+    size        // (default: 400) requested size (in pixels) of the image
+    slug        // Magazine name
+    tag         // (default: none) Filter stories by tag
     target      // (default: document.body) mount point of the widget. Accepts
                 // DOM elements and selector strings
-    newTab      // (default: false) open links in a new tab
-    iframe      // (default: false) open links on parent frame (top)
-    size        // (default: 400) requested size (in pixels) of the image
     title       // (default: false) header title
 };
 ```
@@ -109,6 +111,7 @@ Change log
 
 #### 0.3.0
 
+    + added ignore to the api
     + title and size options added
     + alternate "recommended stories" build added
 

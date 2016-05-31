@@ -107,6 +107,11 @@ var self = undefined;
  */
 var domainConfig = undefined;
 
+/*
+    used in tracking ignored stories for the sake of getting the right amount later
+ */
+var ignored = 0;
+
 var build = {
 
     /**
@@ -205,41 +210,49 @@ var build = {
     /**
      * ## buildStory
      *
-     * builds each story off the retrieved json
+     * builds each story off the retrieved json.  skips a story if the id matches ignore.  
+     * no matter what it will always build the number of stories set in the limit
      *
      * @param {Object} json image data
+     * @pa
      *
      * @return _DOMElement_ outer story element
      */
-    buildStory: function buildStory(_ref) {
+    buildStory: function buildStory(_ref, i) {
         var title = _ref.title;
         var description = _ref.description;
         var images = _ref.images;
         var externalPermalink = _ref.externalPermalink;
+        var id = _ref.id;
 
-        var create = build.create;
+        console.log(id);
+        if (self.ignore + '' !== id + '' && i - ignored < self.limit) {
+            var create = build.create;
 
-        var story = create('div', _classesJs2['default'].STORY);
-        var storyLink = create('a', _classesJs2['default'].STORY_LINK);
-        storyLink.href = '//' + self.domain + '/story/' + externalPermalink + '/';
+            var story = create('div', _classesJs2['default'].STORY);
+            var storyLink = create('a', _classesJs2['default'].STORY_LINK);
+            storyLink.href = '//' + self.domain + '/story/' + externalPermalink + '/';
 
-        if (self.newTab) {
-            storyLink.setAttribute('target', '_blank');
-        } else if (self.iframe) {
-            storyLink.setAttribute('target', '_top');
+            if (self.newTab) {
+                storyLink.setAttribute('target', '_blank');
+            } else if (self.iframe) {
+                storyLink.setAttribute('target', '_top');
+            }
+
+            story.appendChild(storyLink);
+
+            storyLink.appendChild(build.buildImage(images, title));
+            storyLink.appendChild(build.buildStoryText(title, description));
+
+            var container = self.container;
+
+            container.appendChild(story);
+            self.wrapper.appendChild(container);
+
+            return story;
+        } else {
+            ignored++;
         }
-
-        story.appendChild(storyLink);
-
-        storyLink.appendChild(build.buildImage(images, title));
-        storyLink.appendChild(build.buildStoryText(title, description));
-
-        var container = self.container;
-
-        container.appendChild(story);
-        self.wrapper.appendChild(container);
-
-        return story;
     },
 
     /**

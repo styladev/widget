@@ -30,6 +30,11 @@ let self;
  */
 let domainConfig;
 
+/*
+    used in tracking ignored stories for the sake of getting the right amount later
+ */
+let ignored = 0;
+
 
 let build = {
 
@@ -135,40 +140,49 @@ let build = {
     /**
      * ## buildStory
      *
-     * builds each story off the retrieved json
+     * builds each story off the retrieved json.  skips a story if the id matches ignore.  
+     * no matter what it will always build the number of stories set in the limit
      *
      * @param {Object} json image data
+     * @param {Number} i iterator
      *
      * @return _DOMElement_ outer story element
      */
-    buildStory( { title, description, images, externalPermalink } )
+    buildStory( { title, description, images, externalPermalink, id }, i )
     {
-        let create              = build.create;
-
-        let story               = create( `div`,    classes.STORY );
-        let storyLink           = create( `a`,      classes.STORY_LINK );
-        storyLink.href          = `//${self.domain}/story/${externalPermalink}/`;
-
-        if ( self.newTab )
+        if ( self.ignore + '' !== id + '' && i - ignored < self.limit )
         {
-            storyLink.setAttribute( 'target', '_blank' );
-        } 
-        else if ( self.iframe )
-        {
-            storyLink.setAttribute( 'target', '_top' );
+            let create              = build.create;
+
+            let story               = create( `div`,    classes.STORY );
+            let storyLink           = create( `a`,      classes.STORY_LINK );
+            storyLink.href          = `//${self.domain}/story/${externalPermalink}/`;
+
+            if ( self.newTab )
+            {
+                storyLink.setAttribute( 'target', '_blank' );
+            } 
+            else if ( self.iframe )
+            {
+                storyLink.setAttribute( 'target', '_top' );
+            }
+
+            story.appendChild( storyLink );
+
+            storyLink.appendChild( build.buildImage( images, title ) );
+            storyLink.appendChild( build.buildStoryText( title, description ) );
+
+            let container = self.container;
+
+            container.appendChild( story );
+            self.wrapper.appendChild( container );
+
+            return story;
         }
-
-        story.appendChild( storyLink );
-
-        storyLink.appendChild( build.buildImage( images, title ) );
-        storyLink.appendChild( build.buildStoryText( title, description ) );
-
-        let container = self.container;
-
-        container.appendChild( story );
-        self.wrapper.appendChild( container );
-
-        return story;
+        else
+        {
+            ignored++;
+        }
     },
 
 

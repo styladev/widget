@@ -25,14 +25,15 @@ class StylaWidget
      * @return _Object_ this
      */
     constructor( {
-                    slug    = ``,
-                    tag     = false,
-                    limit   = 5,
-                    offset  = 0,
-                    target  = document.body,
-                    newTab  = false,
                     iframe  = false,
+                    ignore  = false,
+                    limit   = 5,
+                    newTab  = false,
+                    offset  = 0,
                     size    = 400,
+                    slug    = false,
+                    tag     = false,
+                    target  = document.body,
                     title   = false
                     } )
     {
@@ -52,20 +53,27 @@ class StylaWidget
         }
         else if ( !slug )
         {
-            throw `Styla Widget error: No slug defined`;
+            throw `Styla Widget error: No slug defined, cannot render widget`;
         }
 
-        this.iframe             = iframe;
-        this.newTab             = newTab;
-        this.size               = size;
-        this.slug               = slug;
-        this.tag                = tag;
-        this.target             = target;
-        this.title              = title;
-        this.version            = version;
 
-        let url = tag ? `https://live.styla.com/api/feeds/tags/${tag}?offset=${offset}&limit=${limit}&domain=${slug}` :
-                        `https://live.styla.com/api/feeds/user/${slug}?domain=${slug}&offset=${offset}&limit=${limit}`;
+        this.iframe     = iframe;
+        this.ignore     = ignore;
+
+        let ignoreBonus = ignore ? 1 : 0; // adds an extra story if one is set to be ignored.  
+
+        this.limit      = limit;
+        this.newTab     = newTab;
+        this.offset     = offset;
+        this.size       = size;
+        this.slug       = slug;
+        this.tag        = tag;
+        this.target     = target;
+        this.title      = title;
+
+
+        let url = tag ? `https://live.styla.com/api/feeds/tags/${tag}?offset=${offset}&limit=${limit + ignoreBonus}&domain=${slug}` :
+                        `https://live.styla.com/api/feeds/user/${slug}?domain=${slug}&offset=${offset}&limit=${limit + ignoreBonus}`;
 
         http.get( url ).then( build.getDomainConfig.bind( this ) );
 
