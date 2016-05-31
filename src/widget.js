@@ -50,6 +50,10 @@ class StylaWidget
         {
             throw `Styla Widget error: Target element too small to render widget ¯\\_(ツ)_/¯`;
         }
+        else if ( !slug )
+        {
+            throw `Styla Widget error: No slug defined`;
+        }
 
         this.iframe             = iframe;
         this.newTab             = newTab;
@@ -60,7 +64,7 @@ class StylaWidget
         this.title              = title;
         this.version            = version;
 
-        let url  = tag ? `https://live.styla.com/api/feeds/tags/${tag}?offset=${offset}&limit=${limit}&domain=${slug}` :
+        let url = tag ? `https://live.styla.com/api/feeds/tags/${tag}?offset=${offset}&limit=${limit}&domain=${slug}` :
                         `https://live.styla.com/api/feeds/user/${slug}?domain=${slug}&offset=${offset}&limit=${limit}`;
 
         http.get( url ).then( build.getDomainConfig.bind( this ) );
