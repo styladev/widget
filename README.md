@@ -1,5 +1,6 @@
-Styla Widget  0.3.1
+Styla Widget  0.4.5
 =======
+
 
 The Styla Widget™ is a simple way to display stories from a Styla Magazine in a
 smaller format, anywhere on your site. A story in the widget functions as
@@ -51,20 +52,22 @@ size isset to 14px, one story will be exactly 14 times that value, in this case
 ```js
 window.stylaWidget = {
     api         // (default: 'http://live.styla.com') base api url
+    domain      // (default: false) if filled, this manually sets the base url for links
     iframe      // (default: false) open links on parent frame (top)
-    ignore      // (default: false) story id to ignore when rendering (generally 
-                //      this represents the story that you're on) 
+    ignore      // (default: false) story id to ignore when rendering (generally
+                //      this represents the story that you're on)
+    imageSize   // (default: 400) requested size (in pixels) of
+                //      the image
     limit       // (default: 5) Amount of entries to retrieve. Please note that
                 //      the widget will only display the amount of stories that
                 //      actually fits within the space its given.
-    linkDomain  // (default: false) domain to send links to.  this is ONLY 
+    linkDomain  // (default: false) domain to send links to.  this is ONLY
                 //      necessary on domains that do not use the domainConfig
+    minWidth    // (default: 250) minimum width (in px) for the mount point of the widget
     newTab      // (default: false) open links in a new tab
     offset      // (default: 0) amount of entries to skip
-    size        // (default: 400) requested size (in pixels) of 
-                //      the image
     slug        // (REQUIRED) Magazine name
-    storiesApi  // (default: false) manually set the exact api address to get 
+    storiesApi  // (default: false) manually set the exact api address to get
                 //      stories from
     tag         // (default: none) Filter stories by tag
     target      // (default: document.body) mount point of the widget. Accepts
@@ -100,6 +103,13 @@ npm run gulp
 ```
 
 
+Releasing
+--------
+
+When you release a new verion, commit it to dev (keeps dev upto date), commit it to master, then commit it to release. It must be released from the `release` branch.  It is the *only* branch that commits the dist files
+
+
+
 Contributing
 ============
 
@@ -115,47 +125,31 @@ This project adheres to the [Contributor Covenant](http://contributor-covenant.o
 Change log
 ==========
 
+### 0.4.4
 
-### 0.3.1
-
-    + added linkDomain for setting link urls on sites that dont use domainconfig
-    + css fixes
-    + added dynamic api url and domainconfig api url to the api
+    + removed margins for related stories
 
 
-#### 0.3.0
+### 0.4.2
 
-    + added ignore to the api
-    + title and size options added
-    + alternate "recommended stories" build added
+    + docs updated
 
 
-#### 0.2.4
+### 0.4.1
 
-    + src and liscence are now included with npm install
-
-
-#### 0.2.3
-
-    + added iframe
+    + center images vertically and horizontally with no cropping
 
 
-#### 0.2.2
+### 0.4.0
 
-    + added newTab
-
-
-#### 0.2.1
-
-    + gulp build adjusted for doc
-
-
-#### 0.2.0
-
-    + build object seperated from the widget
+    + styles and structure altered slightly
+    + size changed to imageSize
+    + feed changed to all
+    + adjusted theme-style insertion
+    + added domain option
 
 
-#### 0.1.6
+Older Changes
+=============
 
-    + fixed a bug where links were malformed missing a `/`
-    + internal refactoring
+To keep the length of this file down, [older changes are here](./older_changes.md)

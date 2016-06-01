@@ -78,13 +78,14 @@ let build = {
         self                    = self || context;
         let create              = build.create;
         let imageWrapper        = create( `div`, classes.IMAGE_WRAPPER );
-        let size                = self.size;
+        let imageSize           = self.imageSize;
         let id                  = images[0].id;
         let imgObj              = self.images[ id ];
-        
-        let image               = create( `img`, classes.IMAGE );
 
-        image.src               = build.getImageUrl( imgObj.fileName, size );
+        let url                 = build.getImageUrl( imgObj.fileName, imageSize );
+
+        let image               = create( `img`, classes.IMAGE );        
+        image.src               = url;
         image.alt               = imgObj.caption || title;
         image.title             = title;
 
@@ -123,6 +124,8 @@ let build = {
 
         if ( resImages )
         {
+            self.title = build.buildTitle();
+
             resImages.forEach( function( _i ){ images[ _i.id ] = _i; });
 
             self.images = images;
@@ -207,8 +210,14 @@ let build = {
         textWrapper.appendChild( headlineWrapper );
 
         let paragraph       = create( `div`,    classes.PARAGRAPH );
-        paragraph.innerHTML = build.getDescription( JSON.parse( description ) );
-        paragraph.innerHTML = paragraph.textContent;
+        description         = build.getDescription( JSON.parse( description ) );
+        
+        if ( description )
+        {
+            paragraph.innerHTML = description;
+            paragraph.innerHTML = paragraph.textContent;
+        }
+
         textWrapper.appendChild( paragraph );
 
         return textWrapper;
@@ -237,6 +246,25 @@ let build = {
     },
 
 
+    buildTitle()
+    {
+        if ( self.title === true && domainConfig.title )
+        {
+            self.title = domainConfig.title;
+        }
+
+        if ( self.title )
+        {
+            let text        = self.title;
+            let title       = self.title    = build.create( `DIV`, classes.TITLE );
+            title.innerHTML = text;
+
+            self.container.appendChild( title );
+        }
+
+        return self.title;
+    },
+
 
     /**
      * ## compileStyles
@@ -252,7 +280,7 @@ let build = {
 
         if ( theme )
         {
-            let css     =
+            css =
                 `.${classes.HEADLINE}, .${classes.TITLE}
                 {
                     font-family:        ${theme.hff};
@@ -276,7 +304,12 @@ let build = {
                 }`;
         }
 
-        return build.buildStyleTag( css );
+        let el          = build.buildStyleTag( css );
+        el.className    = `${classes.THEME_STYLES}`;
+
+        self.els.themeStyle = el;
+        
+        return el;
     },
 
 
@@ -319,7 +352,7 @@ let build = {
 
         if ( !text )
         {
-            return false
+            return false;
         }
         else if ( text.type !== `text` )
         {
@@ -345,17 +378,11 @@ let build = {
         self = this;
 
         self.stories    = JSON.parse( stories );
+
         let container   = self.container    = build.create( `DIV`, classes.CONTAINER );
-
-        if ( self.title )
-        {
-            let text        = self.title;
-            let title       = self.title    = build.create( `DIV`, classes.TITLE );
-            title.innerHTML = text + '<hr>';
-            container.appendChild( title );
-        }
-
         let wrapper     = self.wrapper      = build.create( `DIV`, classes.WRAPPER );
+
+        self.els.wrapper = wrapper;
         wrapper.id      = wrapperID;
 
         let domainConfigAPI   = `https://live.styla.com/api/config/`;
@@ -371,13 +398,13 @@ let build = {
      * uses the filename and size to create the full image url
      *
      * @param {String} filename from the image data object
-     * @param {Number or String} size width to grab from the server
+     * @param {Number or String} imageSize width to grab from the server
      *
      * @return _String_ file name
      */
-    getImageUrl( filename, size = 400 )
+    getImageUrl( filename, imageSize = 400 )
     {
-        return `//img.styla.com/resizer/sfh_${size}x0/_${filename}?still`;
+        return `//img.styla.com/resizer/sfh_${imageSize}x0/_${filename}?still`;
     },
 
 
@@ -392,7 +419,9 @@ let build = {
     {
         let head        = document.head;
         let el          = build.buildStyleTag( baseStyles + specificStyles );
-        el.className    = classes.BASE_STYLES;
+        el.className    = `${classes.BASE_STYLES}`;
+
+        self.els.baseStyle = el;
 
         head.appendChild( el );
 
@@ -414,10 +443,11 @@ let build = {
      */
     includeFonts()
     {
-        let el  = document.createElement( `link` );
-        el.type = `text/css`;
-        el.rel  = `stylesheet`;
-        el.href = domainConfig.embed.customFontUrl;
+        let el      = document.createElement( `link` );
+        el.type     = `text/css`;
+        el.rel      = `stylesheet`;
+        let fontUrl = domainConfig.embed.customFontUrl
+        el.href     = fontUrl.indexOf( '//' ) !== -1 ? fontUrl : `//${fontUrl}`;
 
         document.head.appendChild( el );
 
@@ -435,8 +465,12 @@ let build = {
     setDomain()
     {
         let embed   = domainConfig.embed;
-
-        if ( self.linkDomain )
+        
+        if ( self.domain )
+        {
+            return self.domain;
+        }
+        else if ( self.linkDomain )
         {
             return self.domain = self.linkDomain;
         }

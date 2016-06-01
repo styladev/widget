@@ -1,3 +1,6 @@
+#styla-widget .styla-widget__container {
+    padding:                            1em 2em;
+}
 
 #styla-widget .styla-widget__story
 {
@@ -40,12 +43,6 @@
     order:                              2
 }
 
-#styla-widget .styla-widget__image
-{
-    height:                             100%;
-    max-width:                          100%;
-    max-height:                         100%;
-}
 
 #styla-widget .styla-widget__textwrap
 {
