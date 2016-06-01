@@ -1,5 +1,5 @@
 /*!
- * Styla bite-sized widget v0.3.2
+ * Styla bite-sized widget v0.3.3
  * https://github.com/styladev/widget
  *
  * Copyright 2016 Styla GmbH and other contributors
@@ -452,7 +452,7 @@ module.exports = {
 },{}],4:[function(require,module,exports){
 'use strict';
 
-module.exports = '0.3.2';
+module.exports = '0.3.3';
 
 },{}],5:[function(require,module,exports){
 
@@ -465,6 +465,10 @@ module.exports = '0.3.2';
  * @author "Elias Liedholm <elias@styla.com>"
  */
 'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+    value: true
+});
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
@@ -493,7 +497,9 @@ var StylaWidget = (function () {
      * @return _Object_ this
      */
 
-    function StylaWidget(_ref) {
+    function StylaWidget() {
+        var _ref = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+
         var _ref$api = _ref.api;
         var api = _ref$api === undefined ? 'https://live.styla.com' : _ref$api;
         var _ref$iframe = _ref.iframe;
@@ -582,13 +588,19 @@ var StylaWidget = (function () {
 
 ;
 
-window.stylaWidget = window.stylaWidget || {};
+window.StylaWidget = StylaWidget;
 
 var alsoOnLoad = typeof window.onload === 'function' ? window.onload : function () {};
 
 window.onload = function (e) {
-    window.stylaWidget = new StylaWidget(window.stylaWidget);
+    if (window.stylaWidget) {
+        window.stylaWidget = new StylaWidget(window.stylaWidget);
+    }
+
     alsoOnLoad(e);
 };
+
+exports['default'] = StylaWidget;
+module.exports = exports['default'];
 
 },{"./build.js":2,"./version.js":4,"microbejs/dist/microbe.http.min":1}]},{},[5]);

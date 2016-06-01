@@ -6,7 +6,7 @@
 },{}],2:[function(require,module,exports){
 module.exports={
   "name": "stylaWidget",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "contributors": [
     "Mouse Braun <mouse@styla.com>",
     "Elias Liedholm <elias@styla.com>"
@@ -17,13 +17,15 @@ module.exports={
     "url": "git+https://github.com/styladev/widget.git"
   },
   "scripts": {
+    "browserifyFiles": "./node_modules/.bin/gulp browserifyFiles",
     "build": "./node_modules/.bin/gulp && npm run doc && npm test",
     "buildTests": "./node_modules/.bin/gulp buildTests",
     "css-min": "./node_modules/.bin/gulp css-min",
-    "gulp": "./node_modules/.bin/gulp",
+    "doc": "docker -o dist/doc/ -i src --sidebar true --js dist/widget.js -c manni && cp ./dist/doc/widget.js.html ./dist/doc/index.html",
+    "gulp": "mkdir -p ./dist && ./node_modules/.bin/gulp",
+    "min": "./node_modules/.bin/gulp min",
     "test": "node --harmony ./scripts/nightmare.js",
-    "versionBump": "node ./scripts/version_bump.js",
-    "doc": "docker -o dist/doc/ -i src --sidebar true --js dist/widget.js -c manni && cp ./dist/doc/widget.js.html ./dist/doc/index.html"
+    "versionBump": "node ./scripts/version_bump.js"
   },
   "devDependencies": {
     "babelify": "^6.3.0",
@@ -505,7 +507,7 @@ module.exports = {
 },{}],5:[function(require,module,exports){
 'use strict';
 
-module.exports = '0.3.2';
+module.exports = '0.3.3';
 
 },{}],6:[function(require,module,exports){
 'use strict';
