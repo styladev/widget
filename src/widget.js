@@ -114,3 +114,6 @@ window.onload = function( e )
     
     alsoOnLoad( e );
 };
+
+export default StylaWidget;
+
