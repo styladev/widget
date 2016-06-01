@@ -1,4 +1,4 @@
-Styla Widget  0.3.1
+Styla Widget  0.3.3
 =======
 
 The Styla Widget™ is a simple way to display stories from a Styla Magazine in a
@@ -115,6 +115,15 @@ This project adheres to the [Contributor Covenant](http://contributor-covenant.o
 Change log
 ==========
 
+### 0.3.3
+
+    + the widget now only builds initially if there is a valid stylaWidget object
+
+
+### 0.3.2
+
+    + added an empty object fallback for the widget options
+
 
 ### 0.3.1
 
@@ -133,6 +142,8 @@ Change log
 #### 0.2.4
 
     + src and liscence are now included with npm install
+    + h1 titles changed to h3
+    + removed an errant trailing slash in links
 
 
 #### 0.2.3

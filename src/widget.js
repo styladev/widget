@@ -38,7 +38,7 @@ class StylaWidget
                     tag         = false,
                     target      = document.body,
                     title       = false
-                    } )
+                    } = {} )
     {
         if ( typeof target === `string` )
         {
@@ -101,12 +101,16 @@ class StylaWidget
     }
 };
 
-window.stylaWidget = window.stylaWidget || {};
+window.StylaWidget = StylaWidget;
 
 let alsoOnLoad = typeof window.onload === 'function' ? window.onload : function(){};
 
 window.onload = function( e )
 {
-    window.stylaWidget = new StylaWidget( window.stylaWidget );
+    if ( window.stylaWidget )
+    {
+        window.stylaWidget = new StylaWidget( window.stylaWidget );
+    }
+    
     alsoOnLoad( e );
 };
