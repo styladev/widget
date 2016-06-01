@@ -117,6 +117,7 @@ Change log
 
 ### 0.3.3
 
+    + widget now sets a default export
     + the widget now only builds initially if there is a valid stylaWidget object
 
 
