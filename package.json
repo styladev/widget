@@ -47,6 +47,7 @@
     "liscence.md",
     "dist/stories.min.js",
     "dist/widget.min.js",
+    "demo/"
   ],
   "homepage": "https://github.com/styladev/widget",
   "main": "./dist/widget.min.js",
