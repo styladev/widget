@@ -1,4 +1,4 @@
-Styla Widget  0.3.1
+Styla Widget  0.3.2
 =======
 
 The Styla Widget™ is a simple way to display stories from a Styla Magazine in a

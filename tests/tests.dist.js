@@ -6,7 +6,7 @@
 },{}],2:[function(require,module,exports){
 module.exports={
   "name": "stylaWidget",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "contributors": [
     "Mouse Braun <mouse@styla.com>",
     "Elias Liedholm <elias@styla.com>"
@@ -23,8 +23,7 @@ module.exports={
     "gulp": "./node_modules/.bin/gulp",
     "test": "node --harmony ./scripts/nightmare.js",
     "versionBump": "node ./scripts/version_bump.js",
-    "md": "./node_modules/.bin/gulp md",
-    "doc": "npm run md && docker -o dist/doc/ -i src --sidebar true --js dist/widget.js -c manni && cp ./dist/doc/widget.js.html ./dist/doc/index.html"
+    "doc": "docker -o dist/doc/ -i src --sidebar true --js dist/widget.js -c manni && cp ./dist/doc/widget.js.html ./dist/doc/index.html"
   },
   "devDependencies": {
     "babelify": "^6.3.0",
@@ -33,7 +32,6 @@ module.exports={
     "docker": "git://github.com/nicolasbrugneaux/docker.git#patch-1",
     "gulp": "^3.9.0",
     "gulp-header": "^1.7.1",
-    "gulp-marked": "^1.0.0",
     "gulp-minify-css": "^1.2.4",
     "gulp-rename": "^1.2.2",
     "gulp-replace": "^0.5.4",
@@ -41,7 +39,6 @@ module.exports={
     "microbejs": "^0.5.2",
     "nightmare": "^2.1.1",
     "promise": "^7.1.1",
-    "pygmentize-bundled": "^2.3.0",
     "qunitjs": "^1.20.0",
     "serve-static": "^1.10.0",
     "vo": "^1.0.3"
@@ -54,12 +51,19 @@ module.exports={
     "CODE_OF_CONDUCT.md",
     "README.md",
     "liscence.md",
-    "dist/",
-    "src/"
+    "dist/stories.min.js",
+    "dist/widget.min.js",
+    "demo/"
   ],
   "homepage": "https://github.com/styladev/widget",
   "main": "./dist/widget.min.js",
-  "keywords": []
+  "keywords": [
+    "styla",
+    "widget",
+    "related",
+    "stories",
+    "content"
+  ]
 }
 
 },{}],3:[function(require,module,exports){
@@ -501,7 +505,7 @@ module.exports = {
 },{}],5:[function(require,module,exports){
 'use strict';
 
-module.exports = '0.3.1';
+module.exports = '0.3.2';
 
 },{}],6:[function(require,module,exports){
 'use strict';
