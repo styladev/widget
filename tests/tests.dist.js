@@ -459,9 +459,14 @@ var build = {
      */
     setDomain: function setDomain() {
         var embed = domainConfig.embed;
-        var domain = self.domain = embed.magazineUrl + '/' + embed.rootPath;
 
-        return domain;
+        if (self.linkDomain) {
+            return self.domain = self.linkDomain;
+        } else if (embed) {
+            return self.domain = embed.magazineUrl + '/' + embed.rootPath;
+        } else {
+            throw 'Styla Widget error: No domain defined or bad domain config';
+        }
     }
 };
 

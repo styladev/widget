@@ -29,6 +29,7 @@ class StylaWidget
                     iframe      = false,
                     ignore      = false,
                     limit       = 5,
+                    linkDomain  = false,
                     newTab      = false,
                     offset      = 0,
                     size        = 400,
@@ -59,6 +60,7 @@ class StylaWidget
         }
 
         this.api        = api;
+        this.linkDomain = linkDomain;
         this.iframe     = iframe;
         this.ignore     = ignore;
 

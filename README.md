@@ -115,6 +115,7 @@ Change log
 
 ### 0.3.1
 
+    + added linkDomain for setting link urls on sites that dont use domainconfig
     + css fixes
     + added dynamic api url and domainconfig api url to the api
 
