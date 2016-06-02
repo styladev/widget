@@ -78,13 +78,13 @@ let build = {
         self                    = self || context;
         let create              = build.create;
         let imageWrapper        = create( `div`, classes.IMAGE_WRAPPER );
-        let size                = self.size;
+        let imageSize           = self.imageSize;
         let id                  = images[0].id;
         let imgObj              = self.images[ id ];
         
         let image               = create( `img`, classes.IMAGE );
 
-        image.src               = build.getImageUrl( imgObj.fileName, size );
+        image.src               = build.getImageUrl( imgObj.fileName, imageSize );
         image.alt               = imgObj.caption || title;
         image.title             = title;
 
@@ -378,13 +378,13 @@ let build = {
      * uses the filename and size to create the full image url
      *
      * @param {String} filename from the image data object
-     * @param {Number or String} size width to grab from the server
+     * @param {Number or String} imageSize width to grab from the server
      *
      * @return _String_ file name
      */
-    getImageUrl( filename, size = 400 )
+    getImageUrl( filename, imageSize = 400 )
     {
-        return `//img.styla.com/resizer/sfh_${size}x0/_${filename}?still`;
+        return `//img.styla.com/resizer/sfh_${imageSize}x0/_${filename}?still`;
     },
 
 

@@ -85,7 +85,7 @@ class StylaWidget
                     minWidth    = 250,
                     newTab      = false,
                     offset      = 0,
-                    size        = 400,
+                    imageSize   = 400,
                     storiesApi  = false,
                     slug        = false,
                     tag         = false,
@@ -112,7 +112,7 @@ class StylaWidget
         this.minWidth   = minWidth;
         this.newTab     = newTab;
         this.offset     = offset;
-        this.size       = size;
+        this.imageSize  = imageSize;
         this.slug       = slug;
         this.storiesApi = storiesApi;
         this.tag        = tag;

@@ -1,4 +1,4 @@
-Styla Widget  0.3.5
+Styla Widget  0.4.0
 =======
 
 
@@ -55,6 +55,8 @@ window.stylaWidget = {
     iframe      // (default: false) open links on parent frame (top)
     ignore      // (default: false) story id to ignore when rendering (generally 
                 //      this represents the story that you're on) 
+    imageSize   // (default: 400) requested size (in pixels) of 
+                //      the image
     limit       // (default: 5) Amount of entries to retrieve. Please note that
                 //      the widget will only display the amount of stories that
                 //      actually fits within the space its given.
@@ -63,8 +65,6 @@ window.stylaWidget = {
     minWidth    // (default: 250) minimum width (in px) for the mount point of the widget
     newTab      // (default: false) open links in a new tab
     offset      // (default: 0) amount of entries to skip
-    size        // (default: 400) requested size (in pixels) of 
-                //      the image
     slug        // (REQUIRED) Magazine name
     storiesApi  // (default: false) manually set the exact api address to get 
                 //      stories from
@@ -116,6 +116,11 @@ This project adheres to the [Contributor Covenant](http://contributor-covenant.o
 
 Change log
 ==========
+
+### 0.4.0
+
+    + size changed to imageSize
+
 
 ### 0.3.5
 
