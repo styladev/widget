@@ -16,6 +16,50 @@ import { http } from 'microbejs/dist/microbe.http.min';
 class StylaWidget
 {
     /**
+     * ## attach
+     *
+     * adds the previously configured widget to the currently 
+     * defined target or a new selector / el
+     *
+     * @return _Void_
+     */
+    attach( target = this.target )
+    {
+        target      = this.checkTarget( target );
+
+        let els     = this.els;
+        let head    = document.head;
+
+        head.appendChild( els.baseStyle );
+        head.appendChild( els.themeStyle );
+        target.appendChild( els.wrapper );
+
+        return this;
+    }
+
+
+    checkTarget( target )
+    {
+        if ( typeof target === `string` )
+        {
+            return document.querySelector( target );
+        }
+
+        if ( typeof target === `undefined` || target === null )
+        {
+            console.error( `Styla Widget error: Cant find target element in DOM. Widget will render directly in body` );
+            return document.body;
+        }
+        else if ( target.offsetWidth < 250 )
+        {
+            throw `Styla Widget error: Target element too small to render widget ¯\\_(ツ)_/¯`;
+        }
+
+        return target;
+    }
+
+
+    /**
      * ## constructor
      *
      * grabs the feed from the api and starts everything
@@ -40,26 +84,14 @@ class StylaWidget
                     title       = false
                     } = {} )
     {
-        if ( typeof target === `string` )
-        {
-            target = document.querySelector( target );
-        }
+        target = this.checkTarget( target );
 
-        if ( typeof target === `undefined` || target === null )
-        {
-            console.error( `Styla Widget error: Cant find target element in DOM. Widget will render directly in body` );
-            target = document.body;
-        }
-        else if ( target.offsetWidth < 250 )
-        {
-            throw `Styla Widget error: Target element too small to render widget ¯\\_(ツ)_/¯`;
-        }
-        else if ( !slug )
+        if ( !slug )
         {
             throw `Styla Widget error: No slug defined, cannot render widget`;
         }
-
-        this.seed       = Date.now();
+        
+        this.els        = {};
         this.api        = api;
         this.linkDomain = linkDomain;
         this.iframe     = iframe;
@@ -96,13 +128,20 @@ class StylaWidget
      */
     destroy()
     {
-        let els = document.querySelectorAll( `.styla-widget__${this.seed}` );
-        Array.prototype.forEach.call( els, function( el )
+        let els = this.els;
+
+        Object.keys( els ).forEach( function( key )
         {
-            el.parentNode.removeChild( el );
+            let el      = els[ key ];
+            let parent  = el.parentNode;
+
+            if ( parent )
+            {
+                parent.removeChild( el );
+            }
         } );
 
-        return this.wrapper;
+        return this;
     }
 };
 
