@@ -1,4 +1,4 @@
-Styla Widget  0.3.4
+Styla Widget  0.3.5
 =======
 
 
@@ -60,6 +60,7 @@ window.stylaWidget = {
                 //      actually fits within the space its given.
     linkDomain  // (default: false) domain to send links to.  this is ONLY 
                 //      necessary on domains that do not use the domainConfig
+    minWidth    // (default: 250) minimum width (in px) for the mount point of the widget
     newTab      // (default: false) open links in a new tab
     offset      // (default: 0) amount of entries to skip
     size        // (default: 400) requested size (in pixels) of 
@@ -115,6 +116,13 @@ This project adheres to the [Contributor Covenant](http://contributor-covenant.o
 
 Change log
 ==========
+
+### 0.3.5
+
+    + attach() added
+    + checkTarget() added
+    + minWidth is now adjustable
+
 
 ### 0.3.4
 

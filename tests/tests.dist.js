@@ -6,7 +6,7 @@
 },{}],2:[function(require,module,exports){
 module.exports={
   "name": "stylaWidget",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "contributors": [
     "Mouse Braun <mouse@styla.com>",
     "Elias Liedholm <elias@styla.com>"
@@ -323,7 +323,9 @@ var build = {
         }
 
         var el = build.buildStyleTag(css);
-        el.className = _classesJs2['default'].THEME_STYLES + '  styla-widget__' + self.seed;
+        el.className = '' + _classesJs2['default'].THEME_STYLES;
+
+        self.els.themeStyle = el;
 
         return el;
     },
@@ -395,7 +397,9 @@ var build = {
             container.appendChild(title);
         }
 
-        var wrapper = self.wrapper = build.create('DIV', _classesJs2['default'].WRAPPER + '  styla-widget__' + self.seed);
+        var wrapper = self.wrapper = build.create('DIV', '' + _classesJs2['default'].WRAPPER);
+
+        self.els.wrapper = wrapper;
         wrapper.id = wrapperID;
 
         var domainConfigAPI = 'https://live.styla.com/api/config/';
@@ -430,7 +434,9 @@ var build = {
     includeBaseStyles: function includeBaseStyles() {
         var head = document.head;
         var el = build.buildStyleTag(baseStyles + specificStyles);
-        el.className = _classesJs2['default'].BASE_STYLES + '  styla-widget__' + self.seed;
+        el.className = '' + _classesJs2['default'].BASE_STYLES;
+
+        self.els.baseStyle = el;
 
         head.appendChild(el);
 
@@ -511,7 +517,7 @@ module.exports = {
 },{}],5:[function(require,module,exports){
 'use strict';
 
-module.exports = '0.3.4';
+module.exports = '0.3.5';
 
 },{}],6:[function(require,module,exports){
 'use strict';

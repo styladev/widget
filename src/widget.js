@@ -25,7 +25,7 @@ class StylaWidget
      */
     attach( target = this.target )
     {
-        target      = this.checkTarget( target );
+        target      = this.checkTarget( target, this.minWidth );
 
         let els     = this.els;
         let head    = document.head;
@@ -38,7 +38,15 @@ class StylaWidget
     }
 
 
-    checkTarget( target )
+    /**
+     * ## checkTarget
+     *
+     * makes sure the target is a DOMelement and wide enough
+     *
+     * @param {String or DOMElement} target attach point for the widget
+     * 
+     */
+    checkTarget( target, minWidth )
     {
         if ( typeof target === `string` )
         {
@@ -50,7 +58,7 @@ class StylaWidget
             console.error( `Styla Widget error: Cant find target element in DOM. Widget will render directly in body` );
             return document.body;
         }
-        else if ( target.offsetWidth < 250 )
+        else if ( target.offsetWidth < minWidth )
         {
             throw `Styla Widget error: Target element too small to render widget ¯\\_(ツ)_/¯`;
         }
@@ -74,6 +82,7 @@ class StylaWidget
                     ignore      = false,
                     limit       = 5,
                     linkDomain  = false,
+                    minWidth    = 250,
                     newTab      = false,
                     offset      = 0,
                     size        = 400,
@@ -84,13 +93,13 @@ class StylaWidget
                     title       = false
                     } = {} )
     {
-        target = this.checkTarget( target );
+        target = this.checkTarget( target, minWidth );
 
         if ( !slug )
         {
             throw `Styla Widget error: No slug defined, cannot render widget`;
         }
-        
+
         this.els        = {};
         this.api        = api;
         this.linkDomain = linkDomain;
@@ -100,6 +109,7 @@ class StylaWidget
         let ignoreBonus = ignore ? 1 : 0; // adds an extra story if one is set to be ignored.  
 
         this.limit      = limit;
+        this.minWidth   = minWidth;
         this.newTab     = newTab;
         this.offset     = offset;
         this.size       = size;
