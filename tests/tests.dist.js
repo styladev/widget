@@ -6,7 +6,7 @@
 },{}],2:[function(require,module,exports){
 module.exports={
   "name": "stylaWidget",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "contributors": [
     "Mouse Braun <mouse@styla.com>",
     "Elias Liedholm <elias@styla.com>"
@@ -322,7 +322,10 @@ var build = {
             var _css = '.' + _classesJs2['default'].HEADLINE + ', .' + _classesJs2['default'].TITLE + '\n                {\n                    font-family:        ' + theme.hff + ';\n                    font-weight:        ' + theme.hfw + ';\n                    font-style:         ' + theme.hfs + ';\n                    text-decoration:    ' + theme.htd + ';\n                    letter-spacing:     ' + theme.hls + ';\n                    color:              ' + theme.htc + ';\n                }\n                .' + _classesJs2['default'].PARAGRAPH + '\n                {\n                    font-family:        ' + theme.sff + ';\n                    font-weight:        ' + theme.sfw + ';\n                    color:              ' + theme.stc + ';\n                }\n                .' + _classesJs2['default'].PARAGRAPH + ':after\n                {\n                    content:            \'' + theme.strm + '\';\n                    font-weight:        ' + theme.strmw + ';\n                    text-decoration:    ' + theme.strmd + ';\n                }';
         }
 
-        return build.buildStyleTag(css);
+        var el = build.buildStyleTag(css);
+        el.className = _classesJs2['default'].THEME_STYLES + '  styla-widget__' + self.seed;
+
+        return el;
     },
 
     /**
@@ -392,7 +395,7 @@ var build = {
             container.appendChild(title);
         }
 
-        var wrapper = self.wrapper = build.create('DIV', _classesJs2['default'].WRAPPER);
+        var wrapper = self.wrapper = build.create('DIV', _classesJs2['default'].WRAPPER + '  styla-widget__' + self.seed);
         wrapper.id = wrapperID;
 
         var domainConfigAPI = 'https://live.styla.com/api/config/';
@@ -427,7 +430,7 @@ var build = {
     includeBaseStyles: function includeBaseStyles() {
         var head = document.head;
         var el = build.buildStyleTag(baseStyles + specificStyles);
-        el.className = _classesJs2['default'].BASE_STYLES;
+        el.className = _classesJs2['default'].BASE_STYLES + '  styla-widget__' + self.seed;
 
         head.appendChild(el);
 
@@ -500,6 +503,7 @@ module.exports = {
     STORY_LINK: 'styla-widget__link',
     STYLES: 'styla-widget__styling',
     TEXT_WRAPPER: 'styla-widget__textwrap',
+    THEME_STYLES: 'styla-widget__theme-styling',
     TITLE: 'styla-widget__title',
     WRAPPER: 'styla-widget__wrapper'
 };
@@ -507,7 +511,7 @@ module.exports = {
 },{}],5:[function(require,module,exports){
 'use strict';
 
-module.exports = '0.3.3';
+module.exports = '0.3.4';
 
 },{}],6:[function(require,module,exports){
 'use strict';

@@ -1,12 +1,12 @@
 /*!
- * Styla bite-sized widget v0.3.3
+ * Styla bite-sized widget v0.3.4
  * https://github.com/styladev/widget
  *
  * Copyright 2016 Styla GmbH and other contributors
  * Released under the MIT license
  * https://github.com/styladev/widget/blob/master/license.md
  *
- * Date: Wed Jun 01 2016
+ * Date: Thu Jun 02 2016
  * */
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 (function (global){
@@ -267,7 +267,10 @@ var build = {
             var _css = '.' + _classesJs2['default'].HEADLINE + ', .' + _classesJs2['default'].TITLE + '\n                {\n                    font-family:        ' + theme.hff + ';\n                    font-weight:        ' + theme.hfw + ';\n                    font-style:         ' + theme.hfs + ';\n                    text-decoration:    ' + theme.htd + ';\n                    letter-spacing:     ' + theme.hls + ';\n                    color:              ' + theme.htc + ';\n                }\n                .' + _classesJs2['default'].PARAGRAPH + '\n                {\n                    font-family:        ' + theme.sff + ';\n                    font-weight:        ' + theme.sfw + ';\n                    color:              ' + theme.stc + ';\n                }\n                .' + _classesJs2['default'].PARAGRAPH + ':after\n                {\n                    content:            \'' + theme.strm + '\';\n                    font-weight:        ' + theme.strmw + ';\n                    text-decoration:    ' + theme.strmd + ';\n                }';
         }
 
-        return build.buildStyleTag(css);
+        var el = build.buildStyleTag(css);
+        el.className = _classesJs2['default'].THEME_STYLES + '  styla-widget__' + self.seed;
+
+        return el;
     },
 
     /**
@@ -337,7 +340,7 @@ var build = {
             container.appendChild(title);
         }
 
-        var wrapper = self.wrapper = build.create('DIV', _classesJs2['default'].WRAPPER);
+        var wrapper = self.wrapper = build.create('DIV', _classesJs2['default'].WRAPPER + '  styla-widget__' + self.seed);
         wrapper.id = wrapperID;
 
         var domainConfigAPI = 'https://live.styla.com/api/config/';
@@ -372,7 +375,7 @@ var build = {
     includeBaseStyles: function includeBaseStyles() {
         var head = document.head;
         var el = build.buildStyleTag(baseStyles + specificStyles);
-        el.className = _classesJs2['default'].BASE_STYLES;
+        el.className = _classesJs2['default'].BASE_STYLES + '  styla-widget__' + self.seed;
 
         head.appendChild(el);
 
@@ -445,6 +448,7 @@ module.exports = {
     STORY_LINK: 'styla-widget__link',
     STYLES: 'styla-widget__styling',
     TEXT_WRAPPER: 'styla-widget__textwrap',
+    THEME_STYLES: 'styla-widget__theme-styling',
     TITLE: 'styla-widget__title',
     WRAPPER: 'styla-widget__wrapper'
 };
@@ -452,7 +456,7 @@ module.exports = {
 },{}],4:[function(require,module,exports){
 'use strict';
 
-module.exports = '0.3.3';
+module.exports = '0.3.4';
 
 },{}],5:[function(require,module,exports){
 
@@ -542,6 +546,7 @@ var StylaWidget = (function () {
             throw 'Styla Widget error: No slug defined, cannot render widget';
         }
 
+        this.seed = Date.now();
         this.api = api;
         this.linkDomain = linkDomain;
         this.iframe = iframe;
@@ -577,9 +582,12 @@ var StylaWidget = (function () {
     _createClass(StylaWidget, [{
         key: 'destroy',
         value: function destroy() {
-            var wrapper = this.wrapper;
-            wrapper.parentNode.removeChild(wrapper);
-            return wrapper;
+            var els = document.querySelectorAll('.styla-widget__' + this.seed);
+            Array.prototype.forEach.call(els, function (el) {
+                el.parentNode.removeChild(el);
+            });
+
+            return this.wrapper;
         }
     }]);
 

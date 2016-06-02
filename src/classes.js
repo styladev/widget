@@ -16,6 +16,7 @@ module.exports = {
     STORY_LINK          : 'styla-widget__link',
     STYLES              : 'styla-widget__styling',
     TEXT_WRAPPER        : 'styla-widget__textwrap',
+    THEME_STYLES        : 'styla-widget__theme-styling',
     TITLE               : 'styla-widget__title',
     WRAPPER             : 'styla-widget__wrapper'
 };

@@ -1,5 +1,5 @@
 
-Styla Widget  0.3.3
+Styla Widget  0.3.4
 =======
 
 
@@ -116,6 +116,12 @@ This project adheres to the [Contributor Covenant](http://contributor-covenant.o
 
 Change log
 ==========
+
+### 0.3.4
+
+    + destroy() rebuilt
+    + added a timestamp class to all added elements for ease of removal
+
 
 ### 0.3.3
 
