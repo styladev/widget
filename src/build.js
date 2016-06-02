@@ -276,7 +276,10 @@ let build = {
                 }`;
         }
 
-        return build.buildStyleTag( css );
+        let el          = build.buildStyleTag( css );
+        el.className    = `${classes.THEME_STYLES}  styla-widget__${self.seed}`;
+        
+        return el;
     },
 
 
@@ -355,7 +358,7 @@ let build = {
             container.appendChild( title );
         }
 
-        let wrapper     = self.wrapper      = build.create( `DIV`, classes.WRAPPER );
+        let wrapper     = self.wrapper      = build.create( `DIV`, `${classes.WRAPPER}  styla-widget__${self.seed}` );
         wrapper.id      = wrapperID;
 
         let domainConfigAPI   = `https://live.styla.com/api/config/`;
@@ -392,7 +395,7 @@ let build = {
     {
         let head        = document.head;
         let el          = build.buildStyleTag( baseStyles + specificStyles );
-        el.className    = classes.BASE_STYLES;
+        el.className    = `${classes.BASE_STYLES}  styla-widget__${self.seed}`;
 
         head.appendChild( el );
 

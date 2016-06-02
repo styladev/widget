@@ -1,5 +1,6 @@
-Styla Widget  0.3.3
+Styla Widget  0.3.4
 =======
+
 
 The Styla Widget™ is a simple way to display stories from a Styla Magazine in a
 smaller format, anywhere on your site. A story in the widget functions as
@@ -114,6 +115,12 @@ This project adheres to the [Contributor Covenant](http://contributor-covenant.o
 
 Change log
 ==========
+
+### 0.3.4
+
+    + destroy() rebuilt
+    + added a timestamp class to all added elements for ease of removal
+
 
 ### 0.3.3
 

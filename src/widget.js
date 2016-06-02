@@ -59,6 +59,7 @@ class StylaWidget
             throw `Styla Widget error: No slug defined, cannot render widget`;
         }
 
+        this.seed       = Date.now();
         this.api        = api;
         this.linkDomain = linkDomain;
         this.iframe     = iframe;
@@ -95,9 +96,13 @@ class StylaWidget
      */
     destroy()
     {
-        let wrapper = this.wrapper;
-        wrapper.parentNode.removeChild( wrapper );
-        return wrapper;
+        let els = document.querySelectorAll( `.styla-widget__${this.seed}` );
+        Array.prototype.forEach.call( els, function( el )
+        {
+            el.parentNode.removeChild( el );
+        } );
+
+        return this.wrapper;
     }
 };
 
