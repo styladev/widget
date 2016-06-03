@@ -30,9 +30,12 @@ class StylaWidget
         let els     = this.els;
         let head    = document.head;
 
-        head.appendChild( els.baseStyle );
-        head.appendChild( els.themeStyle );
-        target.appendChild( els.wrapper );
+        if ( els.baseStyle )
+        {
+            head.appendChild( els.baseStyle );
+            head.appendChild( els.themeStyle );
+            target.appendChild( els.wrapper );
+        }
 
         return this;
     }
@@ -120,8 +123,10 @@ class StylaWidget
         this.title      = title;
 
 
-        let url = tag ? `${api}/api/feeds/tags/${tag}?offset=${offset}&limit=${limit + ignoreBonus}&domain=${slug}` :
-                        `${api}/api/feeds/user/${slug}?domain=${slug}&offset=${offset}&limit=${limit + ignoreBonus}`;
+        // let url = tag ? `${api}/api/feeds/tags/${tag}?offset=${offset}&limit=${limit + ignoreBonus}&domain=${slug}` :
+        //                 `${api}/api/feeds/user/${slug}?domain=${slug}&offset=${offset}&limit=${limit + ignoreBonus}`;
+
+        let url = `${api}/api/feeds/all?domain=${slug}&offset=${offset}&limit=${limit}`;
 
         http.get( storiesApi || url ).then( build.getDomainConfig.bind( this ) );
 

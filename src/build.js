@@ -252,7 +252,7 @@ let build = {
 
         if ( theme )
         {
-            let css     =
+            css =
                 `.${classes.HEADLINE}, .${classes.TITLE}
                 {
                     font-family:        ${theme.hff};
@@ -356,7 +356,8 @@ let build = {
         {
             let text        = self.title;
             let title       = self.title    = build.create( `DIV`, classes.TITLE );
-            title.innerHTML = text + '<hr>';
+            title.innerHTML = text;
+
             container.appendChild( title );
         }
 
@@ -423,10 +424,11 @@ let build = {
      */
     includeFonts()
     {
-        let el  = document.createElement( `link` );
-        el.type = `text/css`;
-        el.rel  = `stylesheet`;
-        el.href = domainConfig.embed.customFontUrl;
+        let el      = document.createElement( `link` );
+        el.type     = `text/css`;
+        el.rel      = `stylesheet`;
+        let fontUrl = domainConfig.embed.customFontUrl
+        el.href     = fontUrl.indexOf( '//' ) !== -1 ? fontUrl : `//${fontUrl}`;
 
         document.head.appendChild( el );
 
@@ -444,7 +446,14 @@ let build = {
     setDomain()
     {
         let embed   = domainConfig.embed;
-
+// console.log( typeof app !== 'undefined' );
+// console.log( app );
+//         if ( typeof app !== 'undefined' && app.config && app.config.embedDomain )
+//         {
+//             console.log( 1 );
+//             return self.domain = app.config.embedDomain;
+//         }
+//         else 
         if ( self.linkDomain )
         {
             return self.domain = self.linkDomain;

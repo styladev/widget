@@ -120,6 +120,8 @@ Change log
 ### 0.4.0
 
     + size changed to imageSize
+    + feed changed to all
+    + adjusted theme-style insertion
 
 
 ### 0.3.5
