@@ -1,12 +1,12 @@
 /*!
- * Styla bite-sized widget v0.3.4
+ * Styla bite-sized widget v0.4.0
  * https://github.com/styladev/widget
  *
  * Copyright 2016 Styla GmbH and other contributors
  * Released under the MIT license
  * https://github.com/styladev/widget/blob/master/license.md
  *
- * Date: Thu Jun 02 2016
+ * Date: Mon Jun 06 2016
  * */
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 (function (global){
@@ -38,8 +38,8 @@ var _microbejsDistMicrobeHttpMin = require('microbejs/dist/microbe.http.min');
 /*
     exchanged for css in the gulp build
  */
-var baseStyles = '#styla-widget p{margin:0}#styla-widget.styla-widget__wrapper{width:100%;height:100%}#styla-widget .styla-widget__container{box-sizing:border-box;position:relative;overflow:hidden;padding:1em 2em;height:100%;width:100%;min-height:14em;display:flex;flex-direction:column;flex-wrap:wrap;font-size:14px}#styla-widget .styla-widget__story{margin-bottom:1em;position:relative;flex-grow:1}#styla-widget .styla-widget__link{position:absolute;width:100%;display:flex;text-decoration:none;color:inherit}#styla-widget__link>div{display:inline-block}#styla-widget .styla-widget__image{object-fit:contain}#styla-widget .styla-widget__textwrap{display:block;flex-grow:1;max-height:100%;overflow:hidden;float:left}#styla-widget .styla-widget__headlinewrap{display:flex;flex-direction:column;justify-content:flex-end}#styla-widget .styla-widget__headline,#styla-widget .styla-widget__title{line-height:1.25em;max-height:2.5em;overflow:hidden}#styla-widget .styla-widget__title{font-size:2em;text-align:center;margin-bottom:30px}#styla-widget .styla-widget__paragraph{font-size:1em;line-height:1.5em;overflow:hidden;position:relative;word-wrap:break-word}';
-var specificStyles = '#styla-widget .styla-widget__story{overflow:hidden;height:5em;margin-left:5%;width:90%}#styla-widget .styla-widget__link{height:5em}#styla-widget__link>div{display:inline-block}#styla-widget .styla-widget__imagewrap{height:85px;margin:0 3% 0 0}#styla-widget .styla-widget__textwrap{display:block;flex-grow:1;max-height:100%;overflow:hidden;float:left}#styla-widget .styla-widget__headlinewrap{height:2em;display:flex;flex-direction:column;justify-content:flex-end}#styla-widget .styla-widget__headline,#styla-widget .styla-widget__title{font-size:1.4em;line-height:1.25em;max-height:2.5em;overflow:hidden;margin:0 0 .25em;word-wrap:break-word;text-overflow:ellipsis;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2}#styla-widget .styla-widget__title{font-size:2em;text-align:center;margin-bottom:30px}#styla-widget .styla-widget__paragraph{font-size:1em;line-height:1.5em;height:3em;overflow:hidden;position:relative;word-wrap:break-word;text-overflow:ellipsis}#styla-widget .styla-widget__paragraph:after{position:absolute;left:0;top:7.5em;display:block;background-color:#FFF;width:100%;height:2em}';
+var baseStyles = '#styla-widget p{margin:0}#styla-widget.styla-widget__wrapper{width:100%;height:100%}#styla-widget .styla-widget__container{box-sizing:border-box;position:relative;overflow:hidden;padding:1em 2em;height:100%;width:100%;min-height:14em;display:flex;flex-direction:column;flex-wrap:wrap;font-size:14px}#styla-widget .styla-widget__story{margin-bottom:1em;position:relative;flex-grow:1}#styla-widget .styla-widget__link{position:absolute;width:100%;display:flex;text-decoration:none;color:inherit}#styla-widget__link>div{display:inline-block}#styla-widget .styla-widget__image{max-height:100%;max-width:100%;height:100%;object-fit:contain}#styla-widget .styla-widget__textwrap{display:block;flex-grow:1;max-height:100%;overflow:hidden;float:left}#styla-widget .styla-widget__headlinewrap{display:flex;flex-direction:column;justify-content:flex-end}#styla-widget .styla-widget__headline,#styla-widget .styla-widget__title{line-height:1.25em;max-height:2.5em;overflow:hidden}#styla-widget .styla-widget__title{font-size:2em;text-align:center;margin-bottom:30px}#styla-widget .styla-widget__paragraph{font-size:1em;line-height:1.5em;overflow:hidden;position:relative;word-wrap:break-word}';
+var specificStyles = '#styla-widget .styla-widget__story{overflow:hidden;height:5em;margin-left:5%;width:90%}#styla-widget .styla-widget__link{height:5em}#styla-widget__link>div{display:inline-block}#styla-widget .styla-widget__image,#styla-widget .styla-widget__imagewrap{width:85px}#styla-widget .styla-widget__imagewrap{margin:0 3% 0 0}#styla-widget .styla-widget__textwrap{width:calc(100% - 85px);display:block;flex-grow:1;max-height:100%;overflow:hidden;float:left}#styla-widget .styla-widget__headlinewrap{height:2em;display:flex;flex-direction:column;justify-content:flex-end}#styla-widget .styla-widget__headline,#styla-widget .styla-widget__title{font-size:1.4em;line-height:1.25em;max-height:2.5em;overflow:hidden;margin:0 0 .25em;word-wrap:break-word;text-overflow:ellipsis;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2}#styla-widget .styla-widget__title{font-size:2em;text-align:center;margin-bottom:60px;padding:30px 0;margin-left:7%;width:86%;border-bottom:#E5E5E5 solid 1px}#styla-widget .styla-widget__paragraph{font-size:1em;line-height:1.5em;height:3em;overflow:hidden;position:relative;word-wrap:break-word;text-overflow:ellipsis}#styla-widget .styla-widget__paragraph:after{position:absolute;left:0;top:7.5em;display:block;background-color:#FFF;width:100%;height:2em}';
 var wrapperID = 'styla-widget';
 var _reportError = function _reportError(e) {
     console.log('err', e);
@@ -102,13 +102,14 @@ var build = {
         self = self || context;
         var create = build.create;
         var imageWrapper = create('div', _classesJs2['default'].IMAGE_WRAPPER);
-        var size = self.size;
+        var imageSize = self.imageSize;
         var id = images[0].id;
         var imgObj = self.images[id];
 
-        var image = create('img', _classesJs2['default'].IMAGE);
+        var url = build.getImageUrl(imgObj.fileName, imageSize);
 
-        image.src = build.getImageUrl(imgObj.fileName, size);
+        var image = create('img', _classesJs2['default'].IMAGE);
+        image.src = url;
         image.alt = imgObj.caption || title;
         image.title = title;
 
@@ -143,6 +144,8 @@ var build = {
         var resImages = stories.images;
 
         if (resImages) {
+            self.title = build.buildTitle();
+
             resImages.forEach(function (_i) {
                 images[_i.id] = _i;
             });
@@ -252,6 +255,22 @@ var build = {
         return el;
     },
 
+    buildTitle: function buildTitle() {
+        if (self.title === true && domainConfig.title) {
+            self.title = domainConfig.title;
+        }
+
+        if (self.title) {
+            var text = self.title;
+            var title = self.title = build.create('DIV', _classesJs2['default'].TITLE);
+            title.innerHTML = text;
+
+            self.container.appendChild(title);
+        }
+
+        return self.title;
+    },
+
     /**
      * ## compileStyles
      *
@@ -264,11 +283,13 @@ var build = {
         var css = '';
 
         if (theme) {
-            var _css = '.' + _classesJs2['default'].HEADLINE + ', .' + _classesJs2['default'].TITLE + '\n                {\n                    font-family:        ' + theme.hff + ';\n                    font-weight:        ' + theme.hfw + ';\n                    font-style:         ' + theme.hfs + ';\n                    text-decoration:    ' + theme.htd + ';\n                    letter-spacing:     ' + theme.hls + ';\n                    color:              ' + theme.htc + ';\n                }\n                .' + _classesJs2['default'].PARAGRAPH + '\n                {\n                    font-family:        ' + theme.sff + ';\n                    font-weight:        ' + theme.sfw + ';\n                    color:              ' + theme.stc + ';\n                }\n                .' + _classesJs2['default'].PARAGRAPH + ':after\n                {\n                    content:            \'' + theme.strm + '\';\n                    font-weight:        ' + theme.strmw + ';\n                    text-decoration:    ' + theme.strmd + ';\n                }';
+            css = '.' + _classesJs2['default'].HEADLINE + ', .' + _classesJs2['default'].TITLE + '\n                {\n                    font-family:        ' + theme.hff + ';\n                    font-weight:        ' + theme.hfw + ';\n                    font-style:         ' + theme.hfs + ';\n                    text-decoration:    ' + theme.htd + ';\n                    letter-spacing:     ' + theme.hls + ';\n                    color:              ' + theme.htc + ';\n                }\n                .' + _classesJs2['default'].PARAGRAPH + '\n                {\n                    font-family:        ' + theme.sff + ';\n                    font-weight:        ' + theme.sfw + ';\n                    color:              ' + theme.stc + ';\n                }\n                .' + _classesJs2['default'].PARAGRAPH + ':after\n                {\n                    content:            \'' + theme.strm + '\';\n                    font-weight:        ' + theme.strmw + ';\n                    text-decoration:    ' + theme.strmd + ';\n                }';
         }
 
         var el = build.buildStyleTag(css);
-        el.className = _classesJs2['default'].THEME_STYLES + '  styla-widget__' + self.seed;
+        el.className = '' + _classesJs2['default'].THEME_STYLES;
+
+        self.els.themeStyle = el;
 
         return el;
     },
@@ -331,16 +352,11 @@ var build = {
         self = this;
 
         self.stories = JSON.parse(stories);
+
         var container = self.container = build.create('DIV', _classesJs2['default'].CONTAINER);
+        var wrapper = self.wrapper = build.create('DIV', _classesJs2['default'].WRAPPER);
 
-        if (self.title) {
-            var text = self.title;
-            var title = self.title = build.create('DIV', _classesJs2['default'].TITLE);
-            title.innerHTML = text + '<hr>';
-            container.appendChild(title);
-        }
-
-        var wrapper = self.wrapper = build.create('DIV', _classesJs2['default'].WRAPPER + '  styla-widget__' + self.seed);
+        self.els.wrapper = wrapper;
         wrapper.id = wrapperID;
 
         var domainConfigAPI = 'https://live.styla.com/api/config/';
@@ -355,14 +371,14 @@ var build = {
      * uses the filename and size to create the full image url
      *
      * @param {String} filename from the image data object
-     * @param {Number or String} size width to grab from the server
+     * @param {Number or String} imageSize width to grab from the server
      *
      * @return _String_ file name
      */
     getImageUrl: function getImageUrl(filename) {
-        var size = arguments.length <= 1 || arguments[1] === undefined ? 400 : arguments[1];
+        var imageSize = arguments.length <= 1 || arguments[1] === undefined ? 400 : arguments[1];
 
-        return '//img.styla.com/resizer/sfh_' + size + 'x0/_' + filename + '?still';
+        return '//img.styla.com/resizer/sfh_' + imageSize + 'x0/_' + filename + '?still';
     },
 
     /**
@@ -375,7 +391,9 @@ var build = {
     includeBaseStyles: function includeBaseStyles() {
         var head = document.head;
         var el = build.buildStyleTag(baseStyles + specificStyles);
-        el.className = _classesJs2['default'].BASE_STYLES + '  styla-widget__' + self.seed;
+        el.className = '' + _classesJs2['default'].BASE_STYLES;
+
+        self.els.baseStyle = el;
 
         head.appendChild(el);
 
@@ -397,7 +415,8 @@ var build = {
         var el = document.createElement('link');
         el.type = 'text/css';
         el.rel = 'stylesheet';
-        el.href = domainConfig.embed.customFontUrl;
+        var fontUrl = domainConfig.embed.customFontUrl;
+        el.href = fontUrl.indexOf('//') !== -1 ? fontUrl : '//' + fontUrl;
 
         document.head.appendChild(el);
 
@@ -414,7 +433,9 @@ var build = {
     setDomain: function setDomain() {
         var embed = domainConfig.embed;
 
-        if (self.linkDomain) {
+        if (self.domain) {
+            return self.domain;
+        } else if (self.linkDomain) {
             return self.domain = self.linkDomain;
         } else if (embed) {
             return self.domain = embed.magazineUrl + '/' + embed.rootPath;
@@ -456,7 +477,7 @@ module.exports = {
 },{}],4:[function(require,module,exports){
 'use strict';
 
-module.exports = '0.3.4';
+module.exports = '0.4.0';
 
 },{}],5:[function(require,module,exports){
 
@@ -491,21 +512,77 @@ var _buildJs2 = _interopRequireDefault(_buildJs);
 var _microbejsDistMicrobeHttpMin = require('microbejs/dist/microbe.http.min');
 
 var StylaWidget = (function () {
-    /**
-     * ## constructor
-     *
-     * grabs the feed from the api and starts everything
-     *
-     * @param {String} domain target domain to grab products from
-     *
-     * @return _Object_ this
-     */
+    _createClass(StylaWidget, [{
+        key: 'attach',
+
+        /**
+         * ## attach
+         *
+         * adds the previously configured widget to the currently 
+         * defined target or a new selector / el
+         *
+         * @return _Void_
+         */
+        value: function attach() {
+            var target = arguments.length <= 0 || arguments[0] === undefined ? this.target : arguments[0];
+
+            target = this.checkTarget(target, this.minWidth);
+
+            var els = this.els;
+            var head = document.head;
+
+            if (els.baseStyle) {
+                head.appendChild(els.baseStyle);
+                head.appendChild(els.themeStyle);
+                target.appendChild(els.wrapper);
+            }
+
+            return this;
+        }
+
+        /**
+         * ## checkTarget
+         *
+         * makes sure the target is a DOMelement and wide enough
+         *
+         * @param {String or DOMElement} target attach point for the widget
+         * 
+         */
+    }, {
+        key: 'checkTarget',
+        value: function checkTarget(target, minWidth) {
+            if (typeof target === 'string') {
+                return document.querySelector(target);
+            }
+
+            if (typeof target === 'undefined' || target === null) {
+                console.error('Styla Widget error: Cant find target element in DOM. Widget will render directly in body');
+                return document.body;
+            } else if (target.offsetWidth < minWidth) {
+                throw 'Styla Widget error: Target element too small to render widget ¯\\_(ツ)_/¯';
+            }
+
+            return target;
+        }
+
+        /**
+         * ## constructor
+         *
+         * grabs the feed from the api and starts everything
+         *
+         * @param {String} domain target domain to grab products from
+         *
+         * @return _Object_ this
+         */
+    }]);
 
     function StylaWidget() {
         var _ref = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
 
         var _ref$api = _ref.api;
         var api = _ref$api === undefined ? 'https://live.styla.com' : _ref$api;
+        var _ref$domain = _ref.domain;
+        var domain = _ref$domain === undefined ? false : _ref$domain;
         var _ref$iframe = _ref.iframe;
         var iframe = _ref$iframe === undefined ? false : _ref$iframe;
         var _ref$ignore = _ref.ignore;
@@ -514,12 +591,14 @@ var StylaWidget = (function () {
         var limit = _ref$limit === undefined ? 5 : _ref$limit;
         var _ref$linkDomain = _ref.linkDomain;
         var linkDomain = _ref$linkDomain === undefined ? false : _ref$linkDomain;
+        var _ref$minWidth = _ref.minWidth;
+        var minWidth = _ref$minWidth === undefined ? 250 : _ref$minWidth;
         var _ref$newTab = _ref.newTab;
         var newTab = _ref$newTab === undefined ? false : _ref$newTab;
         var _ref$offset = _ref.offset;
         var offset = _ref$offset === undefined ? 0 : _ref$offset;
-        var _ref$size = _ref.size;
-        var size = _ref$size === undefined ? 400 : _ref$size;
+        var _ref$imageSize = _ref.imageSize;
+        var imageSize = _ref$imageSize === undefined ? 400 : _ref$imageSize;
         var _ref$storiesApi = _ref.storiesApi;
         var storiesApi = _ref$storiesApi === undefined ? false : _ref$storiesApi;
         var _ref$slug = _ref.slug;
@@ -533,21 +612,15 @@ var StylaWidget = (function () {
 
         _classCallCheck(this, StylaWidget);
 
-        if (typeof target === 'string') {
-            target = document.querySelector(target);
-        }
+        target = this.checkTarget(target, minWidth);
 
-        if (typeof target === 'undefined' || target === null) {
-            console.error('Styla Widget error: Cant find target element in DOM. Widget will render directly in body');
-            target = document.body;
-        } else if (target.offsetWidth < 250) {
-            throw 'Styla Widget error: Target element too small to render widget ¯\\_(ツ)_/¯';
-        } else if (!slug) {
+        if (!slug) {
             throw 'Styla Widget error: No slug defined, cannot render widget';
         }
 
-        this.seed = Date.now();
+        this.els = {};
         this.api = api;
+        this.domain = domain;
         this.linkDomain = linkDomain;
         this.iframe = iframe;
         this.ignore = ignore;
@@ -555,16 +628,20 @@ var StylaWidget = (function () {
         var ignoreBonus = ignore ? 1 : 0; // adds an extra story if one is set to be ignored. 
 
         this.limit = limit;
+        this.minWidth = minWidth;
         this.newTab = newTab;
         this.offset = offset;
-        this.size = size;
+        this.imageSize = imageSize;
         this.slug = slug;
         this.storiesApi = storiesApi;
         this.tag = tag;
         this.target = target;
         this.title = title;
 
-        var url = tag ? api + '/api/feeds/tags/' + tag + '?offset=' + offset + '&limit=' + (limit + ignoreBonus) + '&domain=' + slug : api + '/api/feeds/user/' + slug + '?domain=' + slug + '&offset=' + offset + '&limit=' + (limit + ignoreBonus);
+        // let url = tag ? `${api}/api/feeds/tags/${tag}?offset=${offset}&limit=${limit + ignoreBonus}&domain=${slug}` :
+        //                 `${api}/api/feeds/user/${slug}?domain=${slug}&offset=${offset}&limit=${limit + ignoreBonus}`;
+
+        var url = api + '/api/feeds/all?domain=' + slug + '&offset=' + offset + '&limit=' + limit;
 
         _microbejsDistMicrobeHttpMin.http.get(storiesApi || url).then(_buildJs2['default'].getDomainConfig.bind(this));
 
@@ -582,12 +659,18 @@ var StylaWidget = (function () {
     _createClass(StylaWidget, [{
         key: 'destroy',
         value: function destroy() {
-            var els = document.querySelectorAll('.styla-widget__' + this.seed);
-            Array.prototype.forEach.call(els, function (el) {
-                el.parentNode.removeChild(el);
+            var els = this.els;
+
+            Object.keys(els).forEach(function (key) {
+                var el = els[key];
+                var parent = el.parentNode;
+
+                if (parent) {
+                    parent.removeChild(el);
+                }
             });
 
-            return this.wrapper;
+            return this;
         }
     }]);
 

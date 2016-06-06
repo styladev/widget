@@ -6,7 +6,7 @@
 },{}],2:[function(require,module,exports){
 module.exports={
   "name": "stylaWidget",
-  "version": "0.3.4",
+  "version": "0.4.0",
   "contributors": [
     "Mouse Braun <mouse@styla.com>",
     "Elias Liedholm <elias@styla.com>"
@@ -157,13 +157,14 @@ var build = {
         self = self || context;
         var create = build.create;
         var imageWrapper = create('div', _classesJs2['default'].IMAGE_WRAPPER);
-        var size = self.size;
+        var imageSize = self.imageSize;
         var id = images[0].id;
         var imgObj = self.images[id];
 
-        var image = create('img', _classesJs2['default'].IMAGE);
+        var url = build.getImageUrl(imgObj.fileName, imageSize);
 
-        image.src = build.getImageUrl(imgObj.fileName, size);
+        var image = create('img', _classesJs2['default'].IMAGE);
+        image.src = url;
         image.alt = imgObj.caption || title;
         image.title = title;
 
@@ -198,6 +199,8 @@ var build = {
         var resImages = stories.images;
 
         if (resImages) {
+            self.title = build.buildTitle();
+
             resImages.forEach(function (_i) {
                 images[_i.id] = _i;
             });
@@ -307,6 +310,22 @@ var build = {
         return el;
     },
 
+    buildTitle: function buildTitle() {
+        if (self.title === true && domainConfig.title) {
+            self.title = domainConfig.title;
+        }
+
+        if (self.title) {
+            var text = self.title;
+            var title = self.title = build.create('DIV', _classesJs2['default'].TITLE);
+            title.innerHTML = text;
+
+            self.container.appendChild(title);
+        }
+
+        return self.title;
+    },
+
     /**
      * ## compileStyles
      *
@@ -319,11 +338,13 @@ var build = {
         var css = '';
 
         if (theme) {
-            var _css = '.' + _classesJs2['default'].HEADLINE + ', .' + _classesJs2['default'].TITLE + '\n                {\n                    font-family:        ' + theme.hff + ';\n                    font-weight:        ' + theme.hfw + ';\n                    font-style:         ' + theme.hfs + ';\n                    text-decoration:    ' + theme.htd + ';\n                    letter-spacing:     ' + theme.hls + ';\n                    color:              ' + theme.htc + ';\n                }\n                .' + _classesJs2['default'].PARAGRAPH + '\n                {\n                    font-family:        ' + theme.sff + ';\n                    font-weight:        ' + theme.sfw + ';\n                    color:              ' + theme.stc + ';\n                }\n                .' + _classesJs2['default'].PARAGRAPH + ':after\n                {\n                    content:            \'' + theme.strm + '\';\n                    font-weight:        ' + theme.strmw + ';\n                    text-decoration:    ' + theme.strmd + ';\n                }';
+            css = '.' + _classesJs2['default'].HEADLINE + ', .' + _classesJs2['default'].TITLE + '\n                {\n                    font-family:        ' + theme.hff + ';\n                    font-weight:        ' + theme.hfw + ';\n                    font-style:         ' + theme.hfs + ';\n                    text-decoration:    ' + theme.htd + ';\n                    letter-spacing:     ' + theme.hls + ';\n                    color:              ' + theme.htc + ';\n                }\n                .' + _classesJs2['default'].PARAGRAPH + '\n                {\n                    font-family:        ' + theme.sff + ';\n                    font-weight:        ' + theme.sfw + ';\n                    color:              ' + theme.stc + ';\n                }\n                .' + _classesJs2['default'].PARAGRAPH + ':after\n                {\n                    content:            \'' + theme.strm + '\';\n                    font-weight:        ' + theme.strmw + ';\n                    text-decoration:    ' + theme.strmd + ';\n                }';
         }
 
         var el = build.buildStyleTag(css);
-        el.className = _classesJs2['default'].THEME_STYLES + '  styla-widget__' + self.seed;
+        el.className = '' + _classesJs2['default'].THEME_STYLES;
+
+        self.els.themeStyle = el;
 
         return el;
     },
@@ -386,16 +407,11 @@ var build = {
         self = this;
 
         self.stories = JSON.parse(stories);
+
         var container = self.container = build.create('DIV', _classesJs2['default'].CONTAINER);
+        var wrapper = self.wrapper = build.create('DIV', _classesJs2['default'].WRAPPER);
 
-        if (self.title) {
-            var text = self.title;
-            var title = self.title = build.create('DIV', _classesJs2['default'].TITLE);
-            title.innerHTML = text + '<hr>';
-            container.appendChild(title);
-        }
-
-        var wrapper = self.wrapper = build.create('DIV', _classesJs2['default'].WRAPPER + '  styla-widget__' + self.seed);
+        self.els.wrapper = wrapper;
         wrapper.id = wrapperID;
 
         var domainConfigAPI = 'https://live.styla.com/api/config/';
@@ -410,14 +426,14 @@ var build = {
      * uses the filename and size to create the full image url
      *
      * @param {String} filename from the image data object
-     * @param {Number or String} size width to grab from the server
+     * @param {Number or String} imageSize width to grab from the server
      *
      * @return _String_ file name
      */
     getImageUrl: function getImageUrl(filename) {
-        var size = arguments.length <= 1 || arguments[1] === undefined ? 400 : arguments[1];
+        var imageSize = arguments.length <= 1 || arguments[1] === undefined ? 400 : arguments[1];
 
-        return '//img.styla.com/resizer/sfh_' + size + 'x0/_' + filename + '?still';
+        return '//img.styla.com/resizer/sfh_' + imageSize + 'x0/_' + filename + '?still';
     },
 
     /**
@@ -430,7 +446,9 @@ var build = {
     includeBaseStyles: function includeBaseStyles() {
         var head = document.head;
         var el = build.buildStyleTag(baseStyles + specificStyles);
-        el.className = _classesJs2['default'].BASE_STYLES + '  styla-widget__' + self.seed;
+        el.className = '' + _classesJs2['default'].BASE_STYLES;
+
+        self.els.baseStyle = el;
 
         head.appendChild(el);
 
@@ -452,7 +470,8 @@ var build = {
         var el = document.createElement('link');
         el.type = 'text/css';
         el.rel = 'stylesheet';
-        el.href = domainConfig.embed.customFontUrl;
+        var fontUrl = domainConfig.embed.customFontUrl;
+        el.href = fontUrl.indexOf('//') !== -1 ? fontUrl : '//' + fontUrl;
 
         document.head.appendChild(el);
 
@@ -469,7 +488,9 @@ var build = {
     setDomain: function setDomain() {
         var embed = domainConfig.embed;
 
-        if (self.linkDomain) {
+        if (self.domain) {
+            return self.domain;
+        } else if (self.linkDomain) {
             return self.domain = self.linkDomain;
         } else if (embed) {
             return self.domain = embed.magazineUrl + '/' + embed.rootPath;
@@ -511,7 +532,7 @@ module.exports = {
 },{}],5:[function(require,module,exports){
 'use strict';
 
-module.exports = '0.3.4';
+module.exports = '0.4.0';
 
 },{}],6:[function(require,module,exports){
 'use strict';
