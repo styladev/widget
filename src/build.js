@@ -81,10 +81,11 @@ let build = {
         let imageSize           = self.imageSize;
         let id                  = images[0].id;
         let imgObj              = self.images[ id ];
-        
-        let image               = create( `img`, classes.IMAGE );
 
-        image.src               = build.getImageUrl( imgObj.fileName, imageSize );
+        let url                 = build.getImageUrl( imgObj.fileName, imageSize );
+
+        let image               = create( `img`, classes.IMAGE );        
+        image.src               = url;
         image.alt               = imgObj.caption || title;
         image.title             = title;
 
@@ -123,6 +124,8 @@ let build = {
 
         if ( resImages )
         {
+            self.title = build.buildTitle();
+
             resImages.forEach( function( _i ){ images[ _i.id ] = _i; });
 
             self.images = images;
@@ -237,6 +240,25 @@ let build = {
     },
 
 
+    buildTitle()
+    {
+        if ( self.title === true && domainConfig.title )
+        {
+            self.title = domainConfig.title;
+        }
+
+        if ( self.title )
+        {
+            let text        = self.title;
+            let title       = self.title    = build.create( `DIV`, classes.TITLE );
+            title.innerHTML = text;
+
+            self.container.appendChild( title );
+        }
+
+        return self.title;
+    },
+
 
     /**
      * ## compileStyles
@@ -350,18 +372,9 @@ let build = {
         self = this;
 
         self.stories    = JSON.parse( stories );
+
         let container   = self.container    = build.create( `DIV`, classes.CONTAINER );
-
-        if ( self.title )
-        {
-            let text        = self.title;
-            let title       = self.title    = build.create( `DIV`, classes.TITLE );
-            title.innerHTML = text;
-
-            container.appendChild( title );
-        }
-
-        let wrapper     = self.wrapper      = build.create( `DIV`, `${classes.WRAPPER}` );
+        let wrapper     = self.wrapper      = build.create( `DIV`, classes.WRAPPER );
 
         self.els.wrapper = wrapper;
         wrapper.id      = wrapperID;

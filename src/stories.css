@@ -20,15 +20,21 @@
 }
 
 
+#styla-widget .styla-widget__imagewrap, #styla-widget .styla-widget__image
+{
+    width:                              85px;
+}
+
+
 #styla-widget .styla-widget__imagewrap
 {
-    height:                             85px;
     margin:                             0 3% 0 0;
 }
 
 
 #styla-widget .styla-widget__textwrap
 {
+    width:                              calc(100% - 85px);
     display:                            block;
     flex-grow:                          1;
     max-height:                         100%;
