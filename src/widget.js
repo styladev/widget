@@ -81,6 +81,7 @@ class StylaWidget
      */
     constructor( {
                     api         = 'https://live.styla.com',
+                    domain      = false,
                     iframe      = false,
                     ignore      = false,
                     limit       = 5,
@@ -105,6 +106,7 @@ class StylaWidget
 
         this.els        = {};
         this.api        = api;
+        this.domain     = domain;
         this.linkDomain = linkDomain;
         this.iframe     = iframe;
         this.ignore     = ignore;

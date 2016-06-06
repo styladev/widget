@@ -52,6 +52,7 @@ size isset to 14px, one story will be exactly 14 times that value, in this case
 ```js
 window.stylaWidget = {
     api         // (default: 'http://live.styla.com') base api url
+    domain      // (default: false) if filled, this manually sets the base url for links
     iframe      // (default: false) open links on parent frame (top)
     ignore      // (default: false) story id to ignore when rendering (generally 
                 //      this represents the story that you're on) 
@@ -119,9 +120,11 @@ Change log
 
 ### 0.4.0
 
+    + styles and structure altered slightly
     + size changed to imageSize
     + feed changed to all
     + adjusted theme-style insertion
+    + added domain option
 
 
 ### 0.3.5
