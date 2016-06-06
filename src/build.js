@@ -459,15 +459,12 @@ let build = {
     setDomain()
     {
         let embed   = domainConfig.embed;
-// console.log( typeof app !== 'undefined' );
-// console.log( app );
-//         if ( typeof app !== 'undefined' && app.config && app.config.embedDomain )
-//         {
-//             console.log( 1 );
-//             return self.domain = app.config.embedDomain;
-//         }
-//         else 
-        if ( self.linkDomain )
+        
+        if ( self.domain )
+        {
+            return self.domain;
+        }
+        else if ( self.linkDomain )
         {
             return self.domain = self.linkDomain;
         }
