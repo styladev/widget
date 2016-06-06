@@ -19,7 +19,6 @@
     display:                            inline-block;
 }
 
-
 #styla-widget .styla-widget__imagewrap, #styla-widget .styla-widget__image
 {
     width:                              85px;
@@ -29,6 +28,7 @@
 #styla-widget .styla-widget__imagewrap
 {
     margin:                             0 3% 0 0;
+    height:                             100%;
 }
 
 
@@ -84,7 +84,7 @@
 {
     font-size:                          1em;
     line-height:                        1.5em;
-    height:                             3em;   
+    height:                             3em;
     overflow:                           hidden;
     position:                           relative;
     word-wrap:                          break-word;
@@ -102,4 +102,3 @@
     width:                              100%;
     height:                             2em;
 }
-
