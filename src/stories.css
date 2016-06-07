@@ -3,8 +3,6 @@
 {
     overflow:                           hidden;
     height:                             5em;
-    margin-left:                        5%;
-    width:                              90%;
 }
 
 
@@ -74,8 +72,6 @@
     text-align:                         center;
     margin-bottom:                      60px;
     padding:                            30px 0;
-    margin-left:                        7%;
-    width:                              86%;
     border-bottom:                      #E5E5E5 solid 1px
 }
 

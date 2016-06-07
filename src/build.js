@@ -210,8 +210,14 @@ let build = {
         textWrapper.appendChild( headlineWrapper );
 
         let paragraph       = create( `div`,    classes.PARAGRAPH );
-        paragraph.innerHTML = build.getDescription( JSON.parse( description ) );
-        paragraph.innerHTML = paragraph.textContent;
+        description         = build.getDescription( JSON.parse( description ) );
+        
+        if ( description )
+        {
+            paragraph.innerHTML = description;
+            paragraph.innerHTML = paragraph.textContent;
+        }
+
         textWrapper.appendChild( paragraph );
 
         return textWrapper;
@@ -346,7 +352,7 @@ let build = {
 
         if ( !text )
         {
-            return false
+            return false;
         }
         else if ( text.type !== `text` )
         {
