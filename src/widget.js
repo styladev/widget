@@ -166,15 +166,15 @@ window.StylaWidget = StylaWidget;
 
 let alsoOnLoad = typeof window.onload === 'function' ? window.onload : function(){};
 
-window.onload = function( e )
-{
+// window.onload = function( e )
+// {
     if ( window.stylaWidget )
     {
         window.stylaWidget = new StylaWidget( window.stylaWidget );
     }
     
-    alsoOnLoad( e );
-};
+    // alsoOnLoad( e );
+// };
 
 export default StylaWidget;
 

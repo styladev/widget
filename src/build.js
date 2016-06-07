@@ -137,7 +137,6 @@ let build = {
             self.target.appendChild( self.wrapper );
         }
 
-        console.log( self.wrapper );
         return self.wrapper;
     },
 
@@ -187,6 +186,8 @@ let build = {
         else
         {
             ignored++;
+
+            return false;
         }
     },
 

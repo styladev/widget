@@ -214,7 +214,6 @@ var build = {
             self.target.appendChild(self.wrapper);
         }
 
-        console.log(self.wrapper);
         return self.wrapper;
     },
 
@@ -262,6 +261,8 @@ var build = {
             return story;
         } else {
             ignored++;
+
+            return false;
         }
     },
 
@@ -652,46 +653,46 @@ var tests = function tests(stylaWidget) {
              *
              * @return _DOMElement_ wrapper element
              */
-            // QUnit.test( 'buildStories', function( assert )
-            // {
-            //     let wrapper = build.buildStories( false, domainConfig );
-            //     assert.ok( wrapper.nodeType === 1, 'Wrapper is a dom element' );
-            //     assert.equal( wrapper.className, classes.WRAPPER, 'Wrapper has correct class name' );
-            // } );
-
-            /**
-             * ## buildStory
-             *
-             * builds each story off the retrieved json
-             *
-             * @param {Object} json image data
-             *
-             * @return _DOMElement_ outer story element
-             */
-            QUnit.test('buildStory', function (assert) {
-                var id = Object.keys(stylaWidget.images)[0];
-
-                var storyObj = {
-                    title: 'moon?',
-                    description: '[{"type":"text","content":"description"}]',
-                    images: [{ id: id }],
-                    externalPermalink: 'externalPermalink'
-                };
-
-                var story = _srcBuildJs2['default'].buildStory(storyObj);
-
-                assert.ok(story.nodeType === 1, 'Wrapper is a dom element');
-                assert.equal(story.className, _srcClassesJs2['default'].STORY, 'Wrapper has correct class name');
-
-                var storyLink = story.childNodes;
-                assert.equal(storyLink.length, 1, 'story has only one child');
-                storyLink = storyLink[0];
-
-                assert.equal(storyLink.className, _srcClassesJs2['default'].STORY_LINK, 'storyLink has correct class name');
-
-                var href = storyLink.href.replace(/^https?:/, '');
-                assert.equal(href, '//' + stylaWidget.domain + '/story/externalPermalink/', 'storyLink has correct href');
+            QUnit.test('buildStories', function (assert) {
+                var wrapper = _srcBuildJs2['default'].buildStories(false, domainConfig);
+                assert.ok(wrapper.nodeType === 1, 'Wrapper is a dom element');
+                assert.equal(wrapper.className, _srcClassesJs2['default'].WRAPPER, 'Wrapper has correct class name');
             });
+
+            // /**
+            //  * ## buildStory
+            //  *
+            //  * builds each story off the retrieved json
+            //  *
+            //  * @param {Object} json image data
+            //  *
+            //  * @return _DOMElement_ outer story element
+            //  */
+            // QUnit.test( 'buildStory', function( assert )
+            // {
+            //     let id              = Object.keys( stylaWidget.images )[0];
+
+            //     let storyObj = {
+            //         title               : 'moon?',
+            //         description         : '[{"type":"text","content":"description"}]',
+            //         images              : [ { id : id } ],
+            //         externalPermalink   : 'externalPermalink'
+            //     };
+
+            //     let story = build.buildStory( storyObj );
+
+            //     assert.ok( story.nodeType === 1, 'Wrapper is a dom element' );
+            //     assert.equal( story.className, classes.STORY, 'Wrapper has correct class name' );
+
+            //     let storyLink = story.childNodes;
+            //     assert.equal( storyLink.length, 1, 'story has only one child' );
+            //     storyLink = storyLink[0];
+
+            //     assert.equal( storyLink.className, classes.STORY_LINK, 'storyLink has correct class name' );
+
+            //     let href = storyLink.href.replace( /^https?:/, '' )
+            //     assert.equal( href, `//${stylaWidget.domain}/story/externalPermalink/`, 'storyLink has correct href' );
+            // } );
 
             /**
              * ## buildStoryText
