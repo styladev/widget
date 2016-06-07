@@ -10,8 +10,7 @@ let tests = function( stylaWidget )
     http.get( domainConfigAPI + stylaWidget.slug ).then( function( domainConfig )
     {
         domainConfig        = JSON.parse( domainConfig );
-
-        let storiesUrl = `https://www.amazine.com/api/feeds/userTag/${stylaWidget.slug}/tag/${stylaWidget.tag}?offset=${stylaWidget.offset}&limit=${stylaWidget.limit}&domain=${stylaWidget.slug}`;
+        let storiesUrl = `https://www.amazine.com/api/feeds/all?domain=${stylaWidget.slug}&offset=${stylaWidget.offset}&limit=${stylaWidget.limit}`;
 
         http.get( storiesUrl ).then( function( stories )
         {
@@ -149,7 +148,7 @@ QUnit.test( 'buildStories', function( assert )
                 let children = textWrapper.childNodes;
                 assert.equal( children.length, 2, 'textWrapper has 2 children' );
 
-                assert.equal( children[ 0 ].innerHTML, '<h1 class="styla-widget__headline">moon?</h1>', 'headline is set right' );
+                assert.equal( children[ 0 ].innerHTML, '<h3 class="styla-widget__headline">moon?</h3>', 'headline is set right' );
                 assert.equal( children[ 1 ].innerHTML, 'description', 'description is set right' );
             } );
 
@@ -282,13 +281,14 @@ QUnit.test( 'buildStories', function( assert )
              */
             QUnit.test( 'includeBaseStyles', function( assert )
             {
-                let el = build.includeBaseStyles( domainConfig );
+                let el = build.includeBaseStyles( '#styla-widget' );
 
                 assert.ok( el.nodeType === 1, 'StyleTag is a dom element' );
                 assert.equal( el.tagName, 'STYLE', 'StyleTag is a style tag' );
                 assert.equal( el.className, classes.BASE_STYLES, 'StyleTag class is set' );
                 assert.equal( el.type, 'text/css', 'StyleTag is a css tag' );
                 assert.equal( el.parentNode, document.head, 'StyleTag is mounted correctly' );
+                console.log( el.textContent );
                 assert.equal( el.textContent.indexOf( '#styla-widget' ), 0, 'StyleTag contains the correct info' );
             } );
 

@@ -123,7 +123,7 @@ class StylaWidget
         this.tag        = tag;
         this.target     = target;
         this.title      = title;
-
+        this.version    = version;
 
         // let url = tag ? `${api}/api/feeds/tags/${tag}?offset=${offset}&limit=${limit + ignoreBonus}&domain=${slug}` :
         //                 `${api}/api/feeds/user/${slug}?domain=${slug}&offset=${offset}&limit=${limit + ignoreBonus}`;
