@@ -6,7 +6,7 @@
 },{}],2:[function(require,module,exports){
 module.exports={
   "name": "stylaWidget",
-  "version": "0.4.3",
+  "version": "0.4.5",
   "contributors": [
     "Mouse Braun <mouse@styla.com>",
     "Elias Liedholm <elias@styla.com>"
@@ -283,8 +283,13 @@ var build = {
         textWrapper.appendChild(headlineWrapper);
 
         var paragraph = create('div', _classesJs2['default'].PARAGRAPH);
-        paragraph.innerHTML = build.getDescription(JSON.parse(description));
-        paragraph.innerHTML = paragraph.textContent;
+        description = build.getDescription(JSON.parse(description));
+
+        if (description) {
+            paragraph.innerHTML = description;
+            paragraph.innerHTML = paragraph.textContent;
+        }
+
         textWrapper.appendChild(paragraph);
 
         return textWrapper;
@@ -532,7 +537,7 @@ module.exports = {
 },{}],5:[function(require,module,exports){
 'use strict';
 
-module.exports = '0.4.3';
+module.exports = '0.4.5';
 
 },{}],6:[function(require,module,exports){
 'use strict';
