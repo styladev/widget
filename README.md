@@ -1,4 +1,4 @@
-Styla Widget  0.4.3
+Styla Widget  0.4.4
 =======
 
 
@@ -125,7 +125,12 @@ This project adheres to the [Contributor Covenant](http://contributor-covenant.o
 Change log
 ==========
 
-### 0.4.2 
+### 0.4.4
+
+    + removed margins for related stories
+
+
+### 0.4.2
 
     + docs updated
 
@@ -148,4 +153,3 @@ Older Changes
 =============
 
 To keep the length of this file down, [older changes are here](./older_changes.md)
-
