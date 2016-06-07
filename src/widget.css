@@ -1,3 +1,6 @@
+#styla-widget .styla-widget__container {
+    padding:                            1em 2em;
+}
 
 #styla-widget .styla-widget__story
 {
