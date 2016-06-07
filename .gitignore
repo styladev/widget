@@ -17,3 +17,10 @@ node_modules/
 .tmp
 config.js
 npm-debug.log
+
+dist/doc
+dist/stories.js
+dist/stories.min.css
+dist/styles.min.css
+dist/widget.js
+dist/widget.min.css
