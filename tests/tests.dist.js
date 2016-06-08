@@ -235,6 +235,9 @@ var build = {
         var externalPermalink = _ref.externalPermalink;
         var id = _ref.id;
 
+        console.log(self.ignore + '', '!==', id + '', self.ignore + '' !== id + '');
+        console.log(i, '-', ignored, '>', self.limit, i - ignored < self.limit);
+        console.log(self.ignore + '' !== id + '' && i - ignored < self.limit);
         if (self.ignore + '' !== id + '' && i - ignored < self.limit) {
             var create = build.create;
 
@@ -554,13 +557,17 @@ var _unitBuildTest = require('./unit/buildTest');
 
 var _unitBuildTest2 = _interopRequireDefault(_unitBuildTest);
 
+var windowOnload = window.onload;
+
 window.onload = function () {
-    var widget = window.stylaWidget;
+   windowOnload();
 
-    document.getElementsByTagName('TITLE')[0].textContent = 'StylaWidget - ' + widget.version;
+   var widget = window.stylaWidget;
 
-    (0, _unitVersionTest2['default'])(widget);
-    (0, _unitBuildTest2['default'])(widget);
+   document.getElementsByTagName('TITLE')[0].textContent = 'StylaWidget - ' + widget.version;
+
+   (0, _unitVersionTest2['default'])(widget);
+   (0, _unitBuildTest2['default'])(widget);
 };
 
 },{"./unit/buildTest":7,"./unit/versionTest":8}],7:[function(require,module,exports){
@@ -659,40 +666,39 @@ var tests = function tests(stylaWidget) {
                 assert.equal(wrapper.className, _srcClassesJs2['default'].WRAPPER, 'Wrapper has correct class name');
             });
 
-            // /**
-            //  * ## buildStory
-            //  *
-            //  * builds each story off the retrieved json
-            //  *
-            //  * @param {Object} json image data
-            //  *
-            //  * @return _DOMElement_ outer story element
-            //  */
-            // QUnit.test( 'buildStory', function( assert )
-            // {
-            //     let id              = Object.keys( stylaWidget.images )[0];
+            /**
+             * ## buildStory
+             *
+             * builds each story off the retrieved json
+             *
+             * @param {Object} json image data
+             *
+             * @return _DOMElement_ outer story element
+             */
+            QUnit.test('buildStory', function (assert) {
+                var id = Object.keys(stylaWidget.images)[0];
 
-            //     let storyObj = {
-            //         title               : 'moon?',
-            //         description         : '[{"type":"text","content":"description"}]',
-            //         images              : [ { id : id } ],
-            //         externalPermalink   : 'externalPermalink'
-            //     };
+                var storyObj = {
+                    title: 'moon?',
+                    description: '[{"type":"text","content":"description"}]',
+                    images: [{ id: id }],
+                    externalPermalink: 'externalPermalink'
+                };
 
-            //     let story = build.buildStory( storyObj );
+                var story = _srcBuildJs2['default'].buildStory(storyObj);
 
-            //     assert.ok( story.nodeType === 1, 'Wrapper is a dom element' );
-            //     assert.equal( story.className, classes.STORY, 'Wrapper has correct class name' );
+                assert.ok(story.nodeType === 1, 'Wrapper is a dom element');
+                assert.equal(story.className, _srcClassesJs2['default'].STORY, 'Wrapper has correct class name');
 
-            //     let storyLink = story.childNodes;
-            //     assert.equal( storyLink.length, 1, 'story has only one child' );
-            //     storyLink = storyLink[0];
+                var storyLink = story.childNodes;
+                assert.equal(storyLink.length, 1, 'story has only one child');
+                storyLink = storyLink[0];
 
-            //     assert.equal( storyLink.className, classes.STORY_LINK, 'storyLink has correct class name' );
+                assert.equal(storyLink.className, _srcClassesJs2['default'].STORY_LINK, 'storyLink has correct class name');
 
-            //     let href = storyLink.href.replace( /^https?:/, '' )
-            //     assert.equal( href, `//${stylaWidget.domain}/story/externalPermalink/`, 'storyLink has correct href' );
-            // } );
+                var href = storyLink.href.replace(/^https?:/, '');
+                assert.equal(href, '//' + stylaWidget.domain + '/story/externalPermalink/', 'storyLink has correct href');
+            });
 
             /**
              * ## buildStoryText
@@ -835,7 +841,6 @@ var tests = function tests(stylaWidget) {
                 assert.equal(el.className, _srcClassesJs2['default'].BASE_STYLES, 'StyleTag class is set');
                 assert.equal(el.type, 'text/css', 'StyleTag is a css tag');
                 assert.equal(el.parentNode, document.head, 'StyleTag is mounted correctly');
-                console.log(el.textContent);
                 assert.equal(el.textContent.indexOf('#styla-widget'), 0, 'StyleTag contains the correct info');
             });
 

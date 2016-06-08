@@ -71,59 +71,59 @@ let tests = function( stylaWidget )
             } );
 
 
-/**
- * ## buildStories - tests
- *
- * after recieving the story data, this parses and build the individual
- * stories
- *
- * @param {String} domainConfig JSON response from the product api
- * @param {Object} parsedDomainConfig parsed JSON object for testing
- *
- * @return _DOMElement_ wrapper element
- */
-QUnit.test( 'buildStories', function( assert )
-{
-    let wrapper = build.buildStories( false, domainConfig );
-    assert.ok( wrapper.nodeType === 1, 'Wrapper is a dom element' );
-    assert.equal( wrapper.className, classes.WRAPPER, 'Wrapper has correct class name' );
-} );
+            /**
+             * ## buildStories - tests
+             *
+             * after recieving the story data, this parses and build the individual
+             * stories
+             *
+             * @param {String} domainConfig JSON response from the product api
+             * @param {Object} parsedDomainConfig parsed JSON object for testing
+             *
+             * @return _DOMElement_ wrapper element
+             */
+            QUnit.test( 'buildStories', function( assert )
+            {
+                let wrapper = build.buildStories( false, domainConfig );
+                assert.ok( wrapper.nodeType === 1, 'Wrapper is a dom element' );
+                assert.equal( wrapper.className, classes.WRAPPER, 'Wrapper has correct class name' );
+            } );
 
 
-// /**
-//  * ## buildStory
-//  *
-//  * builds each story off the retrieved json
-//  *
-//  * @param {Object} json image data
-//  *
-//  * @return _DOMElement_ outer story element
-//  */
-// QUnit.test( 'buildStory', function( assert )
-// {
-//     let id              = Object.keys( stylaWidget.images )[0];
+            /**
+             * ## buildStory
+             *
+             * builds each story off the retrieved json
+             *
+             * @param {Object} json image data
+             *
+             * @return _DOMElement_ outer story element
+             */
+            QUnit.test( 'buildStory', function( assert )
+            {
+                let id              = Object.keys( stylaWidget.images )[0];
 
-//     let storyObj = {
-//         title               : 'moon?',
-//         description         : '[{"type":"text","content":"description"}]',
-//         images              : [ { id : id } ],
-//         externalPermalink   : 'externalPermalink'
-//     };
+                let storyObj = {
+                    title               : 'moon?',
+                    description         : '[{"type":"text","content":"description"}]',
+                    images              : [ { id : id } ],
+                    externalPermalink   : 'externalPermalink'
+                };
 
-//     let story = build.buildStory( storyObj );
+                let story = build.buildStory( storyObj );
 
-//     assert.ok( story.nodeType === 1, 'Wrapper is a dom element' );
-//     assert.equal( story.className, classes.STORY, 'Wrapper has correct class name' );
+                assert.ok( story.nodeType === 1, 'Wrapper is a dom element' );
+                assert.equal( story.className, classes.STORY, 'Wrapper has correct class name' );
 
-//     let storyLink = story.childNodes;
-//     assert.equal( storyLink.length, 1, 'story has only one child' );
-//     storyLink = storyLink[0];
+                let storyLink = story.childNodes;
+                assert.equal( storyLink.length, 1, 'story has only one child' );
+                storyLink = storyLink[0];
 
-//     assert.equal( storyLink.className, classes.STORY_LINK, 'storyLink has correct class name' );
+                assert.equal( storyLink.className, classes.STORY_LINK, 'storyLink has correct class name' );
 
-//     let href = storyLink.href.replace( /^https?:/, '' )
-//     assert.equal( href, `//${stylaWidget.domain}/story/externalPermalink/`, 'storyLink has correct href' );
-// } );
+                let href = storyLink.href.replace( /^https?:/, '' )
+                assert.equal( href, `//${stylaWidget.domain}/story/externalPermalink/`, 'storyLink has correct href' );
+            } );
 
 
 
@@ -288,7 +288,6 @@ QUnit.test( 'buildStories', function( assert )
                 assert.equal( el.className, classes.BASE_STYLES, 'StyleTag class is set' );
                 assert.equal( el.type, 'text/css', 'StyleTag is a css tag' );
                 assert.equal( el.parentNode, document.head, 'StyleTag is mounted correctly' );
-                console.log( el.textContent );
                 assert.equal( el.textContent.indexOf( '#styla-widget' ), 0, 'StyleTag contains the correct info' );
             } );
 

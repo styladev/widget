@@ -125,10 +125,8 @@ class StylaWidget
         this.title      = title;
         this.version    = version;
 
-        // let url = tag ? `${api}/api/feeds/tags/${tag}?offset=${offset}&limit=${limit + ignoreBonus}&domain=${slug}` :
-        //                 `${api}/api/feeds/user/${slug}?domain=${slug}&offset=${offset}&limit=${limit + ignoreBonus}`;
-
-        let url = `${api}/api/feeds/all?domain=${slug}&offset=${offset}&limit=${limit}`;
+        let url = tag ? `${api}/api/feeds/tags/${tag}?offset=${offset}&limit=${limit + ignoreBonus}&domain=${slug}` :
+                        `${api}/api/feeds/all?domain=${slug}&offset=${offset}&limit=${limit}`;
 
         http.get( storiesApi || url ).then( build.getDomainConfig.bind( this ) );
 
@@ -166,15 +164,15 @@ window.StylaWidget = StylaWidget;
 
 let alsoOnLoad = typeof window.onload === 'function' ? window.onload : function(){};
 
-// window.onload = function( e )
-// {
+window.onload = function( e )
+{
     if ( window.stylaWidget )
     {
         window.stylaWidget = new StylaWidget( window.stylaWidget );
     }
     
-    // alsoOnLoad( e );
-// };
+    alsoOnLoad( e );
+};
 
 export default StylaWidget;
 
