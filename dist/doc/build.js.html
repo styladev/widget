@@ -435,6 +435,8 @@ no matter what it will always build the number of stories set in the limit</p>
         <span class="k">else</span>
         <span class="p">{</span>
             <span class="nx">ignored</span><span class="o">++</span><span class="p">;</span>
+
+            <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
         <span class="p">}</span>
     <span class="p">},</span>
 
@@ -487,8 +489,14 @@ and returns the outer wrapper</p>
         <span class="nx">textWrapper</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span> <span class="nx">headlineWrapper</span> <span class="p">);</span>
 
         <span class="kd">let</span> <span class="nx">paragraph</span>       <span class="o">=</span> <span class="nx">create</span><span class="p">(</span> <span class="err">`</span><span class="nx">div</span><span class="err">`</span><span class="p">,</span>    <span class="nx">classes</span><span class="p">.</span><span class="nx">PARAGRAPH</span> <span class="p">);</span>
-        <span class="nx">paragraph</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nx">build</span><span class="p">.</span><span class="nx">getDescription</span><span class="p">(</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span> <span class="nx">description</span> <span class="p">)</span> <span class="p">);</span>
-        <span class="nx">paragraph</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nx">paragraph</span><span class="p">.</span><span class="nx">textContent</span><span class="p">;</span>
+        <span class="nx">description</span>         <span class="o">=</span> <span class="nx">build</span><span class="p">.</span><span class="nx">getDescription</span><span class="p">(</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span> <span class="nx">description</span> <span class="p">)</span> <span class="p">);</span>
+        
+        <span class="k">if</span> <span class="p">(</span> <span class="nx">description</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="nx">paragraph</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nx">description</span><span class="p">;</span>
+            <span class="nx">paragraph</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nx">paragraph</span><span class="p">.</span><span class="nx">textContent</span><span class="p">;</span>
+        <span class="p">}</span>
+
         <span class="nx">textWrapper</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span> <span class="nx">paragraph</span> <span class="p">);</span>
 
         <span class="k">return</span> <span class="nx">textWrapper</span><span class="p">;</span>
@@ -723,7 +731,7 @@ and returns the outer wrapper</p>
 
         <span class="k">if</span> <span class="p">(</span> <span class="o">!</span><span class="nx">text</span> <span class="p">)</span>
         <span class="p">{</span>
-            <span class="k">return</span> <span class="kc">false</span>
+            <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
         <span class="p">}</span>
         <span class="k">else</span> <span class="k">if</span> <span class="p">(</span> <span class="nx">text</span><span class="p">.</span><span class="nx">type</span> <span class="o">!==</span> <span class="err">`</span><span class="nx">text</span><span class="err">`</span> <span class="p">)</span>
         <span class="p">{</span>
@@ -858,10 +866,10 @@ processing</p>
 </div>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-    <span class="nx">includeBaseStyles</span><span class="p">()</span>
+    <span class="nx">includeBaseStyles</span><span class="p">(</span> <span class="nx">css</span> <span class="p">)</span>
     <span class="p">{</span>
         <span class="kd">let</span> <span class="nx">head</span>        <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">head</span><span class="p">;</span>
-        <span class="kd">let</span> <span class="nx">el</span>          <span class="o">=</span> <span class="nx">build</span><span class="p">.</span><span class="nx">buildStyleTag</span><span class="p">(</span> <span class="nx">baseStyles</span> <span class="o">+</span> <span class="nx">specificStyles</span> <span class="p">);</span>
+        <span class="kd">let</span> <span class="nx">el</span>          <span class="o">=</span> <span class="nx">build</span><span class="p">.</span><span class="nx">buildStyleTag</span><span class="p">(</span> <span class="nx">css</span> <span class="o">||</span><span class="err"> </span><span class="nx">baseStyles</span> <span class="o">+</span> <span class="nx">specificStyles</span> <span class="p">);</span>
         <span class="nx">el</span><span class="p">.</span><span class="nx">className</span>    <span class="o">=</span> <span class="err">`</span><span class="nx">$</span><span class="p">{</span><span class="nx">classes</span><span class="p">.</span><span class="nx">BASE_STYLES</span><span class="p">}</span><span class="err">`</span><span class="p">;</span>
 
         <span class="nx">self</span><span class="p">.</span><span class="nx">els</span><span class="p">.</span><span class="nx">baseStyle</span> <span class="o">=</span> <span class="nx">el</span><span class="p">;</span>

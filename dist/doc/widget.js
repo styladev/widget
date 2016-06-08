@@ -1,12 +1,12 @@
 /*!
- * Styla bite-sized widget v0.4.3
+ * Styla bite-sized widget v0.4.7
  * https://github.com/styladev/widget
  *
  * Copyright 2016 Styla GmbH and other contributors
  * Released under the MIT license
  * https://github.com/styladev/widget/blob/master/license.md
  *
- * Date: Tue Jun 07 2016
+ * Date: Wed Jun 08 2016
  * */
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 (function (global){
@@ -38,8 +38,8 @@ var _microbejsDistMicrobeHttpMin = require('microbejs/dist/microbe.http.min');
 /*
     exchanged for css in the gulp build
  */
-var baseStyles = '#styla-widget p{margin:0}#styla-widget.styla-widget__wrapper{width:100%;height:100%}#styla-widget .styla-widget__container{box-sizing:border-box;position:relative;overflow:hidden;padding:1em 2em;height:100%;width:100%;min-height:14em;display:flex;flex-direction:column;flex-wrap:wrap;font-size:14px}#styla-widget .styla-widget__story{margin-bottom:1em;position:relative;flex-grow:1}#styla-widget .styla-widget__link{position:absolute;width:100%;display:flex;text-decoration:none;color:inherit}#styla-widget__link>div{display:inline-block}#styla-widget .styla-widget__image{max-height:100%;max-width:100%;height:100%;object-fit:contain}#styla-widget .styla-widget__textwrap{display:block;flex-grow:1;max-height:100%;overflow:hidden;float:left}#styla-widget .styla-widget__headlinewrap{display:flex;flex-direction:column;justify-content:flex-end}#styla-widget .styla-widget__headline,#styla-widget .styla-widget__title{line-height:1.25em;max-height:2.5em;overflow:hidden}#styla-widget .styla-widget__title{font-size:2em;text-align:center;margin-bottom:30px}#styla-widget .styla-widget__paragraph{font-size:1em;line-height:1.5em;overflow:hidden;position:relative;word-wrap:break-word}';
-var specificStyles = '#styla-widget .styla-widget__story{margin-right:2em;height:14em;width:100%}#styla-widget .styla-widget__story:nth-child(even){text-align:right}#styla-widget .styla-widget__link{height:14em;top:50%;margin-top:-7em;align-items:center}#styla-widget .styla-widget__imagewrap{display:block;vertical-align:top;flex-grow:1;height:100%;margin:0 6% 0 0;flex:none;max-width:40%;float:left}#styla-widget .styla-widget__story:nth-child(even) .styla-widget__imagewrap{margin:0 0 0 6%;float:right;clear:both;order:2}#styla-widget .styla-widget__textwrap{display:block;flex-grow:1;max-height:100%;overflow:hidden;float:left}#styla-widget .styla-widget__story:nth-child(even) .styla-widget__textwrap{float:right}#styla-widget .styla-widget__headlinewrap{height:5em;display:flex;flex-direction:column;justify-content:flex-end}#styla-widget .styla-widget__headline{font-size:1.9em;line-height:1.25em;max-height:2.5em;overflow:hidden;margin:0 0 .25em;word-wrap:break-word;text-overflow:ellipsis;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2}#styla-widget .styla-widget__paragraph{font-size:1em;line-height:1.5em;max-height:calc(100% - 5em);overflow:hidden;position:relative;word-wrap:break-word}#styla-widget .styla-widget__paragraph:after{position:absolute;left:0;top:7.5em;display:block;background-color:#FFF;width:100%;height:2em}#styla-widget .styla-widget__paragraph p+p{display:none}';
+var baseStyles = '#styla-widget p{margin:0}#styla-widget.styla-widget__wrapper{width:100%;height:100%}#styla-widget .styla-widget__container{box-sizing:border-box;position:relative;overflow:hidden;height:100%;width:100%;min-height:14em;display:flex;flex-direction:column;flex-wrap:wrap;font-size:14px}#styla-widget .styla-widget__story{margin-bottom:1em;position:relative;flex-grow:1}#styla-widget .styla-widget__link{position:absolute;width:100%;display:flex;text-decoration:none;color:inherit}#styla-widget__link>div{display:inline-block}#styla-widget .styla-widget__image{max-height:100%;max-width:100%;height:100%;object-fit:contain}#styla-widget .styla-widget__textwrap{display:block;flex-grow:1;max-height:100%;overflow:hidden;float:left}#styla-widget .styla-widget__headlinewrap{display:flex;flex-direction:column;justify-content:flex-end}#styla-widget .styla-widget__headline,#styla-widget .styla-widget__title{line-height:1.25em;max-height:2.5em;overflow:hidden}#styla-widget .styla-widget__title{font-size:2em;text-align:center;margin-bottom:30px}#styla-widget .styla-widget__paragraph{font-size:1em;line-height:1.5em;overflow:hidden;position:relative;word-wrap:break-word}';
+var specificStyles = '#styla-widget .styla-widget__container{padding:1em 2em}#styla-widget .styla-widget__story{margin-right:2em;height:14em;width:100%}#styla-widget .styla-widget__story:nth-child(even){text-align:right}#styla-widget .styla-widget__link{height:14em;top:50%;margin-top:-7em;align-items:center}#styla-widget .styla-widget__imagewrap{display:block;vertical-align:top;flex-grow:1;height:100%;margin:0 6% 0 0;flex:none;max-width:40%;float:left}#styla-widget .styla-widget__story:nth-child(even) .styla-widget__imagewrap{margin:0 0 0 6%;float:right;clear:both;order:2}#styla-widget .styla-widget__textwrap{display:block;flex-grow:1;max-height:100%;overflow:hidden;float:left}#styla-widget .styla-widget__story:nth-child(even) .styla-widget__textwrap{float:right}#styla-widget .styla-widget__headlinewrap{height:5em;display:flex;flex-direction:column;justify-content:flex-end}#styla-widget .styla-widget__headline{font-size:1.9em;line-height:1.25em;max-height:2.5em;overflow:hidden;margin:0 0 .25em;word-wrap:break-word;text-overflow:ellipsis;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2}#styla-widget .styla-widget__paragraph{font-size:1em;line-height:1.5em;max-height:calc(100% - 5em);overflow:hidden;position:relative;word-wrap:break-word}#styla-widget .styla-widget__paragraph:after{position:absolute;left:0;top:7.5em;display:block;background-color:#FFF;width:100%;height:2em}#styla-widget .styla-widget__paragraph p+p{display:none}';
 var wrapperID = 'styla-widget';
 var _reportError = function _reportError(e) {
     console.log('err', e);
@@ -206,6 +206,8 @@ var build = {
             return story;
         } else {
             ignored++;
+
+            return false;
         }
     },
 
@@ -228,8 +230,13 @@ var build = {
         textWrapper.appendChild(headlineWrapper);
 
         var paragraph = create('div', _classesJs2['default'].PARAGRAPH);
-        paragraph.innerHTML = build.getDescription(JSON.parse(description));
-        paragraph.innerHTML = paragraph.textContent;
+        description = build.getDescription(JSON.parse(description));
+
+        if (description) {
+            paragraph.innerHTML = description;
+            paragraph.innerHTML = paragraph.textContent;
+        }
+
         textWrapper.appendChild(paragraph);
 
         return textWrapper;
@@ -388,9 +395,9 @@ var build = {
      *
      * @return _Void_
      */
-    includeBaseStyles: function includeBaseStyles() {
+    includeBaseStyles: function includeBaseStyles(css) {
         var head = document.head;
-        var el = build.buildStyleTag(baseStyles + specificStyles);
+        var el = build.buildStyleTag(css || baseStyles + specificStyles);
         el.className = '' + _classesJs2['default'].BASE_STYLES;
 
         self.els.baseStyle = el;
@@ -477,7 +484,7 @@ module.exports = {
 },{}],4:[function(require,module,exports){
 'use strict';
 
-module.exports = '0.4.3';
+module.exports = '0.4.7';
 
 },{}],5:[function(require,module,exports){
 
@@ -637,11 +644,9 @@ var StylaWidget = (function () {
         this.tag = tag;
         this.target = target;
         this.title = title;
+        this.version = _versionJs2['default'];
 
-        // let url = tag ? `${api}/api/feeds/tags/${tag}?offset=${offset}&limit=${limit + ignoreBonus}&domain=${slug}` :
-        //                 `${api}/api/feeds/user/${slug}?domain=${slug}&offset=${offset}&limit=${limit + ignoreBonus}`;
-
-        var url = api + '/api/feeds/all?domain=' + slug + '&offset=' + offset + '&limit=' + limit;
+        var url = tag ? api + '/api/feeds/tags/' + tag + '?offset=' + offset + '&limit=' + (limit + ignoreBonus) + '&domain=' + slug : api + '/api/feeds/all?domain=' + slug + '&offset=' + offset + '&limit=' + limit;
 
         _microbejsDistMicrobeHttpMin.http.get(storiesApi || url).then(_buildJs2['default'].getDomainConfig.bind(this));
 
