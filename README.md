@@ -122,8 +122,16 @@ This project adheres to the [Contributor Covenant](http://contributor-covenant.o
 
 
 
-Change log
+Change logg
 ==========
+
+
+### 0.4.7
+
+    + better handling of empty story text
+    + tests updated
+    + inital load changes
+
 
 ### 0.4.4
 
