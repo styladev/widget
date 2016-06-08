@@ -1,4 +1,4 @@
-Styla Widget  0.4.5
+Styla Widget  0.4.7
 =======
 
 
