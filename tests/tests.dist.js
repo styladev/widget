@@ -6,7 +6,7 @@
 },{}],2:[function(require,module,exports){
 module.exports={
   "name": "stylaWidget",
-  "version": "0.4.6",
+  "version": "0.4.7",
   "contributors": [
     "Mouse Braun <mouse@styla.com>",
     "Elias Liedholm <elias@styla.com>"
@@ -261,6 +261,8 @@ var build = {
             return story;
         } else {
             ignored++;
+
+            return false;
         }
     },
 
@@ -448,9 +450,9 @@ var build = {
      *
      * @return _Void_
      */
-    includeBaseStyles: function includeBaseStyles() {
+    includeBaseStyles: function includeBaseStyles(css) {
         var head = document.head;
-        var el = build.buildStyleTag(baseStyles + specificStyles);
+        var el = build.buildStyleTag(css || baseStyles + specificStyles);
         el.className = '' + _classesJs2['default'].BASE_STYLES;
 
         self.els.baseStyle = el;
@@ -537,7 +539,7 @@ module.exports = {
 },{}],5:[function(require,module,exports){
 'use strict';
 
-module.exports = '0.4.6';
+module.exports = '0.4.7';
 
 },{}],6:[function(require,module,exports){
 'use strict';
@@ -552,13 +554,17 @@ var _unitBuildTest = require('./unit/buildTest');
 
 var _unitBuildTest2 = _interopRequireDefault(_unitBuildTest);
 
+var windowOnload = window.onload;
+
 window.onload = function () {
-    var widget = window.stylaWidget;
+   windowOnload();
 
-    document.getElementsByTagName('TITLE')[0].textContent = 'StylaWidget - ' + widget.version;
+   var widget = window.stylaWidget;
 
-    (0, _unitVersionTest2['default'])(widget);
-    (0, _unitBuildTest2['default'])(widget);
+   document.getElementsByTagName('TITLE')[0].textContent = 'StylaWidget - ' + widget.version;
+
+   (0, _unitVersionTest2['default'])(widget);
+   (0, _unitBuildTest2['default'])(widget);
 };
 
 },{"./unit/buildTest":7,"./unit/versionTest":8}],7:[function(require,module,exports){
@@ -585,8 +591,7 @@ var domainConfigAPI = 'https://www.amazine.com/api/config/';
 var tests = function tests(stylaWidget) {
     _microbejsDistMicrobeHttpMin.http.get(domainConfigAPI + stylaWidget.slug).then(function (domainConfig) {
         domainConfig = JSON.parse(domainConfig);
-
-        var storiesUrl = 'https://www.amazine.com/api/feeds/userTag/' + stylaWidget.slug + '/tag/' + stylaWidget.tag + '?offset=' + stylaWidget.offset + '&limit=' + stylaWidget.limit + '&domain=' + stylaWidget.slug;
+        var storiesUrl = 'https://www.amazine.com/api/feeds/all?domain=' + stylaWidget.slug + '&offset=' + stylaWidget.offset + '&limit=' + stylaWidget.limit;
 
         _microbejsDistMicrobeHttpMin.http.get(storiesUrl).then(function (stories) {
             QUnit.module('build.js');
@@ -712,7 +717,7 @@ var tests = function tests(stylaWidget) {
                 var children = textWrapper.childNodes;
                 assert.equal(children.length, 2, 'textWrapper has 2 children');
 
-                assert.equal(children[0].innerHTML, '<h1 class="styla-widget__headline">moon?</h1>', 'headline is set right');
+                assert.equal(children[0].innerHTML, '<h3 class="styla-widget__headline">moon?</h3>', 'headline is set right');
                 assert.equal(children[1].innerHTML, 'description', 'description is set right');
             });
 
@@ -826,7 +831,7 @@ var tests = function tests(stylaWidget) {
              * @return _Void_
              */
             QUnit.test('includeBaseStyles', function (assert) {
-                var el = _srcBuildJs2['default'].includeBaseStyles(domainConfig);
+                var el = _srcBuildJs2['default'].includeBaseStyles('#styla-widget');
 
                 assert.ok(el.nodeType === 1, 'StyleTag is a dom element');
                 assert.equal(el.tagName, 'STYLE', 'StyleTag is a style tag');
