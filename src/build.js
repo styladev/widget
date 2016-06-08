@@ -186,6 +186,8 @@ let build = {
         else
         {
             ignored++;
+
+            return false;
         }
     },
 
@@ -415,10 +417,10 @@ let build = {
      *
      * @return _Void_
      */
-    includeBaseStyles()
+    includeBaseStyles( css )
     {
         let head        = document.head;
-        let el          = build.buildStyleTag( baseStyles + specificStyles );
+        let el          = build.buildStyleTag( css || baseStyles + specificStyles );
         el.className    = `${classes.BASE_STYLES}`;
 
         self.els.baseStyle = el;
