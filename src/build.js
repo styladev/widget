@@ -104,7 +104,7 @@ let build = {
      * @param {String} domainConfig JSON response from the product api
      * @param {Object} parsedDomainConfig parsed JSON object for testing
      *
-     * @return _DOMElement_ wrapper element
+     * @return _Void_
      */
     buildStories( resDomainConfig, parsedDomainConfig )
     {
@@ -134,10 +134,8 @@ let build = {
             let styling = build.compileStyles();
 
             document.head.appendChild( styling );
-            self.target.appendChild( self.wrapper );
+            self.target.appendChild( self.els.wrapper );
         }
-
-        return self.wrapper;
     },
 
 
@@ -154,7 +152,7 @@ let build = {
      */
     buildStory( { title, description, images, externalPermalink, id }, i )
     {
-        if ( self.ignore + '' !== id + '' && i - ignored < self.limit )
+        if ( `${self.ignore}` !== `${id}` && i - ignored < self.limit )
         {
             let create              = build.create;
 
@@ -164,11 +162,11 @@ let build = {
 
             if ( self.newTab )
             {
-                storyLink.setAttribute( 'target', '_blank' );
+                storyLink.setAttribute( `target`, `_blank` );
             } 
             else if ( self.iframe )
             {
-                storyLink.setAttribute( 'target', '_top' );
+                storyLink.setAttribute( `target`, `_top` );
             }
 
             story.appendChild( storyLink );
@@ -176,10 +174,11 @@ let build = {
             storyLink.appendChild( build.buildImage( images, title ) );
             storyLink.appendChild( build.buildStoryText( title, description ) );
 
-            let container = self.container;
+            let container   = self.els.container;
+            let wrapper     = self.els.wrapper;
 
             container.appendChild( story );
-            self.wrapper.appendChild( container );
+            wrapper.appendChild( container );
 
             return story;
         }
@@ -248,6 +247,13 @@ let build = {
     },
 
 
+    /**
+     * ## buildTitle
+     *
+     * builds the title element, fills it, and attaches it to the container
+     *
+     * @return _DOMElement_
+     */
     buildTitle()
     {
         if ( self.title === true && domainConfig.title )
@@ -261,7 +267,7 @@ let build = {
             let title       = self.title    = build.create( `DIV`, classes.TITLE );
             title.innerHTML = text;
 
-            self.container.appendChild( title );
+            self.els.container.appendChild( title );
         }
 
         return self.title;
@@ -381,10 +387,8 @@ let build = {
 
         self.stories    = JSON.parse( stories );
 
-        let container   = self.container    = build.create( `DIV`, classes.CONTAINER );
-        let wrapper     = self.wrapper      = build.create( `DIV`, classes.WRAPPER );
-
-        self.els.wrapper = wrapper;
+        let container   = self.els.container = build.create( `DIV`, classes.CONTAINER );
+        let wrapper     = self.els.wrapper      = build.create( `DIV`, classes.WRAPPER );
         wrapper.id      = wrapperID;
 
         let domainConfigAPI   = `https://live.styla.com/api/config/`;
