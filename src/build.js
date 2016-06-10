@@ -383,18 +383,21 @@ let build = {
      */
     getDomainConfig( stories )
     {
-        self = this;
+        if ( this.els.wrapper )
+        {
+            self = this;
 
-        self.stories    = JSON.parse( stories );
+            self.stories    = JSON.parse( stories );
 
-        let container   = self.els.container = build.create( `DIV`, classes.CONTAINER );
-        let wrapper     = self.els.wrapper      = build.create( `DIV`, classes.WRAPPER );
-        wrapper.id      = wrapperID;
+            let container   = self.els.container = build.create( `DIV`, classes.CONTAINER );
+            let wrapper     = self.els.wrapper      = build.create( `DIV`, classes.WRAPPER );
+            wrapper.id      = wrapperID;
 
-        let domainConfigAPI   = `https://live.styla.com/api/config/`;
-        http.get( domainConfigAPI + self.slug ).then( build.buildStories ).catch( _reportError );
+            let domainConfigAPI   = `https://live.styla.com/api/config/`;
+            http.get( domainConfigAPI + self.slug ).then( build.buildStories ).catch( _reportError );
 
-        return container;
+            return container;
+        }
     },
 
 
