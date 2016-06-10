@@ -1,4 +1,4 @@
-Styla Widget  0.4.7
+Styla Widget  0.4.8
 =======
 
 
@@ -122,8 +122,12 @@ This project adheres to the [Contributor Covenant](http://contributor-covenant.o
 
 
 
-Change logg
+Change log
 ==========
+
+### 0.4.8
+
+    + moved this.wrapper and this.container to this.els
 
 
 ### 0.4.7
