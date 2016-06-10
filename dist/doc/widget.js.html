@@ -56,11 +56,11 @@
   <div class="details">
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>"Mouse Braun <a href="m&#x61;&#105;&#108;&#116;&#x6F;:&#x6D;&#x6F;&#117;s&#101;&#64;s&#x74;&#x79;&#108;&#97;.&#99;&#111;m">&#x6D;&#x6F;&#117;s&#101;&#64;s&#x74;&#x79;&#108;&#97;.&#99;&#111;m</a>"</span>
+      <span>"Mouse Braun <a href="&#x6D;&#97;&#105;&#108;&#116;&#x6F;:&#109;&#111;&#117;&#x73;&#101;&#64;&#x73;&#116;&#x79;&#108;&#97;&#46;&#x63;&#111;&#x6D;">&#109;&#111;&#117;&#x73;&#101;&#64;&#x73;&#116;&#x79;&#108;&#97;&#46;&#x63;&#111;&#x6D;</a>"</span>
     </div>
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>"Elias Liedholm <a href="&#x6D;&#97;i&#x6C;&#x74;&#111;:&#101;&#108;&#x69;a&#x73;&#64;&#x73;&#x74;y&#x6C;&#x61;&#46;c&#111;&#x6D;">&#101;&#108;&#x69;a&#x73;&#64;&#x73;&#x74;y&#x6C;&#x61;&#46;c&#111;&#x6D;</a>"</span>
+      <span>"Elias Liedholm <a href="&#x6D;&#97;i&#x6C;&#x74;&#111;:&#x65;&#108;&#105;&#x61;&#115;&#64;s&#x74;&#x79;&#x6C;&#97;&#46;&#x63;&#111;m">&#x65;&#108;&#105;&#x61;&#115;&#64;s&#x74;&#x79;&#x6C;&#97;&#46;&#x63;&#111;m</a>"</span>
     </div>
   </div>
 </div>
@@ -105,7 +105,7 @@ defined target or a new selector / el</p>
     <span class="p">{</span>
         <span class="nx">target</span>      <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">checkTarget</span><span class="p">(</span> <span class="nx">target</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">minWidth</span> <span class="p">);</span>
 
-        <span class="kd">let</span> <span class="nx">els</span>     <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">els</span><span class="p">;</span>
+        <span class="kd">let</span> <span class="nx">els</span>     <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">refs</span><span class="p">;</span>
         <span class="kd">let</span> <span class="nx">head</span>    <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">head</span><span class="p">;</span>
 
         <span class="k">if</span> <span class="p">(</span> <span class="nx">els</span><span class="p">.</span><span class="nx">baseStyle</span> <span class="p">)</span>
@@ -226,7 +226,7 @@ defined target or a new selector / el</p>
             <span class="k">throw</span> <span class="err">`</span><span class="nx">Styla</span> <span class="nx">Widget</span> <span class="nx">error</span><span class="o">:</span> <span class="nx">No</span> <span class="nx">slug</span> <span class="nx">defined</span><span class="p">,</span> <span class="nx">cannot</span> <span class="nx">render</span> <span class="nx">widget</span><span class="err">`</span><span class="p">;</span>
         <span class="p">}</span>
 
-        <span class="k">this</span><span class="p">.</span><span class="nx">els</span>        <span class="o">=</span> <span class="p">{};</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">refs</span>        <span class="o">=</span> <span class="p">{};</span>
         <span class="k">this</span><span class="p">.</span><span class="nx">api</span>        <span class="o">=</span> <span class="nx">api</span><span class="p">;</span>
         <span class="k">this</span><span class="p">.</span><span class="nx">domain</span>     <span class="o">=</span> <span class="nx">domain</span><span class="p">;</span>
         <span class="k">this</span><span class="p">.</span><span class="nx">linkDomain</span> <span class="o">=</span> <span class="nx">linkDomain</span><span class="p">;</span>
@@ -285,7 +285,7 @@ defined target or a new selector / el</p>
         <td class="code highlight"><div class="highlight"><pre>
     <span class="nx">destroy</span><span class="p">()</span>
     <span class="p">{</span>
-        <span class="kd">let</span> <span class="nx">els</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">els</span><span class="p">;</span>
+        <span class="kd">let</span> <span class="nx">els</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">refs</span><span class="p">;</span>
 
         <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span> <span class="nx">els</span> <span class="p">).</span><span class="nx">forEach</span><span class="p">(</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">key</span> <span class="p">)</span>
         <span class="p">{</span>

@@ -6,7 +6,7 @@
 },{}],2:[function(require,module,exports){
 module.exports={
   "name": "stylaWidget",
-  "version": "0.4.8",
+  "version": "0.4.9",
   "contributors": [
     "Mouse Braun <mouse@styla.com>",
     "Elias Liedholm <elias@styla.com>"
@@ -211,7 +211,7 @@ var build = {
             var styling = build.compileStyles();
 
             document.head.appendChild(styling);
-            self.target.appendChild(self.els.wrapper);
+            self.target.appendChild(self.refs.wrapper);
         }
     },
 
@@ -251,8 +251,8 @@ var build = {
             storyLink.appendChild(build.buildImage(images, title));
             storyLink.appendChild(build.buildStoryText(title, description));
 
-            var container = self.els.container;
-            var wrapper = self.els.wrapper;
+            var container = self.refs.container;
+            var wrapper = self.refs.wrapper;
 
             container.appendChild(story);
             wrapper.appendChild(container);
@@ -333,7 +333,7 @@ var build = {
             var title = self.title = build.create('DIV', _classesJs2['default'].TITLE);
             title.innerHTML = text;
 
-            self.els.container.appendChild(title);
+            self.refs.container.appendChild(title);
         }
 
         return self.title;
@@ -357,7 +357,7 @@ var build = {
         var el = build.buildStyleTag(css);
         el.className = '' + _classesJs2['default'].THEME_STYLES;
 
-        self.els.themeStyle = el;
+        self.refs.themeStyle = el;
 
         return el;
     },
@@ -417,13 +417,13 @@ var build = {
      * @return _DOMElement_ container element
      */
     getDomainConfig: function getDomainConfig(stories) {
-        if (this.els.wrapper) {
+        if (!this.refs.wrapper) {
             self = this;
 
             self.stories = JSON.parse(stories);
 
-            var container = self.els.container = build.create('DIV', _classesJs2['default'].CONTAINER);
-            var wrapper = self.els.wrapper = build.create('DIV', _classesJs2['default'].WRAPPER);
+            var container = self.refs.container = build.create('DIV', _classesJs2['default'].CONTAINER);
+            var wrapper = self.refs.wrapper = build.create('DIV', _classesJs2['default'].WRAPPER);
             wrapper.id = wrapperID;
 
             var domainConfigAPI = 'https://live.styla.com/api/config/';
@@ -461,7 +461,7 @@ var build = {
         var el = build.buildStyleTag(css || baseStyles + specificStyles);
         el.className = '' + _classesJs2['default'].BASE_STYLES;
 
-        self.els.baseStyle = el;
+        self.refs.baseStyle = el;
 
         head.appendChild(el);
 
@@ -545,7 +545,7 @@ module.exports = {
 },{}],5:[function(require,module,exports){
 'use strict';
 
-module.exports = '0.4.8';
+module.exports = '0.4.9';
 
 },{}],6:[function(require,module,exports){
 'use strict';

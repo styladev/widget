@@ -1,12 +1,12 @@
 /*!
- * Styla bite-sized widget v0.4.7
+ * Styla bite-sized widget v0.4.9
  * https://github.com/styladev/widget
  *
  * Copyright 2016 Styla GmbH and other contributors
  * Released under the MIT license
  * https://github.com/styladev/widget/blob/master/license.md
  *
- * Date: Wed Jun 08 2016
+ * Date: Fri Jun 10 2016
  * */
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 (function (global){
@@ -127,7 +127,7 @@ var build = {
      * @param {String} domainConfig JSON response from the product api
      * @param {Object} parsedDomainConfig parsed JSON object for testing
      *
-     * @return _DOMElement_ wrapper element
+     * @return _Void_
      */
     buildStories: function buildStories(resDomainConfig, parsedDomainConfig) {
         domainConfig = parsedDomainConfig || JSON.parse(resDomainConfig);
@@ -156,10 +156,8 @@ var build = {
             var styling = build.compileStyles();
 
             document.head.appendChild(styling);
-            self.target.appendChild(self.wrapper);
+            self.target.appendChild(self.refs.wrapper);
         }
-
-        return self.wrapper;
     },
 
     /**
@@ -180,7 +178,7 @@ var build = {
         var externalPermalink = _ref.externalPermalink;
         var id = _ref.id;
 
-        if (self.ignore + '' !== id + '' && i - ignored < self.limit) {
+        if ('' + self.ignore !== '' + id && i - ignored < self.limit) {
             var create = build.create;
 
             var story = create('div', _classesJs2['default'].STORY);
@@ -198,10 +196,11 @@ var build = {
             storyLink.appendChild(build.buildImage(images, title));
             storyLink.appendChild(build.buildStoryText(title, description));
 
-            var container = self.container;
+            var container = self.refs.container;
+            var wrapper = self.refs.wrapper;
 
             container.appendChild(story);
-            self.wrapper.appendChild(container);
+            wrapper.appendChild(container);
 
             return story;
         } else {
@@ -262,6 +261,13 @@ var build = {
         return el;
     },
 
+    /**
+     * ## buildTitle
+     *
+     * builds the title element, fills it, and attaches it to the container
+     *
+     * @return _DOMElement_
+     */
     buildTitle: function buildTitle() {
         if (self.title === true && domainConfig.title) {
             self.title = domainConfig.title;
@@ -272,7 +278,7 @@ var build = {
             var title = self.title = build.create('DIV', _classesJs2['default'].TITLE);
             title.innerHTML = text;
 
-            self.container.appendChild(title);
+            self.refs.container.appendChild(title);
         }
 
         return self.title;
@@ -296,7 +302,7 @@ var build = {
         var el = build.buildStyleTag(css);
         el.className = '' + _classesJs2['default'].THEME_STYLES;
 
-        self.els.themeStyle = el;
+        self.refs.themeStyle = el;
 
         return el;
     },
@@ -356,20 +362,20 @@ var build = {
      * @return _DOMElement_ container element
      */
     getDomainConfig: function getDomainConfig(stories) {
-        self = this;
+        if (!this.refs.wrapper) {
+            self = this;
 
-        self.stories = JSON.parse(stories);
+            self.stories = JSON.parse(stories);
 
-        var container = self.container = build.create('DIV', _classesJs2['default'].CONTAINER);
-        var wrapper = self.wrapper = build.create('DIV', _classesJs2['default'].WRAPPER);
+            var container = self.refs.container = build.create('DIV', _classesJs2['default'].CONTAINER);
+            var wrapper = self.refs.wrapper = build.create('DIV', _classesJs2['default'].WRAPPER);
+            wrapper.id = wrapperID;
 
-        self.els.wrapper = wrapper;
-        wrapper.id = wrapperID;
+            var domainConfigAPI = 'https://live.styla.com/api/config/';
+            _microbejsDistMicrobeHttpMin.http.get(domainConfigAPI + self.slug).then(build.buildStories)['catch'](_reportError);
 
-        var domainConfigAPI = 'https://live.styla.com/api/config/';
-        _microbejsDistMicrobeHttpMin.http.get(domainConfigAPI + self.slug).then(build.buildStories)['catch'](_reportError);
-
-        return container;
+            return container;
+        }
     },
 
     /**
@@ -400,7 +406,7 @@ var build = {
         var el = build.buildStyleTag(css || baseStyles + specificStyles);
         el.className = '' + _classesJs2['default'].BASE_STYLES;
 
-        self.els.baseStyle = el;
+        self.refs.baseStyle = el;
 
         head.appendChild(el);
 
@@ -484,7 +490,7 @@ module.exports = {
 },{}],4:[function(require,module,exports){
 'use strict';
 
-module.exports = '0.4.7';
+module.exports = '0.4.9';
 
 },{}],5:[function(require,module,exports){
 
@@ -535,7 +541,7 @@ var StylaWidget = (function () {
 
             target = this.checkTarget(target, this.minWidth);
 
-            var els = this.els;
+            var els = this.refs;
             var head = document.head;
 
             if (els.baseStyle) {
@@ -625,7 +631,7 @@ var StylaWidget = (function () {
             throw 'Styla Widget error: No slug defined, cannot render widget';
         }
 
-        this.els = {};
+        this.refs = {};
         this.api = api;
         this.domain = domain;
         this.linkDomain = linkDomain;
@@ -664,7 +670,7 @@ var StylaWidget = (function () {
     _createClass(StylaWidget, [{
         key: 'destroy',
         value: function destroy() {
-            var els = this.els;
+            var els = this.refs;
 
             Object.keys(els).forEach(function (key) {
                 var el = els[key];
