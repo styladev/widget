@@ -27,7 +27,7 @@ class StylaWidget
     {
         target      = this.checkTarget( target, this.minWidth );
 
-        let els     = this.els;
+        let els     = this.refs;
         let head    = document.head;
 
         if ( els.baseStyle )
@@ -104,7 +104,7 @@ class StylaWidget
             throw `Styla Widget error: No slug defined, cannot render widget`;
         }
 
-        this.els        = {};
+        this.refs        = {};
         this.api        = api;
         this.domain     = domain;
         this.linkDomain = linkDomain;
@@ -143,7 +143,7 @@ class StylaWidget
      */
     destroy()
     {
-        let els = this.els;
+        let els = this.refs;
 
         Object.keys( els ).forEach( function( key )
         {
