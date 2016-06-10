@@ -134,7 +134,7 @@ let build = {
             let styling = build.compileStyles();
 
             document.head.appendChild( styling );
-            self.target.appendChild( self.els.wrapper );
+            self.target.appendChild( self.refs.wrapper );
         }
     },
 
@@ -174,8 +174,8 @@ let build = {
             storyLink.appendChild( build.buildImage( images, title ) );
             storyLink.appendChild( build.buildStoryText( title, description ) );
 
-            let container   = self.els.container;
-            let wrapper     = self.els.wrapper;
+            let container   = self.refs.container;
+            let wrapper     = self.refs.wrapper;
 
             container.appendChild( story );
             wrapper.appendChild( container );
@@ -267,7 +267,7 @@ let build = {
             let title       = self.title    = build.create( `DIV`, classes.TITLE );
             title.innerHTML = text;
 
-            self.els.container.appendChild( title );
+            self.refs.container.appendChild( title );
         }
 
         return self.title;
@@ -315,7 +315,7 @@ let build = {
         let el          = build.buildStyleTag( css );
         el.className    = `${classes.THEME_STYLES}`;
 
-        self.els.themeStyle = el;
+        self.refs.themeStyle = el;
         
         return el;
     },
@@ -383,14 +383,14 @@ let build = {
      */
     getDomainConfig( stories )
     {
-        if ( this.els.wrapper )
+        if ( !this.refs.wrapper )
         {
             self = this;
 
             self.stories    = JSON.parse( stories );
 
-            let container   = self.els.container = build.create( `DIV`, classes.CONTAINER );
-            let wrapper     = self.els.wrapper      = build.create( `DIV`, classes.WRAPPER );
+            let container   = self.refs.container = build.create( `DIV`, classes.CONTAINER );
+            let wrapper     = self.refs.wrapper      = build.create( `DIV`, classes.WRAPPER );
             wrapper.id      = wrapperID;
 
             let domainConfigAPI   = `https://live.styla.com/api/config/`;
@@ -430,7 +430,7 @@ let build = {
         let el          = build.buildStyleTag( css || baseStyles + specificStyles );
         el.className    = `${classes.BASE_STYLES}`;
 
-        self.els.baseStyle = el;
+        self.refs.baseStyle = el;
 
         head.appendChild( el );
 
