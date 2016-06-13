@@ -3,6 +3,23 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <title>Styla Widget demo</title>
+        <script>
+            var d=document;var h=d.head,s=d.createElement('SCRIPT');h.appendChild(s);s.src='../dist/list.js';var w=window;var f=typeof w.onload==='function'?w.onload:function(){};w.onload=function(e){
+
+            new StylaWidget( {
+                newTab  : true,
+                slug    : 'uhrenschmuck24',
+                target  : '.styla-widget__target'
+            } );
+
+            new StylaWidget( {
+                newTab  : true,
+                slug    : 'braunhamburg',
+                target  : '.styla-widget__target2'
+            } );
+
+            f( e );};
+        </script>
         <style>
             body 
             {
@@ -12,7 +29,7 @@
                 height:                 100vh;
             }
 
-            .styla-widget__target 
+            .styla-widget__target, .styla-widget__target2
             {
                 background:             #FFF;
                 box-shadow:             3px 3px 0px #ccc;
@@ -24,18 +41,6 @@
     </head>
     <body>
         <div class="styla-widget__target" style="width: 400px;"></div>
-        <script>
-            window.stylaWidget = {
-                newTab  : true,
-                slug    : 'uhrenschmuck24', 
-                target  : '.styla-widget__target'
-            };
-            
-            var d = document;
-            var h = d.head;
-            var s = d.createElement( 'SCRIPT' );
-            h.appendChild( s );
-            s.src = '../dist/widget.js';
-        </script>
+        <div class="styla-widget__target2" style="width: 400px;"></div>
     </body>
 </html>
