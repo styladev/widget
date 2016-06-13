@@ -114,22 +114,23 @@ class Build
         this.includeBaseStyles();
 
         let images      = {};
-        let stories     = this.context.stories;
+        let context     = this.context;
+        let stories     = context.stories;
         let resImages   = stories.images;
 
         if ( resImages )
         {
-            this.context.title = this.buildTitle();
+            context.title = this.buildTitle();
 
             resImages.forEach( function( _i ){ images[ _i.id ] = _i; });
 
-            this.context.images = images;
+            context.images = images;
             let _els    = stories.stories.map( this.buildStory );
 
             let styling = this.compileStyles();
 
             document.head.appendChild( styling );
-            this.context.target.appendChild( this.context.refs.wrapper );
+            context.target.appendChild( context.refs.wrapper );
         }
     }
 
@@ -147,19 +148,21 @@ class Build
      */
     buildStory = ( { title, description, images, externalPermalink, id }, i ) =>
     {
-        if ( `${this.context.ignore}` !== `${id}` && i - ignored < this.context.limit )
+        let context     = this.context;
+
+        if ( `${context.ignore}` !== `${id}` && i - ignored < context.limit )
         {
             let create              = this.create;
 
             let story               = create( `div`,    classes.STORY );
             let storyLink           = create( `a`,      classes.STORY_LINK );
-            storyLink.href          = `//${this.context.domain}/story/${externalPermalink}/`;
+            storyLink.href          = `//${context.domain}/story/${externalPermalink}/`;
 
-            if ( this.context.newTab )
+            if ( context.newTab )
             {
                 storyLink.setAttribute( `target`, `_blank` );
             } 
-            else if ( this.context.iframe )
+            else if ( context.iframe )
             {
                 storyLink.setAttribute( `target`, `_top` );
             }
@@ -169,8 +172,8 @@ class Build
             storyLink.appendChild( this.buildImage( images, title ) );
             storyLink.appendChild( this.buildStoryText( title, description ) );
 
-            let container   = this.context.refs.container;
-            let wrapper     = this.context.refs.wrapper;
+            let container   = context.refs.container;
+            let wrapper     = context.refs.wrapper;
 
             container.appendChild( story );
             wrapper.appendChild( container );
@@ -251,21 +254,23 @@ class Build
      */
     buildTitle()
     {
-        if ( this.context.title === true && domainConfig.title )
+        let context     = this.context;
+
+        if ( context.title === true && domainConfig.title )
         {
-            this.context.title = domainConfig.title;
+            context.title = domainConfig.title;
         }
 
-        if ( this.context.title )
+        if ( context.title )
         {
-            let text        = this.context.title;
-            let title       = this.context.title    = this.create( `DIV`, classes.TITLE );
+            let text        = context.title;
+            let title       = context.title    = this.create( `DIV`, classes.TITLE );
             title.innerHTML = text;
 
-            this.context.refs.container.appendChild( title );
+            context.refs.container.appendChild( title );
         }
 
-        return this.context.title;
+        return context.title;
     }
 
 
@@ -431,7 +436,6 @@ class Build
         if ( !baseStyle )
         {
             head.appendChild( el );
-            // head.appendChild( refs.baseStyle );
         }
 
         if ( domainConfig.embed.customFontUrl )
@@ -474,18 +478,19 @@ class Build
     setDomain()
     {
         let embed   = domainConfig.embed;
-        
-        if ( this.context.domain )
+        let context = this.context;
+
+        if ( context.domain )
         {
-            return this.context.domain;
+            return context.domain;
         }
-        else if ( this.context.linkDomain )
+        else if ( context.linkDomain )
         {
-            return this.context.domain = this.context.linkDomain;
+            return context.domain = context.linkDomain;
         }
         else if ( embed )
         {
-            return this.context.domain = `${embed.magazineUrl}/${embed.rootPath}`;
+            return context.domain = `${embed.magazineUrl}/${embed.rootPath}`;
         }
         else
         {
