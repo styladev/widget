@@ -54,8 +54,8 @@ gulp.task( 'min', function()
         .pipe( fs.createWriteStream( __dirname + '/dist/baseWidget.min.js' ) )
         .on( 'finish', function()
         {
-            insertStyles( 'list' );
-            insertStyles( 'stories' );
+            insertStyles( 'list', 'baseWidget.min.js', '.min' );
+            insertStyles( 'stories', 'baseWidget.min.js', '.min' );
         } );
 } );
 
