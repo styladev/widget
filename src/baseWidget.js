@@ -6,7 +6,30 @@
  *
  * @author "Mouse Braun <mouse@styla.com>"
  * @author "Elias Liedholm <elias@styla.com>"
- */
+ */ 
+ 
+/*
+    THIS SNIPPET WILL embed the widget in your page.  Make sure to change the slug to yours,
+    and alter the options to your liking
+
+    var d=document;var h=d.head,s=d.createElement('SCRIPT');h.appendChild(s);s.src='../dist/list.js';var w=window;var f=typeof w.onload==='function'?w.onload:function(){};w.onload=function(e){
+
+    new StylaWidget( {
+        newTab  : true,
+        slug    : 'uhrenschmuck24',
+        target  : '.styla-widget__target'
+    } );
+
+    new StylaWidget( {
+        newTab  : true,
+        slug    : 'braunhamburg',
+        target  : '.styla-widget__target2'
+    } );
+
+    f( e );};
+*/
+
+
 import version  from './version.js';
 import classes  from './classes.js';
 import Build    from './build.js';
