@@ -28,9 +28,13 @@
     display:                            block;
     vertical-align:                     top;
     flex-grow:                          1;
+    -webkit-flex-grow:                  1;
+    -moz-flex-grow:                     1;
     height:                             100%;
     margin:                             0 6% 0 0;
     flex:                               none;
+    -webkit-flex:                       none;
+    -moz-flex:                          none;
     max-width:                          40%;
     float:                              left;
 }
@@ -48,6 +52,8 @@
 {
     display:                            block;
     flex-grow:                          1;
+    -webkit-flex-grow:                  1;
+    -moz-flex-grow:                     1;
     max-height:                         100%;
     overflow:                           hidden;
     float:                              left;
@@ -61,9 +67,15 @@
 #styla-widget .styla-widget__headlinewrap
 {
     height:                             5em;
+    display:                            -moz-flex;
+    display:                            -webkit-flex;
     display:                            flex;
     flex-direction:                     column;
+    -webkit-flex-direction:             column;
+    -moz-flex-direction:                column;
     justify-content:                    flex-end;
+    -webkit-justify-content:            flex-end;
+    -moz-justify-content:               flex-end;
 }
 
 #styla-widget .styla-widget__headline
