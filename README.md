@@ -1,4 +1,4 @@
-Styla Widget  0.4.9
+Styla Widget  1.0.0
 =======
 
 
@@ -76,14 +76,25 @@ window.stylaWidget = {
 };
 ```
 
+use this snippet to include the stylaWidget.
+
 
 ```html
     <script>
-    window.stylaWidget = {slug : 'MAGAZINE_NAME', limit:6, offset:12};
     var d=document;var h=d.head;var s=d.createElement('SCRIPT');
     h.appendChild(s);s.src="//widget.styla.com/widget.min.js";
     </script>
 ```
+
+then, for each widget you want on your page, just pass the options that you want into a new widget.
+
+```html
+    <script>
+    new window.StylaWidget( {slug : 'MAGAZINE_NAME', limit:6, offset:12 } );
+    </script>
+```
+
+
 
 Technical requirements and limitations
 --------------------------------------
@@ -124,6 +135,12 @@ This project adheres to the [Contributor Covenant](http://contributor-covenant.o
 
 Change log
 ==========
+
+### 1.0.0
+
+    + build is now a constructor
+    + implementation changes to allow for multiple widgets on one page
+
 
 ### 0.4.9
 
