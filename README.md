@@ -1,4 +1,4 @@
-Styla Widget  1.0.0
+Styla Widget  1.0.1
 =======
 
 
@@ -147,6 +147,9 @@ This project adheres to the [Contributor Covenant](http://contributor-covenant.o
 
 Change log
 ==========
+
+### 1.0.1
+    + added css prefixes for old browsers
 
 ### 1.0.0
 
