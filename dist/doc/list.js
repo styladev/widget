@@ -1,12 +1,12 @@
 /*!
- * Styla bite-sized widget v1.0.1
+ * Styla bite-sized widget v1.0.3
  * https://github.com/styladev/widget
  *
  * Copyright 2016 Styla GmbH and other contributors
  * Released under the MIT license
  * https://github.com/styladev/widget/blob/master/license.md
  *
- * Date: Mon Jun 13 2016
+ * Date: Tue Jun 14 2016
  * */
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 (function (global){
@@ -70,6 +70,9 @@ var _buildJs = require('./build.js');
 var _buildJs2 = _interopRequireDefault(_buildJs);
 
 var _microbejsDistMicrobeHttpMin = require('microbejs/dist/microbe.http.min');
+
+var format = 'list';
+format = format[0].toUpperCase() + format.slice(1);
 
 var StylaWidget = (function () {
     _createClass(StylaWidget, [{
@@ -244,7 +247,7 @@ var StylaWidget = (function () {
 
 ;
 
-window.StylaWidget = StylaWidget;
+window['StylaWidget_' + format] = StylaWidget;
 
 exports['default'] = StylaWidget;
 module.exports = exports['default'];
@@ -278,8 +281,8 @@ var _microbejsDistMicrobeHttpMin = require('microbejs/dist/microbe.http.min');
 /*
     exchanged for css in the gulp build
  */
-var baseStyles = '#styla-widget p{margin:0}#styla-widget.styla-widget__wrapper{width:100%;height:100%}#styla-widget .styla-widget__container{box-sizing:border-box;position:relative;overflow:hidden;height:100%;width:100%;min-height:14em;display:-moz-flex;display:-webkit-flex;display:flex;flex-direction:column;-webkit-flex-direction:column;-moz-flex-direction:column;flex-wrap:wrap;-webkit-flex-wrap:wrap;-moz-flex-wrap:wrap;font-size:14px}#styla-widget .styla-widget__story{margin-bottom:1em;position:relative;flex-grow:1}#styla-widget .styla-widget__link{position:absolute;width:100%;display:-moz-flex;display:-webkit-flex;display:flex;text-decoration:none;color:inherit}#styla-widget__link>div{display:inline-block}#styla-widget .styla-widget__image{max-height:100%;max-width:100%;height:100%;object-fit:contain}#styla-widget .styla-widget__textwrap{display:block;flex-grow:1;-webkit-flex-grow:1;-moz-flex-grow:1;max-height:100%;overflow:hidden;float:left}#styla-widget .styla-widget__headlinewrap{display:flex;flex-direction:column;justify-content:flex-end;-webkit-justify-content:flex-end;-moz-justify-content:flex-end}#styla-widget .styla-widget__headline,#styla-widget .styla-widget__title{line-height:1.25em;max-height:2.5em;overflow:hidden}#styla-widget .styla-widget__title{font-size:2em;text-align:center;margin-bottom:30px}#styla-widget .styla-widget__paragraph{font-size:1em;line-height:1.5em;overflow:hidden;position:relative;word-wrap:break-word}';
-var specificStyles = '#styla-widget .styla-widget__container{padding:1em 2em}#styla-widget .styla-widget__story{margin-right:2em;height:14em;width:100%}#styla-widget .styla-widget__story:nth-child(even){text-align:right}#styla-widget .styla-widget__link{height:14em;top:50%;margin-top:-7em;align-items:center}#styla-widget .styla-widget__imagewrap{display:block;vertical-align:top;flex-grow:1;-webkit-flex-grow:1;-moz-flex-grow:1;height:100%;margin:0 6% 0 0;flex:none;-webkit-flex:none;-moz-flex:none;max-width:40%;float:left}#styla-widget .styla-widget__story:nth-child(even) .styla-widget__imagewrap{margin:0 0 0 6%;float:right;clear:both;order:2}#styla-widget .styla-widget__textwrap{display:block;flex-grow:1;-webkit-flex-grow:1;-moz-flex-grow:1;max-height:100%;overflow:hidden;float:left}#styla-widget .styla-widget__story:nth-child(even) .styla-widget__textwrap{float:right}#styla-widget .styla-widget__headlinewrap{height:5em;display:-moz-flex;display:-webkit-flex;display:flex;flex-direction:column;-webkit-flex-direction:column;-moz-flex-direction:column;justify-content:flex-end;-webkit-justify-content:flex-end;-moz-justify-content:flex-end}#styla-widget .styla-widget__headline{font-size:1.9em;line-height:1.25em;max-height:2.5em;overflow:hidden;margin:0 0 .25em;word-wrap:break-word;text-overflow:ellipsis;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2}#styla-widget .styla-widget__paragraph{font-size:1em;line-height:1.5em;max-height:calc(100% - 5em);overflow:hidden;position:relative;word-wrap:break-word}#styla-widget .styla-widget__paragraph:after{position:absolute;left:0;top:7.5em;display:block;background-color:#FFF;width:100%;height:2em}#styla-widget .styla-widget__paragraph p+p{display:none}';
+var baseStyles = '#styla-widget p{margin:0}#styla-widget.styla-widget__wrapper{width:100%;height:100%}#styla-widget .styla-widget__container{box-sizing:border-box;position:relative;overflow:hidden;height:100%;width:100%;min-height:14em;font-size:14px}#styla-widget .styla-widget__story{margin-bottom:1em;position:relative}#styla-widget .styla-widget__link{position:absolute;width:100%;display:-moz-flex;display:-webkit-flex;display:flex;text-decoration:none;color:inherit}#styla-widget__link>div{display:inline-block}#styla-widget .styla-widget__image{max-height:100%;max-width:100%;height:100%;object-fit:contain}#styla-widget .styla-widget__textwrap{display:block;flex-grow:1;-webkit-flex-grow:1;-moz-flex-grow:1;max-height:100%;overflow:hidden;float:left}#styla-widget .styla-widget__headlinewrap{display:flex;flex-direction:column;justify-content:flex-end;-webkit-justify-content:flex-end;-moz-justify-content:flex-end}#styla-widget .styla-widget__headline,#styla-widget .styla-widget__title{line-height:1.25em;max-height:2.5em;overflow:hidden}#styla-widget .styla-widget__title{font-size:2em;text-align:center;margin-bottom:30px}#styla-widget .styla-widget__paragraph{font-size:1em;line-height:1.5em;overflow:hidden;position:relative;word-wrap:break-word}';
+var specificStyles = '#styla-widget .styla-widget__container{padding:1em 2em;display:-moz-flex;display:-webkit-flex;display:flex;flex-direction:column;-webkit-flex-direction:column;-moz-flex-direction:column;flex-wrap:wrap;-webkit-flex-wrap:wrap;-moz-flex-wrap:wrap}#styla-widget .styla-widget__story{margin-right:2em;height:14em;width:100%;flex-grow:1}#styla-widget .styla-widget__story:nth-child(even){text-align:right}#styla-widget .styla-widget__link{height:14em;top:50%;margin-top:-7em;align-items:center}#styla-widget .styla-widget__imagewrap{display:block;vertical-align:top;flex-grow:1;-webkit-flex-grow:1;-moz-flex-grow:1;height:100%;margin:0 6% 0 0;flex:none;-webkit-flex:none;-moz-flex:none;max-width:40%;float:left}#styla-widget .styla-widget__story:nth-child(even) .styla-widget__imagewrap{margin:0 0 0 6%;float:right;clear:both;order:2}#styla-widget .styla-widget__textwrap{display:block;flex-grow:1;-webkit-flex-grow:1;-moz-flex-grow:1;max-height:100%;overflow:hidden;float:left}#styla-widget .styla-widget__story:nth-child(even) .styla-widget__textwrap{float:right}#styla-widget .styla-widget__headlinewrap{height:5em;display:-moz-flex;display:-webkit-flex;display:flex;flex-direction:column;-webkit-flex-direction:column;-moz-flex-direction:column;justify-content:flex-end;-webkit-justify-content:flex-end;-moz-justify-content:flex-end}#styla-widget .styla-widget__headline{font-size:1.9em;line-height:1.25em;max-height:2.5em;overflow:hidden;margin:0 0 .25em;word-wrap:break-word;text-overflow:ellipsis;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2}#styla-widget .styla-widget__paragraph{font-size:1em;line-height:1.5em;max-height:7.5em;overflow:hidden;position:relative;word-wrap:break-word}#styla-widget .styla-widget__paragraph-after{line-height:1.5em}#styla-widget .styla-widget__paragraph p+p{display:none}';
 var wrapperID = 'styla-widget';
 var _reportError = function _reportError(e) {
     console.log('err', e);
@@ -398,6 +401,9 @@ var Build = (function () {
 
             textWrapper.appendChild(paragraph);
 
+            var paragraphAfter = create('div', _classesJs2['default'].PARAGRAPH_AFTER);
+            textWrapper.appendChild(paragraphAfter);
+
             return textWrapper;
         }
 
@@ -464,7 +470,7 @@ var Build = (function () {
             var css = '';
 
             if (theme) {
-                css = '.' + _classesJs2['default'].HEADLINE + ', .' + _classesJs2['default'].TITLE + '\n                {\n                    font-family:        ' + theme.hff + ';\n                    font-weight:        ' + theme.hfw + ';\n                    font-style:         ' + theme.hfs + ';\n                    text-decoration:    ' + theme.htd + ';\n                    letter-spacing:     ' + theme.hls + ';\n                    color:              ' + theme.htc + ';\n                }\n                .' + _classesJs2['default'].PARAGRAPH + '\n                {\n                    font-family:        ' + theme.sff + ';\n                    font-weight:        ' + theme.sfw + ';\n                    color:              ' + theme.stc + ';\n                }\n                .' + _classesJs2['default'].PARAGRAPH + ':after\n                {\n                    content:            \'' + theme.strm + '\';\n                    font-weight:        ' + theme.strmw + ';\n                    text-decoration:    ' + theme.strmd + ';\n                }';
+                css = '.styla-widget-' + this.now + ' .' + _classesJs2['default'].HEADLINE + ',\n                .styla-widget-' + this.now + ' .' + _classesJs2['default'].TITLE + '\n                {\n                    font-family:        ' + theme.hff + ';\n                    font-weight:        ' + theme.hfw + ';\n                    font-style:         ' + theme.hfs + ';\n                    text-decoration:    ' + theme.htd + ';\n                    letter-spacing:     ' + theme.hls + ';\n                    color:              ' + theme.htc + ';\n                }\n                .styla-widget-' + this.now + ' .' + _classesJs2['default'].PARAGRAPH + ', .styla-widget-' + this.now + ' .' + _classesJs2['default'].PARAGRAPH_AFTER + '\n                {\n                    font-family:        ' + theme.sff + ';\n                    font-weight:        ' + theme.sfw + ';\n                    color:              ' + theme.stc + ';\n                }\n                .styla-widget-' + this.now + ' .' + _classesJs2['default'].PARAGRAPH_AFTER + ':after\n                {\n                    content:            \'' + theme.strm + '\';\n                    font-weight:        ' + theme.strmw + ';\n                    text-decoration:    ' + theme.strmd + ';\n                }';
             }
 
             var el = this.buildStyleTag(css);
@@ -562,11 +568,12 @@ var Build = (function () {
         };
 
         this.context = context;
+        this.now = Date.now();
 
         if (!context.refs.wrapper) {
             context.stories = JSON.parse(stories);
 
-            var container = context.refs.container = this.create('DIV', _classesJs2['default'].CONTAINER);
+            var container = context.refs.container = this.create('DIV', _classesJs2['default'].CONTAINER + '  styla-widget-' + this.now);
             var wrapper = context.refs.wrapper = this.create('DIV', _classesJs2['default'].WRAPPER);
             wrapper.id = wrapperID;
 
@@ -732,7 +739,7 @@ module.exports = exports['default'];
 /**
  * ## buildStory
  *
- * builds each story off the retrieved json.  skips a story if the id matches ignore.  
+ * builds each story off the retrieved json.  skips a story if the id matches ignore.
  * no matter what it will always build the number of stories set in the limit
  *
  * @param {Object} json image data
@@ -758,6 +765,7 @@ module.exports = {
     IMAGE: 'styla-widget__image',
     IMAGE_WRAPPER: 'styla-widget__imagewrap',
     PARAGRAPH: 'styla-widget__paragraph',
+    PARAGRAPH_AFTER: 'styla-widget__paragraph-after',
     STORY: 'styla-widget__story',
     STORY_LINK: 'styla-widget__link',
     STYLES: 'styla-widget__styling',
@@ -770,6 +778,6 @@ module.exports = {
 },{}],5:[function(require,module,exports){
 'use strict';
 
-module.exports = '1.0.1';
+module.exports = '1.0.3';
 
 },{}]},{},[2]);

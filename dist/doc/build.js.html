@@ -9,7 +9,7 @@
     var relativeDir = "", thisFile = "Library/WebServer/Documents/widget//build.js", defaultSidebar = true;
   </script>
   <script src="doc-script.js"></script>
-  <script src="widget.js"></script>
+  <script src="list.js"></script>
 </head>
 <body>
   <div id="sidebar_wrapper">
@@ -20,7 +20,7 @@
     <div id="tree"></div>
     <div id="headings">
       <div class="heading h2">
-        <a href="#build.js">build.js</a>
+        <a href="#this.js">this.js</a>
       </div>
       <div class="heading h2">
         <a href="#buildheadline">buildHeadline</a>
@@ -47,13 +47,13 @@
         <a href="#compilestyles">compileStyles</a>
       </div>
       <div class="heading h2">
+        <a href="#constructor">constructor</a>
+      </div>
+      <div class="heading h2">
         <a href="#create">create</a>
       </div>
       <div class="heading h2">
         <a href="#getdescription">getDescription</a>
-      </div>
-      <div class="heading h2">
-        <a href="#getdomainconfig">getDomainConfig</a>
       </div>
       <div class="heading h2">
         <a href="#getimageurl">getImageUrl</a>
@@ -76,10 +76,10 @@
       <tr>
         <td class="docs"><div class="dox">
   <div class="summary">
-<div class="pilwrap" id="build.js">
+<div class="pilwrap" id="this.js">
   <h2>
-    <a href="#build.js" name="build.js" class="pilcrow">&#182;</a>
-    build.js
+    <a href="#this.js" name="this.js" class="pilcrow">&#182;</a>
+    this.js
   </h2>
 </div>
 
@@ -125,26 +125,6 @@ outwardly facing</p>
   <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
 </div>
 <div class="dox">
-  <div class="summary"><p>sets context for the widget.  this is bound in widget js and set in
-getDomainConfig</p>
-  </div>
-  <div class="body">
-  </div>
-</div>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="kd">let</span> <span class="nx">self</span><span class="p">;</span>
-
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
-</div>
-<div class="dox">
   <div class="summary"><p>retrieved and parsed domain config.  this is declared here to keep it out
 of the global object, yet accessible.</p>
   </div>
@@ -162,7 +142,7 @@ of the global object, yet accessible.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-5" id="section-5">&#182;</a>
+  <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
 </div>
 <div class="dox">
   <div class="summary"><p>used in tracking ignored stories for the sake of getting the right amount later</p>
@@ -175,8 +155,8 @@ of the global object, yet accessible.</p>
 <span class="kd">let</span> <span class="nx">ignored</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 
 
-<span class="kd">let</span> <span class="nx">build</span> <span class="o">=</span> <span class="p">{</span>
-
+<span class="kr">class</span> <span class="nx">Build</span>
+<span class="p">{</span>
 
 </pre></div>
         </td>
@@ -213,7 +193,7 @@ element and text</p>
         <td class="code highlight"><div class="highlight"><pre>
     <span class="nx">buildHeadline</span><span class="p">(</span> <span class="nx">title</span> <span class="p">)</span>
     <span class="p">{</span>
-        <span class="kd">let</span> <span class="nx">create</span>              <span class="o">=</span> <span class="nx">build</span><span class="p">.</span><span class="nx">create</span><span class="p">;</span>
+        <span class="kd">let</span> <span class="nx">create</span>              <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">create</span><span class="p">;</span>
         <span class="kd">let</span> <span class="nx">headlineWrapper</span>     <span class="o">=</span> <span class="nx">create</span><span class="p">(</span> <span class="err">`</span><span class="nx">div</span><span class="err">`</span><span class="p">,</span> <span class="nx">classes</span><span class="p">.</span><span class="nx">HEADLINE_WRAPPER</span> <span class="p">);</span>
         <span class="kd">let</span> <span class="nx">headline</span>            <span class="o">=</span> <span class="nx">create</span><span class="p">(</span> <span class="err">`</span><span class="nx">h3</span><span class="err">`</span><span class="p">,</span>  <span class="nx">classes</span><span class="p">.</span><span class="nx">HEADLINE</span> <span class="p">);</span>
 
@@ -222,7 +202,7 @@ element and text</p>
         <span class="nx">headlineWrapper</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span> <span class="nx">headline</span> <span class="p">);</span>
 
         <span class="k">return</span> <span class="nx">headlineWrapper</span><span class="p">;</span>
-    <span class="p">},</span>
+    <span class="p">}</span>
 
 
 
@@ -258,7 +238,7 @@ element and text</p>
     <div class="dox_tag_detail">
       <span class="dox_tag_name">context</span>
       <span class="dox_type">Object</span>
-      <span>sub for self - needed for testing</span>
+      <span>sub for this.context - needed for testing</span>
     </div>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
@@ -271,24 +251,24 @@ element and text</p>
         <td class="code highlight"><div class="highlight"><pre>
     <span class="nx">buildImage</span><span class="p">(</span> <span class="nx">images</span><span class="p">,</span> <span class="nx">title</span><span class="p">,</span> <span class="nx">context</span> <span class="p">)</span>
     <span class="p">{</span>
-        <span class="nx">self</span>                    <span class="o">=</span> <span class="nx">self</span> <span class="o">||</span><span class="err"> </span><span class="nx">context</span><span class="p">;</span>
-        <span class="kd">let</span> <span class="nx">create</span>              <span class="o">=</span> <span class="nx">build</span><span class="p">.</span><span class="nx">create</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">context</span>           <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">context</span> <span class="o">||</span><span class="err"> </span><span class="nx">context</span><span class="p">;</span>
+        <span class="kd">let</span> <span class="nx">create</span>              <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">create</span><span class="p">;</span>
         <span class="kd">let</span> <span class="nx">imageWrapper</span>        <span class="o">=</span> <span class="nx">create</span><span class="p">(</span> <span class="err">`</span><span class="nx">div</span><span class="err">`</span><span class="p">,</span> <span class="nx">classes</span><span class="p">.</span><span class="nx">IMAGE_WRAPPER</span> <span class="p">);</span>
-        <span class="kd">let</span> <span class="nx">imageSize</span>           <span class="o">=</span> <span class="nx">self</span><span class="p">.</span><span class="nx">imageSize</span><span class="p">;</span>
+        <span class="kd">let</span> <span class="nx">imageSize</span>           <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">context</span><span class="p">.</span><span class="nx">imageSize</span><span class="p">;</span>
         <span class="kd">let</span> <span class="nx">id</span>                  <span class="o">=</span> <span class="nx">images</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">id</span><span class="p">;</span>
-        <span class="kd">let</span> <span class="nx">imgObj</span>              <span class="o">=</span> <span class="nx">self</span><span class="p">.</span><span class="nx">images</span><span class="p">[</span> <span class="nx">id</span> <span class="p">];</span>
+        <span class="kd">let</span> <span class="nx">imgObj</span>              <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">context</span><span class="p">.</span><span class="nx">images</span><span class="p">[</span> <span class="nx">id</span> <span class="p">];</span>
 
-        <span class="kd">let</span> <span class="nx">url</span>                 <span class="o">=</span> <span class="nx">build</span><span class="p">.</span><span class="nx">getImageUrl</span><span class="p">(</span> <span class="nx">imgObj</span><span class="p">.</span><span class="nx">fileName</span><span class="p">,</span> <span class="nx">imageSize</span> <span class="p">);</span>
+        <span class="kd">let</span> <span class="nx">url</span>                 <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">getImageUrl</span><span class="p">(</span> <span class="nx">imgObj</span><span class="p">.</span><span class="nx">fileName</span><span class="p">,</span> <span class="nx">imageSize</span> <span class="p">);</span>
 
-        <span class="kd">let</span> <span class="nx">image</span>               <span class="o">=</span> <span class="nx">create</span><span class="p">(</span> <span class="err">`</span><span class="nx">img</span><span class="err">`</span><span class="p">,</span> <span class="nx">classes</span><span class="p">.</span><span class="nx">IMAGE</span> <span class="p">);</span>        
+        <span class="kd">let</span> <span class="nx">image</span>               <span class="o">=</span> <span class="nx">create</span><span class="p">(</span> <span class="err">`</span><span class="nx">img</span><span class="err">`</span><span class="p">,</span> <span class="nx">classes</span><span class="p">.</span><span class="nx">IMAGE</span> <span class="p">);</span>
         <span class="nx">image</span><span class="p">.</span><span class="nx">src</span>               <span class="o">=</span> <span class="nx">url</span><span class="p">;</span>
         <span class="nx">image</span><span class="p">.</span><span class="nx">alt</span>               <span class="o">=</span> <span class="nx">imgObj</span><span class="p">.</span><span class="nx">caption</span> <span class="o">||</span> <span class="nx">title</span><span class="p">;</span>
         <span class="nx">image</span><span class="p">.</span><span class="nx">title</span>             <span class="o">=</span> <span class="nx">title</span><span class="p">;</span>
 
         <span class="nx">imageWrapper</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span> <span class="nx">image</span> <span class="p">);</span>
-        
+
         <span class="k">return</span> <span class="nx">imageWrapper</span><span class="p">;</span>
-    <span class="p">},</span>
+    <span class="p">}</span>
 
 
 
@@ -330,7 +310,7 @@ stories</p>
 </div>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-    <span class="nx">buildStories</span><span class="p">(</span> <span class="nx">resDomainConfig</span><span class="p">,</span> <span class="nx">parsedDomainConfig</span> <span class="p">)</span>
+    <span class="nx">buildStories</span> <span class="o">=</span> <span class="p">(</span> <span class="nx">resDomainConfig</span><span class="p">,</span> <span class="nx">parsedDomainConfig</span> <span class="p">)</span> <span class="o">=&gt;</span>
     <span class="p">{</span>
         <span class="nx">domainConfig</span> <span class="o">=</span> <span class="nx">parsedDomainConfig</span> <span class="o">||</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span> <span class="nx">resDomainConfig</span> <span class="p">);</span>
 
@@ -338,29 +318,29 @@ stories</p>
         <span class="p">{</span>
             <span class="k">throw</span> <span class="err">`</span><span class="nx">Styla</span> <span class="nx">Widget</span> <span class="nx">error</span><span class="o">:</span> <span class="nx">Could</span> <span class="nx">not</span> <span class="nx">find</span> <span class="nx">magazine</span><span class="p">,</span> <span class="nx">please</span> <span class="nx">check</span> <span class="k">if</span> <span class="nx">slug</span> <span class="nx">is</span> <span class="nx">configured</span> <span class="nx">correctly</span><span class="p">.</span><span class="err">`</span><span class="p">;</span>
         <span class="p">}</span>
-
-        <span class="nx">build</span><span class="p">.</span><span class="nx">setDomain</span><span class="p">();</span>
-        <span class="nx">build</span><span class="p">.</span><span class="nx">includeBaseStyles</span><span class="p">();</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">setDomain</span><span class="p">();</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">includeBaseStyles</span><span class="p">();</span>
 
         <span class="kd">let</span> <span class="nx">images</span>      <span class="o">=</span> <span class="p">{};</span>
-        <span class="kd">let</span> <span class="nx">stories</span>     <span class="o">=</span> <span class="nx">self</span><span class="p">.</span><span class="nx">stories</span><span class="p">;</span>
+        <span class="kd">let</span> <span class="nx">context</span>     <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">context</span><span class="p">;</span>
+        <span class="kd">let</span> <span class="nx">stories</span>     <span class="o">=</span> <span class="nx">context</span><span class="p">.</span><span class="nx">stories</span><span class="p">;</span>
         <span class="kd">let</span> <span class="nx">resImages</span>   <span class="o">=</span> <span class="nx">stories</span><span class="p">.</span><span class="nx">images</span><span class="p">;</span>
 
         <span class="k">if</span> <span class="p">(</span> <span class="nx">resImages</span> <span class="p">)</span>
         <span class="p">{</span>
-            <span class="nx">self</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="nx">build</span><span class="p">.</span><span class="nx">buildTitle</span><span class="p">();</span>
+            <span class="nx">context</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">buildTitle</span><span class="p">();</span>
 
             <span class="nx">resImages</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_i</span> <span class="p">){</span> <span class="nx">images</span><span class="p">[</span> <span class="nx">_i</span><span class="p">.</span><span class="nx">id</span> <span class="p">]</span> <span class="o">=</span> <span class="nx">_i</span><span class="p">;</span> <span class="p">});</span>
 
-            <span class="nx">self</span><span class="p">.</span><span class="nx">images</span> <span class="o">=</span> <span class="nx">images</span><span class="p">;</span>
-            <span class="kd">let</span> <span class="nx">_els</span>    <span class="o">=</span> <span class="nx">stories</span><span class="p">.</span><span class="nx">stories</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span> <span class="nx">build</span><span class="p">.</span><span class="nx">buildStory</span> <span class="p">);</span>
+            <span class="nx">context</span><span class="p">.</span><span class="nx">images</span> <span class="o">=</span> <span class="nx">images</span><span class="p">;</span>
+            <span class="kd">let</span> <span class="nx">_els</span>    <span class="o">=</span> <span class="nx">stories</span><span class="p">.</span><span class="nx">stories</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">buildStory</span> <span class="p">);</span>
 
-            <span class="kd">let</span> <span class="nx">styling</span> <span class="o">=</span> <span class="nx">build</span><span class="p">.</span><span class="nx">compileStyles</span><span class="p">();</span>
+            <span class="kd">let</span> <span class="nx">styling</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">compileStyles</span><span class="p">();</span>
 
             <span class="nb">document</span><span class="p">.</span><span class="nx">head</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span> <span class="nx">styling</span> <span class="p">);</span>
-            <span class="nx">self</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span> <span class="nx">self</span><span class="p">.</span><span class="nx">refs</span><span class="p">.</span><span class="nx">wrapper</span> <span class="p">);</span>
+            <span class="nx">context</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span> <span class="nx">context</span><span class="p">.</span><span class="nx">refs</span><span class="p">.</span><span class="nx">wrapper</span> <span class="p">);</span>
         <span class="p">}</span>
-    <span class="p">},</span>
+    <span class="p">}</span>
 
 
 
@@ -378,7 +358,7 @@ stories</p>
 </div>
 
   </div>
-  <div class="body"><p>builds each story off the retrieved json.  skips a story if the id matches ignore. <br />
+  <div class="body"><p>builds each story off the retrieved json.  skips a story if the id matches ignore.
 no matter what it will always build the number of stories set in the limit</p>
   </div>
   <div class="details">
@@ -402,32 +382,34 @@ no matter what it will always build the number of stories set in the limit</p>
 </div>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-    <span class="nx">buildStory</span><span class="p">(</span> <span class="p">{</span> <span class="nx">title</span><span class="p">,</span> <span class="nx">description</span><span class="p">,</span> <span class="nx">images</span><span class="p">,</span> <span class="nx">externalPermalink</span><span class="p">,</span> <span class="nx">id</span> <span class="p">},</span> <span class="nx">i</span> <span class="p">)</span>
+    <span class="nx">buildStory</span> <span class="o">=</span> <span class="p">(</span> <span class="p">{</span> <span class="nx">title</span><span class="p">,</span> <span class="nx">description</span><span class="p">,</span> <span class="nx">images</span><span class="p">,</span> <span class="nx">externalPermalink</span><span class="p">,</span> <span class="nx">id</span> <span class="p">},</span> <span class="nx">i</span> <span class="p">)</span> <span class="o">=&gt;</span>
     <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span> <span class="err">`</span><span class="nx">$</span><span class="p">{</span><span class="nx">self</span><span class="p">.</span><span class="nx">ignore</span><span class="p">}</span><span class="err">`</span> <span class="o">!==</span> <span class="err">`</span><span class="nx">$</span><span class="p">{</span><span class="nx">id</span><span class="p">}</span><span class="err">`</span> <span class="o">&amp;&amp;</span> <span class="nx">i</span> <span class="o">-</span> <span class="nx">ignored</span> <span class="o">&lt;</span> <span class="nx">self</span><span class="p">.</span><span class="nx">limit</span> <span class="p">)</span>
+        <span class="kd">let</span> <span class="nx">context</span>     <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">context</span><span class="p">;</span>
+
+        <span class="k">if</span> <span class="p">(</span> <span class="err">`</span><span class="nx">$</span><span class="p">{</span><span class="nx">context</span><span class="p">.</span><span class="nx">ignore</span><span class="p">}</span><span class="err">`</span> <span class="o">!==</span> <span class="err">`</span><span class="nx">$</span><span class="p">{</span><span class="nx">id</span><span class="p">}</span><span class="err">`</span> <span class="o">&amp;&amp;</span> <span class="nx">i</span> <span class="o">-</span> <span class="nx">ignored</span> <span class="o">&lt;</span> <span class="nx">context</span><span class="p">.</span><span class="nx">limit</span> <span class="p">)</span>
         <span class="p">{</span>
-            <span class="kd">let</span> <span class="nx">create</span>              <span class="o">=</span> <span class="nx">build</span><span class="p">.</span><span class="nx">create</span><span class="p">;</span>
+            <span class="kd">let</span> <span class="nx">create</span>              <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">create</span><span class="p">;</span>
 
             <span class="kd">let</span> <span class="nx">story</span>               <span class="o">=</span> <span class="nx">create</span><span class="p">(</span> <span class="err">`</span><span class="nx">div</span><span class="err">`</span><span class="p">,</span>    <span class="nx">classes</span><span class="p">.</span><span class="nx">STORY</span> <span class="p">);</span>
             <span class="kd">let</span> <span class="nx">storyLink</span>           <span class="o">=</span> <span class="nx">create</span><span class="p">(</span> <span class="err">`</span><span class="nx">a</span><span class="err">`</span><span class="p">,</span>      <span class="nx">classes</span><span class="p">.</span><span class="nx">STORY_LINK</span> <span class="p">);</span>
-            <span class="nx">storyLink</span><span class="p">.</span><span class="nx">href</span>          <span class="o">=</span> <span class="err">`</span><span class="c1">//${self.domain}/story/${externalPermalink}/`;</span>
+            <span class="nx">storyLink</span><span class="p">.</span><span class="nx">href</span>          <span class="o">=</span> <span class="err">`</span><span class="c1">//${context.domain}/story/${externalPermalink}/`;</span>
 
-            <span class="k">if</span> <span class="p">(</span> <span class="nx">self</span><span class="p">.</span><span class="nx">newTab</span> <span class="p">)</span>
+            <span class="k">if</span> <span class="p">(</span> <span class="nx">context</span><span class="p">.</span><span class="nx">newTab</span> <span class="p">)</span>
             <span class="p">{</span>
                 <span class="nx">storyLink</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span> <span class="err">`</span><span class="nx">target</span><span class="err">`</span><span class="p">,</span> <span class="err">`</span><span class="nx">_blank</span><span class="err">`</span> <span class="p">);</span>
-            <span class="p">}</span> 
-            <span class="k">else</span> <span class="k">if</span> <span class="p">(</span> <span class="nx">self</span><span class="p">.</span><span class="nx">iframe</span> <span class="p">)</span>
+            <span class="p">}</span>
+            <span class="k">else</span> <span class="k">if</span> <span class="p">(</span> <span class="nx">context</span><span class="p">.</span><span class="nx">iframe</span> <span class="p">)</span>
             <span class="p">{</span>
                 <span class="nx">storyLink</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span> <span class="err">`</span><span class="nx">target</span><span class="err">`</span><span class="p">,</span> <span class="err">`</span><span class="nx">_top</span><span class="err">`</span> <span class="p">);</span>
             <span class="p">}</span>
 
             <span class="nx">story</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span> <span class="nx">storyLink</span> <span class="p">);</span>
 
-            <span class="nx">storyLink</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span> <span class="nx">build</span><span class="p">.</span><span class="nx">buildImage</span><span class="p">(</span> <span class="nx">images</span><span class="p">,</span> <span class="nx">title</span> <span class="p">)</span> <span class="p">);</span>
-            <span class="nx">storyLink</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span> <span class="nx">build</span><span class="p">.</span><span class="nx">buildStoryText</span><span class="p">(</span> <span class="nx">title</span><span class="p">,</span> <span class="nx">description</span> <span class="p">)</span> <span class="p">);</span>
+            <span class="nx">storyLink</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">buildImage</span><span class="p">(</span> <span class="nx">images</span><span class="p">,</span> <span class="nx">title</span> <span class="p">)</span> <span class="p">);</span>
+            <span class="nx">storyLink</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">buildStoryText</span><span class="p">(</span> <span class="nx">title</span><span class="p">,</span> <span class="nx">description</span> <span class="p">)</span> <span class="p">);</span>
 
-            <span class="kd">let</span> <span class="nx">container</span>   <span class="o">=</span> <span class="nx">self</span><span class="p">.</span><span class="nx">refs</span><span class="p">.</span><span class="nx">container</span><span class="p">;</span>
-            <span class="kd">let</span> <span class="nx">wrapper</span>     <span class="o">=</span> <span class="nx">self</span><span class="p">.</span><span class="nx">refs</span><span class="p">.</span><span class="nx">wrapper</span><span class="p">;</span>
+            <span class="kd">let</span> <span class="nx">container</span>   <span class="o">=</span> <span class="nx">context</span><span class="p">.</span><span class="nx">refs</span><span class="p">.</span><span class="nx">container</span><span class="p">;</span>
+            <span class="kd">let</span> <span class="nx">wrapper</span>     <span class="o">=</span> <span class="nx">context</span><span class="p">.</span><span class="nx">refs</span><span class="p">.</span><span class="nx">wrapper</span><span class="p">;</span>
 
             <span class="nx">container</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span> <span class="nx">story</span> <span class="p">);</span>
             <span class="nx">wrapper</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span> <span class="nx">container</span> <span class="p">);</span>
@@ -440,7 +422,7 @@ no matter what it will always build the number of stories set in the limit</p>
 
             <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
         <span class="p">}</span>
-    <span class="p">},</span>
+    <span class="p">}</span>
 
 
 
@@ -484,15 +466,15 @@ and returns the outer wrapper</p>
         <td class="code highlight"><div class="highlight"><pre>
     <span class="nx">buildStoryText</span><span class="p">(</span> <span class="nx">title</span><span class="p">,</span> <span class="nx">description</span> <span class="p">)</span>
     <span class="p">{</span>
-        <span class="kd">let</span> <span class="nx">create</span>          <span class="o">=</span> <span class="nx">build</span><span class="p">.</span><span class="nx">create</span><span class="p">;</span>
+        <span class="kd">let</span> <span class="nx">create</span>          <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">create</span><span class="p">;</span>
         <span class="kd">let</span> <span class="nx">textWrapper</span>     <span class="o">=</span> <span class="nx">create</span><span class="p">(</span> <span class="err">`</span><span class="nx">div</span><span class="err">`</span><span class="p">,</span>    <span class="nx">classes</span><span class="p">.</span><span class="nx">TEXT_WRAPPER</span> <span class="p">);</span>
 
-        <span class="kd">let</span> <span class="nx">headlineWrapper</span> <span class="o">=</span> <span class="nx">build</span><span class="p">.</span><span class="nx">buildHeadline</span><span class="p">(</span> <span class="nx">title</span> <span class="p">);</span>
+        <span class="kd">let</span> <span class="nx">headlineWrapper</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">buildHeadline</span><span class="p">(</span> <span class="nx">title</span> <span class="p">);</span>
         <span class="nx">textWrapper</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span> <span class="nx">headlineWrapper</span> <span class="p">);</span>
 
         <span class="kd">let</span> <span class="nx">paragraph</span>       <span class="o">=</span> <span class="nx">create</span><span class="p">(</span> <span class="err">`</span><span class="nx">div</span><span class="err">`</span><span class="p">,</span>    <span class="nx">classes</span><span class="p">.</span><span class="nx">PARAGRAPH</span> <span class="p">);</span>
-        <span class="nx">description</span>         <span class="o">=</span> <span class="nx">build</span><span class="p">.</span><span class="nx">getDescription</span><span class="p">(</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span> <span class="nx">description</span> <span class="p">)</span> <span class="p">);</span>
-        
+        <span class="nx">description</span>         <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">getDescription</span><span class="p">(</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span> <span class="nx">description</span> <span class="p">)</span> <span class="p">);</span>
+
         <span class="k">if</span> <span class="p">(</span> <span class="nx">description</span> <span class="p">)</span>
         <span class="p">{</span>
             <span class="nx">paragraph</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nx">description</span><span class="p">;</span>
@@ -501,8 +483,11 @@ and returns the outer wrapper</p>
 
         <span class="nx">textWrapper</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span> <span class="nx">paragraph</span> <span class="p">);</span>
 
+        <span class="kd">let</span> <span class="nx">paragraphAfter</span>  <span class="o">=</span> <span class="nx">create</span><span class="p">(</span> <span class="err">`</span><span class="nx">div</span><span class="err">`</span><span class="p">,</span>    <span class="nx">classes</span><span class="p">.</span><span class="nx">PARAGRAPH_AFTER</span> <span class="p">);</span>
+        <span class="nx">textWrapper</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span> <span class="nx">paragraphAfter</span> <span class="p">);</span>
+
         <span class="k">return</span> <span class="nx">textWrapper</span><span class="p">;</span>
-    <span class="p">},</span>
+    <span class="p">}</span>
 
 
 
@@ -548,7 +533,7 @@ and returns the outer wrapper</p>
         <span class="nx">el</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span> <span class="nx">t</span> <span class="p">);</span>
 
         <span class="k">return</span> <span class="nx">el</span><span class="p">;</span>
-    <span class="p">},</span>
+    <span class="p">}</span>
 
 
 
@@ -580,22 +565,24 @@ and returns the outer wrapper</p>
         <td class="code highlight"><div class="highlight"><pre>
     <span class="nx">buildTitle</span><span class="p">()</span>
     <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span> <span class="nx">self</span><span class="p">.</span><span class="nx">title</span> <span class="o">===</span> <span class="kc">true</span> <span class="o">&amp;&amp;</span> <span class="nx">domainConfig</span><span class="p">.</span><span class="nx">title</span> <span class="p">)</span>
+        <span class="kd">let</span> <span class="nx">context</span>     <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">context</span><span class="p">;</span>
+
+        <span class="k">if</span> <span class="p">(</span> <span class="nx">context</span><span class="p">.</span><span class="nx">title</span> <span class="o">===</span> <span class="kc">true</span> <span class="o">&amp;&amp;</span> <span class="nx">domainConfig</span><span class="p">.</span><span class="nx">title</span> <span class="p">)</span>
         <span class="p">{</span>
-            <span class="nx">self</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="nx">domainConfig</span><span class="p">.</span><span class="nx">title</span><span class="p">;</span>
+            <span class="nx">context</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="nx">domainConfig</span><span class="p">.</span><span class="nx">title</span><span class="p">;</span>
         <span class="p">}</span>
 
-        <span class="k">if</span> <span class="p">(</span> <span class="nx">self</span><span class="p">.</span><span class="nx">title</span> <span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span> <span class="nx">context</span><span class="p">.</span><span class="nx">title</span> <span class="p">)</span>
         <span class="p">{</span>
-            <span class="kd">let</span> <span class="nx">text</span>        <span class="o">=</span> <span class="nx">self</span><span class="p">.</span><span class="nx">title</span><span class="p">;</span>
-            <span class="kd">let</span> <span class="nx">title</span>       <span class="o">=</span> <span class="nx">self</span><span class="p">.</span><span class="nx">title</span>    <span class="o">=</span> <span class="nx">build</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span> <span class="err">`</span><span class="nx">DIV</span><span class="err">`</span><span class="p">,</span> <span class="nx">classes</span><span class="p">.</span><span class="nx">TITLE</span> <span class="p">);</span>
+            <span class="kd">let</span> <span class="nx">text</span>        <span class="o">=</span> <span class="nx">context</span><span class="p">.</span><span class="nx">title</span><span class="p">;</span>
+            <span class="kd">let</span> <span class="nx">title</span>       <span class="o">=</span> <span class="nx">context</span><span class="p">.</span><span class="nx">title</span>    <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span> <span class="err">`</span><span class="nx">DIV</span><span class="err">`</span><span class="p">,</span> <span class="nx">classes</span><span class="p">.</span><span class="nx">TITLE</span> <span class="p">);</span>
             <span class="nx">title</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nx">text</span><span class="p">;</span>
 
-            <span class="nx">self</span><span class="p">.</span><span class="nx">refs</span><span class="p">.</span><span class="nx">container</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span> <span class="nx">title</span> <span class="p">);</span>
+            <span class="nx">context</span><span class="p">.</span><span class="nx">refs</span><span class="p">.</span><span class="nx">container</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span> <span class="nx">title</span> <span class="p">);</span>
         <span class="p">}</span>
 
-        <span class="k">return</span> <span class="nx">self</span><span class="p">.</span><span class="nx">title</span><span class="p">;</span>
-    <span class="p">},</span>
+        <span class="k">return</span> <span class="nx">context</span><span class="p">.</span><span class="nx">title</span><span class="p">;</span>
+    <span class="p">}</span>
 
 
 
@@ -633,7 +620,8 @@ and returns the outer wrapper</p>
         <span class="k">if</span> <span class="p">(</span> <span class="nx">theme</span> <span class="p">)</span>
         <span class="p">{</span>
             <span class="nx">css</span> <span class="o">=</span>
-                <span class="err">`</span><span class="p">.</span><span class="nx">$</span><span class="p">{</span><span class="nx">classes</span><span class="p">.</span><span class="nx">HEADLINE</span><span class="p">},</span> <span class="p">.</span><span class="nx">$</span><span class="p">{</span><span class="nx">classes</span><span class="p">.</span><span class="nx">TITLE</span><span class="p">}</span>
+                <span class="err">`</span><span class="p">.</span><span class="nx">styla</span><span class="o">-</span><span class="nx">widget</span><span class="o">-</span><span class="nx">$</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">now</span><span class="p">}</span> <span class="p">.</span><span class="nx">$</span><span class="p">{</span><span class="nx">classes</span><span class="p">.</span><span class="nx">HEADLINE</span><span class="p">},</span>
+                <span class="p">.</span><span class="nx">styla</span><span class="o">-</span><span class="nx">widget</span><span class="o">-</span><span class="nx">$</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">now</span><span class="p">}</span> <span class="p">.</span><span class="nx">$</span><span class="p">{</span><span class="nx">classes</span><span class="p">.</span><span class="nx">TITLE</span><span class="p">}</span>
                 <span class="p">{</span>
                     <span class="nx">font</span><span class="o">-</span><span class="nx">family</span><span class="o">:</span>        <span class="nx">$</span><span class="p">{</span><span class="nx">theme</span><span class="p">.</span><span class="nx">hff</span><span class="p">};</span>
                     <span class="nx">font</span><span class="o">-</span><span class="nx">weight</span><span class="o">:</span>        <span class="nx">$</span><span class="p">{</span><span class="nx">theme</span><span class="p">.</span><span class="nx">hfw</span><span class="p">};</span>
@@ -642,13 +630,13 @@ and returns the outer wrapper</p>
                     <span class="nx">letter</span><span class="o">-</span><span class="nx">spacing</span><span class="o">:</span>     <span class="nx">$</span><span class="p">{</span><span class="nx">theme</span><span class="p">.</span><span class="nx">hls</span><span class="p">};</span>
                     <span class="nx">color</span><span class="o">:</span>              <span class="nx">$</span><span class="p">{</span><span class="nx">theme</span><span class="p">.</span><span class="nx">htc</span><span class="p">};</span>
                 <span class="p">}</span>
-                <span class="p">.</span><span class="nx">$</span><span class="p">{</span><span class="nx">classes</span><span class="p">.</span><span class="nx">PARAGRAPH</span><span class="p">}</span>
+                <span class="p">.</span><span class="nx">styla</span><span class="o">-</span><span class="nx">widget</span><span class="o">-</span><span class="nx">$</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">now</span><span class="p">}</span> <span class="p">.</span><span class="nx">$</span><span class="p">{</span><span class="nx">classes</span><span class="p">.</span><span class="nx">PARAGRAPH</span><span class="p">},</span> <span class="p">.</span><span class="nx">styla</span><span class="o">-</span><span class="nx">widget</span><span class="o">-</span><span class="nx">$</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">now</span><span class="p">}</span> <span class="p">.</span><span class="nx">$</span><span class="p">{</span><span class="nx">classes</span><span class="p">.</span><span class="nx">PARAGRAPH_AFTER</span><span class="p">}</span>
                 <span class="p">{</span>
                     <span class="nx">font</span><span class="o">-</span><span class="nx">family</span><span class="o">:</span>        <span class="nx">$</span><span class="p">{</span><span class="nx">theme</span><span class="p">.</span><span class="nx">sff</span><span class="p">};</span>
                     <span class="nx">font</span><span class="o">-</span><span class="nx">weight</span><span class="o">:</span>        <span class="nx">$</span><span class="p">{</span><span class="nx">theme</span><span class="p">.</span><span class="nx">sfw</span><span class="p">};</span>
                     <span class="nx">color</span><span class="o">:</span>              <span class="nx">$</span><span class="p">{</span><span class="nx">theme</span><span class="p">.</span><span class="nx">stc</span><span class="p">};</span>
                 <span class="p">}</span>
-                <span class="p">.</span><span class="nx">$</span><span class="p">{</span><span class="nx">classes</span><span class="p">.</span><span class="nx">PARAGRAPH</span><span class="p">}</span><span class="o">:</span><span class="nx">after</span>
+                <span class="p">.</span><span class="nx">styla</span><span class="o">-</span><span class="nx">widget</span><span class="o">-</span><span class="nx">$</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">now</span><span class="p">}</span> <span class="p">.</span><span class="nx">$</span><span class="p">{</span><span class="nx">classes</span><span class="p">.</span><span class="nx">PARAGRAPH_AFTER</span><span class="p">}</span><span class="o">:</span><span class="nx">after</span>
                 <span class="p">{</span>
                     <span class="nx">content</span><span class="o">:</span>            <span class="s1">&#39;${theme.strm}&#39;</span><span class="p">;</span>
                     <span class="nx">font</span><span class="o">-</span><span class="nx">weight</span><span class="o">:</span>        <span class="nx">$</span><span class="p">{</span><span class="nx">theme</span><span class="p">.</span><span class="nx">strmw</span><span class="p">};</span>
@@ -656,13 +644,64 @@ and returns the outer wrapper</p>
                 <span class="p">}</span><span class="err">`</span><span class="p">;</span>
         <span class="p">}</span>
 
-        <span class="kd">let</span> <span class="nx">el</span>          <span class="o">=</span> <span class="nx">build</span><span class="p">.</span><span class="nx">buildStyleTag</span><span class="p">(</span> <span class="nx">css</span> <span class="p">);</span>
+        <span class="kd">let</span> <span class="nx">el</span>          <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">buildStyleTag</span><span class="p">(</span> <span class="nx">css</span> <span class="p">);</span>
         <span class="nx">el</span><span class="p">.</span><span class="nx">className</span>    <span class="o">=</span> <span class="err">`</span><span class="nx">$</span><span class="p">{</span><span class="nx">classes</span><span class="p">.</span><span class="nx">THEME_STYLES</span><span class="p">}</span><span class="err">`</span><span class="p">;</span>
 
-        <span class="nx">self</span><span class="p">.</span><span class="nx">refs</span><span class="p">.</span><span class="nx">themeStyle</span> <span class="o">=</span> <span class="nx">el</span><span class="p">;</span>
-        
+        <span class="k">this</span><span class="p">.</span><span class="nx">context</span><span class="p">.</span><span class="nx">refs</span><span class="p">.</span><span class="nx">themeStyle</span> <span class="o">=</span> <span class="nx">el</span><span class="p">;</span>
+
         <span class="k">return</span> <span class="nx">el</span><span class="p">;</span>
-    <span class="p">},</span>
+    <span class="p">}</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="constructor_NaN">
+  <h2>
+    <a href="#constructor_NaN" name="constructor_NaN" class="pilcrow">&#182;</a>
+    constructor
+  </h2>
+</div>
+
+  </div>
+  <div class="body"><p>builds build</p>
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Params</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">context</span>
+      <span class="dox_type">Object</span>
+      <span>context to be passed to this.context</span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">constructor</span><span class="p">(</span> <span class="nx">context</span><span class="p">,</span> <span class="nx">stories</span> <span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">context</span>    <span class="o">=</span> <span class="nx">context</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">now</span>        <span class="o">=</span> <span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">();</span>
+
+        <span class="k">if</span> <span class="p">(</span> <span class="o">!</span><span class="nx">context</span><span class="p">.</span><span class="nx">refs</span><span class="p">.</span><span class="nx">wrapper</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="nx">context</span><span class="p">.</span><span class="nx">stories</span>    <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span> <span class="nx">stories</span> <span class="p">);</span>
+
+            <span class="kd">let</span> <span class="nx">container</span>   <span class="o">=</span> <span class="nx">context</span><span class="p">.</span><span class="nx">refs</span><span class="p">.</span><span class="nx">container</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span> <span class="err">`</span><span class="nx">DIV</span><span class="err">`</span><span class="p">,</span> <span class="err">`</span><span class="nx">$</span><span class="p">{</span><span class="nx">classes</span><span class="p">.</span><span class="nx">CONTAINER</span><span class="p">}</span>  <span class="nx">styla</span><span class="o">-</span><span class="nx">widget</span><span class="o">-</span><span class="nx">$</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">now</span><span class="p">}</span><span class="err">`</span> <span class="p">);</span>
+            <span class="kd">let</span> <span class="nx">wrapper</span>     <span class="o">=</span> <span class="nx">context</span><span class="p">.</span><span class="nx">refs</span><span class="p">.</span><span class="nx">wrapper</span>   <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span> <span class="err">`</span><span class="nx">DIV</span><span class="err">`</span><span class="p">,</span> <span class="nx">classes</span><span class="p">.</span><span class="nx">WRAPPER</span> <span class="p">);</span>
+            <span class="nx">wrapper</span><span class="p">.</span><span class="nx">id</span>      <span class="o">=</span> <span class="nx">wrapperID</span><span class="p">;</span>
+
+            <span class="kd">let</span> <span class="nx">domainConfigAPI</span>   <span class="o">=</span> <span class="err">`</span><span class="nx">https</span><span class="o">:</span><span class="c1">//live.styla.com/api/config/`;</span>
+            <span class="nx">http</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span> <span class="nx">domainConfigAPI</span> <span class="o">+</span> <span class="nx">context</span><span class="p">.</span><span class="nx">slug</span> <span class="p">).</span><span class="nx">then</span><span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">buildStories</span> <span class="p">).</span><span class="k">catch</span><span class="p">(</span> <span class="nx">_reportError</span> <span class="p">);</span>
+
+            <span class="k">return</span> <span class="nx">container</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+    <span class="p">}</span>
 
 
 
@@ -713,7 +752,7 @@ and returns the outer wrapper</p>
         <span class="p">}</span>
 
         <span class="k">return</span> <span class="nx">_el</span><span class="p">;</span>
-    <span class="p">},</span>
+    <span class="p">}</span>
 
 
 
@@ -764,65 +803,11 @@ and returns the outer wrapper</p>
         <span class="p">}</span>
         <span class="k">else</span> <span class="k">if</span> <span class="p">(</span> <span class="nx">text</span><span class="p">.</span><span class="nx">type</span> <span class="o">!==</span> <span class="err">`</span><span class="nx">text</span><span class="err">`</span> <span class="p">)</span>
         <span class="p">{</span>
-            <span class="k">return</span> <span class="nx">build</span><span class="p">.</span><span class="nx">getDescription</span><span class="p">(</span> <span class="nx">arr</span><span class="p">,</span> <span class="nx">i</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">);</span>
+            <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">getDescription</span><span class="p">(</span> <span class="nx">arr</span><span class="p">,</span> <span class="nx">i</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">);</span>
         <span class="p">}</span>
 
         <span class="k">return</span> <span class="nx">text</span><span class="p">.</span><span class="nx">content</span><span class="p">;</span>
-    <span class="p">},</span>
-
-
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs"><div class="dox">
-  <div class="summary">
-<div class="pilwrap" id="getdomainconfig">
-  <h2>
-    <a href="#getdomainconfig" name="getdomainconfig" class="pilcrow">&#182;</a>
-    getDomainConfig
-  </h2>
-</div>
-
-  </div>
-  <div class="body"><p>after recieving the story data this sends it to buildStories for
-processing</p>
-  </div>
-  <div class="details">
-    <div class="dox_tag_title">Params</div>
-    <div class="dox_tag_detail">
-      <span class="dox_tag_name">res</span>
-      <span class="dox_type">String</span>
-      <span>JSON response from the product api</span>
-    </div>
-    <div class="dox_tag_title">Returns</div>
-    <div class="dox_tag_detail">
-      <span class="dox_tag_name"></span>
-      <span><em>DOMElement</em> container element</span>
-    </div>
-  </div>
-</div>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="nx">getDomainConfig</span><span class="p">(</span> <span class="nx">stories</span> <span class="p">)</span>
-    <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span> <span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">refs</span><span class="p">.</span><span class="nx">wrapper</span> <span class="p">)</span>
-        <span class="p">{</span>
-            <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
-
-            <span class="nx">self</span><span class="p">.</span><span class="nx">stories</span>    <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span> <span class="nx">stories</span> <span class="p">);</span>
-
-            <span class="kd">let</span> <span class="nx">container</span>   <span class="o">=</span> <span class="nx">self</span><span class="p">.</span><span class="nx">refs</span><span class="p">.</span><span class="nx">container</span> <span class="o">=</span> <span class="nx">build</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span> <span class="err">`</span><span class="nx">DIV</span><span class="err">`</span><span class="p">,</span> <span class="nx">classes</span><span class="p">.</span><span class="nx">CONTAINER</span> <span class="p">);</span>
-            <span class="kd">let</span> <span class="nx">wrapper</span>     <span class="o">=</span> <span class="nx">self</span><span class="p">.</span><span class="nx">refs</span><span class="p">.</span><span class="nx">wrapper</span>      <span class="o">=</span> <span class="nx">build</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span> <span class="err">`</span><span class="nx">DIV</span><span class="err">`</span><span class="p">,</span> <span class="nx">classes</span><span class="p">.</span><span class="nx">WRAPPER</span> <span class="p">);</span>
-            <span class="nx">wrapper</span><span class="p">.</span><span class="nx">id</span>      <span class="o">=</span> <span class="nx">wrapperID</span><span class="p">;</span>
-
-            <span class="kd">let</span> <span class="nx">domainConfigAPI</span>   <span class="o">=</span> <span class="err">`</span><span class="nx">https</span><span class="o">:</span><span class="c1">//live.styla.com/api/config/`;</span>
-            <span class="nx">http</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span> <span class="nx">domainConfigAPI</span> <span class="o">+</span> <span class="nx">self</span><span class="p">.</span><span class="nx">slug</span> <span class="p">).</span><span class="nx">then</span><span class="p">(</span> <span class="nx">build</span><span class="p">.</span><span class="nx">buildStories</span> <span class="p">).</span><span class="k">catch</span><span class="p">(</span> <span class="nx">_reportError</span> <span class="p">);</span>
-
-            <span class="k">return</span> <span class="nx">container</span><span class="p">;</span>
-        <span class="p">}</span>
-    <span class="p">},</span>
+    <span class="p">}</span>
 
 
 
@@ -866,7 +851,7 @@ processing</p>
     <span class="nx">getImageUrl</span><span class="p">(</span> <span class="nx">filename</span><span class="p">,</span> <span class="nx">imageSize</span> <span class="o">=</span> <span class="mi">400</span> <span class="p">)</span>
     <span class="p">{</span>
         <span class="k">return</span> <span class="err">`</span><span class="c1">//img.styla.com/resizer/sfh_${imageSize}x0/_${filename}?still`;</span>
-    <span class="p">},</span>
+    <span class="p">}</span>
 
 
 
@@ -899,20 +884,25 @@ processing</p>
     <span class="nx">includeBaseStyles</span><span class="p">(</span> <span class="nx">css</span> <span class="p">)</span>
     <span class="p">{</span>
         <span class="kd">let</span> <span class="nx">head</span>        <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">head</span><span class="p">;</span>
-        <span class="kd">let</span> <span class="nx">el</span>          <span class="o">=</span> <span class="nx">build</span><span class="p">.</span><span class="nx">buildStyleTag</span><span class="p">(</span> <span class="nx">css</span> <span class="o">||</span><span class="err"> </span><span class="nx">baseStyles</span> <span class="o">+</span> <span class="nx">specificStyles</span> <span class="p">);</span>
+        <span class="kd">let</span> <span class="nx">el</span>          <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">buildStyleTag</span><span class="p">(</span> <span class="nx">css</span> <span class="o">||</span><span class="err"> </span><span class="nx">baseStyles</span> <span class="o">+</span> <span class="nx">specificStyles</span> <span class="p">);</span>
         <span class="nx">el</span><span class="p">.</span><span class="nx">className</span>    <span class="o">=</span> <span class="err">`</span><span class="nx">$</span><span class="p">{</span><span class="nx">classes</span><span class="p">.</span><span class="nx">BASE_STYLES</span><span class="p">}</span><span class="err">`</span><span class="p">;</span>
 
-        <span class="nx">self</span><span class="p">.</span><span class="nx">refs</span><span class="p">.</span><span class="nx">baseStyle</span> <span class="o">=</span> <span class="nx">el</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">context</span><span class="p">.</span><span class="nx">refs</span><span class="p">.</span><span class="nx">baseStyle</span> <span class="o">=</span> <span class="nx">el</span><span class="p">;</span>
 
-        <span class="nx">head</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span> <span class="nx">el</span> <span class="p">);</span>
+        <span class="kd">let</span> <span class="nx">baseStyle</span> <span class="o">=</span> <span class="nx">head</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span> <span class="err">`</span><span class="p">.</span><span class="nx">$</span><span class="p">{</span><span class="nx">classes</span><span class="p">.</span><span class="nx">BASE_STYLES</span><span class="p">}</span><span class="err">`</span> <span class="p">);</span>
+
+        <span class="k">if</span> <span class="p">(</span> <span class="o">!</span><span class="nx">baseStyle</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="nx">head</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span> <span class="nx">el</span> <span class="p">);</span>
+        <span class="p">}</span>
 
         <span class="k">if</span> <span class="p">(</span> <span class="nx">domainConfig</span><span class="p">.</span><span class="nx">embed</span><span class="p">.</span><span class="nx">customFontUrl</span> <span class="p">)</span>
         <span class="p">{</span>
-            <span class="nx">build</span><span class="p">.</span><span class="nx">includeFonts</span><span class="p">(</span> <span class="nx">head</span> <span class="p">);</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">includeFonts</span><span class="p">(</span> <span class="nx">head</span> <span class="p">);</span>
         <span class="p">}</span>
 
         <span class="k">return</span> <span class="nx">el</span><span class="p">;</span>
-    <span class="p">},</span>
+    <span class="p">}</span>
 
 
 
@@ -953,7 +943,7 @@ processing</p>
         <span class="nb">document</span><span class="p">.</span><span class="nx">head</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span> <span class="nx">el</span> <span class="p">);</span>
 
         <span class="k">return</span> <span class="nx">el</span><span class="p">;</span>
-    <span class="p">},</span>
+    <span class="p">}</span>
 
 
 
@@ -986,18 +976,19 @@ processing</p>
     <span class="nx">setDomain</span><span class="p">()</span>
     <span class="p">{</span>
         <span class="kd">let</span> <span class="nx">embed</span>   <span class="o">=</span> <span class="nx">domainConfig</span><span class="p">.</span><span class="nx">embed</span><span class="p">;</span>
-        
-        <span class="k">if</span> <span class="p">(</span> <span class="nx">self</span><span class="p">.</span><span class="nx">domain</span> <span class="p">)</span>
+        <span class="kd">let</span> <span class="nx">context</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">context</span><span class="p">;</span>
+
+        <span class="k">if</span> <span class="p">(</span> <span class="nx">context</span><span class="p">.</span><span class="nx">domain</span> <span class="p">)</span>
         <span class="p">{</span>
-            <span class="k">return</span> <span class="nx">self</span><span class="p">.</span><span class="nx">domain</span><span class="p">;</span>
+            <span class="k">return</span> <span class="nx">context</span><span class="p">.</span><span class="nx">domain</span><span class="p">;</span>
         <span class="p">}</span>
-        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span> <span class="nx">self</span><span class="p">.</span><span class="nx">linkDomain</span> <span class="p">)</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span> <span class="nx">context</span><span class="p">.</span><span class="nx">linkDomain</span> <span class="p">)</span>
         <span class="p">{</span>
-            <span class="k">return</span> <span class="nx">self</span><span class="p">.</span><span class="nx">domain</span> <span class="o">=</span> <span class="nx">self</span><span class="p">.</span><span class="nx">linkDomain</span><span class="p">;</span>
+            <span class="k">return</span> <span class="nx">context</span><span class="p">.</span><span class="nx">domain</span> <span class="o">=</span> <span class="nx">context</span><span class="p">.</span><span class="nx">linkDomain</span><span class="p">;</span>
         <span class="p">}</span>
         <span class="k">else</span> <span class="k">if</span> <span class="p">(</span> <span class="nx">embed</span> <span class="p">)</span>
         <span class="p">{</span>
-            <span class="k">return</span> <span class="nx">self</span><span class="p">.</span><span class="nx">domain</span> <span class="o">=</span> <span class="err">`</span><span class="nx">$</span><span class="p">{</span><span class="nx">embed</span><span class="p">.</span><span class="nx">magazineUrl</span><span class="p">}</span><span class="o">/</span><span class="nx">$</span><span class="p">{</span><span class="nx">embed</span><span class="p">.</span><span class="nx">rootPath</span><span class="p">}</span><span class="err">`</span><span class="p">;</span>
+            <span class="k">return</span> <span class="nx">context</span><span class="p">.</span><span class="nx">domain</span> <span class="o">=</span> <span class="err">`</span><span class="nx">$</span><span class="p">{</span><span class="nx">embed</span><span class="p">.</span><span class="nx">magazineUrl</span><span class="p">}</span><span class="o">/</span><span class="nx">$</span><span class="p">{</span><span class="nx">embed</span><span class="p">.</span><span class="nx">rootPath</span><span class="p">}</span><span class="err">`</span><span class="p">;</span>
         <span class="p">}</span>
         <span class="k">else</span>
         <span class="p">{</span>
@@ -1007,7 +998,7 @@ processing</p>
 <span class="p">};</span>
 
 
-<span class="kr">export</span> <span class="k">default</span> <span class="nx">build</span><span class="p">;</span>
+<span class="kr">export</span> <span class="k">default</span> <span class="nx">Build</span><span class="p">;</span>
 </pre></div>
         </td>
       </tr>

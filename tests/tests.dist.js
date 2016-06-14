@@ -6,7 +6,7 @@
 },{}],2:[function(require,module,exports){
 module.exports={
   "name": "stylaWidget",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "contributors": [
     "Mouse Braun <mouse@styla.com>",
     "Elias Liedholm <elias@styla.com>"
@@ -53,9 +53,7 @@ module.exports={
     "CODE_OF_CONDUCT.md",
     "README.md",
     "liscence.md",
-    "dist/stories.min.js",
-    "dist/widget.min.js",
-    "dist/list.min.js",
+    "dist/",
     "demo/"
   ],
   "homepage": "https://github.com/styladev/widget",
@@ -218,6 +216,9 @@ var Build = (function () {
 
             textWrapper.appendChild(paragraph);
 
+            var paragraphAfter = create('div', _classesJs2['default'].PARAGRAPH_AFTER);
+            textWrapper.appendChild(paragraphAfter);
+
             return textWrapper;
         }
 
@@ -284,7 +285,7 @@ var Build = (function () {
             var css = '';
 
             if (theme) {
-                css = '.' + _classesJs2['default'].HEADLINE + ', .' + _classesJs2['default'].TITLE + '\n                {\n                    font-family:        ' + theme.hff + ';\n                    font-weight:        ' + theme.hfw + ';\n                    font-style:         ' + theme.hfs + ';\n                    text-decoration:    ' + theme.htd + ';\n                    letter-spacing:     ' + theme.hls + ';\n                    color:              ' + theme.htc + ';\n                }\n                .' + _classesJs2['default'].PARAGRAPH + '\n                {\n                    font-family:        ' + theme.sff + ';\n                    font-weight:        ' + theme.sfw + ';\n                    color:              ' + theme.stc + ';\n                }\n                .' + _classesJs2['default'].PARAGRAPH + ':after\n                {\n                    content:            \'' + theme.strm + '\';\n                    font-weight:        ' + theme.strmw + ';\n                    text-decoration:    ' + theme.strmd + ';\n                }';
+                css = '.styla-widget-' + this.now + ' .' + _classesJs2['default'].HEADLINE + ',\n                .styla-widget-' + this.now + ' .' + _classesJs2['default'].TITLE + '\n                {\n                    font-family:        ' + theme.hff + ';\n                    font-weight:        ' + theme.hfw + ';\n                    font-style:         ' + theme.hfs + ';\n                    text-decoration:    ' + theme.htd + ';\n                    letter-spacing:     ' + theme.hls + ';\n                    color:              ' + theme.htc + ';\n                }\n                .styla-widget-' + this.now + ' .' + _classesJs2['default'].PARAGRAPH + ', .styla-widget-' + this.now + ' .' + _classesJs2['default'].PARAGRAPH_AFTER + '\n                {\n                    font-family:        ' + theme.sff + ';\n                    font-weight:        ' + theme.sfw + ';\n                    color:              ' + theme.stc + ';\n                }\n                .styla-widget-' + this.now + ' .' + _classesJs2['default'].PARAGRAPH_AFTER + ':after\n                {\n                    content:            \'' + theme.strm + '\';\n                    font-weight:        ' + theme.strmw + ';\n                    text-decoration:    ' + theme.strmd + ';\n                }';
             }
 
             var el = this.buildStyleTag(css);
@@ -382,11 +383,12 @@ var Build = (function () {
         };
 
         this.context = context;
+        this.now = Date.now();
 
         if (!context.refs.wrapper) {
             context.stories = JSON.parse(stories);
 
-            var container = context.refs.container = this.create('DIV', _classesJs2['default'].CONTAINER);
+            var container = context.refs.container = this.create('DIV', _classesJs2['default'].CONTAINER + '  styla-widget-' + this.now);
             var wrapper = context.refs.wrapper = this.create('DIV', _classesJs2['default'].WRAPPER);
             wrapper.id = wrapperID;
 
@@ -552,7 +554,7 @@ module.exports = exports['default'];
 /**
  * ## buildStory
  *
- * builds each story off the retrieved json.  skips a story if the id matches ignore.  
+ * builds each story off the retrieved json.  skips a story if the id matches ignore.
  * no matter what it will always build the number of stories set in the limit
  *
  * @param {Object} json image data
@@ -578,6 +580,7 @@ module.exports = {
     IMAGE: 'styla-widget__image',
     IMAGE_WRAPPER: 'styla-widget__imagewrap',
     PARAGRAPH: 'styla-widget__paragraph',
+    PARAGRAPH_AFTER: 'styla-widget__paragraph-after',
     STORY: 'styla-widget__story',
     STORY_LINK: 'styla-widget__link',
     STYLES: 'styla-widget__styling',
@@ -590,7 +593,7 @@ module.exports = {
 },{}],5:[function(require,module,exports){
 'use strict';
 
-module.exports = '1.0.2';
+module.exports = '1.0.3';
 
 },{}],6:[function(require,module,exports){
 'use strict';
