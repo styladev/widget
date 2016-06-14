@@ -315,7 +315,7 @@ class Build
         }
 
         let el          = this.buildStyleTag( css );
-        el.className    = `${classes.THEME_STYLES}`;
+        el.className    = `${classes.THEME_STYLES}  styla-widget__${this.context.format}`;
 
         this.context.refs.themeStyle = el;
 
