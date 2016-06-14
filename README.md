@@ -1,4 +1,4 @@
-Styla Widget  1.0.1
+Styla Widget  1.0.2
 =======
 
 
@@ -148,8 +148,15 @@ This project adheres to the [Contributor Covenant](http://contributor-covenant.o
 Change log
 ==========
 
+### 1.0.2
+
+    + list.min.js is now included in `npm i` calls
+
+
 ### 1.0.1
+
     + added css prefixes for old browsers
+
 
 ### 1.0.0
 
