@@ -47,9 +47,7 @@
     "CODE_OF_CONDUCT.md",
     "README.md",
     "liscence.md",
-    "dist/stories.min.js",
-    "dist/widget.min.js",
-    "dist/list.min.js",
+    "dist/",
     "demo/"
   ],
   "homepage": "https://github.com/styladev/widget",
