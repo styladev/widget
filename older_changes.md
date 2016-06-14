@@ -3,6 +3,49 @@ Older changes
 
 This is truncated from the readme file to keep down the size
 
+
+### 0.4.9
+
+    + i a !
+    + this.els changed to this.refs for readability
+
+
+### 0.4.8
+
+    + moved this.wrapper and this.container to this.els
+
+
+### 0.4.7
+
+    + better handling of empty story text
+    + tests updated
+    + inital load changes
+
+
+### 0.4.4
+
+    + removed margins for related stories
+
+
+### 0.4.2
+
+    + docs updated
+
+
+### 0.4.1
+
+    + center images vertically and horizontally with no cropping
+
+
+### 0.4.0
+
+    + styles and structure altered slightly
+    + size changed to imageSize
+    + feed changed to all
+    + adjusted theme-style insertion
+    + added domain option
+
+
 ### 0.3.5
 
     + attach() added

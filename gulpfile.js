@@ -42,6 +42,8 @@ gulp.task( 'browserifyFiles', function()
         {
             insertStyles( 'list', 'baseWidget.js', '' );
             insertStyles( 'stories', 'baseWidget.js', '' );
+            insertStyles( 'horizontal', 'baseWidget.js', '' );
+            insertStyles( 'tiles', 'baseWidget.js', '' );
         } );
 } );
 
@@ -56,6 +58,8 @@ gulp.task( 'min', function()
         {
             insertStyles( 'list', 'baseWidget.min.js', '.min' );
             insertStyles( 'stories', 'baseWidget.min.js', '.min' );
+            insertStyles( 'horizontal', 'baseWidget.min.js', '.min' )
+            insertStyles( 'tiles', 'baseWidget.min.js', '.min' );
         } );
 } );
 
@@ -93,9 +97,10 @@ var insertStyles = function( target = 'list', file = 'list.min.js', suffix = '.m
     {
         _g.pipe( header( licenceLong ) );
     }
-    
+
     return _g.pipe( replace( 'styla-widget-css-goes-here', stylesCss ) )
             .pipe( replace( 'styla-build-specific-css-goes-here', specificCss ) )
+            .pipe( replace( 'styla-widget-format-goes-here', target ) )
             .pipe( rename( `${target}${suffix}.js` ) )
             .pipe( gulp.dest( `./${folder}/` ) );
 };
@@ -109,6 +114,16 @@ gulp.task( 'css-min', function()
         .pipe( gulp.dest( 'dist' ) );
 
     gulp.src( './src/stories.css' )
+        .pipe( rename( { suffix: '.min' } ) )
+        .pipe( minifycss() )
+        .pipe( gulp.dest( 'dist' ) );
+
+    gulp.src( './src/horizontal.css' )
+        .pipe( rename( { suffix: '.min' } ) )
+        .pipe( minifycss() )
+        .pipe( gulp.dest( 'dist' ) );
+
+    gulp.src( './src/tiles.css' )
         .pipe( rename( { suffix: '.min' } ) )
         .pipe( minifycss() )
         .pipe( gulp.dest( 'dist' ) );

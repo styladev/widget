@@ -2,20 +2,15 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <title>Styla Widget demo</title>
+        <title>Styla Tiled Widget Demo</title>
         <script>
-            var d=document;var h=d.head,s=d.createElement('SCRIPT');h.appendChild(s);s.src='../dist/list.js';var w=window;var f=typeof w.onload==='function'?w.onload:function(){};w.onload=function(e){
+            var d=document;var h=d.head,s=d.createElement('SCRIPT');h.appendChild(s);s.src='../dist/tiles.js';var w=window;var f=typeof w.onload==='function'?w.onload:function(){};w.onload=function(e){
 
-            new StylaWidget_List( {
+            new StylaWidget_Tiles( {
                 newTab  : true,
                 slug    : 'uhrenschmuck24',
-                target  : '.styla-widget__target'
-            } );
-
-            new StylaWidget_List( {
-                newTab  : true,
-                slug    : 'braunhamburg',
-                target  : '.styla-widget__target2'
+                target  : '.styla-widget__target',
+                limit   : 4
             } );
 
             f( e );};
@@ -29,12 +24,12 @@
                 height:                 100vh;
             }
 
-            .styla-widget__target, .styla-widget__target2
+            .styla-widget__target
             {
                 text-align:             left;
                 background:             #FFF;
                 box-shadow:             3px 3px 0px #ccc;
-                height:                 90%;
+                height:                 20em;
                 top:                    5%;
                 position:               relative;
                 display:                inline-block;
@@ -43,7 +38,6 @@
         </style>
     </head>
     <body>
-        <div class="styla-widget__target" style="width: 400px;"></div>
-        <div class="styla-widget__target2" style="width: 400px;"></div>
+        <div class="styla-widget__target" style="width: 90%;"></div>
     </body>
 </html>
