@@ -1,6 +1,6 @@
 {
   "name": "stylaWidget",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "contributors": [
     "Mouse Braun <mouse@styla.com>",
     "Elias Liedholm <elias@styla.com>"
@@ -49,6 +49,7 @@
     "liscence.md",
     "dist/stories.min.js",
     "dist/widget.min.js",
+    "dist/list.min.js",
     "demo/"
   ],
   "homepage": "https://github.com/styladev/widget",
