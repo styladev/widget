@@ -6,9 +6,33 @@
  *
  * @author "Mouse Braun <mouse@styla.com>"
  * @author "Elias Liedholm <elias@styla.com>"
- */
+ */ 
+ 
+/*
+    THIS SNIPPET WILL embed the widget in your page.  Make sure to change the slug to yours,
+    and alter the options to your liking
+
+    var d=document;var h=d.head,s=d.createElement('SCRIPT');h.appendChild(s);s.src='../dist/list.js';var w=window;var f=typeof w.onload==='function'?w.onload:function(){};w.onload=function(e){
+
+    new StylaWidget( {
+        newTab  : true,
+        slug    : 'uhrenschmuck24',
+        target  : '.styla-widget__target'
+    } );
+
+    new StylaWidget( {
+        newTab  : true,
+        slug    : 'braunhamburg',
+        target  : '.styla-widget__target2'
+    } );
+
+    f( e );};
+*/
+
+
 import version  from './version.js';
-import build    from './build.js';
+import classes  from './classes.js';
+import Build    from './build.js';
 
 import { http } from 'microbejs/dist/microbe.http.min';
 
@@ -27,14 +51,18 @@ class StylaWidget
     {
         target      = this.checkTarget( target, this.minWidth );
 
-        let els     = this.refs;
+        let refs    = this.refs;
         let head    = document.head;
 
-        if ( els.baseStyle )
+        if ( refs.baseStyle )
         {
-            head.appendChild( els.baseStyle );
-            head.appendChild( els.themeStyle );
-            target.appendChild( els.wrapper );
+            if ( head.querySelector( `.${classes.BASE_STYLES}` ) )
+            {
+                head.appendChild( refs.baseStyle );
+            }
+
+            head.appendChild( refs.themeStyle );
+            target.appendChild( refs.wrapper );
         }
 
         return this;
@@ -128,7 +156,13 @@ class StylaWidget
         let url = tag ? `${api}/api/feeds/tags/${tag}?offset=${offset}&limit=${limit + ignoreBonus}&domain=${slug}` :
                         `${api}/api/feeds/all?domain=${slug}&offset=${offset}&limit=${limit}`;
 
-        http.get( storiesApi || url ).then( build.getDomainConfig.bind( this ) );
+        let self = this;
+
+        http.get( storiesApi || url ).then( function( stories )
+        { 
+            let build = new Build( self, stories );
+        } );
+        
 
         return this;
     }
@@ -143,11 +177,11 @@ class StylaWidget
      */
     destroy()
     {
-        let els = this.refs;
+        let refs = this.refs;
 
-        Object.keys( els ).forEach( function( key )
+        Object.keys( refs ).forEach( function( key )
         {
-            let el      = els[ key ];
+            let el      = refs[ key ];
             let parent  = el.parentNode;
 
             if ( parent )
@@ -162,17 +196,6 @@ class StylaWidget
 
 window.StylaWidget = StylaWidget;
 
-let alsoOnLoad = typeof window.onload === 'function' ? window.onload : function(){};
-
-window.onload = function( e )
-{
-    if ( window.stylaWidget )
-    {
-        window.stylaWidget = new StylaWidget( window.stylaWidget );
-    }
-    
-    alsoOnLoad( e );
-};
 
 export default StylaWidget;
 

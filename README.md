@@ -1,4 +1,4 @@
-Styla Widget  0.4.9
+Styla Widget  1.0.2
 =======
 
 
@@ -19,10 +19,16 @@ To use the widget, a client must include this script on their site. Modify the
 slug `MAGAZINE_NAME` to match the name of the magazine.
 
 ```html
-    <div class="styla-widget__target" style="width: 400px;"></div>
-    <script>window.stylaWidget = {slug : 'lavogi', target : '.styla-widget__target'};
-    var d=document;var h=d.head;var s=d.createElement('SCRIPT');h.appendChild(s);
-    s.src="//widget.styla.com/widget.min.js";</script>
+    <script>
+            var d=document;var h=d.head,s=d.createElement('SCRIPT');h.appendChild(s);s.src='//widget.styla.com/list.min.js';var w=window;var f=typeof w.onload==='function'?w.onload:function(){};w.onload=function(e){
+
+            new StylaWidget( {
+                slug    : 'MAGAZINE_NAME',
+                target  : '.styla-widget__target'
+            } );
+
+            f( e );};
+    </script>
 ```
 
 See a live example on the [demo page](http://static.styla.com/test/widget/)
@@ -76,14 +82,31 @@ window.stylaWidget = {
 };
 ```
 
+use this snippet to include the Styla widget on your page. You can build more than one widget by simply adding it to the script, and picking your options
+
 
 ```html
     <script>
-    window.stylaWidget = {slug : 'MAGAZINE_NAME', limit:6, offset:12};
-    var d=document;var h=d.head;var s=d.createElement('SCRIPT');
-    h.appendChild(s);s.src="//widget.styla.com/widget.min.js";
+            var d=document;var h=d.head,s=d.createElement('SCRIPT');h.appendChild(s);s.src='widget.styla.com/list.min.js';var w=window;var f=typeof w.onload==='function'?w.onload:function(){};w.onload=function(e){
+
+            new StylaWidget( {
+                limit   : 10,
+                offset  : 2,
+                slug    : 'uhrenschmuck24',
+                target  : '.styla-widget__target'
+            } );
+
+            new StylaWidget( {
+                newTab  : true,
+                slug    : 'braunhamburg',
+                target  : '.styla-widget__target2'
+            } );
+
+            f( e );};
     </script>
 ```
+
+
 
 Technical requirements and limitations
 --------------------------------------
@@ -124,6 +147,22 @@ This project adheres to the [Contributor Covenant](http://contributor-covenant.o
 
 Change log
 ==========
+
+### 1.0.2
+
+    + list.min.js is now included in `npm i` calls
+
+
+### 1.0.1
+
+    + added css prefixes for old browsers
+
+
+### 1.0.0
+
+    + build is now a constructor
+    + implementation changes to allow for multiple widgets on one page
+
 
 ### 0.4.9
 

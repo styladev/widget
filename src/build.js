@@ -1,5 +1,5 @@
 /**
- * ## build.js
+ * ## this.js
  *
  * this contains methods to build the bite sized widget that do not need to be
  * outwardly facing
@@ -17,11 +17,6 @@ const specificStyles    = `styla-build-specific-css-goes-here`;
 const wrapperID         = `styla-widget`;
 const _reportError      = function( e ){ console.log( `err`, e ) };
 
-/*
-    sets context for the widget.  this is bound in widget js and set in
-    getDomainConfig
- */
-let self;
 
 /*
     retrieved and parsed domain config.  this is declared here to keep it out
@@ -35,7 +30,8 @@ let domainConfig;
 let ignored = 0;
 
 
-let build = {
+class Build
+{
 
     /**
      * ## buildHeadline
@@ -49,7 +45,7 @@ let build = {
      */
     buildHeadline( title )
     {
-        let create              = build.create;
+        let create              = this.create;
         let headlineWrapper     = create( `div`, classes.HEADLINE_WRAPPER );
         let headline            = create( `h3`,  classes.HEADLINE );
 
@@ -58,7 +54,7 @@ let build = {
         headlineWrapper.appendChild( headline );
 
         return headlineWrapper;
-    },
+    }
 
 
     /**
@@ -69,20 +65,20 @@ let build = {
      *
      * @param {Array} images array of images from the product api
      * @param {String} title story headline
-     * @param {Object} context sub for self - needed for testing
+     * @param {Object} context sub for this.context - needed for testing
      *
      * @return _DOMElement_ imageWrapper
      */
     buildImage( images, title, context )
     {
-        self                    = self || context;
-        let create              = build.create;
+        this.context           = this.context || context;
+        let create              = this.create;
         let imageWrapper        = create( `div`, classes.IMAGE_WRAPPER );
-        let imageSize           = self.imageSize;
+        let imageSize           = this.context.imageSize;
         let id                  = images[0].id;
-        let imgObj              = self.images[ id ];
+        let imgObj              = this.context.images[ id ];
 
-        let url                 = build.getImageUrl( imgObj.fileName, imageSize );
+        let url                 = this.getImageUrl( imgObj.fileName, imageSize );
 
         let image               = create( `img`, classes.IMAGE );        
         image.src               = url;
@@ -92,7 +88,7 @@ let build = {
         imageWrapper.appendChild( image );
         
         return imageWrapper;
-    },
+    }
 
 
     /**
@@ -106,7 +102,7 @@ let build = {
      *
      * @return _Void_
      */
-    buildStories( resDomainConfig, parsedDomainConfig )
+    buildStories = ( resDomainConfig, parsedDomainConfig ) =>
     {
         domainConfig = parsedDomainConfig || JSON.parse( resDomainConfig );
 
@@ -114,29 +110,29 @@ let build = {
         {
             throw `Styla Widget error: Could not find magazine, please check if slug is configured correctly.`;
         }
-
-        build.setDomain();
-        build.includeBaseStyles();
+        this.setDomain();
+        this.includeBaseStyles();
 
         let images      = {};
-        let stories     = self.stories;
+        let context     = this.context;
+        let stories     = context.stories;
         let resImages   = stories.images;
 
         if ( resImages )
         {
-            self.title = build.buildTitle();
+            context.title = this.buildTitle();
 
             resImages.forEach( function( _i ){ images[ _i.id ] = _i; });
 
-            self.images = images;
-            let _els    = stories.stories.map( build.buildStory );
+            context.images = images;
+            let _els    = stories.stories.map( this.buildStory );
 
-            let styling = build.compileStyles();
+            let styling = this.compileStyles();
 
             document.head.appendChild( styling );
-            self.target.appendChild( self.refs.wrapper );
+            context.target.appendChild( context.refs.wrapper );
         }
-    },
+    }
 
 
     /**
@@ -150,32 +146,34 @@ let build = {
      *
      * @return _DOMElement_ outer story element
      */
-    buildStory( { title, description, images, externalPermalink, id }, i )
+    buildStory = ( { title, description, images, externalPermalink, id }, i ) =>
     {
-        if ( `${self.ignore}` !== `${id}` && i - ignored < self.limit )
+        let context     = this.context;
+
+        if ( `${context.ignore}` !== `${id}` && i - ignored < context.limit )
         {
-            let create              = build.create;
+            let create              = this.create;
 
             let story               = create( `div`,    classes.STORY );
             let storyLink           = create( `a`,      classes.STORY_LINK );
-            storyLink.href          = `//${self.domain}/story/${externalPermalink}/`;
+            storyLink.href          = `//${context.domain}/story/${externalPermalink}/`;
 
-            if ( self.newTab )
+            if ( context.newTab )
             {
                 storyLink.setAttribute( `target`, `_blank` );
             } 
-            else if ( self.iframe )
+            else if ( context.iframe )
             {
                 storyLink.setAttribute( `target`, `_top` );
             }
 
             story.appendChild( storyLink );
 
-            storyLink.appendChild( build.buildImage( images, title ) );
-            storyLink.appendChild( build.buildStoryText( title, description ) );
+            storyLink.appendChild( this.buildImage( images, title ) );
+            storyLink.appendChild( this.buildStoryText( title, description ) );
 
-            let container   = self.refs.container;
-            let wrapper     = self.refs.wrapper;
+            let container   = context.refs.container;
+            let wrapper     = context.refs.wrapper;
 
             container.appendChild( story );
             wrapper.appendChild( container );
@@ -188,7 +186,7 @@ let build = {
 
             return false;
         }
-    },
+    }
 
 
     /**
@@ -204,14 +202,14 @@ let build = {
      */
     buildStoryText( title, description )
     {
-        let create          = build.create;
+        let create          = this.create;
         let textWrapper     = create( `div`,    classes.TEXT_WRAPPER );
 
-        let headlineWrapper = build.buildHeadline( title );
+        let headlineWrapper = this.buildHeadline( title );
         textWrapper.appendChild( headlineWrapper );
 
         let paragraph       = create( `div`,    classes.PARAGRAPH );
-        description         = build.getDescription( JSON.parse( description ) );
+        description         = this.getDescription( JSON.parse( description ) );
         
         if ( description )
         {
@@ -222,7 +220,7 @@ let build = {
         textWrapper.appendChild( paragraph );
 
         return textWrapper;
-    },
+    }
 
 
     /**
@@ -244,7 +242,7 @@ let build = {
         el.appendChild( t );
 
         return el;
-    },
+    }
 
 
     /**
@@ -256,22 +254,24 @@ let build = {
      */
     buildTitle()
     {
-        if ( self.title === true && domainConfig.title )
+        let context     = this.context;
+
+        if ( context.title === true && domainConfig.title )
         {
-            self.title = domainConfig.title;
+            context.title = domainConfig.title;
         }
 
-        if ( self.title )
+        if ( context.title )
         {
-            let text        = self.title;
-            let title       = self.title    = build.create( `DIV`, classes.TITLE );
+            let text        = context.title;
+            let title       = context.title    = this.create( `DIV`, classes.TITLE );
             title.innerHTML = text;
 
-            self.refs.container.appendChild( title );
+            context.refs.container.appendChild( title );
         }
 
-        return self.title;
-    },
+        return context.title;
+    }
 
 
     /**
@@ -312,13 +312,42 @@ let build = {
                 }`;
         }
 
-        let el          = build.buildStyleTag( css );
+        let el          = this.buildStyleTag( css );
         el.className    = `${classes.THEME_STYLES}`;
 
-        self.refs.themeStyle = el;
+        this.context.refs.themeStyle = el;
         
         return el;
-    },
+    }
+
+
+    /**
+     * ## constructor
+     *
+     * builds build
+     *
+     * @param {Object} context context to be passed to this.context
+     */
+    constructor( context, stories )
+    {
+        this.context = context;
+
+        if ( !context.refs.wrapper )
+        {
+            context.stories    = JSON.parse( stories );
+
+            let container   = context.refs.container = this.create( `DIV`, classes.CONTAINER );
+            let wrapper     = context.refs.wrapper   = this.create( `DIV`, classes.WRAPPER );
+            wrapper.id      = wrapperID;
+
+            let domainConfigAPI   = `https://live.styla.com/api/config/`;
+            http.get( domainConfigAPI + context.slug ).then( this.buildStories ).catch( _reportError );
+
+            return container;
+        }
+
+        return this;
+    }
 
 
     /**
@@ -341,7 +370,7 @@ let build = {
         }
 
         return _el;
-    },
+    }
 
 
     /**
@@ -364,41 +393,11 @@ let build = {
         }
         else if ( text.type !== `text` )
         {
-            return build.getDescription( arr, i + 1 );
+            return this.getDescription( arr, i + 1 );
         }
 
         return text.content;
-    },
-
-
-    /**
-     * ## getDomainConfig
-     *
-     * after recieving the story data this sends it to buildStories for
-     * processing
-     *
-     * @param {String} res JSON response from the product api
-     *
-     * @return _DOMElement_ container element
-     */
-    getDomainConfig( stories )
-    {
-        if ( !this.refs.wrapper )
-        {
-            self = this;
-
-            self.stories    = JSON.parse( stories );
-
-            let container   = self.refs.container = build.create( `DIV`, classes.CONTAINER );
-            let wrapper     = self.refs.wrapper      = build.create( `DIV`, classes.WRAPPER );
-            wrapper.id      = wrapperID;
-
-            let domainConfigAPI   = `https://live.styla.com/api/config/`;
-            http.get( domainConfigAPI + self.slug ).then( build.buildStories ).catch( _reportError );
-
-            return container;
-        }
-    },
+    }
 
 
     /**
@@ -414,7 +413,7 @@ let build = {
     getImageUrl( filename, imageSize = 400 )
     {
         return `//img.styla.com/resizer/sfh_${imageSize}x0/_${filename}?still`;
-    },
+    }
 
 
     /**
@@ -427,20 +426,25 @@ let build = {
     includeBaseStyles( css )
     {
         let head        = document.head;
-        let el          = build.buildStyleTag( css || baseStyles + specificStyles );
+        let el          = this.buildStyleTag( css || baseStyles + specificStyles );
         el.className    = `${classes.BASE_STYLES}`;
 
-        self.refs.baseStyle = el;
+        this.context.refs.baseStyle = el;
 
-        head.appendChild( el );
+        let baseStyle = head.querySelector( `.${classes.BASE_STYLES}` );
+
+        if ( !baseStyle )
+        {
+            head.appendChild( el );
+        }
 
         if ( domainConfig.embed.customFontUrl )
         {
-            build.includeFonts( head );
+            this.includeFonts( head );
         }
 
         return el;
-    },
+    }
 
 
     /**
@@ -461,7 +465,7 @@ let build = {
         document.head.appendChild( el );
 
         return el;
-    },
+    }
 
 
     /**
@@ -474,18 +478,19 @@ let build = {
     setDomain()
     {
         let embed   = domainConfig.embed;
-        
-        if ( self.domain )
+        let context = this.context;
+
+        if ( context.domain )
         {
-            return self.domain;
+            return context.domain;
         }
-        else if ( self.linkDomain )
+        else if ( context.linkDomain )
         {
-            return self.domain = self.linkDomain;
+            return context.domain = context.linkDomain;
         }
         else if ( embed )
         {
-            return self.domain = `${embed.magazineUrl}/${embed.rootPath}`;
+            return context.domain = `${embed.magazineUrl}/${embed.rootPath}`;
         }
         else
         {
@@ -495,4 +500,4 @@ let build = {
 };
 
 
-export default build;
+export default Build;
