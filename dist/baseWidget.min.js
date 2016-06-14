@@ -760,6 +760,6 @@ module.exports = {
 },{}],5:[function(require,module,exports){
 'use strict';
 
-module.exports = '1.0.1';
+module.exports = '1.0.2';
 
 },{}]},{},[2]);

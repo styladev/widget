@@ -6,7 +6,7 @@
 },{}],2:[function(require,module,exports){
 module.exports={
   "name": "stylaWidget",
-  "version": "0.4.9",
+  "version": "1.0.2",
   "contributors": [
     "Mouse Braun <mouse@styla.com>",
     "Elias Liedholm <elias@styla.com>"
@@ -18,10 +18,10 @@ module.exports={
   },
   "scripts": {
     "browserifyFiles": "./node_modules/.bin/gulp browserifyFiles",
-    "build": "./node_modules/.bin/gulp && npm run doc && npm test",
+    "build": "./node_modules/.bin/gulp && npm run doc",
     "buildTests": "./node_modules/.bin/gulp buildTests",
     "css-min": "./node_modules/.bin/gulp css-min",
-    "doc": "docker -o dist/doc/ -i src --sidebar true --js dist/widget.js -c manni && cp ./dist/doc/widget.js.html ./dist/doc/index.html",
+    "doc": "docker -o dist/doc/ -i src --sidebar true --js dist/list.js -c manni && cp ./dist/doc/baseWidget.js.html ./dist/doc/index.html",
     "gulp": "mkdir -p ./dist && ./node_modules/.bin/gulp",
     "min": "./node_modules/.bin/gulp min",
     "test": "node --harmony ./scripts/nightmare.js",
@@ -55,6 +55,7 @@ module.exports={
     "liscence.md",
     "dist/stories.min.js",
     "dist/widget.min.js",
+    "dist/list.min.js",
     "demo/"
   ],
   "homepage": "https://github.com/styladev/widget",
@@ -70,7 +71,7 @@ module.exports={
 
 },{}],3:[function(require,module,exports){
 /**
- * ## build.js
+ * ## this.js
  *
  * this contains methods to build the bite sized widget that do not need to be
  * outwardly facing
@@ -82,7 +83,11 @@ Object.defineProperty(exports, '__esModule', {
     value: true
 });
 
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
 var _classesJs = require('./classes.js');
 
@@ -101,12 +106,6 @@ var _reportError = function _reportError(e) {
 };
 
 /*
-    sets context for the widget.  this is bound in widget js and set in
-    getDomainConfig
- */
-var self = undefined;
-
-/*
     retrieved and parsed domain config.  this is declared here to keep it out
     of the global object, yet accessible.
  */
@@ -117,250 +116,288 @@ var domainConfig = undefined;
  */
 var ignored = 0;
 
-var build = {
+var Build = (function () {
+    _createClass(Build, [{
+        key: 'buildHeadline',
 
-    /**
-     * ## buildHeadline
-     *
-     * builds the headline and headline wrapper and fills the wrapper with the
-     * element and text
-     *
-     * @param {String} title story headline
-     *
-     * @return _DOMElement_ headlineWrapper
-     */
-    buildHeadline: function buildHeadline(title) {
-        var create = build.create;
-        var headlineWrapper = create('div', _classesJs2['default'].HEADLINE_WRAPPER);
-        var headline = create('h3', _classesJs2['default'].HEADLINE);
+        /**
+         * ## buildHeadline
+         *
+         * builds the headline and headline wrapper and fills the wrapper with the
+         * element and text
+         *
+         * @param {String} title story headline
+         *
+         * @return _DOMElement_ headlineWrapper
+         */
+        value: function buildHeadline(title) {
+            var create = this.create;
+            var headlineWrapper = create('div', _classesJs2['default'].HEADLINE_WRAPPER);
+            var headline = create('h3', _classesJs2['default'].HEADLINE);
 
-        headline.textContent = title;
+            headline.textContent = title;
 
-        headlineWrapper.appendChild(headline);
+            headlineWrapper.appendChild(headline);
 
-        return headlineWrapper;
-    },
-
-    /**
-     * ## buildImage
-     *
-     * builds the headline and headline wrapper and fills the wrapper with the
-     * element and text
-     *
-     * @param {Array} images array of images from the product api
-     * @param {String} title story headline
-     * @param {Object} context sub for self - needed for testing
-     *
-     * @return _DOMElement_ imageWrapper
-     */
-    buildImage: function buildImage(images, title, context) {
-        self = self || context;
-        var create = build.create;
-        var imageWrapper = create('div', _classesJs2['default'].IMAGE_WRAPPER);
-        var imageSize = self.imageSize;
-        var id = images[0].id;
-        var imgObj = self.images[id];
-
-        var url = build.getImageUrl(imgObj.fileName, imageSize);
-
-        var image = create('img', _classesJs2['default'].IMAGE);
-        image.src = url;
-        image.alt = imgObj.caption || title;
-        image.title = title;
-
-        imageWrapper.appendChild(image);
-
-        return imageWrapper;
-    },
-
-    /**
-     * ## buildStories
-     *
-     * after recieving the story data, this parses and build the individual
-     * stories
-     *
-     * @param {String} domainConfig JSON response from the product api
-     * @param {Object} parsedDomainConfig parsed JSON object for testing
-     *
-     * @return _Void_
-     */
-    buildStories: function buildStories(resDomainConfig, parsedDomainConfig) {
-        domainConfig = parsedDomainConfig || JSON.parse(resDomainConfig);
-
-        if (Object.keys(domainConfig).length === 0) {
-            throw 'Styla Widget error: Could not find magazine, please check if slug is configured correctly.';
+            return headlineWrapper;
         }
 
-        build.setDomain();
-        build.includeBaseStyles();
+        /**
+         * ## buildImage
+         *
+         * builds the headline and headline wrapper and fills the wrapper with the
+         * element and text
+         *
+         * @param {Array} images array of images from the product api
+         * @param {String} title story headline
+         * @param {Object} context sub for this.context - needed for testing
+         *
+         * @return _DOMElement_ imageWrapper
+         */
+    }, {
+        key: 'buildImage',
+        value: function buildImage(images, title, context) {
+            this.context = this.context || context;
+            var create = this.create;
+            var imageWrapper = create('div', _classesJs2['default'].IMAGE_WRAPPER);
+            var imageSize = this.context.imageSize;
+            var id = images[0].id;
+            var imgObj = this.context.images[id];
 
-        var images = {};
-        var stories = self.stories;
-        var resImages = stories.images;
+            var url = this.getImageUrl(imgObj.fileName, imageSize);
 
-        if (resImages) {
-            self.title = build.buildTitle();
+            var image = create('img', _classesJs2['default'].IMAGE);
+            image.src = url;
+            image.alt = imgObj.caption || title;
+            image.title = title;
 
-            resImages.forEach(function (_i) {
-                images[_i.id] = _i;
-            });
+            imageWrapper.appendChild(image);
 
-            self.images = images;
-            var _els = stories.stories.map(build.buildStory);
-
-            var styling = build.compileStyles();
-
-            document.head.appendChild(styling);
-            self.target.appendChild(self.refs.wrapper);
+            return imageWrapper;
         }
-    },
 
-    /**
-     * ## buildStory
-     *
-     * builds each story off the retrieved json.  skips a story if the id matches ignore.  
-     * no matter what it will always build the number of stories set in the limit
-     *
-     * @param {Object} json image data
-     * @param {Number} i iterator
-     *
-     * @return _DOMElement_ outer story element
-     */
-    buildStory: function buildStory(_ref, i) {
-        var title = _ref.title;
-        var description = _ref.description;
-        var images = _ref.images;
-        var externalPermalink = _ref.externalPermalink;
-        var id = _ref.id;
+        /**
+         * ## buildStories
+         *
+         * after recieving the story data, this parses and build the individual
+         * stories
+         *
+         * @param {String} domainConfig JSON response from the product api
+         * @param {Object} parsedDomainConfig parsed JSON object for testing
+         *
+         * @return _Void_
+         */
+    }, {
+        key: 'buildStoryText',
 
-        if ('' + self.ignore !== '' + id && i - ignored < self.limit) {
-            var create = build.create;
+        /**
+         * ## buildStoryText
+         *
+         * builds the story text (including headline and content), combines them
+         * and returns the outer wrapper
+         *
+         * @param {String} title story headline
+         * @param {String} description copy of the story to be inserted
+         *
+         * @return _DOMElement_ style element
+         */
+        value: function buildStoryText(title, description) {
+            var create = this.create;
+            var textWrapper = create('div', _classesJs2['default'].TEXT_WRAPPER);
 
-            var story = create('div', _classesJs2['default'].STORY);
-            var storyLink = create('a', _classesJs2['default'].STORY_LINK);
-            storyLink.href = '//' + self.domain + '/story/' + externalPermalink + '/';
+            var headlineWrapper = this.buildHeadline(title);
+            textWrapper.appendChild(headlineWrapper);
 
-            if (self.newTab) {
-                storyLink.setAttribute('target', '_blank');
-            } else if (self.iframe) {
-                storyLink.setAttribute('target', '_top');
+            var paragraph = create('div', _classesJs2['default'].PARAGRAPH);
+            description = this.getDescription(JSON.parse(description));
+
+            if (description) {
+                paragraph.innerHTML = description;
+                paragraph.innerHTML = paragraph.textContent;
             }
 
-            story.appendChild(storyLink);
+            textWrapper.appendChild(paragraph);
 
-            storyLink.appendChild(build.buildImage(images, title));
-            storyLink.appendChild(build.buildStoryText(title, description));
-
-            var container = self.refs.container;
-            var wrapper = self.refs.wrapper;
-
-            container.appendChild(story);
-            wrapper.appendChild(container);
-
-            return story;
-        } else {
-            ignored++;
-
-            return false;
-        }
-    },
-
-    /**
-     * ## buildStoryText
-     *
-     * builds the story text (including headline and content), combines them
-     * and returns the outer wrapper
-     *
-     * @param {String} title story headline
-     * @param {String} description copy of the story to be inserted
-     *
-     * @return _DOMElement_ style element
-     */
-    buildStoryText: function buildStoryText(title, description) {
-        var create = build.create;
-        var textWrapper = create('div', _classesJs2['default'].TEXT_WRAPPER);
-
-        var headlineWrapper = build.buildHeadline(title);
-        textWrapper.appendChild(headlineWrapper);
-
-        var paragraph = create('div', _classesJs2['default'].PARAGRAPH);
-        description = build.getDescription(JSON.parse(description));
-
-        if (description) {
-            paragraph.innerHTML = description;
-            paragraph.innerHTML = paragraph.textContent;
+            return textWrapper;
         }
 
-        textWrapper.appendChild(paragraph);
+        /**
+         * ## buildStyleTag
+         *
+         * builds a style tag and appends it to the DOM
+         *
+         * @param {String} css styles to add to the created tag
+         *
+         * @return _DOMElement_ style element
+         */
+    }, {
+        key: 'buildStyleTag',
+        value: function buildStyleTag(css) {
+            var el = document.createElement('style');
+            el.type = 'text/css';
+            el.className = _classesJs2['default'].STYLES;
 
-        return textWrapper;
-    },
+            var t = document.createTextNode(css);
+            el.appendChild(t);
 
-    /**
-     * ## buildStyleTag
-     *
-     * builds a style tag and appends it to the DOM
-     *
-     * @param {String} css styles to add to the created tag
-     *
-     * @return _DOMElement_ style element
-     */
-    buildStyleTag: function buildStyleTag(css) {
-        var el = document.createElement('style');
-        el.type = 'text/css';
-        el.className = _classesJs2['default'].STYLES;
-
-        var t = document.createTextNode(css);
-        el.appendChild(t);
-
-        return el;
-    },
-
-    /**
-     * ## buildTitle
-     *
-     * builds the title element, fills it, and attaches it to the container
-     *
-     * @return _DOMElement_
-     */
-    buildTitle: function buildTitle() {
-        if (self.title === true && domainConfig.title) {
-            self.title = domainConfig.title;
+            return el;
         }
 
-        if (self.title) {
-            var text = self.title;
-            var title = self.title = build.create('DIV', _classesJs2['default'].TITLE);
-            title.innerHTML = text;
+        /**
+         * ## buildTitle
+         *
+         * builds the title element, fills it, and attaches it to the container
+         *
+         * @return _DOMElement_
+         */
+    }, {
+        key: 'buildTitle',
+        value: function buildTitle() {
+            var context = this.context;
 
-            self.refs.container.appendChild(title);
+            if (context.title === true && domainConfig.title) {
+                context.title = domainConfig.title;
+            }
+
+            if (context.title) {
+                var text = context.title;
+                var title = context.title = this.create('DIV', _classesJs2['default'].TITLE);
+                title.innerHTML = text;
+
+                context.refs.container.appendChild(title);
+            }
+
+            return context.title;
         }
 
-        return self.title;
-    },
+        /**
+         * ## compileStyles
+         *
+         * compiles the styles and returns them added to the style tag
+         *
+         * @return _DOMElement_ style element
+         */
+    }, {
+        key: 'compileStyles',
+        value: function compileStyles() {
+            var theme = domainConfig.theme;
+            var css = '';
 
-    /**
-     * ## compileStyles
-     *
-     * compiles the styles and returns them added to the style tag
-     *
-     * @return _DOMElement_ style element
-     */
-    compileStyles: function compileStyles() {
-        var theme = domainConfig.theme;
-        var css = '';
+            if (theme) {
+                css = '.' + _classesJs2['default'].HEADLINE + ', .' + _classesJs2['default'].TITLE + '\n                {\n                    font-family:        ' + theme.hff + ';\n                    font-weight:        ' + theme.hfw + ';\n                    font-style:         ' + theme.hfs + ';\n                    text-decoration:    ' + theme.htd + ';\n                    letter-spacing:     ' + theme.hls + ';\n                    color:              ' + theme.htc + ';\n                }\n                .' + _classesJs2['default'].PARAGRAPH + '\n                {\n                    font-family:        ' + theme.sff + ';\n                    font-weight:        ' + theme.sfw + ';\n                    color:              ' + theme.stc + ';\n                }\n                .' + _classesJs2['default'].PARAGRAPH + ':after\n                {\n                    content:            \'' + theme.strm + '\';\n                    font-weight:        ' + theme.strmw + ';\n                    text-decoration:    ' + theme.strmd + ';\n                }';
+            }
 
-        if (theme) {
-            css = '.' + _classesJs2['default'].HEADLINE + ', .' + _classesJs2['default'].TITLE + '\n                {\n                    font-family:        ' + theme.hff + ';\n                    font-weight:        ' + theme.hfw + ';\n                    font-style:         ' + theme.hfs + ';\n                    text-decoration:    ' + theme.htd + ';\n                    letter-spacing:     ' + theme.hls + ';\n                    color:              ' + theme.htc + ';\n                }\n                .' + _classesJs2['default'].PARAGRAPH + '\n                {\n                    font-family:        ' + theme.sff + ';\n                    font-weight:        ' + theme.sfw + ';\n                    color:              ' + theme.stc + ';\n                }\n                .' + _classesJs2['default'].PARAGRAPH + ':after\n                {\n                    content:            \'' + theme.strm + '\';\n                    font-weight:        ' + theme.strmw + ';\n                    text-decoration:    ' + theme.strmd + ';\n                }';
+            var el = this.buildStyleTag(css);
+            el.className = '' + _classesJs2['default'].THEME_STYLES;
+
+            this.context.refs.themeStyle = el;
+
+            return el;
         }
 
-        var el = build.buildStyleTag(css);
-        el.className = '' + _classesJs2['default'].THEME_STYLES;
+        /**
+         * ## constructor
+         *
+         * builds build
+         *
+         * @param {Object} context context to be passed to this.context
+         */
+    }]);
 
-        self.refs.themeStyle = el;
+    function Build(context, stories) {
+        var _this = this;
 
-        return el;
-    },
+        _classCallCheck(this, Build);
+
+        this.buildStories = function (resDomainConfig, parsedDomainConfig) {
+            domainConfig = parsedDomainConfig || JSON.parse(resDomainConfig);
+
+            if (Object.keys(domainConfig).length === 0) {
+                throw 'Styla Widget error: Could not find magazine, please check if slug is configured correctly.';
+            }
+            _this.setDomain();
+            _this.includeBaseStyles();
+
+            var images = {};
+            var context = _this.context;
+            var stories = context.stories;
+            var resImages = stories.images;
+
+            if (resImages) {
+                context.title = _this.buildTitle();
+
+                resImages.forEach(function (_i) {
+                    images[_i.id] = _i;
+                });
+
+                context.images = images;
+                var _els = stories.stories.map(_this.buildStory);
+
+                var styling = _this.compileStyles();
+
+                document.head.appendChild(styling);
+                context.target.appendChild(context.refs.wrapper);
+            }
+        };
+
+        this.buildStory = function (_ref, i) {
+            var title = _ref.title;
+            var description = _ref.description;
+            var images = _ref.images;
+            var externalPermalink = _ref.externalPermalink;
+            var id = _ref.id;
+
+            var context = _this.context;
+
+            if ('' + context.ignore !== '' + id && i - ignored < context.limit) {
+                var create = _this.create;
+
+                var story = create('div', _classesJs2['default'].STORY);
+                var storyLink = create('a', _classesJs2['default'].STORY_LINK);
+                storyLink.href = '//' + context.domain + '/story/' + externalPermalink + '/';
+
+                if (context.newTab) {
+                    storyLink.setAttribute('target', '_blank');
+                } else if (context.iframe) {
+                    storyLink.setAttribute('target', '_top');
+                }
+
+                story.appendChild(storyLink);
+
+                storyLink.appendChild(_this.buildImage(images, title));
+                storyLink.appendChild(_this.buildStoryText(title, description));
+
+                var container = context.refs.container;
+                var wrapper = context.refs.wrapper;
+
+                container.appendChild(story);
+                wrapper.appendChild(container);
+
+                return story;
+            } else {
+                ignored++;
+
+                return false;
+            }
+        };
+
+        this.context = context;
+
+        if (!context.refs.wrapper) {
+            context.stories = JSON.parse(stories);
+
+            var container = context.refs.container = this.create('DIV', _classesJs2['default'].CONTAINER);
+            var wrapper = context.refs.wrapper = this.create('DIV', _classesJs2['default'].WRAPPER);
+            wrapper.id = wrapperID;
+
+            var domainConfigAPI = 'https://live.styla.com/api/config/';
+            _microbejsDistMicrobeHttpMin.http.get(domainConfigAPI + context.slug).then(this.buildStories)['catch'](_reportError);
+
+            return container;
+        }
+
+        return this;
+    }
 
     /**
      * ## create
@@ -372,149 +409,157 @@ var build = {
      *
      * @return _DOMElement_ newly created element
      */
-    create: function create(tag, clss) {
-        var _el = document.createElement(tag.toUpperCase());
 
-        if (clss) {
-            _el.className = clss;
+    _createClass(Build, [{
+        key: 'create',
+        value: function create(tag, clss) {
+            var _el = document.createElement(tag.toUpperCase());
+
+            if (clss) {
+                _el.className = clss;
+            }
+
+            return _el;
         }
 
-        return _el;
-    },
+        /**
+         * ## getDescription
+         *
+         * gets the first text description in the content and returns that
+         *
+         * @param {Array} arr array filled w/ content
+         * @param {Number} i recursive index
+         *
+         * @return _String or Boolean_ text content or false
+         */
+    }, {
+        key: 'getDescription',
+        value: function getDescription(arr) {
+            var i = arguments.length <= 1 || arguments[1] === undefined ? 0 : arguments[1];
 
-    /**
-     * ## getDescription
-     *
-     * gets the first text description in the content and returns that
-     *
-     * @param {Array} arr array filled w/ content
-     * @param {Number} i recursive index
-     *
-     * @return _String or Boolean_ text content or false
-     */
-    getDescription: function getDescription(arr) {
-        var i = arguments.length <= 1 || arguments[1] === undefined ? 0 : arguments[1];
+            var text = arr[i];
 
-        var text = arr[i];
+            if (!text) {
+                return false;
+            } else if (text.type !== 'text') {
+                return this.getDescription(arr, i + 1);
+            }
 
-        if (!text) {
-            return false;
-        } else if (text.type !== 'text') {
-            return build.getDescription(arr, i + 1);
+            return text.content;
         }
 
-        return text.content;
-    },
+        /**
+         * ## getImageUrl
+         *
+         * uses the filename and size to create the full image url
+         *
+         * @param {String} filename from the image data object
+         * @param {Number or String} imageSize width to grab from the server
+         *
+         * @return _String_ file name
+         */
+    }, {
+        key: 'getImageUrl',
+        value: function getImageUrl(filename) {
+            var imageSize = arguments.length <= 1 || arguments[1] === undefined ? 400 : arguments[1];
 
-    /**
-     * ## getDomainConfig
-     *
-     * after recieving the story data this sends it to buildStories for
-     * processing
-     *
-     * @param {String} res JSON response from the product api
-     *
-     * @return _DOMElement_ container element
-     */
-    getDomainConfig: function getDomainConfig(stories) {
-        if (!this.refs.wrapper) {
-            self = this;
-
-            self.stories = JSON.parse(stories);
-
-            var container = self.refs.container = build.create('DIV', _classesJs2['default'].CONTAINER);
-            var wrapper = self.refs.wrapper = build.create('DIV', _classesJs2['default'].WRAPPER);
-            wrapper.id = wrapperID;
-
-            var domainConfigAPI = 'https://live.styla.com/api/config/';
-            _microbejsDistMicrobeHttpMin.http.get(domainConfigAPI + self.slug).then(build.buildStories)['catch'](_reportError);
-
-            return container;
-        }
-    },
-
-    /**
-     * ## getImageUrl
-     *
-     * uses the filename and size to create the full image url
-     *
-     * @param {String} filename from the image data object
-     * @param {Number or String} imageSize width to grab from the server
-     *
-     * @return _String_ file name
-     */
-    getImageUrl: function getImageUrl(filename) {
-        var imageSize = arguments.length <= 1 || arguments[1] === undefined ? 400 : arguments[1];
-
-        return '//img.styla.com/resizer/sfh_' + imageSize + 'x0/_' + filename + '?still';
-    },
-
-    /**
-     * ## includeBaseStyles
-     *
-     * creates the base styles DOM element and adds it to the head
-     *
-     * @return _Void_
-     */
-    includeBaseStyles: function includeBaseStyles(css) {
-        var head = document.head;
-        var el = build.buildStyleTag(css || baseStyles + specificStyles);
-        el.className = '' + _classesJs2['default'].BASE_STYLES;
-
-        self.refs.baseStyle = el;
-
-        head.appendChild(el);
-
-        if (domainConfig.embed.customFontUrl) {
-            build.includeFonts(head);
+            return '//img.styla.com/resizer/sfh_' + imageSize + 'x0/_' + filename + '?still';
         }
 
-        return el;
-    },
+        /**
+         * ## includeBaseStyles
+         *
+         * creates the base styles DOM element and adds it to the head
+         *
+         * @return _Void_
+         */
+    }, {
+        key: 'includeBaseStyles',
+        value: function includeBaseStyles(css) {
+            var head = document.head;
+            var el = this.buildStyleTag(css || baseStyles + specificStyles);
+            el.className = '' + _classesJs2['default'].BASE_STYLES;
 
-    /**
-     * ## includeFonts
-     *
-     * includes the webfonts link element
-     *
-     * @return _DOMElement_ link element
-     */
-    includeFonts: function includeFonts() {
-        var el = document.createElement('link');
-        el.type = 'text/css';
-        el.rel = 'stylesheet';
-        var fontUrl = domainConfig.embed.customFontUrl;
-        el.href = fontUrl.indexOf('//') !== -1 ? fontUrl : '//' + fontUrl;
+            this.context.refs.baseStyle = el;
 
-        document.head.appendChild(el);
+            var baseStyle = head.querySelector('.' + _classesJs2['default'].BASE_STYLES);
 
-        return el;
-    },
+            if (!baseStyle) {
+                head.appendChild(el);
+            }
 
-    /**
-     * ## setDomain
-     *
-     * takes pieces of the domainConfig and builds the domain
-     *
-     * @return _String_ domain address
-     */
-    setDomain: function setDomain() {
-        var embed = domainConfig.embed;
+            if (domainConfig.embed.customFontUrl) {
+                this.includeFonts(head);
+            }
 
-        if (self.domain) {
-            return self.domain;
-        } else if (self.linkDomain) {
-            return self.domain = self.linkDomain;
-        } else if (embed) {
-            return self.domain = embed.magazineUrl + '/' + embed.rootPath;
-        } else {
-            throw 'Styla Widget error: No domain defined or bad domain config';
+            return el;
         }
-    }
-};
 
-exports['default'] = build;
+        /**
+         * ## includeFonts
+         *
+         * includes the webfonts link element
+         *
+         * @return _DOMElement_ link element
+         */
+    }, {
+        key: 'includeFonts',
+        value: function includeFonts() {
+            var el = document.createElement('link');
+            el.type = 'text/css';
+            el.rel = 'stylesheet';
+            var fontUrl = domainConfig.embed.customFontUrl;
+            el.href = fontUrl.indexOf('//') !== -1 ? fontUrl : '//' + fontUrl;
+
+            document.head.appendChild(el);
+
+            return el;
+        }
+
+        /**
+         * ## setDomain
+         *
+         * takes pieces of the domainConfig and builds the domain
+         *
+         * @return _String_ domain address
+         */
+    }, {
+        key: 'setDomain',
+        value: function setDomain() {
+            var embed = domainConfig.embed;
+            var context = this.context;
+
+            if (context.domain) {
+                return context.domain;
+            } else if (context.linkDomain) {
+                return context.domain = context.linkDomain;
+            } else if (embed) {
+                return context.domain = embed.magazineUrl + '/' + embed.rootPath;
+            } else {
+                throw 'Styla Widget error: No domain defined or bad domain config';
+            }
+        }
+    }]);
+
+    return Build;
+})();
+
+;
+
+exports['default'] = Build;
 module.exports = exports['default'];
+
+/**
+ * ## buildStory
+ *
+ * builds each story off the retrieved json.  skips a story if the id matches ignore.  
+ * no matter what it will always build the number of stories set in the limit
+ *
+ * @param {Object} json image data
+ * @param {Number} i iterator
+ *
+ * @return _DOMElement_ outer story element
+ */
 
 },{"./classes.js":4,"microbejs/dist/microbe.http.min":1}],4:[function(require,module,exports){
 /**
@@ -545,7 +590,7 @@ module.exports = {
 },{}],5:[function(require,module,exports){
 'use strict';
 
-module.exports = '0.4.9';
+module.exports = '1.0.2';
 
 },{}],6:[function(require,module,exports){
 'use strict';
@@ -560,17 +605,13 @@ var _unitBuildTest = require('./unit/buildTest');
 
 var _unitBuildTest2 = _interopRequireDefault(_unitBuildTest);
 
-var windowOnload = window.onload;
-
 window.onload = function () {
-   windowOnload();
+    var widget = window.stylaWidget;
 
-   var widget = window.stylaWidget;
+    document.getElementsByTagName('TITLE')[0].textContent = 'StylaWidget - ' + widget.version;
 
-   document.getElementsByTagName('TITLE')[0].textContent = 'StylaWidget - ' + widget.version;
-
-   (0, _unitVersionTest2['default'])(widget);
-   (0, _unitBuildTest2['default'])(widget);
+    (0, _unitVersionTest2['default'])(widget);
+    (0, _unitBuildTest2['default'])(widget);
 };
 
 },{"./unit/buildTest":7,"./unit/versionTest":8}],7:[function(require,module,exports){
