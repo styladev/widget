@@ -1,4 +1,4 @@
-Styla Widget  1.0.2
+Styla Widget  1.0.3
 =======
 
 
@@ -148,6 +148,11 @@ This project adheres to the [Contributor Covenant](http://contributor-covenant.o
 Change log
 ==========
 
+### 1.0.3
+
+    + timestamp added to container for multiple styling
+
+
 ### 1.0.2
 
     + list.min.js is now included in `npm i` calls
@@ -162,48 +167,6 @@ Change log
 
     + build is now a constructor
     + implementation changes to allow for multiple widgets on one page
-
-
-### 0.4.9
-
-    + i a !
-    + this.els changed to this.refs for readability
-
-
-### 0.4.8
-
-    + moved this.wrapper and this.container to this.els
-
-
-### 0.4.7
-
-    + better handling of empty story text
-    + tests updated
-    + inital load changes
-
-
-### 0.4.4
-
-    + removed margins for related stories
-
-
-### 0.4.2
-
-    + docs updated
-
-
-### 0.4.1
-
-    + center images vertically and horizontally with no cropping
-
-
-### 0.4.0
-
-    + styles and structure altered slightly
-    + size changed to imageSize
-    + feed changed to all
-    + adjusted theme-style insertion
-    + added domain option
 
 
 Older Changes

@@ -17,7 +17,6 @@ const specificStyles    = `styla-build-specific-css-goes-here`;
 const wrapperID         = `styla-widget`;
 const _reportError      = function( e ){ console.log( `err`, e ) };
 
-
 /*
     retrieved and parsed domain config.  this is declared here to keep it out
     of the global object, yet accessible.
@@ -32,7 +31,6 @@ let ignored = 0;
 
 class Build
 {
-
     /**
      * ## buildHeadline
      *
@@ -289,7 +287,8 @@ class Build
         if ( theme )
         {
             css =
-                `.${classes.HEADLINE}, .${classes.TITLE}
+                `.styla-widget-${this.now} .${classes.HEADLINE}, 
+                .styla-widget-${this.now} .${classes.TITLE}
                 {
                     font-family:        ${theme.hff};
                     font-weight:        ${theme.hfw};
@@ -298,13 +297,13 @@ class Build
                     letter-spacing:     ${theme.hls};
                     color:              ${theme.htc};
                 }
-                .${classes.PARAGRAPH}
+                .styla-widget-${this.now} .${classes.PARAGRAPH}
                 {
                     font-family:        ${theme.sff};
                     font-weight:        ${theme.sfw};
                     color:              ${theme.stc};
                 }
-                .${classes.PARAGRAPH}:after
+                .styla-widget-${this.now} .${classes.PARAGRAPH}:after
                 {
                     content:            '${theme.strm}';
                     font-weight:        ${theme.strmw};
@@ -330,13 +329,14 @@ class Build
      */
     constructor( context, stories )
     {
-        this.context = context;
+        this.context    = context;
+        this.now        = Date.now();
 
         if ( !context.refs.wrapper )
         {
             context.stories    = JSON.parse( stories );
 
-            let container   = context.refs.container = this.create( `DIV`, classes.CONTAINER );
+            let container   = context.refs.container = this.create( `DIV`, `${classes.CONTAINER}  styla-widget-${this.now}` );
             let wrapper     = context.refs.wrapper   = this.create( `DIV`, classes.WRAPPER );
             wrapper.id      = wrapperID;
 
