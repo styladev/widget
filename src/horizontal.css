@@ -7,7 +7,9 @@
     -webkit-flex-direction:             row;
     -moz-flex-direction:                row;
     flex-wrap:                          wrap;
-    justify-content:                    space-around;
+    -moz-flex-wrap:                     wrap;
+    -webkit-flex-wrap:                  wrap;
+
     height:                             16em;
 }
 
@@ -20,6 +22,8 @@
     display:                            block;
     float:                              left;
     flex-grow:                          1;
+    -moz-flex-grow:                     1;
+    -webkit-flex-grow:                  1;
 }
 
 #styla-widget .styla-widget__link
