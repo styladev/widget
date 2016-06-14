@@ -1,4 +1,4 @@
-Styla Widget  1.0.3
+Styla Widget  1.0.4
 =======
 
 
@@ -147,6 +147,11 @@ This project adheres to the [Contributor Covenant](http://contributor-covenant.o
 
 Change log
 ==========
+
+### 1.0.4
+
+    + theme style tags now get a class for their format
+
 
 ### 1.0.3
 
