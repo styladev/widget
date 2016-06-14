@@ -12,6 +12,7 @@ module.exports = {
     IMAGE               : 'styla-widget__image',
     IMAGE_WRAPPER       : 'styla-widget__imagewrap',
     PARAGRAPH           : 'styla-widget__paragraph',
+    PARAGRAPH_AFTER     : 'styla-widget__paragraph-after',
     STORY               : 'styla-widget__story',
     STORY_LINK          : 'styla-widget__link',
     STYLES              : 'styla-widget__styling',

@@ -152,6 +152,8 @@ Change log
 
     + timestamp added to container for multiple styling
     + format added for multiple styles per page
+    + added horizontal and tiled style
+    + always showing read more indicatior
 
 
 ### 1.0.2

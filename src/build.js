@@ -78,13 +78,13 @@ class Build
 
         let url                 = this.getImageUrl( imgObj.fileName, imageSize );
 
-        let image               = create( `img`, classes.IMAGE );        
+        let image               = create( `img`, classes.IMAGE );
         image.src               = url;
         image.alt               = imgObj.caption || title;
         image.title             = title;
 
         imageWrapper.appendChild( image );
-        
+
         return imageWrapper;
     }
 
@@ -136,7 +136,7 @@ class Build
     /**
      * ## buildStory
      *
-     * builds each story off the retrieved json.  skips a story if the id matches ignore.  
+     * builds each story off the retrieved json.  skips a story if the id matches ignore.
      * no matter what it will always build the number of stories set in the limit
      *
      * @param {Object} json image data
@@ -159,7 +159,7 @@ class Build
             if ( context.newTab )
             {
                 storyLink.setAttribute( `target`, `_blank` );
-            } 
+            }
             else if ( context.iframe )
             {
                 storyLink.setAttribute( `target`, `_top` );
@@ -208,7 +208,7 @@ class Build
 
         let paragraph       = create( `div`,    classes.PARAGRAPH );
         description         = this.getDescription( JSON.parse( description ) );
-        
+
         if ( description )
         {
             paragraph.innerHTML = description;
@@ -216,6 +216,9 @@ class Build
         }
 
         textWrapper.appendChild( paragraph );
+
+        let paragraphAfter  = create( `div`,    classes.PARAGRAPH_AFTER );
+        textWrapper.appendChild( paragraphAfter );
 
         return textWrapper;
     }
@@ -287,7 +290,7 @@ class Build
         if ( theme )
         {
             css =
-                `.styla-widget-${this.now} .${classes.HEADLINE}, 
+                `.styla-widget-${this.now} .${classes.HEADLINE},
                 .styla-widget-${this.now} .${classes.TITLE}
                 {
                     font-family:        ${theme.hff};
@@ -297,13 +300,13 @@ class Build
                     letter-spacing:     ${theme.hls};
                     color:              ${theme.htc};
                 }
-                .styla-widget-${this.now} .${classes.PARAGRAPH}
+                .styla-widget-${this.now} .${classes.PARAGRAPH}, .styla-widget-${this.now} .${classes.PARAGRAPH_AFTER}
                 {
                     font-family:        ${theme.sff};
                     font-weight:        ${theme.sfw};
                     color:              ${theme.stc};
                 }
-                .styla-widget-${this.now} .${classes.PARAGRAPH}:after
+                .styla-widget-${this.now} .${classes.PARAGRAPH_AFTER}:after
                 {
                     content:            '${theme.strm}';
                     font-weight:        ${theme.strmw};
@@ -315,7 +318,7 @@ class Build
         el.className    = `${classes.THEME_STYLES}`;
 
         this.context.refs.themeStyle = el;
-        
+
         return el;
     }
 
