@@ -1,28 +1,25 @@
 #styla-widget .styla-widget__container {
-    padding:                            1em 2em;
+    padding:                            1em;
     display:                            -moz-flex;
     display:                            -webkit-flex;
     display:                            flex;
-    flex-direction:                     column;
-    -webkit-flex-direction:             column;
-    -moz-flex-direction:                column;
+    flex-direction:                     row;
+    -webkit-flex-direction:             row;
+    -moz-flex-direction:                row;
     flex-wrap:                          wrap;
-    -webkit-flex-wrap:                  wrap;
-    -moz-flex-wrap:                     wrap;
+    justify-content:                    space-around;
+    height:                             16em;
 }
 
 #styla-widget .styla-widget__story
 {
 
-    margin-right:                       2em;
+    margin:                             0 2em 1em;
     height:                             14em;
-    width:                              100%;
+    width:                              24em;
+    display:                            block;
+    float:                              left;
     flex-grow:                          1;
-}
-
-#styla-widget .styla-widget__story:nth-child(even)
-{
-    text-align:                         right;
 }
 
 #styla-widget .styla-widget__link
@@ -49,29 +46,12 @@
     float:                              left;
 }
 
-#styla-widget .styla-widget__story:nth-child(even) .styla-widget__imagewrap
-{
-    margin:                             0 0 0 6%;
-    float:                              right;
-    clear:                              both;
-    order:                              2
-}
-
-
 #styla-widget .styla-widget__textwrap
 {
     display:                            block;
-    flex-grow:                          1;
-    -webkit-flex-grow:                  1;
-    -moz-flex-grow:                     1;
     max-height:                         100%;
     overflow:                           hidden;
     float:                              left;
-}
-
-#styla-widget .styla-widget__story:nth-child(even) .styla-widget__textwrap
-{
-    float:                              right;
 }
 
 #styla-widget .styla-widget__headlinewrap
