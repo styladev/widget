@@ -36,6 +36,8 @@ import Build    from './build.js';
 
 import { http } from 'microbejs/dist/microbe.http.min';
 
+let format  = `styla-widget-format-goes-here`;
+format      = format[0].toUpperCase() + format.slice( 1 );
 
 class StylaWidget
 {
@@ -194,7 +196,7 @@ class StylaWidget
     }
 };
 
-window.StylaWidget = StylaWidget;
+window[ `StylaWidget_${format}` ] = StylaWidget;
 
 
 export default StylaWidget;

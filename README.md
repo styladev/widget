@@ -151,6 +151,7 @@ Change log
 ### 1.0.3
 
     + timestamp added to container for multiple styling
+    + format added for multiple styles per page
 
 
 ### 1.0.2

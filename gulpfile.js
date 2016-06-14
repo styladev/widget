@@ -96,6 +96,7 @@ var insertStyles = function( target = 'list', file = 'list.min.js', suffix = '.m
     
     return _g.pipe( replace( 'styla-widget-css-goes-here', stylesCss ) )
             .pipe( replace( 'styla-build-specific-css-goes-here', specificCss ) )
+            .pipe( replace( 'styla-widget-format-goes-here', target ) )
             .pipe( rename( `${target}${suffix}.js` ) )
             .pipe( gulp.dest( `./${folder}/` ) );
 };
