@@ -6,7 +6,7 @@
 },{}],2:[function(require,module,exports){
 module.exports={
   "name": "stylaWidget",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "contributors": [
     "Mouse Braun <mouse@styla.com>",
     "Elias Liedholm <elias@styla.com>"
@@ -613,7 +613,7 @@ module.exports = {
 },{}],5:[function(require,module,exports){
 'use strict';
 
-module.exports = '1.0.4';
+module.exports = '1.0.5';
 
 },{}],6:[function(require,module,exports){
 'use strict';
