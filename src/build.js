@@ -495,7 +495,8 @@ class Build
         let embed   = this.domainConfig.embed;
         let context = this.context;
 
-
+        let domain;
+        
         if ( !context.domain )
         {
             if ( context.linkDomain )

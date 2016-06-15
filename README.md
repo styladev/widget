@@ -1,4 +1,4 @@
-Styla Widget  1.0.8
+Styla Widget  1.0.9
 =======
 
 
@@ -153,7 +153,7 @@ This project adheres to the [Contributor Covenant](http://contributor-covenant.o
 Change log
 ==========
 
-### 1.0.8
+### 1.0.9
 
     + updated setDomain to be more robust
 
