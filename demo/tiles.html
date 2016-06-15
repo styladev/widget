@@ -7,10 +7,24 @@
         <style>
             body
             {
-                text-align:             center;
                 margin:                 0 auto;
                 background:             #eee;
                 height:                 100vh;
+            }
+
+            .label
+            {
+                display:                block;
+                width:                  90%;
+                margin:                 3em auto 0em;
+                font-family:            sans-serif;
+            }
+
+            .target
+            {
+                margin:                 1em auto 2em;
+                display:                block;
+                position:               relative;
             }
 
             .styla-widget__target
@@ -18,23 +32,58 @@
                 text-align:             left;
                 background:             #FFF;
                 box-shadow:             3px 3px 0px #ccc;
+
+                min-height:             16em;
+                min-width:              16em;
+                width:                  90vw;
+                height:                 22.5vw;
+            }
+
+            .styla-widget__target-2
+            {
+                text-align:             left;
+                background:             #FFF;
+                box-shadow:             3px 3px 0px #ccc;
                 height:                 20em;
-                top:                    5%;
-                position:               relative;
-                display:                inline-block;
-                margin:                 0 1em;
+            }
+
+            .styla-widget__target-3
+            {
+                text-align:             left;
+                background:             #FFF;
+                box-shadow:             3px 3px 0px #ccc;
+                height:                 20em;
             }
         </style>
     </head>
     <body>
-        <div class="styla-widget__target" style="width: 90%;"></div>
+        <div class="label">Square</div>
+        <div class="target styla-widget__target"></div>
+        <div class="label">Portrait</div>
+        <div class="target styla-widget__target-2" style="width: 90%;"></div>
+        <div class="label">Landscape</div>
+        <div class="target styla-widget__target-3" style="width: 90%;"></div>
         <script src="../dist/tiles.js"></script>
         <script>
             new StylaWidget_Tiles( {
                 newTab  : true,
-                slug    : 'braunhamburg',
+                slug    : 'consulting-beauty',
                 target  : '.styla-widget__target',
                 limit   : 4
+            } );
+
+            new StylaWidget_Tiles( {
+                newTab  : true,
+                slug    : 'styla-menfashion',
+                target  : '.styla-widget__target-2',
+                limit   : 8
+            } );
+
+            new StylaWidget_Tiles( {
+                newTab  : true,
+                slug    : 'styla-homedecor',
+                target  : '.styla-widget__target-3',
+                limit   : 3
             } );
         </script>
     </body>

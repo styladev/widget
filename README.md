@@ -1,4 +1,4 @@
-Styla Widget  1.0.4
+Styla Widget  1.0.5
 =======
 
 
@@ -152,6 +152,11 @@ This project adheres to the [Contributor Covenant](http://contributor-covenant.o
 
 Change log
 ==========
+
+### 1.0.5
+
+    + gitignore changed to clean up dist dir (release branch)
+
 
 ### 1.0.4
 
