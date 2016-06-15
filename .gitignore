@@ -21,9 +21,4 @@ npm-debug.log
 tests/tests.dist.js
 demo/demoDist.js
 
-
-dist/stories.js
-dist/stories.min.css
-dist/styles.min.css
-dist/widget.js
-dist/widget.min.css
+dist/*.min.css
