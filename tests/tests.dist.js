@@ -6,7 +6,7 @@
 },{}],2:[function(require,module,exports){
 module.exports={
   "name": "stylaWidget",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "contributors": [
     "Mouse Braun <mouse@styla.com>",
     "Elias Liedholm <elias@styla.com>"
@@ -33,6 +33,7 @@ module.exports={
     "connect": "^3.4.0",
     "docker": "git://github.com/nicolasbrugneaux/docker.git#patch-1",
     "gulp": "^3.9.0",
+    "gulp-css-wrap": "^0.1.2",
     "gulp-header": "^1.7.1",
     "gulp-minify-css": "^1.2.4",
     "gulp-rename": "^1.2.2",
@@ -283,15 +284,17 @@ var Build = (function () {
         value: function compileStyles() {
             var theme = domainConfig.theme;
             var css = '';
+            var now = this.now;
+            var context = this.context;
 
             if (theme) {
-                css = '.styla-widget-' + this.now + ' .' + _classesJs2['default'].HEADLINE + ',\n                .styla-widget-' + this.now + ' .' + _classesJs2['default'].TITLE + '\n                {\n                    font-family:        ' + theme.hff + ';\n                    font-weight:        ' + theme.hfw + ';\n                    font-style:         ' + theme.hfs + ';\n                    text-decoration:    ' + theme.htd + ';\n                    letter-spacing:     ' + theme.hls + ';\n                    color:              ' + theme.htc + ';\n                }\n                .styla-widget-' + this.now + ' .' + _classesJs2['default'].PARAGRAPH + ', .styla-widget-' + this.now + ' .' + _classesJs2['default'].PARAGRAPH_AFTER + '\n                {\n                    font-family:        ' + theme.sff + ';\n                    font-weight:        ' + theme.sfw + ';\n                    color:              ' + theme.stc + ';\n                }\n                .styla-widget-' + this.now + ' .' + _classesJs2['default'].PARAGRAPH_AFTER + ':after\n                {\n                    content:            \'' + theme.strm + '\';\n                    font-weight:        ' + theme.strmw + ';\n                    text-decoration:    ' + theme.strmd + ';\n                }';
+                css = '.styla-widget-' + now + ' .' + _classesJs2['default'].HEADLINE + ',\n                .styla-widget-' + now + ' .' + _classesJs2['default'].TITLE + '\n                {\n                    font-family:        ' + theme.hff + ';\n                    font-weight:        ' + theme.hfw + ';\n                    font-style:         ' + theme.hfs + ';\n                    text-decoration:    ' + theme.htd + ';\n                    letter-spacing:     ' + theme.hls + ';\n                    color:              ' + theme.htc + ';\n                }\n                .styla-widget-' + now + ' .' + _classesJs2['default'].PARAGRAPH + ', .styla-widget-' + now + ' .' + _classesJs2['default'].PARAGRAPH_AFTER + '\n                {\n                    font-family:        ' + theme.sff + ';\n                    font-weight:        ' + theme.sfw + ';\n                    color:              ' + theme.stc + ';\n                }\n                .styla-widget-' + now + ' .' + _classesJs2['default'].PARAGRAPH_AFTER + ':after\n                {\n                    content:            \'' + theme.strm + '\';\n                    font-weight:        ' + theme.strmw + ';\n                    text-decoration:    ' + theme.strmd + ';\n                }';
             }
 
             var el = this.buildStyleTag(css);
-            el.className = '' + _classesJs2['default'].THEME_STYLES;
+            el.className = _classesJs2['default'].THEME_STYLES + '  styla-widget__' + context.format;
 
-            this.context.refs.themeStyle = el;
+            context.refs.themeStyle = el;
 
             return el;
         }
@@ -349,7 +352,7 @@ var Build = (function () {
             var id = _ref.id;
 
             var context = _this.context;
-
+            console.log('' + context.ignore, '!==', '' + id, '&&', i, '-', ignored, '<', context.limit);
             if ('' + context.ignore !== '' + id && i - ignored < context.limit) {
                 var create = _this.create;
 
@@ -387,9 +390,10 @@ var Build = (function () {
 
         if (!context.refs.wrapper) {
             context.stories = JSON.parse(stories);
+            var format = context.format.toLowerCase();
 
             var container = context.refs.container = this.create('DIV', _classesJs2['default'].CONTAINER + '  styla-widget-' + this.now);
-            var wrapper = context.refs.wrapper = this.create('DIV', _classesJs2['default'].WRAPPER);
+            var wrapper = context.refs.wrapper = this.create('DIV', _classesJs2['default'].WRAPPER + '  ' + format);
             wrapper.id = wrapperID;
 
             var domainConfigAPI = 'https://live.styla.com/api/config/';
@@ -440,10 +444,13 @@ var Build = (function () {
             var i = arguments.length <= 1 || arguments[1] === undefined ? 0 : arguments[1];
 
             var text = arr[i];
+            var el = this.create('div');
+            el.innerHTML = text.content;
+            var actualText = el.textContent;
 
             if (!text) {
                 return false;
-            } else if (text.type !== 'text') {
+            } else if (text.type !== 'text' || actualText === '') {
                 return this.getDescription(arr, i + 1);
             }
 
@@ -478,23 +485,32 @@ var Build = (function () {
     }, {
         key: 'includeBaseStyles',
         value: function includeBaseStyles(css) {
+            var self = this;
+            var context = this.context;
+            var formatCaps = context.format.toUpperCase();
             var head = document.head;
-            var el = this.buildStyleTag(css || baseStyles + specificStyles);
-            el.className = '' + _classesJs2['default'].BASE_STYLES;
 
-            this.context.refs.baseStyle = el;
+            function _addBaseStyle(css, _class, _format) {
+                var el = self.buildStyleTag(css);
+                el.className = _class;
 
-            var baseStyle = head.querySelector('.' + _classesJs2['default'].BASE_STYLES);
+                context.refs[_format + 'Style'] = el;
 
-            if (!baseStyle) {
-                head.appendChild(el);
+                var baseStyle = head.querySelector('.' + _class);
+
+                if (!baseStyle) {
+                    head.appendChild(el);
+                }
+
+                return el;
             }
+
+            _addBaseStyle(css || baseStyles, _classesJs2['default'].BASE_STYLES, 'base');
+            _addBaseStyle(specificStyles, _classesJs2['default'][formatCaps + '_STYLES'], context.format);
 
             if (domainConfig.embed.customFontUrl) {
                 this.includeFonts(head);
             }
-
-            return el;
         }
 
         /**
@@ -574,6 +590,10 @@ module.exports = exports['default'];
 
 module.exports = {
     BASE_STYLES: 'styla-widget__base-styling',
+    TILES_STYLES: 'styla-widget__tiles-styling',
+    LIST_STYLES: 'styla-widget__list-styling',
+    HORIZONTAL_STYLES: 'styla-widget__horizontal-styling',
+    STORIES_STYLES: 'styla-widget__stories-styling',
     CONTAINER: 'styla-widget__container',
     HEADLINE: 'styla-widget__headline',
     HEADLINE_WRAPPER: 'styla-widget__headlinewrap',
@@ -593,7 +613,7 @@ module.exports = {
 },{}],5:[function(require,module,exports){
 'use strict';
 
-module.exports = '1.0.3';
+module.exports = '1.0.4';
 
 },{}],6:[function(require,module,exports){
 'use strict';

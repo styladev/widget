@@ -1,12 +1,12 @@
 /*!
- * Styla bite-sized widget v1.0.3
+ * Styla bite-sized widget v1.0.4
  * https://github.com/styladev/widget
  *
  * Copyright 2016 Styla GmbH and other contributors
  * Released under the MIT license
  * https://github.com/styladev/widget/blob/master/license.md
  *
- * Date: Tue Jun 14 2016
+ * Date: Wed Jun 15 2016
  * */
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 (function (global){
@@ -184,6 +184,7 @@ var StylaWidget = (function () {
             throw 'Styla Widget error: No slug defined, cannot render widget';
         }
 
+        this.format = format;
         this.refs = {};
         this.api = api;
         this.domain = domain;
@@ -282,7 +283,7 @@ var _microbejsDistMicrobeHttpMin = require('microbejs/dist/microbe.http.min');
     exchanged for css in the gulp build
  */
 var baseStyles = '#styla-widget p{margin:0}#styla-widget.styla-widget__wrapper{width:100%;height:100%}#styla-widget .styla-widget__container{box-sizing:border-box;position:relative;overflow:hidden;height:100%;width:100%;min-height:14em;font-size:14px}#styla-widget .styla-widget__story{margin-bottom:1em;position:relative}#styla-widget .styla-widget__link{position:absolute;width:100%;display:-moz-flex;display:-webkit-flex;display:flex;text-decoration:none;color:inherit}#styla-widget__link>div{display:inline-block}#styla-widget .styla-widget__image{max-height:100%;max-width:100%;height:100%;object-fit:contain}#styla-widget .styla-widget__textwrap{display:block;flex-grow:1;-webkit-flex-grow:1;-moz-flex-grow:1;max-height:100%;overflow:hidden;float:left}#styla-widget .styla-widget__headlinewrap{display:flex;flex-direction:column;justify-content:flex-end;-webkit-justify-content:flex-end;-moz-justify-content:flex-end}#styla-widget .styla-widget__headline,#styla-widget .styla-widget__title{line-height:1.25em;max-height:2.5em;overflow:hidden}#styla-widget .styla-widget__title{font-size:2em;text-align:center;margin-bottom:30px}#styla-widget .styla-widget__paragraph{font-size:1em;line-height:1.5em;overflow:hidden;position:relative;word-wrap:break-word}';
-var specificStyles = '#styla-widget .styla-widget__container{padding:1em;display:-moz-flex;display:-webkit-flex;display:flex;flex-direction:row;-webkit-flex-direction:row;-moz-flex-direction:row;flex-wrap:wrap;-moz-flex-wrap:wrap;-webkit-flex-wrap:wrap;height:16em}#styla-widget .styla-widget__story{margin:0 2em 1em;height:14em;width:24em;display:block;float:left;flex-grow:1;-moz-flex-grow:1;-webkit-flex-grow:1}#styla-widget .styla-widget__link{height:14em;top:50%;margin-top:-7em;align-items:center}#styla-widget .styla-widget__imagewrap{display:block;vertical-align:top;flex-grow:1;-webkit-flex-grow:1;-moz-flex-grow:1;height:100%;margin:0 6% 0 0;flex:none;-webkit-flex:none;-moz-flex:none;max-width:40%;float:left}#styla-widget .styla-widget__textwrap{display:block;max-height:100%;overflow:hidden;float:left}#styla-widget .styla-widget__headlinewrap{height:5em;display:-moz-flex;display:-webkit-flex;display:flex;flex-direction:column;-webkit-flex-direction:column;-moz-flex-direction:column;justify-content:flex-end;-webkit-justify-content:flex-end;-moz-justify-content:flex-end}#styla-widget .styla-widget__headline{font-size:1.9em;line-height:1.25em;max-height:2.5em;overflow:hidden;margin:0 0 .25em;word-wrap:break-word;text-overflow:ellipsis;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2}#styla-widget .styla-widget__paragraph{font-size:1em;line-height:1.5em;max-height:7.5em;overflow:hidden;position:relative;word-wrap:break-word}#styla-widget .styla-widget__paragraph-after{line-height:1.5em}#styla-widget .styla-widget__paragraph p+p{display:none}';
+var specificStyles = '#styla-widget.horizontal .styla-widget__container{padding:1em;display:-moz-flex;display:-webkit-flex;display:flex;flex-direction:row;-webkit-flex-direction:row;-moz-flex-direction:row;flex-wrap:wrap;-moz-flex-wrap:wrap;-webkit-flex-wrap:wrap;height:16em}#styla-widget.horizontal .styla-widget__story{margin:0 2em 1em;height:14em;width:24em;display:block;float:left;flex-grow:1;-moz-flex-grow:1;-webkit-flex-grow:1}#styla-widget.horizontal .styla-widget__link{height:14em;top:50%;margin-top:-7em;align-items:center}#styla-widget.horizontal .styla-widget__imagewrap{display:block;vertical-align:top;flex-grow:1;-webkit-flex-grow:1;-moz-flex-grow:1;height:100%;margin:0 6% 0 0;flex:none;-webkit-flex:none;-moz-flex:none;max-width:40%;float:left}#styla-widget.horizontal .styla-widget__textwrap{display:block;max-height:100%;overflow:hidden;float:left}#styla-widget.horizontal .styla-widget__headlinewrap{height:5em;display:-moz-flex;display:-webkit-flex;display:flex;flex-direction:column;-webkit-flex-direction:column;-moz-flex-direction:column;justify-content:flex-end;-webkit-justify-content:flex-end;-moz-justify-content:flex-end}#styla-widget.horizontal .styla-widget__headline{font-size:1.9em;line-height:1.25em;max-height:2.5em;overflow:hidden;margin:0 0 .25em;word-wrap:break-word;text-overflow:ellipsis;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2}#styla-widget.horizontal .styla-widget__paragraph{font-size:1em;line-height:1.5em;max-height:7.5em;overflow:hidden;position:relative;word-wrap:break-word}#styla-widget.horizontal .styla-widget__paragraph-after{line-height:1.5em}#styla-widget.horizontal .styla-widget__paragraph p+p{display:none}';
 var wrapperID = 'styla-widget';
 var _reportError = function _reportError(e) {
     console.log('err', e);
@@ -468,15 +469,17 @@ var Build = (function () {
         value: function compileStyles() {
             var theme = domainConfig.theme;
             var css = '';
+            var now = this.now;
+            var context = this.context;
 
             if (theme) {
-                css = '.styla-widget-' + this.now + ' .' + _classesJs2['default'].HEADLINE + ',\n                .styla-widget-' + this.now + ' .' + _classesJs2['default'].TITLE + '\n                {\n                    font-family:        ' + theme.hff + ';\n                    font-weight:        ' + theme.hfw + ';\n                    font-style:         ' + theme.hfs + ';\n                    text-decoration:    ' + theme.htd + ';\n                    letter-spacing:     ' + theme.hls + ';\n                    color:              ' + theme.htc + ';\n                }\n                .styla-widget-' + this.now + ' .' + _classesJs2['default'].PARAGRAPH + ', .styla-widget-' + this.now + ' .' + _classesJs2['default'].PARAGRAPH_AFTER + '\n                {\n                    font-family:        ' + theme.sff + ';\n                    font-weight:        ' + theme.sfw + ';\n                    color:              ' + theme.stc + ';\n                }\n                .styla-widget-' + this.now + ' .' + _classesJs2['default'].PARAGRAPH_AFTER + ':after\n                {\n                    content:            \'' + theme.strm + '\';\n                    font-weight:        ' + theme.strmw + ';\n                    text-decoration:    ' + theme.strmd + ';\n                }';
+                css = '.styla-widget-' + now + ' .' + _classesJs2['default'].HEADLINE + ',\n                .styla-widget-' + now + ' .' + _classesJs2['default'].TITLE + '\n                {\n                    font-family:        ' + theme.hff + ';\n                    font-weight:        ' + theme.hfw + ';\n                    font-style:         ' + theme.hfs + ';\n                    text-decoration:    ' + theme.htd + ';\n                    letter-spacing:     ' + theme.hls + ';\n                    color:              ' + theme.htc + ';\n                }\n                .styla-widget-' + now + ' .' + _classesJs2['default'].PARAGRAPH + ', .styla-widget-' + now + ' .' + _classesJs2['default'].PARAGRAPH_AFTER + '\n                {\n                    font-family:        ' + theme.sff + ';\n                    font-weight:        ' + theme.sfw + ';\n                    color:              ' + theme.stc + ';\n                }\n                .styla-widget-' + now + ' .' + _classesJs2['default'].PARAGRAPH_AFTER + ':after\n                {\n                    content:            \'' + theme.strm + '\';\n                    font-weight:        ' + theme.strmw + ';\n                    text-decoration:    ' + theme.strmd + ';\n                }';
             }
 
             var el = this.buildStyleTag(css);
-            el.className = '' + _classesJs2['default'].THEME_STYLES;
+            el.className = _classesJs2['default'].THEME_STYLES + '  styla-widget__' + context.format;
 
-            this.context.refs.themeStyle = el;
+            context.refs.themeStyle = el;
 
             return el;
         }
@@ -534,7 +537,7 @@ var Build = (function () {
             var id = _ref.id;
 
             var context = _this.context;
-
+            console.log('' + context.ignore, '!==', '' + id, '&&', i, '-', ignored, '<', context.limit);
             if ('' + context.ignore !== '' + id && i - ignored < context.limit) {
                 var create = _this.create;
 
@@ -572,9 +575,10 @@ var Build = (function () {
 
         if (!context.refs.wrapper) {
             context.stories = JSON.parse(stories);
+            var format = context.format.toLowerCase();
 
             var container = context.refs.container = this.create('DIV', _classesJs2['default'].CONTAINER + '  styla-widget-' + this.now);
-            var wrapper = context.refs.wrapper = this.create('DIV', _classesJs2['default'].WRAPPER);
+            var wrapper = context.refs.wrapper = this.create('DIV', _classesJs2['default'].WRAPPER + '  ' + format);
             wrapper.id = wrapperID;
 
             var domainConfigAPI = 'https://live.styla.com/api/config/';
@@ -625,10 +629,13 @@ var Build = (function () {
             var i = arguments.length <= 1 || arguments[1] === undefined ? 0 : arguments[1];
 
             var text = arr[i];
+            var el = this.create('div');
+            el.innerHTML = text.content;
+            var actualText = el.textContent;
 
             if (!text) {
                 return false;
-            } else if (text.type !== 'text') {
+            } else if (text.type !== 'text' || actualText === '') {
                 return this.getDescription(arr, i + 1);
             }
 
@@ -663,23 +670,32 @@ var Build = (function () {
     }, {
         key: 'includeBaseStyles',
         value: function includeBaseStyles(css) {
+            var self = this;
+            var context = this.context;
+            var formatCaps = context.format.toUpperCase();
             var head = document.head;
-            var el = this.buildStyleTag(css || baseStyles + specificStyles);
-            el.className = '' + _classesJs2['default'].BASE_STYLES;
 
-            this.context.refs.baseStyle = el;
+            function _addBaseStyle(css, _class, _format) {
+                var el = self.buildStyleTag(css);
+                el.className = _class;
 
-            var baseStyle = head.querySelector('.' + _classesJs2['default'].BASE_STYLES);
+                context.refs[_format + 'Style'] = el;
 
-            if (!baseStyle) {
-                head.appendChild(el);
+                var baseStyle = head.querySelector('.' + _class);
+
+                if (!baseStyle) {
+                    head.appendChild(el);
+                }
+
+                return el;
             }
+
+            _addBaseStyle(css || baseStyles, _classesJs2['default'].BASE_STYLES, 'base');
+            _addBaseStyle(specificStyles, _classesJs2['default'][formatCaps + '_STYLES'], context.format);
 
             if (domainConfig.embed.customFontUrl) {
                 this.includeFonts(head);
             }
-
-            return el;
         }
 
         /**
@@ -759,6 +775,10 @@ module.exports = exports['default'];
 
 module.exports = {
     BASE_STYLES: 'styla-widget__base-styling',
+    TILES_STYLES: 'styla-widget__tiles-styling',
+    LIST_STYLES: 'styla-widget__list-styling',
+    HORIZONTAL_STYLES: 'styla-widget__horizontal-styling',
+    STORIES_STYLES: 'styla-widget__stories-styling',
     CONTAINER: 'styla-widget__container',
     HEADLINE: 'styla-widget__headline',
     HEADLINE_WRAPPER: 'styla-widget__headlinewrap',
@@ -778,6 +798,6 @@ module.exports = {
 },{}],5:[function(require,module,exports){
 'use strict';
 
-module.exports = '1.0.3';
+module.exports = '1.0.4';
 
 },{}]},{},[2]);
