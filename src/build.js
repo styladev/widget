@@ -17,12 +17,6 @@ const specificStyles    = `styla-build-specific-css-goes-here`;
 const wrapperID         = `styla-widget`;
 const _reportError      = function( e ){ console.log( `err`, e ) };
 
-/*
-    retrieved and parsed domain config.  this is declared here to keep it out
-    of the global object, yet accessible.
- */
-let domainConfig;
-
 
 class Build
 {
@@ -97,19 +91,20 @@ class Build
      */
     buildStories = ( resDomainConfig, parsedDomainConfig ) =>
     {
-        domainConfig = parsedDomainConfig || JSON.parse( resDomainConfig );
+        let domainConfig = this.domainConfig = parsedDomainConfig || JSON.parse( resDomainConfig );
 
         if ( Object.keys( domainConfig ).length === 0 )
         {
             throw `Styla Widget error: Could not find magazine, please check if slug is configured correctly.`;
         }
-        this.setDomain();
-        this.includeBaseStyles();
 
         let images      = {};
         let context     = this.context;
         let stories     = context.stories;
         let resImages   = stories.images;
+
+        context.domain = this.setDomain();
+        this.includeBaseStyles();
 
         if ( resImages )
         {
@@ -149,6 +144,7 @@ class Build
 
             let story               = create( `div`,    classes.STORY );
             let storyLink           = create( `a`,      classes.STORY_LINK );
+
             storyLink.href          = `//${context.domain}/story/${externalPermalink}/`;
 
             if ( context.newTab )
@@ -251,10 +247,11 @@ class Build
     buildTitle()
     {
         let context     = this.context;
+        let title       = this.domainConfig.title; 
 
-        if ( context.title === true && domainConfig.title )
+        if ( context.title === true && title )
         {
-            context.title = domainConfig.title;
+            context.title = title;
         }
 
         if ( context.title )
@@ -279,7 +276,7 @@ class Build
      */
     compileStyles()
     {
-        let theme   = domainConfig.theme;
+        let theme   = this.domainConfig.theme;
         let css     = ``;
         let now     = this.now;
         let context = this.context;
@@ -458,7 +455,7 @@ class Build
         _addBaseStyle( specificStyles, classes[ `${formatCaps}_STYLES` ], context.format );
 
 
-        if ( domainConfig.embed.customFontUrl )
+        if ( this.domainConfig.embed.customFontUrl )
         {
             this.includeFonts( head );
         }
@@ -477,7 +474,7 @@ class Build
         let el      = document.createElement( `link` );
         el.type     = `text/css`;
         el.rel      = `stylesheet`;
-        let fontUrl = domainConfig.embed.customFontUrl
+        let fontUrl = this.domainConfig.embed.customFontUrl
         el.href     = fontUrl.indexOf( '//' ) !== -1 ? fontUrl : `//${fontUrl}`;
 
         document.head.appendChild( el );
@@ -495,24 +492,28 @@ class Build
      */
     setDomain()
     {
-        let embed   = domainConfig.embed;
+        let embed   = this.domainConfig.embed;
         let context = this.context;
 
-        if ( context.domain )
+
+        if ( !context.domain )
         {
-            return context.domain;
-        }
-        else if ( context.linkDomain )
-        {
-            return context.domain = context.linkDomain;
-        }
-        else if ( embed )
-        {
-            return context.domain = `${embed.magazineUrl}/${embed.rootPath}`;
-        }
-        else
-        {
-            throw `Styla Widget error: No domain defined or bad domain config`;
+            if ( context.linkDomain )
+            {
+                domain = context.linkDomain;
+            }
+            else if ( embed )
+            {
+                domain = `${embed.magazineUrl}/${embed.rootPath}`;
+            }
+            else
+            {
+                throw `Styla Widget error: No domain defined or bad domain config`;
+            }
+
+            domain = domain.replace( /(http(s)?(:)?)?\/\//, '//' );
+            
+            return context.domain = domain;
         }
     }
 };
