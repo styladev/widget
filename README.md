@@ -1,4 +1,4 @@
-Styla Widget  1.0.7
+Styla Widget  1.0.8
 =======
 
 
@@ -153,7 +153,13 @@ This project adheres to the [Contributor Covenant](http://contributor-covenant.o
 Change log
 ==========
 
+### 1.0.8
+
+    + updated setDomain to be more robust
+
+
 ### 1.0.7
+
     + added css prefixes for IE
     + fixed an issue where ignored stories were added anyways
 
