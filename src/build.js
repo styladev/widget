@@ -23,11 +23,6 @@ const _reportError      = function( e ){ console.log( `err`, e ) };
  */
 let domainConfig;
 
-/*
-    used in tracking ignored stories for the sake of getting the right amount later
- */
-let ignored = 0;
-
 
 class Build
 {
@@ -147,8 +142,8 @@ class Build
     buildStory = ( { title, description, images, externalPermalink, id }, i ) =>
     {
         let context     = this.context;
-        console.log( `${context.ignore}`, '!==', `${id}`, '&&', i, '-', ignored, '<', context.limit );
-        if ( `${context.ignore}` !== `${id}` && i - ignored < context.limit )
+
+        if ( `${context.ignore}` !== `${id}` && i < this.ignored + context.limit )
         {
             let create              = this.create;
 
@@ -180,7 +175,7 @@ class Build
         }
         else
         {
-            ignored++;
+            this.ignored++;
 
             return false;
         }
@@ -336,6 +331,7 @@ class Build
     {
         this.context    = context;
         this.now        = Date.now();
+        this.ignored    = 0;
 
         if ( !context.refs.wrapper )
         {
@@ -392,7 +388,7 @@ class Build
     getDescription( arr, i = 0 )
     {
         let text        = arr[ i ];
-        console.log( text );
+
         if ( !text )
         {
             return false;
