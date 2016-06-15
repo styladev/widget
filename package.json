@@ -1,6 +1,6 @@
 {
   "name": "stylaWidget",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "contributors": [
     "Mouse Braun <mouse@styla.com>",
     "Elias Liedholm <elias@styla.com>"
@@ -27,7 +27,6 @@
     "connect": "^3.4.0",
     "docker": "git://github.com/nicolasbrugneaux/docker.git#patch-1",
     "gulp": "^3.9.0",
-    "gulp-css-wrap": "^0.1.2",
     "gulp-header": "^1.7.1",
     "gulp-minify-css": "^1.2.4",
     "gulp-rename": "^1.2.2",

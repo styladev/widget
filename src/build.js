@@ -392,15 +392,17 @@ class Build
     getDescription( arr, i = 0 )
     {
         let text        = arr[ i ];
-        let el          = this.create( `div` );
-        el.innerHTML    = text.content;
-        let actualText  = el.textContent;
-
+        console.log( text );
         if ( !text )
         {
             return false;
         }
-        else if ( text.type !== `text` || actualText === `` )
+
+        let el          = this.create( `div` );
+        el.innerHTML    = text.content;
+        let actualText  = el.textContent;
+
+        if ( text.type !== `text` || actualText === `` )
         {
             return this.getDescription( arr, i + 1 );
         }

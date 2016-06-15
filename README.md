@@ -1,4 +1,4 @@
-Styla Widget  1.0.5
+Styla Widget  1.0.6
 =======
 
 
@@ -152,6 +152,12 @@ This project adheres to the [Contributor Covenant](http://contributor-covenant.o
 
 Change log
 ==========
+
+### 1.0.6
+
+    + css-wrap removed from package and gulpfile
+    + added a console log to investigate stage
+
 
 ### 1.0.5
 
