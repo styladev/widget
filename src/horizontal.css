@@ -2,13 +2,16 @@
     padding:                            1em;
     display:                            -moz-flex;
     display:                            -webkit-flex;
+    display:                            -ms-flex;
     display:                            flex;
     flex-direction:                     row;
     -webkit-flex-direction:             row;
     -moz-flex-direction:                row;
+    -mz-flex-direction:                 row;
     flex-wrap:                          wrap;
     -moz-flex-wrap:                     wrap;
     -webkit-flex-wrap:                  wrap;
+    -ms-flex-wrap:                      wrap;
 
     height:                             16em;
 }
@@ -23,6 +26,7 @@
     float:                              left;
     flex-grow:                          1;
     -moz-flex-grow:                     1;
+    -ms-flex-grow:                      1;
     -webkit-flex-grow:                  1;
 }
 
@@ -41,11 +45,13 @@
     flex-grow:                          1;
     -webkit-flex-grow:                  1;
     -moz-flex-grow:                     1;
+    -ms-flex-grow:                      1;
     height:                             100%;
     margin:                             0 6% 0 0;
     flex:                               none;
     -webkit-flex:                       none;
     -moz-flex:                          none;
+    -ms-flex:                           none;
     max-width:                          40%;
     float:                              left;
 }
@@ -63,13 +69,16 @@
     height:                             5em;
     display:                            -moz-flex;
     display:                            -webkit-flex;
+    display:                            -ms-flex;
     display:                            flex;
     flex-direction:                     column;
     -webkit-flex-direction:             column;
     -moz-flex-direction:                column;
+    -ms-flex-direction:                 column;
     justify-content:                    flex-end;
     -webkit-justify-content:            flex-end;
     -moz-justify-content:               flex-end;
+    -ms-justify-content:                flex-end;
 }
 
 #styla-widget.horizontal .styla-widget__headline
