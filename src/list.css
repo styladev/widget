@@ -1,4 +1,4 @@
-#styla-widget .styla-widget__container {
+#styla-widget.list .styla-widget__container {
     padding:                            1em 2em;
     display:                            -moz-flex;
     display:                            -webkit-flex;
@@ -11,7 +11,7 @@
     -moz-flex-wrap:                     wrap;
 }
 
-#styla-widget .styla-widget__story
+#styla-widget.list .styla-widget__story
 {
 
     margin-right:                       2em;
@@ -20,12 +20,12 @@
     flex-grow:                          1;
 }
 
-#styla-widget .styla-widget__story:nth-child(even)
+#styla-widget.list .styla-widget__story:nth-child(even)
 {
     text-align:                         right;
 }
 
-#styla-widget .styla-widget__link
+#styla-widget.list .styla-widget__link
 {
     height:                             14em;
     top:                                50%;
@@ -33,7 +33,7 @@
     align-items:                        center;
 }
 
-#styla-widget .styla-widget__imagewrap
+#styla-widget.list .styla-widget__imagewrap
 {
     display:                            block;
     vertical-align:                     top;
@@ -49,7 +49,7 @@
     float:                              left;
 }
 
-#styla-widget .styla-widget__story:nth-child(even) .styla-widget__imagewrap
+#styla-widget.list .styla-widget__story:nth-child(even) .styla-widget__imagewrap
 {
     margin:                             0 0 0 6%;
     float:                              right;
@@ -58,7 +58,7 @@
 }
 
 
-#styla-widget .styla-widget__textwrap
+#styla-widget.list .styla-widget__textwrap
 {
     display:                            block;
     flex-grow:                          1;
@@ -69,12 +69,12 @@
     float:                              left;
 }
 
-#styla-widget .styla-widget__story:nth-child(even) .styla-widget__textwrap
+#styla-widget.list .styla-widget__story:nth-child(even) .styla-widget__textwrap
 {
     float:                              right;
 }
 
-#styla-widget .styla-widget__headlinewrap
+#styla-widget.list .styla-widget__headlinewrap
 {
     height:                             5em;
     display:                            -moz-flex;
@@ -88,7 +88,7 @@
     -moz-justify-content:               flex-end;
 }
 
-#styla-widget .styla-widget__headline
+#styla-widget.list .styla-widget__headline
 {
     font-size:                          1.9em;
     line-height:                        1.25em;
@@ -103,7 +103,7 @@
     -webkit-line-clamp:                 2;
 }
 
-#styla-widget .styla-widget__paragraph
+#styla-widget.list .styla-widget__paragraph
 {
     font-size:                          1em;
     line-height:                        1.5em;
@@ -113,13 +113,13 @@
     word-wrap:                          break-word;
 }
 
-#styla-widget .styla-widget__paragraph-after
+#styla-widget.list .styla-widget__paragraph-after
 {
     line-height:                        1.5em;
 }
 
 /* Multiple paragraphs causes issues when truncating the text */
-#styla-widget .styla-widget__paragraph p + p
+#styla-widget.list .styla-widget__paragraph p + p
 {
     display:                            none;
 }

@@ -6,6 +6,10 @@
  */
 module.exports = {
     BASE_STYLES         : 'styla-widget__base-styling',
+    TILES_STYLES        : 'styla-widget__tiles-styling',
+    LIST_STYLES         : 'styla-widget__list-styling',
+    HORIZONTAL_STYLES   : 'styla-widget__horizontal-styling',
+    STORIES_STYLES      : 'styla-widget__stories-styling',
     CONTAINER           : 'styla-widget__container',
     HEADLINE            : 'styla-widget__headline',
     HEADLINE_WRAPPER    : 'styla-widget__headlinewrap',

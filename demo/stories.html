@@ -10,10 +10,10 @@
     <body>
 
         <div class="styla-widget__target"></div>
+        <script src="../dist/stories.js"></script>
         <script>
-            var d=document;var h=d.head,s=d.createElement('SCRIPT');h.appendChild(s);s.src='../dist/stories.js';var w=window;var f=typeof w.onload==='function'?w.onload:function(){};w.onload=function(e){
-
             new StylaWidget_Stories( {
+                ignore      : 946011,
                 linkDomain  : '//stories.graziashop.com',
                 storiesApi  : '//stories.graziashop.com/api/feeds/popular?offset=0&limit=5&domain=graziashop.com&clientId=GA1.2.936119673.1464615074&_=1464702610275',
                 slug        : 'graziashop.com',
@@ -22,8 +22,6 @@
                 target      : '.styla-widget__target',
                 title       : 'Get your style fix:'
             } );
-
-            f( e );};
         </script>
     </body>
 </html>

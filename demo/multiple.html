@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>Styla Multiple Widget Demo</title>
+
+        <style>
+            body
+            {
+                text-align:             center;
+                margin:                 0 auto;
+                background:             #eee;
+                height:                 100vh;
+            }
+
+            .target
+            {
+                text-align:             left;
+                background:             #FFF;
+                box-shadow:             3px 3px 0px #ccc;
+                position:               relative;
+                display:                inline-block;
+                margin:                 2em;
+            }
+
+            .styla-widget__target-tiles
+            {
+                height:                 20em;
+                width:                  90%;
+            }
+
+            .styla-widget__target-list
+            {
+                height:                 90%;
+                width:                  400px;
+            }
+
+            .styla-widget__target-horizontal
+            {
+                width:                  90%;
+                height:                 14em;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="target styla-widget__target-tiles"></div>
+        <div class="target styla-widget__target-list"></div>
+        <div class="target styla-widget__target-horizontal"></div>
+    </body>
+
+
+    <script src="../dist/list.js"></script>
+    <script src="../dist/tiles.js"></script>
+    <script src="../dist/horizontal.js"></script>
+    <script>
+        new StylaWidget_Tiles( {
+            newTab  : true,
+            slug    : 'braunhamburg',
+            target  : '.styla-widget__target-tiles',
+            limit   : 4
+        } );
+
+        new StylaWidget_List( {
+            newTab  : true,
+            slug    : 'uhrenschmuck24',
+            target  : '.styla-widget__target-list',
+            limit   : 4
+        } );
+
+        new StylaWidget_Horizontal( {
+            newTab  : true,
+            slug    : 'uhrenschmuck24',
+            target  : '.styla-widget__target-horizontal',
+            limit   : 4
+        } );
+    </script>
+</html>

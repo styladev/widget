@@ -1,4 +1,4 @@
-#styla-widget .styla-widget__container {
+#styla-widget.tiles .styla-widget__container {
     display:                            -moz-flex;
     display:                            -webkit-flex;
     display:                            flex;
@@ -11,7 +11,7 @@
     height:                             100%;
 }
 
-#styla-widget .styla-widget__story
+#styla-widget.tiles .styla-widget__story
 {
     height:                             100%;
     min-height:                         14em;
@@ -24,13 +24,13 @@
     overflow:                           hidden;
 }
 
-#styla-widget .styla-widget__link
+#styla-widget.tiles .styla-widget__link
 {
     height:                             100%;
     align-items:                        center;
 }
 
-#styla-widget .styla-widget__imagewrap
+#styla-widget.tiles .styla-widget__imagewrap
 {
     display:                            block;
     position:                           absolute;
@@ -38,13 +38,13 @@
     height:                             100%;
 }
 
-#styla-widget .styla-widget__image
+#styla-widget.tiles .styla-widget__image
 {
     object-fit:                         cover;
     min-width:                          100%;
 }
 
-#styla-widget .styla-widget__textwrap
+#styla-widget.tiles .styla-widget__textwrap
 {
     display:                            block;
     position:                           absolute;
@@ -55,11 +55,11 @@
     background:                         linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 100%);
 }
 
-#styla-widget .styla-widget__story:hover .styla-widget__textwrap {
+#styla-widget.tiles .styla-widget__story:hover .styla-widget__textwrap {
     margin-bottom:                      0;
 }
 
-#styla-widget .styla-widget__headlinewrap
+#styla-widget.tiles .styla-widget__headlinewrap
 {
     height:                             5em;
     display:                            -moz-flex;
@@ -73,7 +73,7 @@
     -moz-justify-content:               flex-end;
 }
 
-#styla-widget .styla-widget__headline
+#styla-widget.tiles .styla-widget__headline
 {
     font-size:                          1.9em;
     line-height:                        1.25em;
@@ -90,20 +90,20 @@
     text-shadow:                        1px 1px 1px rgba(0,0,0,0.65);
 }
 
-#styla-widget .styla-widget__paragraph
+#styla-widget.tiles .styla-widget__paragraph
 {
     height:                             6em;
     color:                              #FFF;
 }
 
-#styla-widget .styla-widget__paragraph-after
+#styla-widget.tiles .styla-widget__paragraph-after
 {
     color:                              #FFF;
     line-height:                        1.5em;
 }
 
 /* Multiple paragraphs causes issues when truncating the text */
-#styla-widget .styla-widget__paragraph p + p
+#styla-widget.tiles .styla-widget__paragraph p + p
 {
     display:                            none;
 }

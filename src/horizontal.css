@@ -1,4 +1,4 @@
-#styla-widget .styla-widget__container {
+#styla-widget.horizontal .styla-widget__container {
     padding:                            1em;
     display:                            -moz-flex;
     display:                            -webkit-flex;
@@ -13,7 +13,7 @@
     height:                             16em;
 }
 
-#styla-widget .styla-widget__story
+#styla-widget.horizontal .styla-widget__story
 {
 
     margin:                             0 2em 1em;
@@ -26,7 +26,7 @@
     -webkit-flex-grow:                  1;
 }
 
-#styla-widget .styla-widget__link
+#styla-widget.horizontal .styla-widget__link
 {
     height:                             14em;
     top:                                50%;
@@ -34,7 +34,7 @@
     align-items:                        center;
 }
 
-#styla-widget .styla-widget__imagewrap
+#styla-widget.horizontal .styla-widget__imagewrap
 {
     display:                            block;
     vertical-align:                     top;
@@ -50,7 +50,7 @@
     float:                              left;
 }
 
-#styla-widget .styla-widget__textwrap
+#styla-widget.horizontal .styla-widget__textwrap
 {
     display:                            block;
     max-height:                         100%;
@@ -58,7 +58,7 @@
     float:                              left;
 }
 
-#styla-widget .styla-widget__headlinewrap
+#styla-widget.horizontal .styla-widget__headlinewrap
 {
     height:                             5em;
     display:                            -moz-flex;
@@ -72,7 +72,7 @@
     -moz-justify-content:               flex-end;
 }
 
-#styla-widget .styla-widget__headline
+#styla-widget.horizontal .styla-widget__headline
 {
     font-size:                          1.9em;
     line-height:                        1.25em;
@@ -87,7 +87,7 @@
     -webkit-line-clamp:                 2;
 }
 
-#styla-widget .styla-widget__paragraph
+#styla-widget.horizontal .styla-widget__paragraph
 {
     font-size:                          1em;
     line-height:                        1.5em;
@@ -97,13 +97,13 @@
     word-wrap:                          break-word;
 }
 
-#styla-widget .styla-widget__paragraph-after
+#styla-widget.horizontal .styla-widget__paragraph-after
 {
     line-height:                        1.5em;
 }
 
 /* Multiple paragraphs causes issues when truncating the text */
-#styla-widget .styla-widget__paragraph p + p
+#styla-widget.horizontal .styla-widget__paragraph p + p
 {
     display:                            none;
 }

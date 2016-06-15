@@ -134,7 +134,8 @@ class StylaWidget
             throw `Styla Widget error: No slug defined, cannot render widget`;
         }
 
-        this.refs        = {};
+        this.format     = format;
+        this.refs       = {};
         this.api        = api;
         this.domain     = domain;
         this.linkDomain = linkDomain;

@@ -1,36 +1,37 @@
 
-#styla-widget .styla-widget__story
+#styla-widget.stories .styla-widget__story
 {
     overflow:                           hidden;
     height:                             5em;
 }
 
 
-#styla-widget .styla-widget__link
+#styla-widget.stories .styla-widget__link
 {
     height:                             5em;
 }
 
 
-#styla-widget__link > div
+#styla-widget.stories__link > div
 {
     display:                            inline-block;
 }
 
-#styla-widget .styla-widget__imagewrap, #styla-widget .styla-widget__image
+#styla-widget.stories .styla-widget__imagewrap, 
+#styla-widget.stories .styla-widget__image
 {
     width:                              85px;
 }
 
 
-#styla-widget .styla-widget__imagewrap
+#styla-widget.stories .styla-widget__imagewrap
 {
     margin:                             0 3% 0 0;
     height:                             100%;
 }
 
 
-#styla-widget .styla-widget__textwrap
+#styla-widget.stories .styla-widget__textwrap
 {
     width:                              calc(100% - 85px);
     display:                            block;
@@ -41,7 +42,7 @@
 }
 
 
-#styla-widget .styla-widget__headlinewrap
+#styla-widget.stories .styla-widget__headlinewrap
 {
     height:                             2em;
     display:                            flex;
@@ -50,7 +51,8 @@
 }
 
 
-#styla-widget .styla-widget__headline, #styla-widget .styla-widget__title
+#styla-widget.stories .styla-widget__headline, 
+#styla-widget.stories .styla-widget__title
 {
     font-size:                          1.4em;
     line-height:                        1.25em;
@@ -66,7 +68,7 @@
 }
 
 
-#styla-widget .styla-widget__title
+#styla-widget.stories .styla-widget__title
 {
     font-size:                          2em;
     text-align:                         center;
@@ -76,7 +78,7 @@
 }
 
 
-#styla-widget .styla-widget__paragraph
+#styla-widget.stories .styla-widget__paragraph
 {
     font-size:                          1em;
     line-height:                        1.5em;
@@ -88,7 +90,7 @@
 }
 
 
-#styla-widget .styla-widget__paragraph:after
+#styla-widget.stories .styla-widget__paragraph:after
 {
     position:                           absolute;
     left:                               0;
