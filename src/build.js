@@ -391,13 +391,16 @@ class Build
      */
     getDescription( arr, i = 0 )
     {
-        let text = arr[ i ];
+        let text        = arr[ i ];
+        let el          = this.create( `div` );
+        el.innerHTML    = text.content;
+        let actualText  = el.textContent;
 
         if ( !text )
         {
             return false;
         }
-        else if ( text.type !== `text` )
+        else if ( text.type !== `text` || actualText === `` )
         {
             return this.getDescription( arr, i + 1 );
         }
