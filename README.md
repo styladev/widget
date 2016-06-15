@@ -16,7 +16,7 @@ Setting up the widget requires only basic HTML knowledge. It's built to adapt
 to the available space it is given.
 
 To use the widget, a client must include this script on their site. Modify the
-slug `MAGAZINE_NAME` to match the name of the magazine.  This code *MUST* be inserted after 
+slug `MAGAZINE_NAME` to match the name of the magazine.  This code *MUST* be inserted after
 the target element.  To be safe, our recommendation is to insert it after the body in the page
 
 ```html
@@ -152,6 +152,9 @@ This project adheres to the [Contributor Covenant](http://contributor-covenant.o
 
 Change log
 ==========
+
+### 1.0.7
+    + added css prefixes for IE
 
 ### 1.0.6
 
