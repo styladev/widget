@@ -13,51 +13,64 @@
                 height:                 100vh;
             }
 
-            .styla-widget__target
+            .target
             {
                 text-align:             left;
                 background:             #FFF;
                 box-shadow:             3px 3px 0px #ccc;
-                height:                 20em;
-                top:                    5%;
                 position:               relative;
                 display:                inline-block;
-                margin:                 0 1em;
+                margin:                 2em;
             }
 
-            .styla-widget__target2
+            .styla-widget__target-tiles
             {
-                text-align:             left;
-                background:             #FFF;
-                box-shadow:             3px 3px 0px #ccc;
+                height:                 20em;
+                width:                  90%;
+            }
+
+            .styla-widget__target-list
+            {
                 height:                 90%;
-                top:                    5%;
-                position:               relative;
-                display:                inline-block;
-                margin:                 0 1em;
+                width:                  400px;
+            }
+
+            .styla-widget__target-horizontal
+            {
+                width:                  90%;
+                height:                 14em;
             }
         </style>
     </head>
     <body>
-        <div class="styla-widget__target" style="width: 90%;"></div>
-        <div class="styla-widget__target2" style="width: 400px;"></div>
+        <div class="target styla-widget__target-tiles"></div>
+        <div class="target styla-widget__target-list"></div>
+        <div class="target styla-widget__target-horizontal"></div>
     </body>
 
 
     <script src="../dist/list.js"></script>
     <script src="../dist/tiles.js"></script>
+    <script src="../dist/horizontal.js"></script>
     <script>
         new StylaWidget_Tiles( {
             newTab  : true,
             slug    : 'braunhamburg',
-            target  : '.styla-widget__target',
+            target  : '.styla-widget__target-tiles',
             limit   : 4
         } );
 
         new StylaWidget_List( {
             newTab  : true,
             slug    : 'uhrenschmuck24',
-            target  : '.styla-widget__target2',
+            target  : '.styla-widget__target-list',
+            limit   : 4
+        } );
+
+        new StylaWidget_Horizontal( {
+            newTab  : true,
+            slug    : 'uhrenschmuck24',
+            target  : '.styla-widget__target-horizontal',
             limit   : 4
         } );
     </script>
