@@ -318,7 +318,7 @@ class Build
 
         let el          = this.buildStyleTag( css );
         el.className    = `${classes.THEME_STYLES}  styla-widget__${context.format}`;
-console.log( el.className );
+
         context.refs.themeStyle = el;
 
         return el;
@@ -339,10 +339,11 @@ console.log( el.className );
 
         if ( !context.refs.wrapper )
         {
-            context.stories    = JSON.parse( stories );
+            context.stories = JSON.parse( stories );
+            let format      = context.format.toLowerCase();
 
             let container   = context.refs.container = this.create( `DIV`, `${classes.CONTAINER}  styla-widget-${this.now}` );
-            let wrapper     = context.refs.wrapper   = this.create( `DIV`, classes.WRAPPER );
+            let wrapper     = context.refs.wrapper   = this.create( `DIV`, `${classes.WRAPPER}  ${format}` );
             wrapper.id      = wrapperID;
 
             let domainConfigAPI   = `https://live.styla.com/api/config/`;
@@ -438,7 +439,6 @@ console.log( el.className );
         function _addBaseStyle( css, _class, _format )
         {
             let el          = self.buildStyleTag( css );
-            console.log( _class, formatCaps );
             el.className    = _class;
 
             context.refs[ `${_format}Style` ] = el;
