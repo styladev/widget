@@ -1,5 +1,5 @@
 /*!
- * Styla bite-sized widget v1.0.7
+ * Styla bite-sized widget v1.0.8
  * https://github.com/styladev/widget
  *
  * Copyright 2016 Styla GmbH and other contributors
@@ -283,17 +283,11 @@ var _microbejsDistMicrobeHttpMin = require('microbejs/dist/microbe.http.min');
     exchanged for css in the gulp build
  */
 var baseStyles = '#styla-widget p{margin:0}#styla-widget.styla-widget__wrapper{width:100%;height:100%}#styla-widget .styla-widget__container{box-sizing:border-box;position:relative;overflow:hidden;height:100%;width:100%;min-height:14em;font-size:14px}#styla-widget .styla-widget__story{margin-bottom:1em;position:relative}#styla-widget .styla-widget__link{position:absolute;width:100%;display:-moz-flex;display:-webkit-flex;display:flex;text-decoration:none;color:inherit}#styla-widget__link>div{display:inline-block}#styla-widget .styla-widget__image{max-height:100%;max-width:100%;height:100%;object-fit:contain}#styla-widget .styla-widget__textwrap{display:block;flex-grow:1;-webkit-flex-grow:1;-moz-flex-grow:1;max-height:100%;overflow:hidden;float:left}#styla-widget .styla-widget__headlinewrap{display:flex;flex-direction:column;justify-content:flex-end;-webkit-justify-content:flex-end;-moz-justify-content:flex-end}#styla-widget .styla-widget__headline,#styla-widget .styla-widget__title{line-height:1.25em;max-height:2.5em;overflow:hidden}#styla-widget .styla-widget__title{font-size:2em;text-align:center;margin-bottom:30px}#styla-widget .styla-widget__paragraph{font-size:1em;line-height:1.5em;overflow:hidden;position:relative;word-wrap:break-word}';
-var specificStyles = '#styla-widget.tiles .styla-widget__container{display:-moz-flex;display:-webkit-flex;display:flex;flex-direction:row;-webkit-flex-direction:row;-moz-flex-direction:row;flex-wrap:wrap;-moz-flex-wrap:wrap;-webkit-flex-wrap:wrap;height:100%}#styla-widget.tiles .styla-widget__story{height:100%;min-height:14em;min-width:14em;display:block;float:left;flex-grow:1;-moz-flex-grow:1;-webkit-flex-grow:1;overflow:hidden}#styla-widget.tiles .styla-widget__link{height:100%;align-items:center}#styla-widget.tiles .styla-widget__imagewrap{display:block;position:absolute;width:100%;height:100%}#styla-widget.tiles .styla-widget__image{object-fit:cover;min-width:100%}#styla-widget.tiles .styla-widget__textwrap{display:block;position:absolute;bottom:0;margin-bottom:-8.5em;transition:margin .2s ease;padding:1em;background:linear-gradient(to bottom,rgba(0,0,0,0) 0,rgba(0,0,0,.65) 100%)}#styla-widget.tiles .styla-widget__story:hover .styla-widget__textwrap{margin-bottom:0}#styla-widget.tiles .styla-widget__headlinewrap{height:5em;display:-moz-flex;display:-webkit-flex;display:flex;flex-direction:column;-webkit-flex-direction:column;-moz-flex-direction:column;justify-content:flex-end;-webkit-justify-content:flex-end;-moz-justify-content:flex-end}#styla-widget.tiles .styla-widget__headline{font-size:1.9em;line-height:1.25em;max-height:2.5em;overflow:hidden;margin:0 0 .25em;word-wrap:break-word;text-overflow:ellipsis;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;color:#FFF;text-shadow:1px 1px 1px rgba(0,0,0,.65)}#styla-widget.tiles .styla-widget__paragraph{height:6em;color:#FFF}#styla-widget.tiles .styla-widget__paragraph-after{color:#FFF;line-height:1.5em}#styla-widget.tiles .styla-widget__paragraph p+p{display:none}';
+var specificStyles = '#styla-widget.tiles .styla-widget__container{display:-moz-flex;display:-webkit-flex;display:flex;flex-direction:row;-webkit-flex-direction:row;-moz-flex-direction:row;flex-wrap:wrap;-moz-flex-wrap:wrap;-webkit-flex-wrap:wrap;height:100%}#styla-widget.tiles .styla-widget__story{height:100%;min-height:14em;min-width:14em;display:block;float:left;flex-grow:1;-moz-flex-grow:1;-webkit-flex-grow:1;overflow:hidden}#styla-widget.tiles .styla-widget__link{height:100%;align-items:center}#styla-widget.tiles .styla-widget__imagewrap{display:block;position:absolute;width:100%;height:100%}#styla-widget.tiles .styla-widget__image{object-fit:cover;min-width:100%}#styla-widget.tiles .styla-widget__textwrap{position:absolute;display:block;bottom:0;margin-bottom:-8.5em;height:12.5em;transition:margin .2s ease;padding:1em;background:linear-gradient(to bottom,rgba(0,0,0,0) 0,rgba(0,0,0,.65) 100%)}#styla-widget.tiles .styla-widget__story:hover .styla-widget__textwrap{margin-bottom:0}#styla-widget.tiles .styla-widget__headlinewrap{height:5em;display:-moz-flex;display:-webkit-flex;display:flex;flex-direction:column;-webkit-flex-direction:column;-moz-flex-direction:column;justify-content:flex-end;-webkit-justify-content:flex-end;-moz-justify-content:flex-end}#styla-widget.tiles .styla-widget__headline{font-size:1.9em;line-height:1.25em;max-height:2.5em;overflow:hidden;margin:0 0 .25em;word-wrap:break-word;text-overflow:ellipsis;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;color:#FFF;text-shadow:1px 1px 1px rgba(0,0,0,.65)}#styla-widget.tiles .styla-widget__paragraph{max-height:6em;color:#FFF}#styla-widget.tiles .styla-widget__paragraph-after{color:#FFF;line-height:1.5em}#styla-widget.tiles .styla-widget__paragraph p+p{display:none}';
 var wrapperID = 'styla-widget';
 var _reportError = function _reportError(e) {
     console.log('err', e);
 };
-
-/*
-    retrieved and parsed domain config.  this is declared here to keep it out
-    of the global object, yet accessible.
- */
-var domainConfig = undefined;
 
 var Build = (function () {
     _createClass(Build, [{
@@ -436,17 +430,18 @@ var Build = (function () {
         key: 'buildTitle',
         value: function buildTitle() {
             var context = this.context;
+            var title = this.domainConfig.title;
 
-            if (context.title === true && domainConfig.title) {
-                context.title = domainConfig.title;
+            if (context.title === true && title) {
+                context.title = title;
             }
 
             if (context.title) {
                 var text = context.title;
-                var title = context.title = this.create('DIV', _classesJs2['default'].TITLE);
-                title.innerHTML = text;
+                var _title = context.title = this.create('DIV', _classesJs2['default'].TITLE);
+                _title.innerHTML = text;
 
-                context.refs.container.appendChild(title);
+                context.refs.container.appendChild(_title);
             }
 
             return context.title;
@@ -462,7 +457,7 @@ var Build = (function () {
     }, {
         key: 'compileStyles',
         value: function compileStyles() {
-            var theme = domainConfig.theme;
+            var theme = this.domainConfig.theme;
             var css = '';
             var now = this.now;
             var context = this.context;
@@ -494,18 +489,19 @@ var Build = (function () {
         _classCallCheck(this, Build);
 
         this.buildStories = function (resDomainConfig, parsedDomainConfig) {
-            domainConfig = parsedDomainConfig || JSON.parse(resDomainConfig);
+            var domainConfig = _this.domainConfig = parsedDomainConfig || JSON.parse(resDomainConfig);
 
             if (Object.keys(domainConfig).length === 0) {
                 throw 'Styla Widget error: Could not find magazine, please check if slug is configured correctly.';
             }
-            _this.setDomain();
-            _this.includeBaseStyles();
 
             var images = {};
             var context = _this.context;
             var stories = context.stories;
             var resImages = stories.images;
+
+            context.domain = _this.setDomain();
+            _this.includeBaseStyles();
 
             if (resImages) {
                 context.title = _this.buildTitle();
@@ -538,6 +534,7 @@ var Build = (function () {
 
                 var story = create('div', _classesJs2['default'].STORY);
                 var storyLink = create('a', _classesJs2['default'].STORY_LINK);
+
                 storyLink.href = '//' + context.domain + '/story/' + externalPermalink + '/';
 
                 if (context.newTab) {
@@ -692,7 +689,7 @@ var Build = (function () {
             _addBaseStyle(css || baseStyles, _classesJs2['default'].BASE_STYLES, 'base');
             _addBaseStyle(specificStyles, _classesJs2['default'][formatCaps + '_STYLES'], context.format);
 
-            if (domainConfig.embed.customFontUrl) {
+            if (this.domainConfig.embed.customFontUrl) {
                 this.includeFonts(head);
             }
         }
@@ -710,7 +707,7 @@ var Build = (function () {
             var el = document.createElement('link');
             el.type = 'text/css';
             el.rel = 'stylesheet';
-            var fontUrl = domainConfig.embed.customFontUrl;
+            var fontUrl = this.domainConfig.embed.customFontUrl;
             el.href = fontUrl.indexOf('//') !== -1 ? fontUrl : '//' + fontUrl;
 
             document.head.appendChild(el);
@@ -728,17 +725,21 @@ var Build = (function () {
     }, {
         key: 'setDomain',
         value: function setDomain() {
-            var embed = domainConfig.embed;
+            var embed = this.domainConfig.embed;
             var context = this.context;
 
-            if (context.domain) {
-                return context.domain;
-            } else if (context.linkDomain) {
-                return context.domain = context.linkDomain;
-            } else if (embed) {
-                return context.domain = embed.magazineUrl + '/' + embed.rootPath;
-            } else {
-                throw 'Styla Widget error: No domain defined or bad domain config';
+            if (!context.domain) {
+                if (context.linkDomain) {
+                    domain = context.linkDomain;
+                } else if (embed) {
+                    domain = embed.magazineUrl + '/' + embed.rootPath;
+                } else {
+                    throw 'Styla Widget error: No domain defined or bad domain config';
+                }
+
+                domain = domain.replace(/(http(s)?(:)?)?\/\//, '//');
+
+                return context.domain = domain;
             }
         }
     }]);
@@ -797,6 +798,6 @@ module.exports = {
 },{}],5:[function(require,module,exports){
 'use strict';
 
-module.exports = '1.0.7';
+module.exports = '1.0.8';
 
 },{}]},{},[2]);

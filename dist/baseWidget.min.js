@@ -279,12 +279,6 @@ var _reportError = function _reportError(e) {
     console.log('err', e);
 };
 
-/*
-    retrieved and parsed domain config.  this is declared here to keep it out
-    of the global object, yet accessible.
- */
-var domainConfig = undefined;
-
 var Build = (function () {
     _createClass(Build, [{
         key: 'buildHeadline',
@@ -426,17 +420,18 @@ var Build = (function () {
         key: 'buildTitle',
         value: function buildTitle() {
             var context = this.context;
+            var title = this.domainConfig.title;
 
-            if (context.title === true && domainConfig.title) {
-                context.title = domainConfig.title;
+            if (context.title === true && title) {
+                context.title = title;
             }
 
             if (context.title) {
                 var text = context.title;
-                var title = context.title = this.create('DIV', _classesJs2['default'].TITLE);
-                title.innerHTML = text;
+                var _title = context.title = this.create('DIV', _classesJs2['default'].TITLE);
+                _title.innerHTML = text;
 
-                context.refs.container.appendChild(title);
+                context.refs.container.appendChild(_title);
             }
 
             return context.title;
@@ -452,7 +447,7 @@ var Build = (function () {
     }, {
         key: 'compileStyles',
         value: function compileStyles() {
-            var theme = domainConfig.theme;
+            var theme = this.domainConfig.theme;
             var css = '';
             var now = this.now;
             var context = this.context;
@@ -484,18 +479,19 @@ var Build = (function () {
         _classCallCheck(this, Build);
 
         this.buildStories = function (resDomainConfig, parsedDomainConfig) {
-            domainConfig = parsedDomainConfig || JSON.parse(resDomainConfig);
+            var domainConfig = _this.domainConfig = parsedDomainConfig || JSON.parse(resDomainConfig);
 
             if (Object.keys(domainConfig).length === 0) {
                 throw 'Styla Widget error: Could not find magazine, please check if slug is configured correctly.';
             }
-            _this.setDomain();
-            _this.includeBaseStyles();
 
             var images = {};
             var context = _this.context;
             var stories = context.stories;
             var resImages = stories.images;
+
+            context.domain = _this.setDomain();
+            _this.includeBaseStyles();
 
             if (resImages) {
                 context.title = _this.buildTitle();
@@ -528,6 +524,7 @@ var Build = (function () {
 
                 var story = create('div', _classesJs2['default'].STORY);
                 var storyLink = create('a', _classesJs2['default'].STORY_LINK);
+
                 storyLink.href = '//' + context.domain + '/story/' + externalPermalink + '/';
 
                 if (context.newTab) {
@@ -682,7 +679,7 @@ var Build = (function () {
             _addBaseStyle(css || baseStyles, _classesJs2['default'].BASE_STYLES, 'base');
             _addBaseStyle(specificStyles, _classesJs2['default'][formatCaps + '_STYLES'], context.format);
 
-            if (domainConfig.embed.customFontUrl) {
+            if (this.domainConfig.embed.customFontUrl) {
                 this.includeFonts(head);
             }
         }
@@ -700,7 +697,7 @@ var Build = (function () {
             var el = document.createElement('link');
             el.type = 'text/css';
             el.rel = 'stylesheet';
-            var fontUrl = domainConfig.embed.customFontUrl;
+            var fontUrl = this.domainConfig.embed.customFontUrl;
             el.href = fontUrl.indexOf('//') !== -1 ? fontUrl : '//' + fontUrl;
 
             document.head.appendChild(el);
@@ -718,17 +715,21 @@ var Build = (function () {
     }, {
         key: 'setDomain',
         value: function setDomain() {
-            var embed = domainConfig.embed;
+            var embed = this.domainConfig.embed;
             var context = this.context;
 
-            if (context.domain) {
-                return context.domain;
-            } else if (context.linkDomain) {
-                return context.domain = context.linkDomain;
-            } else if (embed) {
-                return context.domain = embed.magazineUrl + '/' + embed.rootPath;
-            } else {
-                throw 'Styla Widget error: No domain defined or bad domain config';
+            if (!context.domain) {
+                if (context.linkDomain) {
+                    domain = context.linkDomain;
+                } else if (embed) {
+                    domain = embed.magazineUrl + '/' + embed.rootPath;
+                } else {
+                    throw 'Styla Widget error: No domain defined or bad domain config';
+                }
+
+                domain = domain.replace(/(http(s)?(:)?)?\/\//, '//');
+
+                return context.domain = domain;
             }
         }
     }]);
@@ -787,6 +788,6 @@ module.exports = {
 },{}],5:[function(require,module,exports){
 'use strict';
 
-module.exports = '1.0.7';
+module.exports = '1.0.8';
 
 },{}]},{},[2]);
