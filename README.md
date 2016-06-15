@@ -151,6 +151,8 @@ Change log
 ### 1.0.4
 
     + theme style tags now get a class for their format
+    + theme style tags are now added just once
+    + multiple styling of multiple widgets on the same page works correctly
 
 
 ### 1.0.3
