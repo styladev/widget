@@ -1,4 +1,4 @@
-Styla Widget  1.0.8
+Styla Widget  1.0.7
 =======
 
 
@@ -152,9 +152,6 @@ This project adheres to the [Contributor Covenant](http://contributor-covenant.o
 
 Change log
 ==========
-
-### 1.0.8
-    + moved demos to `/dist/` directory
 
 ### 1.0.7
     + added css prefixes for IE

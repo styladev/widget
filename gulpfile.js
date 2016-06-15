@@ -141,13 +141,8 @@ gulp.task( 'legacy', function()
         .pipe( gulp.dest( 'dist' ) );
 } );
 
-gulp.task( 'demo', function()
-{
-    gulp.src( './demo/*.html' )
-        .pipe( gulp.dest( 'dist/demo' ) );
-} );
 
 gulp.task( 'default', function()
 {
-    gulp.start( [ 'legacy', 'browserifyFiles', 'min', 'buildTests', 'demo' ] );
+    gulp.start( [ 'legacy', 'browserifyFiles', 'min', 'buildTests' ] );
 } );
