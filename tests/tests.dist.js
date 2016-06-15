@@ -6,7 +6,7 @@
 },{}],2:[function(require,module,exports){
 module.exports={
   "name": "stylaWidget",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "contributors": [
     "Mouse Braun <mouse@styla.com>",
     "Elias Liedholm <elias@styla.com>"
@@ -33,7 +33,6 @@ module.exports={
     "connect": "^3.4.0",
     "docker": "git://github.com/nicolasbrugneaux/docker.git#patch-1",
     "gulp": "^3.9.0",
-    "gulp-css-wrap": "^0.1.2",
     "gulp-header": "^1.7.1",
     "gulp-minify-css": "^1.2.4",
     "gulp-rename": "^1.2.2",
@@ -444,13 +443,16 @@ var Build = (function () {
             var i = arguments.length <= 1 || arguments[1] === undefined ? 0 : arguments[1];
 
             var text = arr[i];
+            console.log(text);
+            if (!text) {
+                return false;
+            }
+
             var el = this.create('div');
             el.innerHTML = text.content;
             var actualText = el.textContent;
 
-            if (!text) {
-                return false;
-            } else if (text.type !== 'text' || actualText === '') {
+            if (text.type !== 'text' || actualText === '') {
                 return this.getDescription(arr, i + 1);
             }
 
@@ -613,7 +615,7 @@ module.exports = {
 },{}],5:[function(require,module,exports){
 'use strict';
 
-module.exports = '1.0.5';
+module.exports = '1.0.6';
 
 },{}],6:[function(require,module,exports){
 'use strict';

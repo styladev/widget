@@ -1,5 +1,5 @@
 /*!
- * Styla bite-sized widget v1.0.5
+ * Styla bite-sized widget v1.0.6
  * https://github.com/styladev/widget
  *
  * Copyright 2016 Styla GmbH and other contributors
@@ -629,13 +629,16 @@ var Build = (function () {
             var i = arguments.length <= 1 || arguments[1] === undefined ? 0 : arguments[1];
 
             var text = arr[i];
+            console.log(text);
+            if (!text) {
+                return false;
+            }
+
             var el = this.create('div');
             el.innerHTML = text.content;
             var actualText = el.textContent;
 
-            if (!text) {
-                return false;
-            } else if (text.type !== 'text' || actualText === '') {
+            if (text.type !== 'text' || actualText === '') {
                 return this.getDescription(arr, i + 1);
             }
 
@@ -798,6 +801,6 @@ module.exports = {
 },{}],5:[function(require,module,exports){
 'use strict';
 
-module.exports = '1.0.5';
+module.exports = '1.0.6';
 
 },{}]},{},[2]);
