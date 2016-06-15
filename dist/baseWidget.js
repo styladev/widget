@@ -718,6 +718,8 @@ var Build = (function () {
             var embed = this.domainConfig.embed;
             var context = this.context;
 
+            var domain = undefined;
+
             if (!context.domain) {
                 if (context.linkDomain) {
                     domain = context.linkDomain;
@@ -788,6 +790,6 @@ module.exports = {
 },{}],5:[function(require,module,exports){
 'use strict';
 
-module.exports = '1.0.8';
+module.exports = '1.0.9';
 
 },{}]},{},[2]);
