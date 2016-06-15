@@ -1,5 +1,5 @@
 /*!
- * Styla bite-sized widget v1.0.6
+ * Styla bite-sized widget v1.0.7
  * https://github.com/styladev/widget
  *
  * Copyright 2016 Styla GmbH and other contributors
@@ -295,11 +295,6 @@ var _reportError = function _reportError(e) {
  */
 var domainConfig = undefined;
 
-/*
-    used in tracking ignored stories for the sake of getting the right amount later
- */
-var ignored = 0;
-
 var Build = (function () {
     _createClass(Build, [{
         key: 'buildHeadline',
@@ -537,8 +532,8 @@ var Build = (function () {
             var id = _ref.id;
 
             var context = _this.context;
-            console.log('' + context.ignore, '!==', '' + id, '&&', i, '-', ignored, '<', context.limit);
-            if ('' + context.ignore !== '' + id && i - ignored < context.limit) {
+
+            if ('' + context.ignore !== '' + id && i < _this.ignored + context.limit) {
                 var create = _this.create;
 
                 var story = create('div', _classesJs2['default'].STORY);
@@ -564,7 +559,7 @@ var Build = (function () {
 
                 return story;
             } else {
-                ignored++;
+                _this.ignored++;
 
                 return false;
             }
@@ -572,6 +567,7 @@ var Build = (function () {
 
         this.context = context;
         this.now = Date.now();
+        this.ignored = 0;
 
         if (!context.refs.wrapper) {
             context.stories = JSON.parse(stories);
@@ -629,7 +625,7 @@ var Build = (function () {
             var i = arguments.length <= 1 || arguments[1] === undefined ? 0 : arguments[1];
 
             var text = arr[i];
-            console.log(text);
+
             if (!text) {
                 return false;
             }
@@ -801,6 +797,6 @@ module.exports = {
 },{}],5:[function(require,module,exports){
 'use strict';
 
-module.exports = '1.0.6';
+module.exports = '1.0.7';
 
 },{}]},{},[2]);
