@@ -3,18 +3,6 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <title>Styla Tiled Widget Demo</title>
-        <script>
-            var d=document;var h=d.head,s=d.createElement('SCRIPT');h.appendChild(s);s.src='../dist/tiles.js';var w=window;var f=typeof w.onload==='function'?w.onload:function(){};w.onload=function(e){
-
-            new StylaWidget_Tiles( {
-                newTab  : true,
-                slug    : 'uhrenschmuck24',
-                target  : '.styla-widget__target',
-                limit   : 4
-            } );
-
-            f( e );};
-        </script>
 
         <style>
             body
@@ -40,5 +28,27 @@
     </head>
     <body>
         <div class="styla-widget__target" style="width: 90%;"></div>
+        <div class="styla-widget__target2" style="width: 400px;"></div>
     </body>
+
+
+    <script src="../dist/list.js"></script>
+    <script src="../dist/tiles.js"></script>
+    <script>
+            new StylaWidget_Tiles( {
+                newTab  : true,
+                slug    : 'braunhamburg',
+                target  : '.styla-widget__target',
+                limit   : 4
+            } );
+
+            new StylaWidget_List( {
+                newTab  : true,
+                slug    : 'uhrenschmuck24',
+                target  : '.styla-widget__target2',
+                limit   : 4
+            } );
+        </script>
+
+
 </html>

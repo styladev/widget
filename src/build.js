@@ -286,12 +286,14 @@ class Build
     {
         let theme   = domainConfig.theme;
         let css     = ``;
+        let now     = this.now;
+        let context = this.context;
 
         if ( theme )
         {
             css =
-                `.styla-widget-${this.now} .${classes.HEADLINE},
-                .styla-widget-${this.now} .${classes.TITLE}
+                `.styla-widget-${now} .${classes.HEADLINE},
+                .styla-widget-${now} .${classes.TITLE}
                 {
                     font-family:        ${theme.hff};
                     font-weight:        ${theme.hfw};
@@ -300,13 +302,13 @@ class Build
                     letter-spacing:     ${theme.hls};
                     color:              ${theme.htc};
                 }
-                .styla-widget-${this.now} .${classes.PARAGRAPH}, .styla-widget-${this.now} .${classes.PARAGRAPH_AFTER}
+                .styla-widget-${now} .${classes.PARAGRAPH}, .styla-widget-${now} .${classes.PARAGRAPH_AFTER}
                 {
                     font-family:        ${theme.sff};
                     font-weight:        ${theme.sfw};
                     color:              ${theme.stc};
                 }
-                .styla-widget-${this.now} .${classes.PARAGRAPH_AFTER}:after
+                .styla-widget-${now} .${classes.PARAGRAPH_AFTER}:after
                 {
                     content:            '${theme.strm}';
                     font-weight:        ${theme.strmw};
@@ -315,9 +317,9 @@ class Build
         }
 
         let el          = this.buildStyleTag( css );
-        el.className    = `${classes.THEME_STYLES}  styla-widget__${this.context.format}`;
-
-        this.context.refs.themeStyle = el;
+        el.className    = `${classes.THEME_STYLES}  styla-widget__${context.format}`;
+console.log( el.className );
+        context.refs.themeStyle = el;
 
         return el;
     }
@@ -428,25 +430,37 @@ class Build
      */
     includeBaseStyles( css )
     {
+        let self        = this;
+        let context     = this.context;
+        let formatCaps  = context.format.toUpperCase();
         let head        = document.head;
-        let el          = this.buildStyleTag( css || baseStyles + specificStyles );
-        el.className    = `${classes.BASE_STYLES}`;
 
-        this.context.refs.baseStyle = el;
-
-        let baseStyle = head.querySelector( `.${classes.BASE_STYLES}` );
-
-        if ( !baseStyle )
+        function _addBaseStyle( css, _class, _format )
         {
-            head.appendChild( el );
+            let el          = self.buildStyleTag( css );
+            console.log( _class, formatCaps );
+            el.className    = _class;
+
+            context.refs[ `${_format}Style` ] = el;
+
+            let baseStyle = head.querySelector( `.${_class}` );
+
+            if ( !baseStyle )
+            {
+                head.appendChild( el );
+            }
+
+            return el;
         }
+
+        _addBaseStyle( css || baseStyles, classes.BASE_STYLES, 'base' );
+        _addBaseStyle( specificStyles, classes[ `${formatCaps}_STYLES` ], context.format );
+
 
         if ( domainConfig.embed.customFontUrl )
         {
             this.includeFonts( head );
         }
-
-        return el;
     }
 
 
