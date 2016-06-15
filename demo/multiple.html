@@ -7,10 +7,27 @@
         <style>
             body
             {
-                text-align:             center;
-                margin:                 0 auto;
-                background:             #eee;
+                text-align:             left;
+                margin:                 0 5vw;
+                background:             #f3f3f3;
                 height:                 100vh;
+                font-family:            "Palatino Linotype", "Book Antiqua", Palatino, serif;
+            }
+
+            h1, h2
+            {
+                font-family:            "Lucida Grande", sans-serif;
+                font-weight:            normal;
+            }
+
+            ul > li {
+                line-height:            1.5em;
+            }
+
+            p:not(.target)
+            {
+                max-width:              370px;
+                line-height:            1.5em;
             }
 
             .target
@@ -20,32 +37,95 @@
                 box-shadow:             3px 3px 0px #ccc;
                 position:               relative;
                 display:                inline-block;
-                margin:                 2em;
+                margin:                 1em 0 2em;
             }
 
-            .styla-widget__target-tiles
+            .styla-widget__target-tiles--square
+            {
+                height:                 22.5vw;
+                width:                  90vw;
+                min-width:              16em;
+                min-height:             16em;
+            }
+
+            .styla-widget__target-tiles--portrait,
+            .styla-widget__target-tiles--horizontal
             {
                 height:                 20em;
-                width:                  90%;
+                width:                  90vw;
+                min-width:              16em;
+                min-height:             16em;
             }
 
-            .styla-widget__target-list
+            .styla-widget__target-list--slim
             {
-                height:                 90%;
-                width:                  400px;
+                height:                 900px;
+                width:                  300px;
+                max-width:              100%;
+                margin:                 0 2em 0 0;
+            }
+
+            .styla-widget__target-list--wide
+            {
+                height:                 900px;
+                width:                  600px;
+                max-width:              100%;
             }
 
             .styla-widget__target-horizontal
             {
-                width:                  90%;
+                width:                  90vw;
                 height:                 14em;
             }
         </style>
     </head>
     <body>
-        <div class="target styla-widget__target-tiles"></div>
+        <h1>Styla Widgets</h1>
+        <p>Below you will find a selection of widgets that Styla offer. They are set up to behave the same way they would on your website.</p>
+        <p><a href="#classic">Classic</a> <a href="#horizontal">Horizontal</a> <a href="#tiles">Tiles</a></p>
+        <hr>
+
+        <a name="classic"></a>
+        <h2>The Classic</h2>
+        <p>
+            Classy, clean and compatible. The Classic features stories in a vertically positioned format.
+        </p>
+        <ul>
+            <li>Images keep their original ratio</li>
+            <li>Vertical layout</li>
+            <li>Adapts your content to the space it's given</li>
+            <li>Widths between 250 and 600 pixels</li>
+        </ul>
+        <div class="target styla-widget__target-list--slim"></div>
+        <div class="target styla-widget__target-list--wide"></div>
+        <hr>
+
+        <a name="horizontal"></a>
+        <h2 name="horizontal">The Horizontal</h2>
+        <p>
+            An alternative take on The Classic, features the same visually stunning layouts – now positioned horizontally.
+        </p>
+        <ul>
+            <li>Images keep their original ratio</li>
+            <li>Horizontal layout</li>
+            <li>Fixed height</li>
+        </ul>
         <div class="target styla-widget__target-horizontal"></div>
-        <div class="target styla-widget__target-list"></div>
+        <hr>
+
+        <a name="tiles"></a>
+        <h2>The Tiles</h2>
+        <p>
+            Let this modern layout strike you not only with its looks, but also
+            its versatility. It's the perfect alternative for giving your visual
+            content the attention it deserves.
+        </p>
+        <ul>
+            <li>Images are cropped to fill the space</li>
+        </ul>
+        <div class="target styla-widget__target-tiles--square"></div>
+        <div class="target styla-widget__target-tiles--portrait"></div>
+        <div class="target styla-widget__target-tiles--horizontal"></div>
     </body>
 
 
@@ -55,21 +135,42 @@
     <script>
         new StylaWidget_Tiles( {
             newTab  : true,
-            slug    : 'braunhamburg',
-            target  : '.styla-widget__target-tiles',
+            slug    : 'consulting-beauty',
+            target  : '.styla-widget__target-tiles--square',
+            limit   : 4
+        } );
+
+        new StylaWidget_Tiles( {
+            newTab  : true,
+            slug    : 'styla-menfashion',
+            target  : '.styla-widget__target-tiles--portrait',
+            limit   : 8
+        } );
+
+        new StylaWidget_Tiles( {
+            newTab  : true,
+            slug    : 'styla-womenfashion',
+            target  : '.styla-widget__target-tiles--horizontal',
+            limit   : 3
+        } );
+
+        new StylaWidget_List( {
+            newTab  : true,
+            slug    : 'styla-homedecor',
+            target  : '.styla-widget__target-list--slim',
             limit   : 4
         } );
 
         new StylaWidget_List( {
             newTab  : true,
-            slug    : 'uhrenschmuck24',
-            target  : '.styla-widget__target-list',
+            slug    : 'styla-beauty',
+            target  : '.styla-widget__target-list--wide',
             limit   : 4
         } );
 
         new StylaWidget_Horizontal( {
             newTab  : true,
-            slug    : 'uhrenschmuck24',
+            slug    : 'styla-menfashion',
             target  : '.styla-widget__target-horizontal',
             limit   : 4
         } );
