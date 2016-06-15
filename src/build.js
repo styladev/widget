@@ -147,7 +147,7 @@ class Build
     buildStory = ( { title, description, images, externalPermalink, id }, i ) =>
     {
         let context     = this.context;
-
+        console.log( `${context.ignore}`, '!==', `${id}`, '&&', i, '-', ignored, '<', context.limit );
         if ( `${context.ignore}` !== `${id}` && i - ignored < context.limit )
         {
             let create              = this.create;

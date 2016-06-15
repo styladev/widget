@@ -3,18 +3,6 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <title>Styla Horizontal Widget Demo</title>
-        <script>
-            var d=document;var h=d.head,s=d.createElement('SCRIPT');h.appendChild(s);s.src='../dist/horizontal.js';var w=window;var f=typeof w.onload==='function'?w.onload:function(){};w.onload=function(e){
-
-            new StylaWidget_Horizontal( {
-                newTab  : true,
-                slug    : 'uhrenschmuck24',
-                target  : '.styla-widget__target',
-                limit   : 4
-            } );
-
-            f( e );};
-        </script>
         <style>
             body
             {
@@ -39,5 +27,14 @@
     </head>
     <body>
         <div class="styla-widget__target" style="width: 90%;"></div>
+        <script src="../dist/horizontal.js"></script>
+        <script>
+            new StylaWidget_Horizontal( {
+                newTab  : true,
+                slug    : 'uhrenschmuck24',
+                target  : '.styla-widget__target',
+                limit   : 4
+            } );
+        </script>
     </body>
 </html>

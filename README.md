@@ -16,20 +16,27 @@ Setting up the widget requires only basic HTML knowledge. It's built to adapt
 to the available space it is given.
 
 To use the widget, a client must include this script on their site. Modify the
-slug `MAGAZINE_NAME` to match the name of the magazine.
+slug `MAGAZINE_NAME` to match the name of the magazine.  This code *MUST* be inserted after 
+the target element.  To be safe, our recommendation is to insert it after the body in the page
 
 ```html
+    <script src="http://widget.styla.com/tiles.min.js"></script>
     <script>
-            var d=document;var h=d.head,s=d.createElement('SCRIPT');h.appendChild(s);s.src='//widget.styla.com/list.min.js';var w=window;var f=typeof w.onload==='function'?w.onload:function(){};w.onload=function(e){
-
-            new StylaWidget( {
-                slug    : 'MAGAZINE_NAME',
-                target  : '.styla-widget__target'
-            } );
-
-            f( e );};
+        new StylaWidget_Tiles( {
+            slug    : 'MAGAZINE_NAME',
+            target  : '.styla-widget__target'
+        } );
     </script>
 ```
+
+Tiles is not the only layout available.  Just change the word tiles out for another layout.
+
+ Other layouts include:
+
++ horizontal
++ related stories
++ list
+
 
 See a live example on the [demo page](http://static.styla.com/test/widget/)
 
@@ -86,23 +93,21 @@ use this snippet to include the Styla widget on your page. You can build more th
 
 
 ```html
+    <script src="http://widget.styla.com/tiles.min.js"></script>
+    <script src="http://widget.styla.com/list.min.js"></script>
     <script>
-            var d=document;var h=d.head,s=d.createElement('SCRIPT');h.appendChild(s);s.src='widget.styla.com/list.min.js';var w=window;var f=typeof w.onload==='function'?w.onload:function(){};w.onload=function(e){
+        new StylaWidget_Tiles( {
+            limit   : 10,
+            offset  : 2,
+            slug    : 'uhrenschmuck24',
+            target  : '.styla-widget__target'
+        } );
 
-            new StylaWidget( {
-                limit   : 10,
-                offset  : 2,
-                slug    : 'uhrenschmuck24',
-                target  : '.styla-widget__target'
-            } );
-
-            new StylaWidget( {
-                newTab  : true,
-                slug    : 'braunhamburg',
-                target  : '.styla-widget__target2'
-            } );
-
-            f( e );};
+        new StylaWidge_List( {
+            newTab  : true,
+            slug    : 'braunhamburg',
+            target  : '.styla-widget__target2'
+        } );
     </script>
 ```
 
@@ -153,6 +158,8 @@ Change log
     + theme style tags now get a class for their format
     + theme style tags are now added just once
     + multiple styling of multiple widgets on the same page works correctly
+    + widgets now get a class for their layout
+    + widget embed code got even easier
 
 
 ### 1.0.3
