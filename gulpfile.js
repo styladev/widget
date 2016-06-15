@@ -7,7 +7,6 @@ const header        = require( 'gulp-header' );
 const minifycss     = require( 'gulp-minify-css' );
 const rename        = require( 'gulp-rename' );
 const replace       = require( 'gulp-replace' );
-const cssWrap       = require( 'gulp-css-wrap' );
 
 const _package      = require( './package.json' );
 

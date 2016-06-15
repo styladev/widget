@@ -153,6 +153,11 @@ This project adheres to the [Contributor Covenant](http://contributor-covenant.o
 Change log
 ==========
 
+### 1.0.6
+
+    + css-wrap removed from package and gulpfile
+
+
 ### 1.0.5
 
     + gitignore changed to clean up dist dir (release branch)
