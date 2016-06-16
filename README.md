@@ -1,4 +1,4 @@
-Styla Widget  1.0.11
+Styla Widget  1.0.12
 =======
 
 
@@ -152,6 +152,9 @@ This project adheres to the [Contributor Covenant](http://contributor-covenant.o
 
 Change log
 ==========
+
+### 1.0.12
+    + tile layout does not break if a story only has very little content
 
 ### 1.0.11
     + set domain config api dynamically
