@@ -512,7 +512,7 @@ class Build
                 throw `Styla Widget error: No domain defined or bad domain config`;
             }
 
-            domain = domain.replace( /(http(s)?(:)?)?\/\//, '//' );
+            domain = domain.replace( /^(http(s)?:)?\/\//, '' );
             
             return context.domain = domain;
         }
