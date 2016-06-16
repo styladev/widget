@@ -1,12 +1,12 @@
 /*!
- * Styla bite-sized widget v1.0.6
+ * Styla bite-sized widget v1.0.10
  * https://github.com/styladev/widget
  *
  * Copyright 2016 Styla GmbH and other contributors
  * Released under the MIT license
  * https://github.com/styladev/widget/blob/master/license.md
  *
- * Date: Wed Jun 15 2016
+ * Date: Thu Jun 16 2016
  * */
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 (function (global){
@@ -283,22 +283,11 @@ var _microbejsDistMicrobeHttpMin = require('microbejs/dist/microbe.http.min');
     exchanged for css in the gulp build
  */
 var baseStyles = '#styla-widget p{margin:0}#styla-widget.styla-widget__wrapper{width:100%;height:100%}#styla-widget .styla-widget__container{box-sizing:border-box;position:relative;overflow:hidden;height:100%;width:100%;min-height:14em;font-size:14px}#styla-widget .styla-widget__story{margin-bottom:1em;position:relative}#styla-widget .styla-widget__link{position:absolute;width:100%;display:-moz-flex;display:-webkit-flex;display:flex;text-decoration:none;color:inherit}#styla-widget__link>div{display:inline-block}#styla-widget .styla-widget__image{max-height:100%;max-width:100%;height:100%;object-fit:contain}#styla-widget .styla-widget__textwrap{display:block;flex-grow:1;-webkit-flex-grow:1;-moz-flex-grow:1;max-height:100%;overflow:hidden;float:left}#styla-widget .styla-widget__headlinewrap{display:flex;flex-direction:column;justify-content:flex-end;-webkit-justify-content:flex-end;-moz-justify-content:flex-end}#styla-widget .styla-widget__headline,#styla-widget .styla-widget__title{line-height:1.25em;max-height:2.5em;overflow:hidden}#styla-widget .styla-widget__title{font-size:2em;text-align:center;margin-bottom:30px}#styla-widget .styla-widget__paragraph{font-size:1em;line-height:1.5em;overflow:hidden;position:relative;word-wrap:break-word}';
-var specificStyles = '#styla-widget.list .styla-widget__container{padding:1em 2em;display:-moz-flex;display:-webkit-flex;display:flex;flex-direction:column;-webkit-flex-direction:column;-moz-flex-direction:column;flex-wrap:wrap;-webkit-flex-wrap:wrap;-moz-flex-wrap:wrap}#styla-widget.list .styla-widget__story{margin-right:2em;height:14em;width:100%;flex-grow:1}#styla-widget.list .styla-widget__story:nth-child(even){text-align:right}#styla-widget.list .styla-widget__link{height:14em;top:50%;margin-top:-7em;align-items:center}#styla-widget.list .styla-widget__imagewrap{display:block;vertical-align:top;flex-grow:1;-webkit-flex-grow:1;-moz-flex-grow:1;height:100%;margin:0 6% 0 0;flex:none;-webkit-flex:none;-moz-flex:none;max-width:40%;float:left}#styla-widget.list .styla-widget__story:nth-child(even) .styla-widget__imagewrap{margin:0 0 0 6%;float:right;clear:both;order:2}#styla-widget.list .styla-widget__textwrap{display:block;flex-grow:1;-webkit-flex-grow:1;-moz-flex-grow:1;max-height:100%;overflow:hidden;float:left}#styla-widget.list .styla-widget__story:nth-child(even) .styla-widget__textwrap{float:right}#styla-widget.list .styla-widget__headlinewrap{height:5em;display:-moz-flex;display:-webkit-flex;display:flex;flex-direction:column;-webkit-flex-direction:column;-moz-flex-direction:column;justify-content:flex-end;-webkit-justify-content:flex-end;-moz-justify-content:flex-end}#styla-widget.list .styla-widget__headline{font-size:1.9em;line-height:1.25em;max-height:2.5em;overflow:hidden;margin:0 0 .25em;word-wrap:break-word;text-overflow:ellipsis;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2}#styla-widget.list .styla-widget__paragraph{font-size:1em;line-height:1.5em;max-height:7.5em;overflow:hidden;position:relative;word-wrap:break-word}#styla-widget.list .styla-widget__paragraph-after{line-height:1.5em}#styla-widget.list .styla-widget__paragraph p+p{display:none}';
+var specificStyles = '#styla-widget.list .styla-widget__container{padding:1em 2em;display:-moz-flex;display:-webkit-flex;display:-ms-flex;display:flex;flex-direction:column;-webkit-flex-direction:column;-moz-flex-direction:column;-ms-flex-direction:column;flex-wrap:wrap;-webkit-flex-wrap:wrap;-moz-flex-wrap:wrap;-ms-flex-wrap:wrap}#styla-widget.list .styla-widget__story{margin-right:2em;height:14em;width:100%;flex-grow:1}#styla-widget.list .styla-widget__story:nth-child(even){text-align:right}#styla-widget.list .styla-widget__link{height:14em;top:50%;margin-top:-7em;align-items:center}#styla-widget.list .styla-widget__imagewrap{display:block;vertical-align:top;flex-grow:1;-webkit-flex-grow:1;-moz-flex-grow:1;-ms-flex-grow:1;height:100%;margin:0 6% 0 0;flex:none;-webkit-flex:none;-moz-flex:none;-ms-flex:none;max-width:40%;float:left}#styla-widget.list .styla-widget__story:nth-child(even) .styla-widget__imagewrap{margin:0 0 0 6%;float:right;clear:both;order:2}#styla-widget.list .styla-widget__textwrap{display:block;flex-grow:1;-webkit-flex-grow:1;-moz-flex-grow:1;-ms-flex-grow:1;max-height:100%;overflow:hidden;float:left}#styla-widget.list .styla-widget__story:nth-child(even) .styla-widget__textwrap{float:right}#styla-widget.list .styla-widget__headlinewrap{height:5em;display:-moz-flex;display:-webkit-flex;display:-ms-flex;display:flex;flex-direction:column;-webkit-flex-direction:column;-moz-flex-direction:column;-ms-flex-direction:column;justify-content:flex-end;-webkit-justify-content:flex-end;-moz-justify-content:flex-end;-ms-justify-content:flex-end}#styla-widget.list .styla-widget__headline{font-size:1.9em;line-height:1.25em;max-height:2.5em;overflow:hidden;margin:0 0 .25em;word-wrap:break-word;text-overflow:ellipsis;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2}#styla-widget.list .styla-widget__paragraph{font-size:1em;line-height:1.5em;max-height:7.5em;overflow:hidden;position:relative;word-wrap:break-word}#styla-widget.list .styla-widget__paragraph-after{line-height:1.5em}#styla-widget.list .styla-widget__paragraph p+p{display:none}';
 var wrapperID = 'styla-widget';
 var _reportError = function _reportError(e) {
     console.log('err', e);
 };
-
-/*
-    retrieved and parsed domain config.  this is declared here to keep it out
-    of the global object, yet accessible.
- */
-var domainConfig = undefined;
-
-/*
-    used in tracking ignored stories for the sake of getting the right amount later
- */
-var ignored = 0;
 
 var Build = (function () {
     _createClass(Build, [{
@@ -441,17 +430,18 @@ var Build = (function () {
         key: 'buildTitle',
         value: function buildTitle() {
             var context = this.context;
+            var title = this.domainConfig.title;
 
-            if (context.title === true && domainConfig.title) {
-                context.title = domainConfig.title;
+            if (context.title === true && title) {
+                context.title = title;
             }
 
             if (context.title) {
                 var text = context.title;
-                var title = context.title = this.create('DIV', _classesJs2['default'].TITLE);
-                title.innerHTML = text;
+                var _title = context.title = this.create('DIV', _classesJs2['default'].TITLE);
+                _title.innerHTML = text;
 
-                context.refs.container.appendChild(title);
+                context.refs.container.appendChild(_title);
             }
 
             return context.title;
@@ -467,7 +457,7 @@ var Build = (function () {
     }, {
         key: 'compileStyles',
         value: function compileStyles() {
-            var theme = domainConfig.theme;
+            var theme = this.domainConfig.theme;
             var css = '';
             var now = this.now;
             var context = this.context;
@@ -499,18 +489,19 @@ var Build = (function () {
         _classCallCheck(this, Build);
 
         this.buildStories = function (resDomainConfig, parsedDomainConfig) {
-            domainConfig = parsedDomainConfig || JSON.parse(resDomainConfig);
+            var domainConfig = _this.domainConfig = parsedDomainConfig || JSON.parse(resDomainConfig);
 
             if (Object.keys(domainConfig).length === 0) {
                 throw 'Styla Widget error: Could not find magazine, please check if slug is configured correctly.';
             }
-            _this.setDomain();
-            _this.includeBaseStyles();
 
             var images = {};
             var context = _this.context;
             var stories = context.stories;
             var resImages = stories.images;
+
+            context.domain = _this.setDomain();
+            _this.includeBaseStyles();
 
             if (resImages) {
                 context.title = _this.buildTitle();
@@ -537,12 +528,13 @@ var Build = (function () {
             var id = _ref.id;
 
             var context = _this.context;
-            console.log('' + context.ignore, '!==', '' + id, '&&', i, '-', ignored, '<', context.limit);
-            if ('' + context.ignore !== '' + id && i - ignored < context.limit) {
+
+            if ('' + context.ignore !== '' + id && i < _this.ignored + context.limit) {
                 var create = _this.create;
 
                 var story = create('div', _classesJs2['default'].STORY);
                 var storyLink = create('a', _classesJs2['default'].STORY_LINK);
+
                 storyLink.href = '//' + context.domain + '/story/' + externalPermalink + '/';
 
                 if (context.newTab) {
@@ -564,7 +556,7 @@ var Build = (function () {
 
                 return story;
             } else {
-                ignored++;
+                _this.ignored++;
 
                 return false;
             }
@@ -572,6 +564,7 @@ var Build = (function () {
 
         this.context = context;
         this.now = Date.now();
+        this.ignored = 0;
 
         if (!context.refs.wrapper) {
             context.stories = JSON.parse(stories);
@@ -629,7 +622,7 @@ var Build = (function () {
             var i = arguments.length <= 1 || arguments[1] === undefined ? 0 : arguments[1];
 
             var text = arr[i];
-            console.log(text);
+
             if (!text) {
                 return false;
             }
@@ -696,7 +689,7 @@ var Build = (function () {
             _addBaseStyle(css || baseStyles, _classesJs2['default'].BASE_STYLES, 'base');
             _addBaseStyle(specificStyles, _classesJs2['default'][formatCaps + '_STYLES'], context.format);
 
-            if (domainConfig.embed.customFontUrl) {
+            if (this.domainConfig.embed.customFontUrl) {
                 this.includeFonts(head);
             }
         }
@@ -714,7 +707,7 @@ var Build = (function () {
             var el = document.createElement('link');
             el.type = 'text/css';
             el.rel = 'stylesheet';
-            var fontUrl = domainConfig.embed.customFontUrl;
+            var fontUrl = this.domainConfig.embed.customFontUrl;
             el.href = fontUrl.indexOf('//') !== -1 ? fontUrl : '//' + fontUrl;
 
             document.head.appendChild(el);
@@ -732,17 +725,23 @@ var Build = (function () {
     }, {
         key: 'setDomain',
         value: function setDomain() {
-            var embed = domainConfig.embed;
+            var embed = this.domainConfig.embed;
             var context = this.context;
 
-            if (context.domain) {
-                return context.domain;
-            } else if (context.linkDomain) {
-                return context.domain = context.linkDomain;
-            } else if (embed) {
-                return context.domain = embed.magazineUrl + '/' + embed.rootPath;
-            } else {
-                throw 'Styla Widget error: No domain defined or bad domain config';
+            var domain = undefined;
+
+            if (!context.domain) {
+                if (context.linkDomain) {
+                    domain = context.linkDomain;
+                } else if (embed) {
+                    domain = embed.magazineUrl + '/' + embed.rootPath;
+                } else {
+                    throw 'Styla Widget error: No domain defined or bad domain config';
+                }
+
+                domain = domain.replace(/^(http(s)?:)?\/\//, '');
+
+                return context.domain = domain;
             }
         }
     }]);
@@ -801,6 +800,6 @@ module.exports = {
 },{}],5:[function(require,module,exports){
 'use strict';
 
-module.exports = '1.0.6';
+module.exports = '1.0.10';
 
 },{}]},{},[2]);

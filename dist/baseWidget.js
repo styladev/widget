@@ -729,7 +729,7 @@ var Build = (function () {
                     throw 'Styla Widget error: No domain defined or bad domain config';
                 }
 
-                domain = domain.replace(/(http(s)?(:)?)?\/\//, '//');
+                domain = domain.replace(/^(http(s)?:)?\/\//, '');
 
                 return context.domain = domain;
             }
@@ -790,6 +790,6 @@ module.exports = {
 },{}],5:[function(require,module,exports){
 'use strict';
 
-module.exports = '1.0.9';
+module.exports = '1.0.10';
 
 },{}]},{},[2]);

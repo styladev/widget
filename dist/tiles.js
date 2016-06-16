@@ -1,12 +1,12 @@
 /*!
- * Styla bite-sized widget v1.0.9
+ * Styla bite-sized widget v1.0.10
  * https://github.com/styladev/widget
  *
  * Copyright 2016 Styla GmbH and other contributors
  * Released under the MIT license
  * https://github.com/styladev/widget/blob/master/license.md
  *
- * Date: Wed Jun 15 2016
+ * Date: Thu Jun 16 2016
  * */
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 (function (global){
@@ -739,7 +739,7 @@ var Build = (function () {
                     throw 'Styla Widget error: No domain defined or bad domain config';
                 }
 
-                domain = domain.replace(/(http(s)?(:)?)?\/\//, '//');
+                domain = domain.replace(/^(http(s)?:)?\/\//, '');
 
                 return context.domain = domain;
             }
@@ -800,6 +800,6 @@ module.exports = {
 },{}],5:[function(require,module,exports){
 'use strict';
 
-module.exports = '1.0.9';
+module.exports = '1.0.10';
 
 },{}]},{},[2]);

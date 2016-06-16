@@ -6,7 +6,7 @@
 },{}],2:[function(require,module,exports){
 module.exports={
   "name": "stylaWidget",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "contributors": [
     "Mouse Braun <mouse@styla.com>",
     "Elias Liedholm <elias@styla.com>"
@@ -553,7 +553,7 @@ var Build = (function () {
                     throw 'Styla Widget error: No domain defined or bad domain config';
                 }
 
-                domain = domain.replace(/(http(s)?(:)?)?\/\//, '//');
+                domain = domain.replace(/^(http(s)?:)?\/\//, '');
 
                 return context.domain = domain;
             }
@@ -614,7 +614,7 @@ module.exports = {
 },{}],5:[function(require,module,exports){
 'use strict';
 
-module.exports = '1.0.9';
+module.exports = '1.0.10';
 
 },{}],6:[function(require,module,exports){
 'use strict';
