@@ -153,7 +153,7 @@ This project adheres to the [Contributor Covenant](http://contributor-covenant.o
 Change log
 ==========
 
-### 1.0.12
+### 1.0.13
     + tile layout style fix
 
 ### 1.0.12
