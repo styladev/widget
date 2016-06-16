@@ -247,7 +247,7 @@ class Build
     buildTitle()
     {
         let context     = this.context;
-        let title       = this.domainConfig.title; 
+        let title       = this.domainConfig.title;
 
         if ( context.title === true && title )
         {
@@ -339,7 +339,7 @@ class Build
             let wrapper     = context.refs.wrapper   = this.create( `DIV`, `${classes.WRAPPER}  ${format}` );
             wrapper.id      = wrapperID;
 
-            let domainConfigAPI   = `https://live.styla.com/api/config/`;
+            let domainConfigAPI   = `${context.api}/api/config/`;
             http.get( domainConfigAPI + context.slug ).then( this.buildStories ).catch( _reportError );
 
             return container;
@@ -496,7 +496,7 @@ class Build
         let context = this.context;
 
         let domain;
-        
+
         if ( !context.domain )
         {
             if ( context.linkDomain )
@@ -513,7 +513,7 @@ class Build
             }
 
             domain = domain.replace( /^(http(s)?:)?\/\//, '' );
-            
+
             return context.domain = domain;
         }
     }
