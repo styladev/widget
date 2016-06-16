@@ -145,7 +145,7 @@ class Build
             let story               = create( `div`,    classes.STORY );
             let storyLink           = create( `a`,      classes.STORY_LINK );
 
-            storyLink.href          = `${context.domain}/story/${externalPermalink}/`;
+            storyLink.href          = `//${context.domain}/story/${externalPermalink}/`;
 
             if ( context.newTab )
             {
@@ -512,7 +512,7 @@ class Build
                 throw `Styla Widget error: No domain defined or bad domain config`;
             }
 
-            domain = domain.replace( /(http(s)?(:)?)?\/\//, '//' );
+            domain = domain.replace( /^(http(s)?:)?\/\//, '' );
             
             return context.domain = domain;
         }
