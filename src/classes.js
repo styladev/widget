@@ -6,6 +6,7 @@
  */
 module.exports = {
     BASE_STYLES         : 'styla-widget__base-styling',
+    FONT_LINK           : 'styla-widget__font-link',
     TILES_STYLES        : 'styla-widget__tiles-styling',
     LIST_STYLES         : 'styla-widget__list-styling',
     HORIZONTAL_STYLES   : 'styla-widget__horizontal-styling',

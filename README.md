@@ -1,4 +1,4 @@
-Styla Widget  1.0.13
+Styla Widget  1.0.14
 =======
 
 
@@ -153,14 +153,25 @@ This project adheres to the [Contributor Covenant](http://contributor-covenant.o
 Change log
 ==========
 
+### 1.0.14
+
+    + all tests fixed
+
+
 ### 1.0.13
+
     + tile layout style fix
 
+
 ### 1.0.12
+
     + tile layout does not break if a story only has very little content
 
+
 ### 1.0.11
+
     + set domain config api dynamically
+
 
 ### 1.0.10
 
@@ -176,6 +187,7 @@ Change log
 
     + added css prefixes for IE
     + fixed an issue where ignored stories were added anyways
+
 
 ### 1.0.6
 

@@ -111,14 +111,15 @@ class Build
             context.title = this.buildTitle();
 
             resImages.forEach( function( _i ){ images[ _i.id ] = _i; });
-
-            context.images = images;
-            let _els    = stories.stories.map( this.buildStory );
-
-            let styling = this.compileStyles();
+            context.images  = images;
+            
+            let _els        = stories.stories.map( this.buildStory );
+            let styling     = this.compileStyles();
 
             document.head.appendChild( styling );
             context.target.appendChild( context.refs.wrapper );
+
+            return context.refs.wrapper;
         }
     }
 
@@ -134,7 +135,7 @@ class Build
      *
      * @return _DOMElement_ outer story element
      */
-    buildStory = ( { title, description, images, externalPermalink, id }, i ) =>
+    buildStory = ( { title, description, images, externalPermalink, id }, i = 0 ) =>
     {
         let context     = this.context;
 
@@ -242,12 +243,14 @@ class Build
      *
      * builds the title element, fills it, and attaches it to the container
      *
+     * @param {String} title string to set the ttle to (for testing purposes)
+     * 
      * @return _DOMElement_
      */
-    buildTitle()
+    buildTitle( title )
     {
         let context     = this.context;
-        let title       = this.domainConfig.title;
+        title       = title || this.domainConfig.title;
 
         if ( context.title === true && title )
         {
@@ -451,14 +454,18 @@ class Build
             return el;
         }
 
-        _addBaseStyle( css || baseStyles, classes.BASE_STYLES, 'base' );
-        _addBaseStyle( specificStyles, classes[ `${formatCaps}_STYLES` ], context.format );
+        let arr = new Array( 2 );
+
+        arr[ 0 ] = _addBaseStyle( css || baseStyles, classes.BASE_STYLES, 'base' );
+        arr[ 1 ] = _addBaseStyle( specificStyles, classes[ `${formatCaps}_STYLES` ], context.format );
 
 
         if ( this.domainConfig.embed.customFontUrl )
         {
-            this.includeFonts( head );
+            arr.push( this.includeFonts( head ) );
         }
+
+        return arr;
     }
 
 
@@ -471,11 +478,14 @@ class Build
      */
     includeFonts()
     {
-        let el      = document.createElement( `link` );
-        el.type     = `text/css`;
-        el.rel      = `stylesheet`;
-        let fontUrl = this.domainConfig.embed.customFontUrl
-        el.href     = fontUrl.indexOf( '//' ) !== -1 ? fontUrl : `//${fontUrl}`;
+        let el          = document.createElement( `link` );
+        el.className    = classes.FONT_LINK;
+        el.type         = `text/css`;
+        el.rel          = `stylesheet`;
+        let fontUrl     = this.domainConfig.embed.customFontUrl
+        el.href         = fontUrl.indexOf( '//' ) !== -1 ? 
+                            fontUrl : 
+                            `//${fontUrl}`;
 
         document.head.appendChild( el );
 
