@@ -58,7 +58,8 @@ class Build
      */
     buildImage( images, title, context )
     {
-        this.context           = this.context || context;
+        this.context            = this.context || context;
+
         let create              = this.create;
         let imageWrapper        = create( `div`, classes.IMAGE_WRAPPER );
         let imageSize           = this.context.imageSize;
@@ -102,9 +103,11 @@ class Build
         let context     = this.context;
         let stories     = context.stories;
         let resImages   = stories.images;
+        let refs        = context.refs;
 
-        context.domain = this.setDomain();
-        this.includeBaseStyles();
+        context.domain  = this.setDomain();
+
+        refs.styles = this.includeBaseStyles();
 
         if ( resImages )
         {
@@ -119,7 +122,7 @@ class Build
             document.head.appendChild( styling );
             context.target.appendChild( context.refs.wrapper );
 
-            return context.refs.wrapper;
+            return refs.wrapper;
         }
     }
 
@@ -146,7 +149,7 @@ class Build
             let story               = create( `div`,    classes.STORY );
             let storyLink           = create( `a`,      classes.STORY_LINK );
 
-            storyLink.href          = `//${context.domain}/story/${externalPermalink}/`;
+            storyLink.href          = `//${context.domain}/story/${externalPermalink}`;
 
             if ( context.newTab )
             {
@@ -432,6 +435,7 @@ class Build
      */
     includeBaseStyles( css )
     {
+        let el;
         let self        = this;
         let context     = this.context;
         let formatCaps  = context.format.toUpperCase();
@@ -439,15 +443,15 @@ class Build
 
         function _addBaseStyle( css, _class, _format )
         {
-            let el          = self.buildStyleTag( css );
-            el.className    = _class;
-
-            context.refs[ `${_format}Style` ] = el;
-
             let baseStyle = head.querySelector( `.${_class}` );
 
             if ( !baseStyle )
             {
+                el              = self.buildStyleTag( css );
+                el.className    = `${_class}  ${classes.STYLES}`;
+
+                context.refs[ `${_format}Style` ] = el;
+
                 head.appendChild( el );
             }
 
@@ -456,7 +460,7 @@ class Build
 
         let arr = new Array( 2 );
 
-        arr[ 0 ] = _addBaseStyle( css || baseStyles, classes.BASE_STYLES, 'base' );
+        arr[ 0 ] = _addBaseStyle( css || baseStyles, `${classes.BASE_STYLES}`, 'base' );
         arr[ 1 ] = _addBaseStyle( specificStyles, classes[ `${formatCaps}_STYLES` ], context.format );
 
 
@@ -464,6 +468,8 @@ class Build
         {
             arr.push( this.includeFonts( head ) );
         }
+
+        arr = arr.filter( el => el );
 
         return arr;
     }

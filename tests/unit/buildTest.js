@@ -314,8 +314,7 @@ let tests = function( stylaWidget )
                 {
                     assert.ok( el.nodeType === 1, 'StyleTag is a dom element' );
 
-                    let tag = i === 2 ? 'LINK' : 'STYLE';
-                    assert.equal( el.tagName, tag, 'StyleTag is a style tag' );
+                    assert.equal( el.tagName, 'LINK' || 'STYLE', 'StyleTag is a style tag' );
                     assert.ok( el.className !== '', 'StyleTag class is set' );
                     assert.equal( el.type, 'text/css', 'StyleTag is a css tag' );
                 } );

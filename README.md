@@ -1,4 +1,4 @@
-Styla Widget  1.0.14
+Styla Widget  1.0.15
 =======
 
 
@@ -153,6 +153,13 @@ This project adheres to the [Contributor Covenant](http://contributor-covenant.o
 Change log
 ==========
 
+### 1.0.15
+    
+    + internal reconfigurations on their way to the ability to handle multiple formats at once
+    + adjusted how style tags are added and stored
+    + removed trailing slash from links
+
+
 ### 1.0.14
 
     + all tests fixed
@@ -194,43 +201,6 @@ Change log
     + css-wrap removed from package and gulpfile
     + added a console log to investigate stage
 
-
-### 1.0.5
-
-    + gitignore changed to clean up dist dir (release branch)
-
-
-### 1.0.4
-
-    + theme style tags now get a class for their format
-    + theme style tags are now added just once
-    + multiple styling of multiple widgets on the same page works correctly
-    + widgets now get a class for their layout
-    + widget embed code got even easier
-
-
-### 1.0.3
-
-    + timestamp added to container for multiple styling
-    + format added for multiple styles per page
-    + added horizontal and tiled style
-    + always showing read more indicatior
-
-
-### 1.0.2
-
-    + list.min.js is now included in `npm i` calls
-
-
-### 1.0.1
-
-    + added css prefixes for old browsers
-
-
-### 1.0.0
-
-    + build is now a constructor
-    + implementation changes to allow for multiple widgets on one page
 
 
 Older Changes
