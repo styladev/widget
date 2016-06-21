@@ -124,7 +124,7 @@ let tests = function( stylaWidget )
                 assert.equal( storyLink.className, classes.STORY_LINK, 'storyLink has correct class name' );
 
                 let href = storyLink.href.replace( /^https?:/, '' )
-                assert.equal( href, `//${stylaWidget.domain}/story/externalPermalink/`, 'storyLink has correct href' );
+                assert.equal( href, `//${stylaWidget.domain}/story/externalPermalink`, 'storyLink has correct href' );
             } );
 
 
