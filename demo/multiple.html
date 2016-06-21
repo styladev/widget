@@ -2,26 +2,59 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <title>Styla Multiple Widget Demo</title>
+        <title>Styla Widgets</title>
+        <link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic" rel="stylesheet" type="text/css">
 
         <style>
             body
             {
                 text-align:             left;
                 margin:                 0 5vw;
-                background:             #f3f3f3;
+                background:             #f7f6f4;
                 height:                 100vh;
-                font-family:            "Palatino Linotype", "Book Antiqua", Palatino, serif;
+                font-family:            "Lato", sans-serif;
+                font-weight:            300;
+            }
+
+            a
+            {
+                color:                  #000;
             }
 
             h1, h2
             {
-                font-family:            "Lucida Grande", sans-serif;
-                font-weight:            normal;
+                text-transform:         uppercase;
+                font-weight:            bold;
             }
 
-            ul > li {
+            ul > li
+            {
                 line-height:            1.5em;
+            }
+
+            hr
+            {
+                border-style:           solid;
+                border-top:             0;
+            }
+
+            .logotype {
+                display:                block;
+                width:                  5em;
+                height:                 5em;
+                background:             #000;
+                display:                flex;
+                align-items:            center;
+                text-align:             center;
+                float:                  left;
+                margin-right:           1.5em;
+            }
+
+            .logotype__image
+            {
+                display:                block;
+                margin:                 0 auto;
+                width:                  70%;
             }
 
             p:not(.target)
@@ -62,7 +95,7 @@
                 height:                 900px;
                 width:                  300px;
                 max-width:              100%;
-                margin:                 0 2em 0 0;
+                margin-right:           2em;
             }
 
             .styla-widget__target-list--wide
@@ -80,8 +113,12 @@
         </style>
     </head>
     <body>
-        <h1>Styla Widgets</h1>
-        <p>Below you will find a selection of widgets that Styla offer. They are set up to behave the same way they would on your website.</p>
+        <div class="logotype">
+            <img src="logotype.svg" class="logotype__image">
+        </div>
+        <h1>Widgets</h1>
+        <br>
+        <p>Presented below is a selection of widgets that Styla offer. They are set up to behave the same way they would on your website.</p>
         <p><a href="#classic">Classic</a> <a href="#horizontal">Horizontal</a> <a href="#tiles">Tiles</a></p>
         <hr>
 
@@ -126,6 +163,13 @@
         <div class="target styla-widget__target-tiles--square"></div>
         <div class="target styla-widget__target-tiles--portrait"></div>
         <div class="target styla-widget__target-tiles--horizontal"></div>
+
+        <br>
+        <hr>
+        <br>
+        <b>Styla</b> | Content Marketing for e-Commerce | <a href="http://styla.com/">www.styla.com</a>
+        <br>
+        <br>
     </body>
 
 

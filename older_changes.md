@@ -3,7 +3,44 @@ Older changes
 
 This is truncated from the readme file to keep down the size
 
+### 1.0.5
 
+    + gitignore changed to clean up dist dir (release branch)
+
+
+### 1.0.4
+
+    + theme style tags now get a class for their format
+    + theme style tags are now added just once
+    + multiple styling of multiple widgets on the same page works correctly
+    + widgets now get a class for their layout
+    + widget embed code got even easier
+
+
+### 1.0.3
+
+    + timestamp added to container for multiple styling
+    + format added for multiple styles per page
+    + added horizontal and tiled style
+    + always showing read more indicatior
+
+
+### 1.0.2
+
+    + list.min.js is now included in `npm i` calls
+
+
+### 1.0.1
+
+    + added css prefixes for old browsers
+
+
+### 1.0.0
+
+    + build is now a constructor
+    + implementation changes to allow for multiple widgets on one page
+
+    
 ### 0.4.9
 
     + i a !

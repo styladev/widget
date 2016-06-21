@@ -1,5 +1,5 @@
 
-import build    from '../../src/build.js';
+import Build    from '../../src/build.js';
 import classes  from '../../src/classes.js';
 import { http } from 'microbejs/dist/microbe.http.min';
 
@@ -14,6 +14,8 @@ let tests = function( stylaWidget )
 
         http.get( storiesUrl ).then( function( stories )
         {
+            let build = new Build( stylaWidget, stories );
+
             QUnit.module( 'build.js' );
 
 
@@ -86,7 +88,7 @@ let tests = function( stylaWidget )
             {
                 let wrapper = build.buildStories( false, domainConfig );
                 assert.ok( wrapper.nodeType === 1, 'Wrapper is a dom element' );
-                assert.equal( wrapper.className, classes.WRAPPER, 'Wrapper has correct class name' );
+                assert.ok( wrapper.className.indexOf( classes.WRAPPER ) !== -1, 'Wrapper has correct class name' );
             } );
 
 
@@ -112,7 +114,7 @@ let tests = function( stylaWidget )
 
                 let story = build.buildStory( storyObj );
 
-                assert.ok( story.nodeType === 1, 'Wrapper is a dom element' );
+                assert.ok( story.nodeType === 1, 'Story wrapper is a dom element' );
                 assert.equal( story.className, classes.STORY, 'Wrapper has correct class name' );
 
                 let storyLink = story.childNodes;
@@ -146,7 +148,7 @@ let tests = function( stylaWidget )
                 assert.equal( textWrapper.className, classes.TEXT_WRAPPER, 'Wrapper has correct class name' );
 
                 let children = textWrapper.childNodes;
-                assert.equal( children.length, 2, 'textWrapper has 2 children' );
+                assert.equal( children.length, 3, 'textWrapper has 3 children' );
 
                 assert.equal( children[ 0 ].innerHTML, '<h3 class="styla-widget__headline">moon?</h3>', 'headline is set right' );
                 assert.equal( children[ 1 ].innerHTML, 'description', 'description is set right' );
@@ -174,6 +176,30 @@ let tests = function( stylaWidget )
 
 
             /**
+             * ## buildTitle
+             *
+             * builds a style tag and appends it to the DOM
+             * 
+             * @param {String} title string to set the ttle to (for testing purposes)
+             *
+             * @return _DOMElement_ style element
+             */
+            QUnit.test( 'buildTitle', function( assert )
+            {
+                build.context.title = true;
+
+                let el      = build.buildTitle( 'moon' );
+
+                assert.ok( el.nodeType === 1, 'title is a dom element' );
+                assert.equal( el.tagName, 'DIV', 'title is a div tag' );
+                assert.equal( el.className, classes.TITLE, 'title class is set' );
+                assert.equal( 'moon', el.innerHTML, 'title has the right text' );
+
+                build.context.title = false;
+            } );
+
+
+            /**
              * ## compileStyles
              *
              * compiles the styles and returns them added to the style tag
@@ -188,6 +214,25 @@ let tests = function( stylaWidget )
 
                 assert.ok( el.nodeType === 1, 'Styles is a dom element' );
                 assert.equal( el.textContent[0], '.', 'Styles css is set' );
+            } );
+
+
+            /**
+             * ## constructor
+             *
+             * after recieving the story data this sends it to buildStories for
+             * processing
+             *
+             * @param {String} res JSON response from the product api
+             *
+             * @return _DOMElement_ container element
+             */
+            QUnit.test( 'constructor', function( assert )
+            {
+                let _b = build.constructor( stylaWidget, stories );
+                assert.ok( typeof _b.now === 'number', 'Build gets built' );
+                assert.ok( _b.context instanceof StylaWidget_List, 'Build contains the context of a widget instance' );
+                assert.ok( typeof _b.domainConfig !== 'undefined', 'Build contains a domainConfig' );
             } );
 
 
@@ -237,24 +282,6 @@ let tests = function( stylaWidget )
 
 
             /**
-             * ## getDomainConfig
-             *
-             * after recieving the story data this sends it to buildStories for
-             * processing
-             *
-             * @param {String} res JSON response from the product api
-             *
-             * @return _DOMElement_ container element
-             */
-            QUnit.test( 'getDomainConfig', function( assert )
-            {
-                let el = build.getDomainConfig.call( stylaWidget, stories );
-                assert.ok( el.nodeType === 1, 'Story is a dom element' );
-                assert.equal( el.className, classes.CONTAINER, 'Story has correct class name' );
-            } );
-
-
-            /**
              * ## getImageUrl
              *
              * uses the filename and size to create the full image url
@@ -281,14 +308,16 @@ let tests = function( stylaWidget )
              */
             QUnit.test( 'includeBaseStyles', function( assert )
             {
-                let el = build.includeBaseStyles( '#styla-widget' );
+                let elArr = build.includeBaseStyles( '#styla-widget' );
 
-                assert.ok( el.nodeType === 1, 'StyleTag is a dom element' );
-                assert.equal( el.tagName, 'STYLE', 'StyleTag is a style tag' );
-                assert.equal( el.className, classes.BASE_STYLES, 'StyleTag class is set' );
-                assert.equal( el.type, 'text/css', 'StyleTag is a css tag' );
-                assert.equal( el.parentNode, document.head, 'StyleTag is mounted correctly' );
-                assert.equal( el.textContent.indexOf( '#styla-widget' ), 0, 'StyleTag contains the correct info' );
+                elArr.forEach( function( el, i )
+                {
+                    assert.ok( el.nodeType === 1, 'StyleTag is a dom element' );
+
+                    assert.equal( el.tagName, 'LINK' || 'STYLE', 'StyleTag is a style tag' );
+                    assert.ok( el.className !== '', 'StyleTag class is set' );
+                    assert.equal( el.type, 'text/css', 'StyleTag is a css tag' );
+                } );
             } );
 
 

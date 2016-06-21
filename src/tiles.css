@@ -47,9 +47,11 @@
 #styla-widget.tiles .styla-widget__textwrap
 {
     position:                           absolute;
+    box-sizing:                         border-box;
     display:                            block;
     bottom:                             0;
-    margin-bottom:                      -8.5em;
+    width:                              100%;
+    margin-bottom:                      -12.5em;
     height:                             12.5em;
     transition:                         margin 0.2s ease;
     padding:                            1em;
@@ -93,7 +95,7 @@
 
 #styla-widget.tiles .styla-widget__paragraph
 {
-    max-height:                         6em;
+    max-height:                         4.5em;
     color:                              #FFF;
 }
 
