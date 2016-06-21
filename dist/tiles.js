@@ -1,12 +1,12 @@
 /*!
- * Styla bite-sized widget v1.0.10
+ * Styla bite-sized widget v1.0.15
  * https://github.com/styladev/widget
  *
  * Copyright 2016 Styla GmbH and other contributors
  * Released under the MIT license
  * https://github.com/styladev/widget/blob/master/license.md
  *
- * Date: Thu Jun 16 2016
+ * Date: Tue Jun 21 2016
  * */
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 (function (global){
@@ -23,27 +23,6 @@
  * @author "Mouse Braun <mouse@styla.com>"
  * @author "Elias Liedholm <elias@styla.com>"
  */
-
-/*
-    THIS SNIPPET WILL embed the widget in your page.  Make sure to change the slug to yours,
-    and alter the options to your liking
-
-    var d=document;var h=d.head,s=d.createElement('SCRIPT');h.appendChild(s);s.src='../dist/list.js';var w=window;var f=typeof w.onload==='function'?w.onload:function(){};w.onload=function(e){
-
-    new StylaWidget( {
-        newTab  : true,
-        slug    : 'uhrenschmuck24',
-        target  : '.styla-widget__target'
-    } );
-
-    new StylaWidget( {
-        newTab  : true,
-        slug    : 'braunhamburg',
-        target  : '.styla-widget__target2'
-    } );
-
-    f( e );};
-*/
 
 'use strict';
 
@@ -95,6 +74,12 @@ var StylaWidget = (function () {
             var head = document.head;
 
             if (refs.baseStyle) {
+                var styles = refs.styles;
+
+                styles.forEach(function (el) {
+                    head.appendChild(el);
+                });
+
                 if (head.querySelector('.' + _classesJs2['default'].BASE_STYLES)) {
                     head.appendChild(refs.baseStyle);
                 }
@@ -283,7 +268,7 @@ var _microbejsDistMicrobeHttpMin = require('microbejs/dist/microbe.http.min');
     exchanged for css in the gulp build
  */
 var baseStyles = '#styla-widget p{margin:0}#styla-widget.styla-widget__wrapper{width:100%;height:100%}#styla-widget .styla-widget__container{box-sizing:border-box;position:relative;overflow:hidden;height:100%;width:100%;min-height:14em;font-size:14px}#styla-widget .styla-widget__story{margin-bottom:1em;position:relative}#styla-widget .styla-widget__link{position:absolute;width:100%;display:-moz-flex;display:-webkit-flex;display:flex;text-decoration:none;color:inherit}#styla-widget__link>div{display:inline-block}#styla-widget .styla-widget__image{max-height:100%;max-width:100%;height:100%;object-fit:contain}#styla-widget .styla-widget__textwrap{display:block;flex-grow:1;-webkit-flex-grow:1;-moz-flex-grow:1;max-height:100%;overflow:hidden;float:left}#styla-widget .styla-widget__headlinewrap{display:flex;flex-direction:column;justify-content:flex-end;-webkit-justify-content:flex-end;-moz-justify-content:flex-end}#styla-widget .styla-widget__headline,#styla-widget .styla-widget__title{line-height:1.25em;max-height:2.5em;overflow:hidden}#styla-widget .styla-widget__title{font-size:2em;text-align:center;margin-bottom:30px}#styla-widget .styla-widget__paragraph{font-size:1em;line-height:1.5em;overflow:hidden;position:relative;word-wrap:break-word}';
-var specificStyles = '#styla-widget.tiles .styla-widget__container{display:-moz-flex;display:-webkit-flex;display:flex;flex-direction:row;-webkit-flex-direction:row;-moz-flex-direction:row;flex-wrap:wrap;-moz-flex-wrap:wrap;-webkit-flex-wrap:wrap;height:100%}#styla-widget.tiles .styla-widget__story{height:100%;min-height:14em;min-width:14em;display:block;float:left;flex-grow:1;-moz-flex-grow:1;-webkit-flex-grow:1;overflow:hidden}#styla-widget.tiles .styla-widget__link{height:100%;align-items:center}#styla-widget.tiles .styla-widget__imagewrap{display:block;position:absolute;width:100%;height:100%}#styla-widget.tiles .styla-widget__image{object-fit:cover;min-width:100%}#styla-widget.tiles .styla-widget__textwrap{position:absolute;display:block;bottom:0;margin-bottom:-8.5em;height:12.5em;transition:margin .2s ease;padding:1em;background:linear-gradient(to bottom,rgba(0,0,0,0) 0,rgba(0,0,0,.65) 100%)}#styla-widget.tiles .styla-widget__story:hover .styla-widget__textwrap{margin-bottom:0}#styla-widget.tiles .styla-widget__headlinewrap{height:5em;display:-moz-flex;display:-webkit-flex;display:flex;flex-direction:column;-webkit-flex-direction:column;-moz-flex-direction:column;justify-content:flex-end;-webkit-justify-content:flex-end;-moz-justify-content:flex-end}#styla-widget.tiles .styla-widget__headline{font-size:1.9em;line-height:1.25em;max-height:2.5em;overflow:hidden;margin:0 0 .25em;word-wrap:break-word;text-overflow:ellipsis;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;color:#FFF;text-shadow:1px 1px 1px rgba(0,0,0,.65)}#styla-widget.tiles .styla-widget__paragraph{max-height:6em;color:#FFF}#styla-widget.tiles .styla-widget__paragraph-after{color:#FFF;line-height:1.5em}#styla-widget.tiles .styla-widget__paragraph p+p{display:none}';
+var specificStyles = '#styla-widget.tiles .styla-widget__container{display:-moz-flex;display:-webkit-flex;display:flex;flex-direction:row;-webkit-flex-direction:row;-moz-flex-direction:row;flex-wrap:wrap;-moz-flex-wrap:wrap;-webkit-flex-wrap:wrap;height:100%}#styla-widget.tiles .styla-widget__story{height:100%;min-height:14em;min-width:14em;display:block;float:left;flex-grow:1;-moz-flex-grow:1;-webkit-flex-grow:1;overflow:hidden}#styla-widget.tiles .styla-widget__link{height:100%;align-items:center}#styla-widget.tiles .styla-widget__imagewrap{display:block;position:absolute;width:100%;height:100%}#styla-widget.tiles .styla-widget__image{object-fit:cover;min-width:100%}#styla-widget.tiles .styla-widget__textwrap{position:absolute;box-sizing:border-box;display:block;bottom:0;width:100%;margin-bottom:-12.5em;height:12.5em;transition:margin .2s ease;padding:1em;background:linear-gradient(to bottom,rgba(0,0,0,0) 0,rgba(0,0,0,.65) 100%)}#styla-widget.tiles .styla-widget__story:hover .styla-widget__textwrap{margin-bottom:0}#styla-widget.tiles .styla-widget__headlinewrap{height:5em;display:-moz-flex;display:-webkit-flex;display:flex;flex-direction:column;-webkit-flex-direction:column;-moz-flex-direction:column;justify-content:flex-end;-webkit-justify-content:flex-end;-moz-justify-content:flex-end}#styla-widget.tiles .styla-widget__headline{font-size:1.9em;line-height:1.25em;max-height:2.5em;overflow:hidden;margin:0 0 .25em;word-wrap:break-word;text-overflow:ellipsis;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;color:#FFF;text-shadow:1px 1px 1px rgba(0,0,0,.65)}#styla-widget.tiles .styla-widget__paragraph{max-height:4.5em;color:#FFF}#styla-widget.tiles .styla-widget__paragraph-after{color:#FFF;line-height:1.5em}#styla-widget.tiles .styla-widget__paragraph p+p{display:none}';
 var wrapperID = 'styla-widget';
 var _reportError = function _reportError(e) {
     console.log('err', e);
@@ -331,6 +316,7 @@ var Build = (function () {
         key: 'buildImage',
         value: function buildImage(images, title, context) {
             this.context = this.context || context;
+
             var create = this.create;
             var imageWrapper = create('div', _classesJs2['default'].IMAGE_WRAPPER);
             var imageSize = this.context.imageSize;
@@ -424,13 +410,15 @@ var Build = (function () {
          *
          * builds the title element, fills it, and attaches it to the container
          *
+         * @param {String} title string to set the ttle to (for testing purposes)
+         * 
          * @return _DOMElement_
          */
     }, {
         key: 'buildTitle',
-        value: function buildTitle() {
+        value: function buildTitle(title) {
             var context = this.context;
-            var title = this.domainConfig.title;
+            title = title || this.domainConfig.title;
 
             if (context.title === true && title) {
                 context.title = title;
@@ -499,9 +487,11 @@ var Build = (function () {
             var context = _this.context;
             var stories = context.stories;
             var resImages = stories.images;
+            var refs = context.refs;
 
             context.domain = _this.setDomain();
-            _this.includeBaseStyles();
+
+            refs.styles = _this.includeBaseStyles();
 
             if (resImages) {
                 context.title = _this.buildTitle();
@@ -509,23 +499,25 @@ var Build = (function () {
                 resImages.forEach(function (_i) {
                     images[_i.id] = _i;
                 });
-
                 context.images = images;
-                var _els = stories.stories.map(_this.buildStory);
 
+                var _els = stories.stories.map(_this.buildStory);
                 var styling = _this.compileStyles();
 
                 document.head.appendChild(styling);
                 context.target.appendChild(context.refs.wrapper);
+
+                return refs.wrapper;
             }
         };
 
-        this.buildStory = function (_ref, i) {
+        this.buildStory = function (_ref) {
             var title = _ref.title;
             var description = _ref.description;
             var images = _ref.images;
             var externalPermalink = _ref.externalPermalink;
             var id = _ref.id;
+            var i = arguments.length <= 1 || arguments[1] === undefined ? 0 : arguments[1];
 
             var context = _this.context;
 
@@ -535,7 +527,7 @@ var Build = (function () {
                 var story = create('div', _classesJs2['default'].STORY);
                 var storyLink = create('a', _classesJs2['default'].STORY_LINK);
 
-                storyLink.href = '//' + context.domain + '/story/' + externalPermalink + '/';
+                storyLink.href = '//' + context.domain + '/story/' + externalPermalink;
 
                 if (context.newTab) {
                     storyLink.setAttribute('target', '_blank');
@@ -574,7 +566,7 @@ var Build = (function () {
             var wrapper = context.refs.wrapper = this.create('DIV', _classesJs2['default'].WRAPPER + '  ' + format);
             wrapper.id = wrapperID;
 
-            var domainConfigAPI = 'https://live.styla.com/api/config/';
+            var domainConfigAPI = context.api + '/api/config/';
             _microbejsDistMicrobeHttpMin.http.get(domainConfigAPI + context.slug).then(this.buildStories)['catch'](_reportError);
 
             return container;
@@ -666,32 +658,41 @@ var Build = (function () {
     }, {
         key: 'includeBaseStyles',
         value: function includeBaseStyles(css) {
+            var el = undefined;
             var self = this;
             var context = this.context;
             var formatCaps = context.format.toUpperCase();
             var head = document.head;
 
             function _addBaseStyle(css, _class, _format) {
-                var el = self.buildStyleTag(css);
-                el.className = _class;
-
-                context.refs[_format + 'Style'] = el;
-
                 var baseStyle = head.querySelector('.' + _class);
 
                 if (!baseStyle) {
+                    el = self.buildStyleTag(css);
+                    el.className = _class + '  ' + _classesJs2['default'].STYLES;
+
+                    context.refs[_format + 'Style'] = el;
+
                     head.appendChild(el);
                 }
 
                 return el;
             }
 
-            _addBaseStyle(css || baseStyles, _classesJs2['default'].BASE_STYLES, 'base');
-            _addBaseStyle(specificStyles, _classesJs2['default'][formatCaps + '_STYLES'], context.format);
+            var arr = new Array(2);
+
+            arr[0] = _addBaseStyle(css || baseStyles, '' + _classesJs2['default'].BASE_STYLES, 'base');
+            arr[1] = _addBaseStyle(specificStyles, _classesJs2['default'][formatCaps + '_STYLES'], context.format);
 
             if (this.domainConfig.embed.customFontUrl) {
-                this.includeFonts(head);
+                arr.push(this.includeFonts(head));
             }
+
+            arr = arr.filter(function (el) {
+                return el;
+            });
+
+            return arr;
         }
 
         /**
@@ -705,6 +706,7 @@ var Build = (function () {
         key: 'includeFonts',
         value: function includeFonts() {
             var el = document.createElement('link');
+            el.className = _classesJs2['default'].FONT_LINK;
             el.type = 'text/css';
             el.rel = 'stylesheet';
             var fontUrl = this.domainConfig.embed.customFontUrl;
@@ -777,6 +779,7 @@ module.exports = exports['default'];
 
 module.exports = {
     BASE_STYLES: 'styla-widget__base-styling',
+    FONT_LINK: 'styla-widget__font-link',
     TILES_STYLES: 'styla-widget__tiles-styling',
     LIST_STYLES: 'styla-widget__list-styling',
     HORIZONTAL_STYLES: 'styla-widget__horizontal-styling',
@@ -800,6 +803,6 @@ module.exports = {
 },{}],5:[function(require,module,exports){
 'use strict';
 
-module.exports = '1.0.10';
+module.exports = '1.0.15';
 
 },{}]},{},[2]);

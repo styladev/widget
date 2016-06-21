@@ -6,7 +6,7 @@
 },{}],2:[function(require,module,exports){
 module.exports={
   "name": "stylaWidget",
-  "version": "1.0.10",
+  "version": "1.0.15",
   "contributors": [
     "Mouse Braun <mouse@styla.com>",
     "Elias Liedholm <elias@styla.com>"
@@ -145,6 +145,7 @@ var Build = (function () {
         key: 'buildImage',
         value: function buildImage(images, title, context) {
             this.context = this.context || context;
+
             var create = this.create;
             var imageWrapper = create('div', _classesJs2['default'].IMAGE_WRAPPER);
             var imageSize = this.context.imageSize;
@@ -238,13 +239,15 @@ var Build = (function () {
          *
          * builds the title element, fills it, and attaches it to the container
          *
+         * @param {String} title string to set the ttle to (for testing purposes)
+         * 
          * @return _DOMElement_
          */
     }, {
         key: 'buildTitle',
-        value: function buildTitle() {
+        value: function buildTitle(title) {
             var context = this.context;
-            var title = this.domainConfig.title;
+            title = title || this.domainConfig.title;
 
             if (context.title === true && title) {
                 context.title = title;
@@ -313,9 +316,11 @@ var Build = (function () {
             var context = _this.context;
             var stories = context.stories;
             var resImages = stories.images;
+            var refs = context.refs;
 
             context.domain = _this.setDomain();
-            _this.includeBaseStyles();
+
+            refs.styles = _this.includeBaseStyles();
 
             if (resImages) {
                 context.title = _this.buildTitle();
@@ -323,23 +328,25 @@ var Build = (function () {
                 resImages.forEach(function (_i) {
                     images[_i.id] = _i;
                 });
-
                 context.images = images;
-                var _els = stories.stories.map(_this.buildStory);
 
+                var _els = stories.stories.map(_this.buildStory);
                 var styling = _this.compileStyles();
 
                 document.head.appendChild(styling);
                 context.target.appendChild(context.refs.wrapper);
+
+                return refs.wrapper;
             }
         };
 
-        this.buildStory = function (_ref, i) {
+        this.buildStory = function (_ref) {
             var title = _ref.title;
             var description = _ref.description;
             var images = _ref.images;
             var externalPermalink = _ref.externalPermalink;
             var id = _ref.id;
+            var i = arguments.length <= 1 || arguments[1] === undefined ? 0 : arguments[1];
 
             var context = _this.context;
 
@@ -349,7 +356,7 @@ var Build = (function () {
                 var story = create('div', _classesJs2['default'].STORY);
                 var storyLink = create('a', _classesJs2['default'].STORY_LINK);
 
-                storyLink.href = '//' + context.domain + '/story/' + externalPermalink + '/';
+                storyLink.href = '//' + context.domain + '/story/' + externalPermalink;
 
                 if (context.newTab) {
                     storyLink.setAttribute('target', '_blank');
@@ -388,7 +395,7 @@ var Build = (function () {
             var wrapper = context.refs.wrapper = this.create('DIV', _classesJs2['default'].WRAPPER + '  ' + format);
             wrapper.id = wrapperID;
 
-            var domainConfigAPI = 'https://live.styla.com/api/config/';
+            var domainConfigAPI = context.api + '/api/config/';
             _microbejsDistMicrobeHttpMin.http.get(domainConfigAPI + context.slug).then(this.buildStories)['catch'](_reportError);
 
             return container;
@@ -480,32 +487,41 @@ var Build = (function () {
     }, {
         key: 'includeBaseStyles',
         value: function includeBaseStyles(css) {
+            var el = undefined;
             var self = this;
             var context = this.context;
             var formatCaps = context.format.toUpperCase();
             var head = document.head;
 
             function _addBaseStyle(css, _class, _format) {
-                var el = self.buildStyleTag(css);
-                el.className = _class;
-
-                context.refs[_format + 'Style'] = el;
-
                 var baseStyle = head.querySelector('.' + _class);
 
                 if (!baseStyle) {
+                    el = self.buildStyleTag(css);
+                    el.className = _class + '  ' + _classesJs2['default'].STYLES;
+
+                    context.refs[_format + 'Style'] = el;
+
                     head.appendChild(el);
                 }
 
                 return el;
             }
 
-            _addBaseStyle(css || baseStyles, _classesJs2['default'].BASE_STYLES, 'base');
-            _addBaseStyle(specificStyles, _classesJs2['default'][formatCaps + '_STYLES'], context.format);
+            var arr = new Array(2);
+
+            arr[0] = _addBaseStyle(css || baseStyles, '' + _classesJs2['default'].BASE_STYLES, 'base');
+            arr[1] = _addBaseStyle(specificStyles, _classesJs2['default'][formatCaps + '_STYLES'], context.format);
 
             if (this.domainConfig.embed.customFontUrl) {
-                this.includeFonts(head);
+                arr.push(this.includeFonts(head));
             }
+
+            arr = arr.filter(function (el) {
+                return el;
+            });
+
+            return arr;
         }
 
         /**
@@ -519,6 +535,7 @@ var Build = (function () {
         key: 'includeFonts',
         value: function includeFonts() {
             var el = document.createElement('link');
+            el.className = _classesJs2['default'].FONT_LINK;
             el.type = 'text/css';
             el.rel = 'stylesheet';
             var fontUrl = this.domainConfig.embed.customFontUrl;
@@ -591,6 +608,7 @@ module.exports = exports['default'];
 
 module.exports = {
     BASE_STYLES: 'styla-widget__base-styling',
+    FONT_LINK: 'styla-widget__font-link',
     TILES_STYLES: 'styla-widget__tiles-styling',
     LIST_STYLES: 'styla-widget__list-styling',
     HORIZONTAL_STYLES: 'styla-widget__horizontal-styling',
@@ -614,7 +632,7 @@ module.exports = {
 },{}],5:[function(require,module,exports){
 'use strict';
 
-module.exports = '1.0.10';
+module.exports = '1.0.15';
 
 },{}],6:[function(require,module,exports){
 'use strict';
@@ -630,9 +648,11 @@ var _unitBuildTest = require('./unit/buildTest');
 var _unitBuildTest2 = _interopRequireDefault(_unitBuildTest);
 
 window.onload = function () {
-    var widget = window.stylaWidget;
+    var widget = new StylaWidget_List({ slug: 'braunhamburg' });
 
     document.getElementsByTagName('TITLE')[0].textContent = 'StylaWidget - ' + widget.version;
+
+    window.widget = widget;
 
     (0, _unitVersionTest2['default'])(widget);
     (0, _unitBuildTest2['default'])(widget);
@@ -665,6 +685,8 @@ var tests = function tests(stylaWidget) {
         var storiesUrl = 'https://www.amazine.com/api/feeds/all?domain=' + stylaWidget.slug + '&offset=' + stylaWidget.offset + '&limit=' + stylaWidget.limit;
 
         _microbejsDistMicrobeHttpMin.http.get(storiesUrl).then(function (stories) {
+            var build = new _srcBuildJs2['default'](stylaWidget, stories);
+
             QUnit.module('build.js');
 
             /**
@@ -678,7 +700,7 @@ var tests = function tests(stylaWidget) {
              * @return _DOMElement_ headlineWrapper
              */
             QUnit.test('buildHeadline', function (assert) {
-                var headlineWrapper = _srcBuildJs2['default'].buildHeadline('moon?');
+                var headlineWrapper = build.buildHeadline('moon?');
                 var headline = headlineWrapper.childNodes;
 
                 assert.ok(headlineWrapper.nodeType === 1, 'headlineWrapper is a dom element');
@@ -703,7 +725,7 @@ var tests = function tests(stylaWidget) {
              */
             QUnit.test('buildImage', function (assert) {
                 var id = stylaWidget.stories.images[0].id;
-                var imageWrapper = _srcBuildJs2['default'].buildImage([{ id: id }], 'moon?', stylaWidget);
+                var imageWrapper = build.buildImage([{ id: id }], 'moon?', stylaWidget);
 
                 assert.ok(imageWrapper.nodeType === 1, 'imageWrapper is a dom element');
                 assert.equal(imageWrapper.className, _srcClassesJs2['default'].IMAGE_WRAPPER, 'imageWrapper has correct class name');
@@ -729,9 +751,9 @@ var tests = function tests(stylaWidget) {
              * @return _DOMElement_ wrapper element
              */
             QUnit.test('buildStories', function (assert) {
-                var wrapper = _srcBuildJs2['default'].buildStories(false, domainConfig);
+                var wrapper = build.buildStories(false, domainConfig);
                 assert.ok(wrapper.nodeType === 1, 'Wrapper is a dom element');
-                assert.equal(wrapper.className, _srcClassesJs2['default'].WRAPPER, 'Wrapper has correct class name');
+                assert.ok(wrapper.className.indexOf(_srcClassesJs2['default'].WRAPPER) !== -1, 'Wrapper has correct class name');
             });
 
             /**
@@ -753,9 +775,9 @@ var tests = function tests(stylaWidget) {
                     externalPermalink: 'externalPermalink'
                 };
 
-                var story = _srcBuildJs2['default'].buildStory(storyObj);
+                var story = build.buildStory(storyObj);
 
-                assert.ok(story.nodeType === 1, 'Wrapper is a dom element');
+                assert.ok(story.nodeType === 1, 'Story wrapper is a dom element');
                 assert.equal(story.className, _srcClassesJs2['default'].STORY, 'Wrapper has correct class name');
 
                 var storyLink = story.childNodes;
@@ -780,13 +802,13 @@ var tests = function tests(stylaWidget) {
              * @return _DOMElement_ style element
              */
             QUnit.test('buildStoryText', function (assert) {
-                var textWrapper = _srcBuildJs2['default'].buildStoryText('moon?', '[{"type":"text","content":"description"}]');
+                var textWrapper = build.buildStoryText('moon?', '[{"type":"text","content":"description"}]');
 
                 assert.ok(textWrapper.nodeType === 1, 'Wrapper is a dom element');
                 assert.equal(textWrapper.className, _srcClassesJs2['default'].TEXT_WRAPPER, 'Wrapper has correct class name');
 
                 var children = textWrapper.childNodes;
-                assert.equal(children.length, 2, 'textWrapper has 2 children');
+                assert.equal(children.length, 3, 'textWrapper has 3 children');
 
                 assert.equal(children[0].innerHTML, '<h3 class="styla-widget__headline">moon?</h3>', 'headline is set right');
                 assert.equal(children[1].innerHTML, 'description', 'description is set right');
@@ -802,12 +824,34 @@ var tests = function tests(stylaWidget) {
              * @return _DOMElement_ style element
              */
             QUnit.test('buildStyleTag', function (assert) {
-                var el = _srcBuildJs2['default'].buildStyleTag('moon');
+                var el = build.buildStyleTag('moon');
 
                 assert.ok(el.nodeType === 1, 'StyleTag is a dom element');
                 assert.equal(el.tagName, 'STYLE', 'StyleTag is a style tag');
                 assert.equal(el.className, _srcClassesJs2['default'].STYLES, 'StyleTag class is set');
                 assert.equal(el.type, 'text/css', 'StyleTag is a css tag');
+            });
+
+            /**
+             * ## buildTitle
+             *
+             * builds a style tag and appends it to the DOM
+             * 
+             * @param {String} title string to set the ttle to (for testing purposes)
+             *
+             * @return _DOMElement_ style element
+             */
+            QUnit.test('buildTitle', function (assert) {
+                build.context.title = true;
+
+                var el = build.buildTitle('moon');
+
+                assert.ok(el.nodeType === 1, 'title is a dom element');
+                assert.equal(el.tagName, 'DIV', 'title is a div tag');
+                assert.equal(el.className, _srcClassesJs2['default'].TITLE, 'title class is set');
+                assert.equal('moon', el.innerHTML, 'title has the right text');
+
+                build.context.title = false;
             });
 
             /**
@@ -820,10 +864,27 @@ var tests = function tests(stylaWidget) {
              * @return _DOMElement_ style element
              */
             QUnit.test('compileStyles', function (assert) {
-                var el = _srcBuildJs2['default'].compileStyles(domainConfig);
+                var el = build.compileStyles(domainConfig);
 
                 assert.ok(el.nodeType === 1, 'Styles is a dom element');
                 assert.equal(el.textContent[0], '.', 'Styles css is set');
+            });
+
+            /**
+             * ## constructor
+             *
+             * after recieving the story data this sends it to buildStories for
+             * processing
+             *
+             * @param {String} res JSON response from the product api
+             *
+             * @return _DOMElement_ container element
+             */
+            QUnit.test('constructor', function (assert) {
+                var _b = build.constructor(stylaWidget, stories);
+                assert.ok(typeof _b.now === 'number', 'Build gets built');
+                assert.ok(_b.context instanceof StylaWidget_List, 'Build contains the context of a widget instance');
+                assert.ok(typeof _b.domainConfig !== 'undefined', 'Build contains a domainConfig');
             });
 
             /**
@@ -837,7 +898,7 @@ var tests = function tests(stylaWidget) {
              * @return _DOMElement_ newly created element
              */
             QUnit.test('create', function (assert) {
-                var el = _srcBuildJs2['default'].create('moon', 'doge');
+                var el = build.create('moon', 'doge');
 
                 assert.ok(el.nodeType === 1, 'element is a dom element');
                 assert.equal(el.tagName, 'MOON', 'element is a style tag');
@@ -857,25 +918,9 @@ var tests = function tests(stylaWidget) {
             QUnit.test('getDescription', function (assert) {
                 var _arr = [{ type: 'moon' }, { type: 'text', content: 'doge' }, { type: 'moon' }, { type: 'moon' }];
 
-                var text = _srcBuildJs2['default'].getDescription(_arr);
+                var text = build.getDescription(_arr);
 
                 assert.equal(text, 'doge', 'story text is set correctly');
-            });
-
-            /**
-             * ## getDomainConfig
-             *
-             * after recieving the story data this sends it to buildStories for
-             * processing
-             *
-             * @param {String} res JSON response from the product api
-             *
-             * @return _DOMElement_ container element
-             */
-            QUnit.test('getDomainConfig', function (assert) {
-                var el = _srcBuildJs2['default'].getDomainConfig.call(stylaWidget, stories);
-                assert.ok(el.nodeType === 1, 'Story is a dom element');
-                assert.equal(el.className, _srcClassesJs2['default'].CONTAINER, 'Story has correct class name');
             });
 
             /**
@@ -889,7 +934,7 @@ var tests = function tests(stylaWidget) {
              * @return _String_ file name
              */
             QUnit.test('getImageUrl', function (assert) {
-                var url = _srcBuildJs2['default'].getImageUrl('moon', 399);
+                var url = build.getImageUrl('moon', 399);
 
                 assert.equal(url, '//img.styla.com/resizer/sfh_399x0/_moon?still', 'image url is set correctly');
             });
@@ -902,14 +947,15 @@ var tests = function tests(stylaWidget) {
              * @return _Void_
              */
             QUnit.test('includeBaseStyles', function (assert) {
-                var el = _srcBuildJs2['default'].includeBaseStyles('#styla-widget');
+                var elArr = build.includeBaseStyles('#styla-widget');
 
-                assert.ok(el.nodeType === 1, 'StyleTag is a dom element');
-                assert.equal(el.tagName, 'STYLE', 'StyleTag is a style tag');
-                assert.equal(el.className, _srcClassesJs2['default'].BASE_STYLES, 'StyleTag class is set');
-                assert.equal(el.type, 'text/css', 'StyleTag is a css tag');
-                assert.equal(el.parentNode, document.head, 'StyleTag is mounted correctly');
-                assert.equal(el.textContent.indexOf('#styla-widget'), 0, 'StyleTag contains the correct info');
+                elArr.forEach(function (el, i) {
+                    assert.ok(el.nodeType === 1, 'StyleTag is a dom element');
+
+                    assert.equal(el.tagName, 'LINK' || 'STYLE', 'StyleTag is a style tag');
+                    assert.ok(el.className !== '', 'StyleTag class is set');
+                    assert.equal(el.type, 'text/css', 'StyleTag is a css tag');
+                });
             });
 
             /**
@@ -922,7 +968,7 @@ var tests = function tests(stylaWidget) {
              * @return _DOMElement_ link element
              */
             QUnit.test('includeFonts', function (assert) {
-                var el = _srcBuildJs2['default'].includeFonts(domainConfig);
+                var el = build.includeFonts(domainConfig);
 
                 assert.ok(el.nodeType === 1, 'Font tag is a dom element');
                 assert.equal(el.tagName, 'LINK', 'font tag is a style tag');
@@ -941,7 +987,7 @@ var tests = function tests(stylaWidget) {
              * @return _String_ domain address
              */
             QUnit.test('setDomain', function (assert) {
-                var domain = _srcBuildJs2['default'].setDomain(domainConfig);
+                var domain = build.setDomain(domainConfig);
 
                 var embed = domainConfig.embed;
                 var _domain = embed.magazineUrl + '/' + embed.rootPath;
