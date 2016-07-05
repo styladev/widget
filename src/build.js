@@ -56,10 +56,8 @@ class Build
      *
      * @return _DOMElement_ imageWrapper
      */
-    buildImage( images, title, context )
+    buildImage( images, title )
     {
-        this.context            = this.context || context;
-
         let create              = this.create;
         let imageWrapper        = create( `div`, classes.IMAGE_WRAPPER );
         let imageSize           = this.context.imageSize;
@@ -90,7 +88,7 @@ class Build
      *
      * @return _Void_
      */
-    buildStories = ( resDomainConfig, parsedDomainConfig ) =>
+    buildStories( resDomainConfig, parsedDomainConfig )
     {
         let domainConfig = this.domainConfig = parsedDomainConfig || JSON.parse( resDomainConfig );
 
@@ -138,7 +136,7 @@ class Build
      *
      * @return _DOMElement_ outer story element
      */
-    buildStory = ( { title, description, images, externalPermalink, id }, i = 0 ) =>
+    buildStory( { title, description, images, externalPermalink, id }, i = 0 )
     {
         let context     = this.context;
 
@@ -332,9 +330,12 @@ class Build
      */
     constructor( context, stories )
     {
-        this.context    = context;
-        this.now        = Date.now();
-        this.ignored    = 0;
+        this.context        = context;
+        this.now            = Date.now();
+        this.ignored        = 0;
+
+        this.buildStories   = this.buildStories.bind( this );
+        this.buildStory     = this.buildStory.bind( this );
 
         if ( !context.refs.wrapper )
         {
@@ -346,9 +347,9 @@ class Build
             wrapper.id      = wrapperID;
 
             let domainConfigAPI   = `${context.api}/api/config/`;
-            http.get( domainConfigAPI + context.slug ).then( this.buildStories ).catch( _reportError );
+            this.http.get( domainConfigAPI + context.slug ).then( this.buildStories ).catch( _reportError );
 
-            return container;
+            return this;
         }
 
         return this;
@@ -535,5 +536,7 @@ class Build
     }
 };
 
+
+Build.prototype.http = http;
 
 export default Build;

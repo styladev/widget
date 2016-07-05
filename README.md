@@ -153,6 +153,11 @@ This project adheres to the [Contributor Covenant](http://contributor-covenant.o
 Change log
 ==========
 
+### 1.0.16
+
+    + updated link test
+
+
 ### 1.0.15
     
     + internal reconfigurations on their way to the ability to handle multiple formats at once

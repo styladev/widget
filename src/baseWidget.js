@@ -146,7 +146,7 @@ class StylaWidget
 
         let self = this;
 
-        http.get( storiesApi || url ).then( function( stories )
+        this.http.get( storiesApi || url ).then( function( stories )
         { 
             let build = new Build( self, stories );
         } );
@@ -181,6 +181,8 @@ class StylaWidget
         return this;
     }
 };
+
+StylaWidget.prototype.http = http;
 
 window[ `StylaWidget_${format}` ] = StylaWidget;
 

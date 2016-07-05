@@ -35,7 +35,7 @@ gulp.task( 'browserifyFiles', function()
     gulp.start( [ 'css-min' ] );
 
     return browserify( './src/baseWidget.js' )
-        .transform( babelify, { stage : 0 } )
+        .transform( babelify )
         .bundle()
         .pipe( fs.createWriteStream( __dirname + '/dist/baseWidget.js' ) )
         .on( 'finish', function()
@@ -51,7 +51,7 @@ gulp.task( 'browserifyFiles', function()
 gulp.task( 'min', function()
 {
     return browserify( './src/baseWidget.js' )
-        .transform( babelify, { stage : 0 } )
+        .transform( babelify )
         .bundle()
         .pipe( fs.createWriteStream( __dirname + '/dist/baseWidget.min.js' ) )
         .on( 'finish', function()
@@ -60,24 +60,6 @@ gulp.task( 'min', function()
             insertStyles( 'stories', 'baseWidget.min.js', '.min' );
             insertStyles( 'horizontal', 'baseWidget.min.js', '.min' )
             insertStyles( 'tiles', 'baseWidget.min.js', '.min' );
-        } );
-} );
-
-
-gulp.task( 'buildTests', function()
-{
-    return browserify( './tests/tests.js' )
-        .transform( babelify, { stage : 0 } )
-        .bundle()
-        .pipe( fs.createWriteStream( __dirname + '/tests/tests.dist.js' ) )
-        .on( 'finish', function()
-        {
-            // insertStyles( 'stories' );
-            // var widgetCss     = fs.readFileSync( './dist/styles.min.css', 'utf8' );
-
-            // gulp.src( './tests/tests.dist.js' )
-            //     .pipe( replace( /styla-widget-css-goes-here/, widgetCss ) )
-            //     .pipe( gulp.dest( './tests/' ) )
         } );
 } );
 
@@ -144,5 +126,5 @@ gulp.task( 'legacy', function()
 
 gulp.task( 'default', function()
 {
-    gulp.start( [ 'legacy', 'browserifyFiles', 'min', 'buildTests' ] );
+    gulp.start( [ 'legacy', 'browserifyFiles', 'min' ] );
 } );
