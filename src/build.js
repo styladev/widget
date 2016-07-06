@@ -15,6 +15,8 @@ import { http } from 'microbejs/dist/microbe.http.min';
 const baseStyles        = `styla-widget-css-goes-here`;
 const specificStyles    = `styla-build-specific-css-goes-here`;
 const wrapperID         = `styla-widget`;
+
+/* istanbul ignore next */
 const _reportError      = function( e ){ console.log( `err`, e ) };
 
 
@@ -88,9 +90,9 @@ class Build
      *
      * @return _Void_
      */
-    buildStories( resDomainConfig, parsedDomainConfig )
+    buildStories( domainConfig = '{}' )
     {
-        let domainConfig = this.domainConfig = parsedDomainConfig || JSON.parse( resDomainConfig );
+        domainConfig = this.domainConfig = JSON.parse( domainConfig );
 
         if ( Object.keys( domainConfig ).length === 0 )
         {
@@ -122,6 +124,8 @@ class Build
 
             return refs.wrapper;
         }
+
+        return false;
     }
 
 
@@ -191,7 +195,7 @@ class Build
      *
      * @return _DOMElement_ style element
      */
-    buildStoryText( title, description )
+    buildStoryText( title, description = '{}' )
     {
         let create          = this.create;
         let textWrapper     = create( `div`,    classes.TEXT_WRAPPER );
@@ -467,7 +471,7 @@ class Build
 
         if ( this.domainConfig.embed.customFontUrl )
         {
-            arr.push( this.includeFonts( head ) );
+            arr.push( this.includeFonts() );
         }
 
         arr = arr.filter( el => el );
@@ -533,6 +537,8 @@ class Build
 
             return context.domain = domain;
         }
+
+        return context.domain;
     }
 };
 

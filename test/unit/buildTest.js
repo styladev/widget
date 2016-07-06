@@ -111,9 +111,26 @@ describe( 'buildStories', () =>
 {
     it( 'should correctly build the stories wrapper', () =>
     {
-        let wrapper = build.buildStories( false, domainConfig );
+        let wrapper = build.buildStories( JSON.stringify( domainConfig ) );
         assert.ok( wrapper.nodeType === 1, 'Wrapper is a dom element' );
         assert.ok( wrapper.className.indexOf( classes.WRAPPER ) !== -1, 'Wrapper has correct class name' );
+    } );
+
+
+    it( 'should fail if no JSON is passed', () =>
+    {
+        assert.throws( build.buildStories, `Styla Widget error: Could not find magazine, please check if slug is configured correctly.` );
+    } );
+
+
+    it( 'should return nothing if there are no images', () =>
+    {
+        let tempImages = build.context.stories.images;
+        build.context.stories.images = false;
+
+        assert.equal( build.buildStories( JSON.stringify( domainConfig ) ), false, 'no images ' );
+
+        build.context.stories.images = tempImages;
     } );
 } );
 
@@ -159,6 +176,26 @@ describe( 'buildStory', () =>
         let href = storyLink.href.replace( /^https?:/, '' )
         assert.equal( href, `//test/story/externalPermalink`, 'storyLink has correct href' );
     } );
+
+
+
+    it( 'should adjust it\'s link to consider build options', () =>
+    {
+        build.context.newTab = true;
+        story = build.buildStory( storyObj );
+        let storyLink = story.childNodes[0];
+        
+        assert.equal( storyLink.getAttribute( `target` ), `_blank`, `newTab gets target="_blank"` );
+        build.context.newTab = false;
+        
+
+        build.context.iframe = true;
+        story = build.buildStory( storyObj );
+        storyLink = story.childNodes[0];
+
+        assert.equal( storyLink.getAttribute( `target` ), `_top`, `iframe gets target="_top"` );
+        build.context.iframe = false;
+    } );
 } );
 
 
@@ -192,6 +229,15 @@ describe( 'buildStoryText', () =>
 
         assert.equal( children[ 0 ].innerHTML, '<h3 class="styla-widget__headline">moon?</h3>', 'headline is set right' );
         assert.equal( children[ 1 ].innerHTML, 'description', 'description is set right' );
+    } );
+
+
+    it( 'should have no text if it has no text', () =>
+    {
+        let textWrapper = build.buildStoryText( 'moon?' );
+        let children = textWrapper.childNodes;
+
+        assert.equal( children[ 1 ].innerHTML, '' );
     } );
 } );
 
@@ -257,13 +303,23 @@ describe( 'buildTitle', () =>
  */
 describe( 'compileStyles', () =>
 {
-    build.domainConfig = domainConfig;
-    let el = build.compileStyles();
-
     it( 'should correctly build the style element', () =>
     { 
+        build.domainConfig = domainConfig;
+        let el = build.compileStyles();
         assert.ok( el.nodeType === 1, 'Styles is a dom element' );
         assert.equal( el.textContent[0], '.', 'Styles css is set' );
+    } );
+
+
+    it( 'should return no css if there is no theme', () =>
+    { 
+        build.domainConfig.theme = false;
+        let el = build.compileStyles();
+        
+        assert.equal( el.innerHTML, '', 'style el has no css' );
+
+        build.domainConfig = domainConfig;
     } );
 } );
 
@@ -313,108 +369,203 @@ describe( 'create', () =>
 } );
 
 
-// /**
-//  * ## getDescription
-//  *
-//  * gets the first text description in the content and returns that
-//  *
-//  * @param {Array} _arr array filled w/ content
-//  * @param {Number} i recursive index
-//  *
-//  * @return _String or Boolean_ text content or false
-//  */
-// QUnit.test( 'getDescription', function( assert )
-// {
-//     let _arr = [
-//         { type: 'moon' },
-//         { type: 'text', content: 'doge' },
-//         { type: 'moon' },
-//         { type: 'moon' },
-//     ];
+/**
+ * ## getDescription
+ *
+ * gets the first text description in the content and returns that
+ *
+ * @param {Array} _arr array filled w/ content
+ * @param {Number} i recursive index
+ *
+ * @return _String or Boolean_ text content or false
+ */
+describe( 'getDescription', () =>
+{
+    it( 'should set the description correctly', () =>
+    {
+        let _arr = [
+            { type: 'moon' },
+            { type: 'text', content: 'doge' },
+            { type: 'moon' },
+            { type: 'moon' },
+        ];
 
-//     let text = build.getDescription( _arr );
+        let text = build.getDescription( _arr );
 
-//     assert.equal( text, 'doge', 'story text is set correctly' );
-// } );
-
-
-// /**
-//  * ## getImageUrl
-//  *
-//  * uses the filename and size to create the full image url
-//  *
-//  * @param {String} filename from the image data object
-//  * @param {Number or String} size width to grab from the server
-//  *
-//  * @return _String_ file name
-//  */
-// QUnit.test( 'getImageUrl', function( assert )
-// {
-//     let url = build.getImageUrl( 'moon', 399 );
-
-//     assert.equal( url, '//img.styla.com/resizer/sfh_399x0/_moon?still', 'image url is set correctly' );
-// } );
+        assert.equal( text, 'doge', 'story text is set correctly' );
+    } );
 
 
-// /**
-//  * ## includeBaseStyles
-//  *
-//  * creates the base styles DOM element and adds it to the head
-//  *
-//  * @return _Void_
-//  */
-// QUnit.test( 'includeBaseStyles', function( assert )
-// {
-//     let elArr = build.includeBaseStyles( '#styla-widget' );
+    it( 'should return false if there is no image', () =>
+    {
+        let _arr = [
+            { type: 'moon' },
+            { type: 'text', content: 'doge' },
+            { type: 'moon' },
+            { type: 'moon' },
+        ];
 
-//     elArr.forEach( function( el, i )
-//     {
-//         assert.ok( el.nodeType === 1, 'StyleTag is a dom element' );
+        let text = build.getDescription( _arr, 10 );
 
-//         assert.equal( el.tagName, 'LINK' || 'STYLE', 'StyleTag is a style tag' );
-//         assert.ok( el.className !== '', 'StyleTag class is set' );
-//         assert.equal( el.type, 'text/css', 'StyleTag is a css tag' );
-//     } );
-// } );
+        assert.equal( text, false, 'story text fails correctly' );
+    } );
+} );
 
 
-// /**
-//  * ## includeFonts
-//  *
-//  * includes the webfonts link element
-//  *
-//  * @param {Object} domain configuration of magazine
-//  *
-//  * @return _DOMElement_ link element
-//  */
-// QUnit.test( 'includeFonts', function( assert )
-// {
-//     let el      = build.includeFonts( domainConfig );
+/**
+ * ## getImageUrl
+ *
+ * uses the filename and size to create the full image url
+ *
+ * @param {String} filename from the image data object
+ * @param {Number or String} size width to grab from the server
+ *
+ * @return _String_ file name
+ */
+describe( 'getImageUrl', () =>
+{
+    it( 'should correctly set the image url', () =>
+    {
+        let url = build.getImageUrl( 'moon', 399 );
 
-//     assert.ok( el.nodeType === 1, 'Font tag is a dom element' );
-//     assert.equal( el.tagName, 'LINK', 'font tag is a style tag' );
-//     assert.equal( el.rel, 'stylesheet', 'font tag class is set' );
-//     assert.equal( el.type, 'text/css', 'font tag is a css tag' );
-//     assert.equal( el.href, window.location.protocol + domainConfig.embed.customFontUrl, 'font tag points to the right css' );
-// } );
+        assert.equal( url, '//img.styla.com/resizer/sfh_399x0/_moon?still', 'image url is set correctly' );
+    } );
 
 
-// /**
-//  * ## setDomain
-//  *
-//  * takes pieces of the domainConfig and builds the domain
-//  *
-//  * @param {Object} domainConfig main config object
-//  *
-//  * @return _String_ domain address
-//  */
-// QUnit.test( 'setDomain', function( assert )
-// {
-//     let domain  = build.setDomain( domainConfig );
+    it( 'should default to 400 width', () =>
+    {
+        let url = build.getImageUrl( 'moon' );
 
-//     let embed   = domainConfig.embed;
-//     let _domain = `${embed.magazineUrl}/${embed.rootPath}`;
+        assert.equal( url, '//img.styla.com/resizer/sfh_400x0/_moon?still', 'image url is set correctly' );
+    } );
+} );
 
-//     assert.equal( typeof domain, 'string', 'domain is a string' );
-//     assert.equal( domain, _domain, 'domain is correct' );
-// } );
+
+/**
+ * ## includeBaseStyles
+ *
+ * creates the base styles DOM element and adds it to the head
+ *
+ * @return _Void_
+ */
+describe( 'includeBaseStyles', () =>
+{
+    build.domainConfig  = domainConfig;
+    let elArr = build.includeBaseStyles( '#styla-widget' );
+
+    elArr.forEach( function( el, i )
+    {
+        it( 'should correctly build each style element', () =>
+        {
+            assert.ok( el.nodeType === 1, 'StyleTag is a dom element' );
+
+            assert.ok( el.tagName === 'LINK' || el.tagName === 'STYLE', 'StyleTag is a style tag' );
+            assert.ok( el.className !== '', 'StyleTag class is set' );
+            assert.equal( el.type, 'text/css', 'StyleTag is a css tag' );
+        } );
+    } );
+    
+
+    it( 'should not add a font tag if there is no custom font url', () =>
+    {
+        build.domainConfig.embed.customFontUrl = false;
+        let elArr = build.includeBaseStyles( '#styla-widget' );
+
+        assert.equal( elArr.length, 0, 'font tag is not added' );
+
+        build.domainConfig.embed.customFontUrl = 'http://www.com/';
+    } );
+} );
+
+
+/**
+ * ## includeFonts
+ *
+ * includes the webfonts link element
+ *
+ * @param {Object} domain configuration of magazine
+ *
+ * @return _DOMElement_ link element
+ */
+describe( 'includeFonts', () =>
+{
+    it( 'should properly build the font link tag', () =>
+    {
+        let el      = build.includeFonts();
+
+        assert.ok( el.nodeType === 1, 'Font tag is a dom element' );
+        assert.equal( el.tagName, 'LINK', 'font tag is a style tag' );
+        assert.equal( el.rel, 'stylesheet', 'font tag class is set' );
+        assert.equal( el.type, 'text/css', 'font tag is a css tag' );
+        assert.equal( el.href, domainConfig.embed.customFontUrl, 'font tag points to the right css' );
+    } );
+
+
+    it( 'should add // to font urls if it doesnt already have it', () =>
+    {
+        build.domainConfig  = domainConfig;
+        build.domainConfig.embed.customFontUrl = 'moon';
+        let el              = build.includeFonts();
+
+        assert.equal( el.href, '//moon', 'corrects a malformed url' );
+    } );
+} );
+
+
+/**
+ * ## setDomain
+ *
+ * takes pieces of the domainConfig and builds the domain
+ *
+ * @param {Object} domainConfig main config object
+ *
+ * @return _String_ domain address
+ */
+describe( 'setDomain', () =>
+{
+    it( 'should pass the current domain if there is one', () =>
+    {
+        let domain          = build.setDomain();
+
+        assert.equal( typeof domain, 'string', 'domain is a string' );
+        assert.equal( domain, 'test', 'domain is correct' );
+    } );
+
+
+    it( 'should use the linkDomain if there is one', () =>
+    {
+        build.context.linkDomain    = 'moon';
+        build.context.domain        = false;
+        
+        let domain = build.setDomain();
+
+        assert.equal( domain, 'moon', 'domain is correct' );
+
+        build.context.linkDomain    = false;
+    } );
+
+
+    it( 'should build a domain if there isn\'t one', () =>
+    {
+        build.context.domain = false;
+        
+        let embed           = domainConfig.embed;
+        let domain          = build.setDomain();
+
+        assert.equal( domain, `${embed.magazineUrl}/${embed.rootPath}`, 'domain is correct' );
+    } );
+
+
+    it( 'should throw an error if there is no available domain', () =>
+    {
+        build.context.linkDomain    = false;
+        build.context.domain        = false;
+        
+        let tempEmbed = build.domainConfig.embed;
+        build.domainConfig.embed    = false;
+
+        assert.throws( build.setDomain, `Styla Widget error: No domain defined or bad domain config` );
+
+        build.domainConfig.embed = tempEmbed;
+    } );
+} );
