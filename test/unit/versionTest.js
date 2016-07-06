@@ -1,24 +1,24 @@
 
-/* global document, QUnit  */
-import version  from '../../src/version.js';
-import _package from '../../package.json';
+import version      from '/version.js';
+import _package     from '../../package.json';
+import domainConfig from '../domainConfig';
 
-let tests = function( stylaWidget )
+import BaseWidget   from '/baseWidget'
+
+import assert       from 'assert';
+
+/*
+ * ## version tests
+ *
+ * @test exists
+ * @test matches the package file
+ */
+describe( 'version', () =>
 {
-    QUnit.module( 'version.js' );
-
-    /*
-     * ## version tests
-     *
-     * @test exists
-     * @test matches the package file
-     */
-    QUnit.test( 'version', function( assert )
+    it( 'should match both the package.json and the widget', () =>
     {
         assert.ok( version, 'exists' );
         assert.equal( version, _package.version, 'versions match file' );
-        assert.equal( version, stylaWidget.version, 'versions match stylaWidget' );
+        assert.equal( version, BaseWidget.version, 'versions match BaseWidget' );
     } );
-};
-
-export default tests;
+} );

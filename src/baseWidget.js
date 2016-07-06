@@ -139,7 +139,6 @@ class StylaWidget
         this.tag        = tag;
         this.target     = target;
         this.title      = title;
-        this.version    = version;
 
         let url = tag ? `${api}/api/feeds/tags/${tag}?offset=${offset}&limit=${limit + ignoreBonus}&domain=${slug}` :
                         `${api}/api/feeds/all?domain=${slug}&offset=${offset}&limit=${limit}`;
@@ -151,6 +150,7 @@ class StylaWidget
             let build = new Build( self, stories );
         } );
         
+        Object.defineProperty( this, 'version', { value : version } );
 
         return this;
     }
@@ -186,6 +186,7 @@ StylaWidget.prototype.http = http;
 
 window[ `StylaWidget_${format}` ] = StylaWidget;
 
+Object.defineProperty( StylaWidget, 'version', { value : version } );
 
 export default StylaWidget;
 
