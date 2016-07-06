@@ -92,9 +92,9 @@ class Build
      */
     buildStories( domainConfig = '{}' )
     {
-        domainConfig = this.domainConfig = JSON.parse( domainConfig );
+        let domainConfigParsed = this.domainConfig = JSON.parse( domainConfig );
 
-        if ( Object.keys( domainConfig ).length === 0 )
+        if ( Object.keys( domainConfigParsed ).length === 0 )
         {
             throw `Styla Widget error: Could not find magazine, please check if slug is configured correctly.`;
         }

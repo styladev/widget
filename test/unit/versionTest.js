@@ -21,4 +21,10 @@ describe( 'version', () =>
         assert.equal( version, _package.version, 'versions match file' );
         assert.equal( version, BaseWidget.version, 'versions match BaseWidget' );
     } );
+
+
+    it( 'should be read only', () =>
+    {
+        assert.throws( function(){ BaseWidget.version = '2.0.0'; }, Error, 'versions match BaseWidget' );
+    } );
 } );

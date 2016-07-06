@@ -8,9 +8,9 @@
  * @author "Elias Liedholm <elias@styla.com>"
  */ 
 
-import version  from './version.js';
-import classes  from './classes.js';
-import Build    from './build.js';
+import version  from '/version';
+import classes  from '/classes';
+import Build    from '/build';
 
 import { http } from 'microbejs/dist/microbe.http.min';
 
@@ -31,26 +31,23 @@ class StylaWidget
     {
         target      = this.checkTarget( target, this.minWidth );
 
-        let refs    = this.refs;
+        let refs    = this.refs;    
+        let styles  = refs.styles;
         let head    = document.head;
-
-        if ( refs.baseStyle )
+        
+        let baseStyle = head.querySelector( `.${classes.BASE_STYLES}` );
+        
+        if ( baseStyle )
         {
-            let styles  = refs.styles;
-            
-            styles.forEach( function( el )
-            {
-                head.appendChild( el );
-            } );
-
-            if ( head.querySelector( `.${classes.BASE_STYLES}` ) )
-            {
-                head.appendChild( refs.baseStyle );
-            }
-
-            head.appendChild( refs.themeStyle );
-            target.appendChild( refs.wrapper );
+            head.removeChild( baseStyle );
         }
+
+        target.appendChild( refs.wrapper );
+
+        styles.forEach( el =>
+        {
+            head.appendChild( el );  
+        } );
 
         return this;
     }
@@ -62,7 +59,6 @@ class StylaWidget
      * makes sure the target is a DOMelement and wide enough
      *
      * @param {String or DOMElement} target attach point for the widget
-     * 
      */
     checkTarget( target, minWidth )
     {
@@ -143,11 +139,10 @@ class StylaWidget
         let url = tag ? `${api}/api/feeds/tags/${tag}?offset=${offset}&limit=${limit + ignoreBonus}&domain=${slug}` :
                         `${api}/api/feeds/all?domain=${slug}&offset=${offset}&limit=${limit}`;
 
-        let self = this;
-
-        this.http.get( storiesApi || url ).then( function( stories )
+        this.http.get( storiesApi || url ).then( stories =>
         { 
-            let build = new Build( self, stories );
+            console.log( stories );
+            let build = new Build( this, stories );
         } );
         
         Object.defineProperty( this, 'version', { value : version } );
@@ -165,17 +160,16 @@ class StylaWidget
      */
     destroy()
     {
-        let refs = this.refs;
+        let refs    = this.refs;
+        let styles  = refs.styles;
+        let wrapper = refs.wrapper;
+        let head    = document.head;
 
-        Object.keys( refs ).forEach( function( key )
+        wrapper.parentNode.removeChild( wrapper );
+        
+        styles.forEach( el =>
         {
-            let el      = refs[ key ];
-            let parent  = el.parentNode;
-
-            if ( parent )
-            {
-                parent.removeChild( el );
-            }
+            head.removeChild( el );
         } );
 
         return this;
