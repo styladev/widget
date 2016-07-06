@@ -10,15 +10,20 @@ import stories      from '../stories';
 import assert       from 'assert';
 import sinon        from 'sinon';
 
-
-let getStub = () =>
+let getStub = url =>
 {
-    return Promise.resolve( JSON.stringify( domainConfig ) );
+    let res = stylaWidget && url === `${stylaWidget.api}/api/config/${stylaWidget.slug}` ? domainConfig : stories;
+
+
+    return Promise.resolve( JSON.stringify( res ) );
 };
+
 
 sinon.stub( Build.prototype.http, 'get', getStub );
 
-let stylaWidget = new BaseWidget( { target: document.body, slug: 'braunhamburg', domain: 'test' } );    
+
+let stylaWidget = new BaseWidget( { target: document.body, slug: 'braunhamburg', domain: 'test' } );
+
 let build       = new Build( stylaWidget, JSON.stringify( stories ) );
 
 

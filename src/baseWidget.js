@@ -17,6 +17,7 @@ import { http } from 'microbejs/dist/microbe.http.min';
 let format  = `styla-widget-format-goes-here`;
 format      = format[0].toUpperCase() + format.slice( 1 );
 
+/* istanbul ignore next */
 class StylaWidget
 {
     /**
@@ -139,12 +140,13 @@ class StylaWidget
         let url = tag ? `${api}/api/feeds/tags/${tag}?offset=${offset}&limit=${limit + ignoreBonus}&domain=${slug}` :
                         `${api}/api/feeds/all?domain=${slug}&offset=${offset}&limit=${limit}`;
 
+
         this.http.get( storiesApi || url ).then( stories =>
         { 
-            console.log( stories );
             let build = new Build( this, stories );
         } );
-        
+
+
         Object.defineProperty( this, 'version', { value : version } );
 
         return this;
