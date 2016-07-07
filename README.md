@@ -153,13 +153,18 @@ This project adheres to the [Contributor Covenant](http://contributor-covenant.o
 Change log
 ==========
 
+### 1.1.0
+
+    + test suites changes to mocha and istanbul
+
+
 ### 1.0.16
 
     + updated link test
 
 
 ### 1.0.15
-    
+
     + internal reconfigurations on their way to the ability to handle multiple formats at once
     + adjusted how style tags are added and stored
     + removed trailing slash from links
