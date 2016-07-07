@@ -12,12 +12,26 @@ import sinon        from 'sinon';
 
 let getStub = url =>
 {
-    let res = stylaWidget && url === `${stylaWidget.api}/api/config/${stylaWidget.slug}` ? domainConfig : stories;
+    let res = url === `https://live.styla.com/api/config/braunhamburg` ?
+                    domainConfig :
+                    stories;
+    res     = JSON.stringify( res );
 
-
-    return Promise.resolve( JSON.stringify( res ) );
+    return {
+        then    : _func =>
+        {
+            try
+            {
+                return _func( res );
+            }
+            catch( e )
+            {
+                return { catch: _func => _func( e ) };
+            }
+        },
+        catch   : () => {}
+    };
 };
-
 
 sinon.stub( Build.prototype.http, 'get', getStub );
 
@@ -43,7 +57,7 @@ describe( 'buildHeadline', () =>
     let headline        = headlineWrapper.childNodes;
 
     it( 'should correctly build the headlineWrapper', () =>
-    {    
+    {
         assert.ok( headlineWrapper.nodeType === 1 );
         assert.equal( headlineWrapper.className, classes.HEADLINE_WRAPPER );
         assert.equal( headline.length, 1 );
@@ -73,7 +87,7 @@ describe( 'buildHeadline', () =>
 describe( 'buildImage', () =>
 {
     let id              = stories.images[0].id;
-    
+
     let images          = {};
     stories.images.forEach( function( _i ){ images[ _i.id ] = _i; } );
 
@@ -189,10 +203,10 @@ describe( 'buildStory', () =>
         build.context.newTab = true;
         story = build.buildStory( storyObj );
         let storyLink = story.childNodes[0];
-        
+
         assert.equal( storyLink.getAttribute( `target` ), `_blank`, `newTab gets target="_blank"` );
         build.context.newTab = false;
-        
+
 
         build.context.iframe = true;
         story = build.buildStory( storyObj );
@@ -274,7 +288,7 @@ describe( 'buildStyleTag', () =>
  * ## buildTitle
  *
  * builds a style tag and appends it to the DOM
- * 
+ *
  * @param {String} title string to set the ttle to (for testing purposes)
  *
  * @return _DOMElement_ style element
@@ -309,7 +323,7 @@ describe( 'buildTitle', () =>
 describe( 'compileStyles', () =>
 {
     it( 'should correctly build the style element', () =>
-    { 
+    {
         build.domainConfig = domainConfig;
         let el = build.compileStyles();
         assert.ok( el.nodeType === 1, 'Styles is a dom element' );
@@ -318,10 +332,10 @@ describe( 'compileStyles', () =>
 
 
     it( 'should return no css if there is no theme', () =>
-    { 
+    {
         build.domainConfig.theme = false;
         let el = build.compileStyles();
-        
+
         assert.equal( el.innerHTML, '', 'style el has no css' );
 
         build.domainConfig = domainConfig;
@@ -341,7 +355,7 @@ describe( 'compileStyles', () =>
  */
 describe( 'constructor', () =>
 {
-    it( 'should build the build object with a set context and domainConfig', () => 
+    it( 'should build the build object with a set context and domainConfig', () =>
     {
         let _b = build.constructor( stylaWidget, stories );
         assert.ok( typeof _b.now === 'number', 'Build gets built' );
@@ -364,7 +378,7 @@ describe( 'constructor', () =>
 describe( 'create', () =>
 {
     it( 'should create an object with the passed parameters', () =>
-    {   
+    {
         let el = build.create( 'moon', 'doge' );
 
         assert.ok( el.nodeType === 1, 'element is a dom element' );
@@ -469,7 +483,7 @@ describe( 'includeBaseStyles', () =>
             assert.equal( el.type, 'text/css', 'StyleTag is a css tag' );
         } );
     } );
-    
+
 
     it( 'should not add a font tag if there is no custom font url', () =>
     {
@@ -541,7 +555,7 @@ describe( 'setDomain', () =>
     {
         build.context.linkDomain    = 'moon';
         build.context.domain        = false;
-        
+
         let domain = build.setDomain();
 
         assert.equal( domain, 'moon', 'domain is correct' );
@@ -553,7 +567,7 @@ describe( 'setDomain', () =>
     it( 'should build a domain if there isn\'t one', () =>
     {
         build.context.domain = false;
-        
+
         let embed           = domainConfig.embed;
         let domain          = build.setDomain();
 
@@ -565,7 +579,7 @@ describe( 'setDomain', () =>
     {
         build.context.linkDomain    = false;
         build.context.domain        = false;
-        
+
         let tempEmbed = build.domainConfig.embed;
         build.domainConfig.embed    = false;
 

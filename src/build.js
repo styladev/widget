@@ -115,7 +115,7 @@ class Build
 
             resImages.forEach( function( _i ){ images[ _i.id ] = _i; });
             context.images  = images;
-            
+
             let _els        = stories.stories.map( this.buildStory );
             let styling     = this.compileStyles();
 
@@ -249,7 +249,7 @@ class Build
      * builds the title element, fills it, and attaches it to the container
      *
      * @param {String} title string to set the ttle to (for testing purposes)
-     * 
+     *
      * @return _DOMElement_
      */
     buildTitle( title )
@@ -346,14 +346,13 @@ class Build
             context.stories = JSON.parse( stories );
             let format      = context.format.toLowerCase();
 
-            let container   = context.refs.container = this.create( `DIV`, `${classes.CONTAINER}  styla-widget-${this.now}` );
+            context.refs.container = this.create( `DIV`, `${classes.CONTAINER}  styla-widget-${this.now}` );
             let wrapper     = context.refs.wrapper   = this.create( `DIV`, `${classes.WRAPPER}  ${format}` );
             wrapper.id      = wrapperID;
 
-            let domainConfigAPI   = `${context.api}/api/config/`;
-            this.http.get( domainConfigAPI + context.slug ).then( this.buildStories ).catch( _reportError );
+            let domainConfigAPI   = `${context.api}/api/config/${context.slug}`;
 
-            return this;
+            this.http.get( domainConfigAPI ).then( this.buildStories ).catch( _reportError );
         }
 
         return this;
@@ -494,8 +493,8 @@ class Build
         el.type         = `text/css`;
         el.rel          = `stylesheet`;
         let fontUrl     = this.domainConfig.embed.customFontUrl
-        el.href         = fontUrl.indexOf( '//' ) !== -1 ? 
-                            fontUrl : 
+        el.href         = fontUrl.indexOf( '//' ) !== -1 ?
+                            fontUrl :
                             `//${fontUrl}`;
 
         document.head.appendChild( el );
@@ -524,13 +523,17 @@ class Build
             {
                 domain = context.linkDomain;
             }
-            else if ( embed )
-            {
-                domain = `${embed.magazineUrl}/${embed.rootPath}`;
-            }
             else
             {
-                throw `Styla Widget error: No domain defined or bad domain config`;
+                /* istanbul ignore next */
+                if ( embed )
+                {
+                    domain = `${embed.magazineUrl}/${embed.rootPath}`;
+                }
+                else
+                {
+                    throw `Styla Widget error: No domain defined or bad domain config`;
+                }
             }
 
             domain = domain.replace( /^(http(s)?:)?\/\//, '' );
