@@ -117,14 +117,7 @@ gulp.task( 'css-min', function()
 } );
 
 
-gulp.task( 'legacy', function()
-{
-    gulp.src( './legacy/widget.min.js' )
-        .pipe( gulp.dest( 'dist' ) );
-} );
-
-
 gulp.task( 'default', function()
 {
-    gulp.start( [ 'legacy', 'browserifyFiles', 'min' ] );
+    gulp.start( [ 'browserifyFiles', 'min' ] );
 } );
