@@ -526,6 +526,7 @@ class Build
             else
             {
                 /* istanbul ignore next */
+                /* no idea... this is totally tested */
                 if ( embed )
                 {
                     domain = `${embed.magazineUrl}/${embed.rootPath}`;
