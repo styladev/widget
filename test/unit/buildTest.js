@@ -573,6 +573,11 @@ describe( 'setDomain', () =>
         let domain          = build.setDomain();
 
         assert.equal( domain, `${embed.magazineUrl}/${embed.rootPath}`, 'domain is correct' );
+
+        build.domainConfig.embed.rootPath  = `/${embed.rootPath}`;
+
+        domain          = build.setDomain();
+        assert.equal( domain, `${embed.magazineUrl}${embed.rootPath}`, 'domain with a slash is fixed ' );
     } );
 
 

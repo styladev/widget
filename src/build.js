@@ -527,12 +527,14 @@ class Build
             {
                 if ( embed )
                 {
+                    let rootPath = embed.rootPath;
+
                     if ( rootPath[0] === '/' )
                     {
                         rootPath = rootPath.slice( 1 );
                     }
 
-                    domain = `${embed.magazineUrl}/${embed.rootPath}`;
+                    domain = `${embed.magazineUrl}/${rootPath}`;
                 }
                 else
                 {
