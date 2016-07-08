@@ -525,15 +525,18 @@ class Build
             }
             else
             {
-                /* istanbul ignore next */
-                /* no idea... this is totally tested */
                 if ( embed )
                 {
+                    if ( rootPath[0] === '/' )
+                    {
+                        rootPath = rootPath.slice( 1 );
+                    }
+
                     domain = `${embed.magazineUrl}/${embed.rootPath}`;
                 }
                 else
                 {
-                    throw `Styla Widget error: No domain defined or bad domain config`;
+                    throw `Styla Widget error: No domain defined or bad domain config.`;
                 }
             }
 

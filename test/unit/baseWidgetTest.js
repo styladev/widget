@@ -52,13 +52,13 @@ describe( 'destroy', () =>
 /**
  * ## attach
  *
- * adds the styla widget from the DOM
+ * adds the styla widget to the DOM
  *
  * @return _Void_
  */
 describe( 'attach', () =>
 {
-    it( 'should add the widget from the DOM', () =>
+    it( 'should add the widget to it\'s previous target', () =>
     {
         stylaWidget.attach();
 
@@ -73,7 +73,7 @@ describe( 'attach', () =>
     } );
 
 
-    it( 'should add the widget from the DOM', () =>
+    it( 'should add the widget to a specified target', () =>
     {
         stylaWidget.attach( 'div' );
 
@@ -107,11 +107,12 @@ describe( 'checkTarget', () =>
 
     it( 'should fallback to the body when no other element is supplied', () =>
     {
-        let target = stylaWidget.checkTarget();
+        sinon.stub( console, 'error', () => {} );
+
+        let target = stylaWidget.checkTarget( 'moon' );
         assert.deepEqual( document.body, target );
 
-        target = stylaWidget.checkTarget( 'moon' );
-        assert.deepEqual( document.body, target );
+        console.error.restore();
     } );
 
 

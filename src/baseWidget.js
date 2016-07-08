@@ -97,6 +97,7 @@ class StylaWidget
      * @return _Object_ this
      */
     constructor( {
+                    slug,
                     api         = 'https://live.styla.com',
                     domain      = false,
                     iframe      = false,
@@ -108,7 +109,6 @@ class StylaWidget
                     offset      = 0,
                     imageSize   = 400,
                     storiesApi  = false,
-                    slug,
                     tag         = false,
                     target      = document.body,
                     title       = false

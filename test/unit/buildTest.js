@@ -10,6 +10,7 @@ import stories      from '../stories';
 import assert       from 'assert';
 import sinon        from 'sinon';
 
+
 let getStub = url =>
 {
     let res = url === `https://live.styla.com/api/config/braunhamburg` ?
@@ -568,7 +569,7 @@ describe( 'setDomain', () =>
     {
         build.context.domain = false;
 
-        let embed           = domainConfig.embed;
+        let embed           = build.domainConfig.embed;
         let domain          = build.setDomain();
 
         assert.equal( domain, `${embed.magazineUrl}/${embed.rootPath}`, 'domain is correct' );
@@ -579,12 +580,12 @@ describe( 'setDomain', () =>
     {
         build.context.linkDomain    = false;
         build.context.domain        = false;
+        build.domainConfig          = false;
 
-        let tempEmbed = build.domainConfig.embed;
-        build.domainConfig.embed    = false;
+        assert.throws( build.setDomain.bind( build ), /Styla Widget error: No domain defined or bad domain config./ );
 
-        assert.throws( build.setDomain, `Styla Widget error: No domain defined or bad domain config` );
+        build.domainConfig      = domainConfig;
+        build.context.domain    = `${domainConfig.embed.magazineUrl}/${domainConfig.embed.rootPath}`;
 
-        build.domainConfig.embed = tempEmbed;
     } );
 } );
