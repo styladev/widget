@@ -56,58 +56,24 @@
   <div class="details">
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>"Mouse Braun <a href="&#109;&#97;&#105;&#x6C;&#116;&#111;:&#109;&#x6F;&#x75;s&#x65;&#64;&#x73;t&#x79;l&#x61;&#46;&#99;o&#x6D;">&#109;&#x6F;&#x75;s&#x65;&#64;&#x73;t&#x79;l&#x61;&#46;&#99;o&#x6D;</a>"</span>
+      <span>"Mouse Braun <a href="&#x6D;&#97;i&#x6C;&#116;o:&#x6D;&#x6F;&#117;&#x73;&#101;&#x40;&#x73;&#x74;&#121;&#108;&#x61;&#46;&#x63;&#111;&#109;">&#x6D;&#x6F;&#117;&#x73;&#101;&#x40;&#x73;&#x74;&#121;&#108;&#x61;&#46;&#x63;&#111;&#109;</a>"</span>
     </div>
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>"Elias Liedholm <a href="&#x6D;a&#105;&#108;&#116;&#x6F;:&#x65;&#x6C;&#x69;&#97;s&#64;&#115;&#x74;&#121;&#x6C;&#97;&#46;c&#x6F;&#109;">&#x65;&#x6C;&#x69;&#97;s&#64;&#115;&#x74;&#121;&#x6C;&#97;&#46;c&#x6F;&#109;</a>"</span>
+      <span>"Elias Liedholm <a href="&#x6D;&#97;&#105;&#x6C;&#116;&#x6F;:&#x65;&#x6C;&#105;&#x61;&#x73;&#x40;&#x73;&#x74;y&#x6C;&#x61;&#x2E;co&#x6D;">&#x65;&#x6C;&#105;&#x61;&#x73;&#x40;&#x73;&#x74;y&#x6C;&#x61;&#x2E;co&#x6D;</a>"</span>
     </div>
   </div>
 </div>
         </td>
-        <td class="code highlight"><div class="highlight"><pre> 
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-2" id="section-2">&#182;</a>
-</div>
-<div class="dox">
-  <div class="summary"><p>THIS SNIPPET WILL embed the widget in your page.  Make sure to change the slug to yours,
-and alter the options to your liking</p>
-  </div>
-  <div class="body"><p>var d=document;var h=d.head,s=d.createElement('SCRIPT');h.appendChild(s);s.src='../dist/list.js';var w=window;var f=typeof w.onload==='function'?w.onload:function(){};w.onload=function(e){</p>
-
-<p>new StylaWidget( {
-newTab  : true,
-slug    : 'uhrenschmuck24',
-target  : '.styla-widget__target'
-} );</p>
-
-<p>new StylaWidget( {
-newTab  : true,
-slug    : 'braunhamburg',
-target  : '.styla-widget__target2'
-} );</p>
-
-<p>f( e );};</p>
-  </div>
-</div>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-
-
-<span class="kr">import</span> <span class="nx">version</span>  <span class="nx">from</span> <span class="s1">&#39;./version.js&#39;</span><span class="p">;</span>
-<span class="kr">import</span> <span class="nx">classes</span>  <span class="nx">from</span> <span class="s1">&#39;./classes.js&#39;</span><span class="p">;</span>
-<span class="kr">import</span> <span class="nx">Build</span>    <span class="nx">from</span> <span class="s1">&#39;./build.js&#39;</span><span class="p">;</span>
+        <td class="code highlight"><div class="highlight"><pre><span class="kr">import</span> <span class="nx">version</span>  <span class="nx">from</span> <span class="s1">&#39;/version&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">classes</span>  <span class="nx">from</span> <span class="s1">&#39;/classes&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">Build</span>    <span class="nx">from</span> <span class="s1">&#39;/build&#39;</span><span class="p">;</span>
 
 <span class="kr">import</span> <span class="p">{</span> <span class="nx">http</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;microbejs/dist/microbe.http.min&#39;</span><span class="p">;</span>
 
 <span class="kd">let</span> <span class="nx">format</span>  <span class="o">=</span> <span class="err">`</span><span class="nx">styla</span><span class="o">-</span><span class="nx">widget</span><span class="o">-</span><span class="nx">format</span><span class="o">-</span><span class="nx">goes</span><span class="o">-</span><span class="nx">here</span><span class="err">`</span><span class="p">;</span>
 <span class="nx">format</span>      <span class="o">=</span> <span class="nx">format</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">toUpperCase</span><span class="p">()</span> <span class="o">+</span> <span class="nx">format</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span> <span class="mi">1</span> <span class="p">);</span>
+
 
 <span class="kr">class</span> <span class="nx">StylaWidget</span>
 <span class="p">{</span>
@@ -126,7 +92,7 @@ target  : '.styla-widget__target2'
 </div>
 
   </div>
-  <div class="body"><p>adds the previously configured widget to the currently 
+  <div class="body"><p>adds the previously configured widget to the currently
 defined target or a new selector / el</p>
   </div>
   <div class="details">
@@ -144,18 +110,22 @@ defined target or a new selector / el</p>
         <span class="nx">target</span>      <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">checkTarget</span><span class="p">(</span> <span class="nx">target</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">minWidth</span> <span class="p">);</span>
 
         <span class="kd">let</span> <span class="nx">refs</span>    <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">refs</span><span class="p">;</span>
+        <span class="kd">let</span> <span class="nx">styles</span>  <span class="o">=</span> <span class="nx">refs</span><span class="p">.</span><span class="nx">styles</span><span class="p">;</span>
         <span class="kd">let</span> <span class="nx">head</span>    <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">head</span><span class="p">;</span>
 
-        <span class="k">if</span> <span class="p">(</span> <span class="nx">refs</span><span class="p">.</span><span class="nx">baseStyle</span> <span class="p">)</span>
-        <span class="p">{</span>
-            <span class="k">if</span> <span class="p">(</span> <span class="nx">head</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span> <span class="err">`</span><span class="p">.</span><span class="nx">$</span><span class="p">{</span><span class="nx">classes</span><span class="p">.</span><span class="nx">BASE_STYLES</span><span class="p">}</span><span class="err">`</span> <span class="p">)</span> <span class="p">)</span>
-            <span class="p">{</span>
-                <span class="nx">head</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span> <span class="nx">refs</span><span class="p">.</span><span class="nx">baseStyle</span> <span class="p">);</span>
-            <span class="p">}</span>
+        <span class="kd">let</span> <span class="nx">baseStyle</span> <span class="o">=</span> <span class="nx">head</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span> <span class="err">`</span><span class="p">.</span><span class="nx">$</span><span class="p">{</span><span class="nx">classes</span><span class="p">.</span><span class="nx">BASE_STYLES</span><span class="p">}</span><span class="err">`</span> <span class="p">);</span>
 
-            <span class="nx">head</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span> <span class="nx">refs</span><span class="p">.</span><span class="nx">themeStyle</span> <span class="p">);</span>
-            <span class="nx">target</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span> <span class="nx">refs</span><span class="p">.</span><span class="nx">wrapper</span> <span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span> <span class="nx">baseStyle</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="nx">head</span><span class="p">.</span><span class="nx">removeChild</span><span class="p">(</span> <span class="nx">baseStyle</span> <span class="p">);</span>
         <span class="p">}</span>
+
+        <span class="nx">target</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span> <span class="nx">refs</span><span class="p">.</span><span class="nx">wrapper</span> <span class="p">);</span>
+
+        <span class="nx">styles</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span> <span class="nx">el</span> <span class="o">=&gt;</span>
+        <span class="p">{</span>
+            <span class="nx">head</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span> <span class="nx">el</span> <span class="p">);</span>
+        <span class="p">}</span> <span class="p">);</span>
 
         <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
     <span class="p">}</span>
@@ -193,7 +163,12 @@ defined target or a new selector / el</p>
     <span class="p">{</span>
         <span class="k">if</span> <span class="p">(</span> <span class="k">typeof</span> <span class="nx">target</span> <span class="o">===</span> <span class="err">`</span><span class="nx">string</span><span class="err">`</span> <span class="p">)</span>
         <span class="p">{</span>
-            <span class="k">return</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span> <span class="nx">target</span> <span class="p">);</span>
+            <span class="nx">target</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span> <span class="nx">target</span> <span class="p">);</span>
+
+            <span class="k">if</span> <span class="p">(</span> <span class="nx">target</span> <span class="p">)</span>
+            <span class="p">{</span>
+                <span class="k">return</span> <span class="nx">target</span><span class="p">;</span>
+            <span class="p">}</span>
         <span class="p">}</span>
 
         <span class="k">if</span> <span class="p">(</span> <span class="k">typeof</span> <span class="nx">target</span> <span class="o">===</span> <span class="err">`</span><span class="kc">undefined</span><span class="err">`</span> <span class="o">||</span> <span class="nx">target</span> <span class="o">===</span> <span class="kc">null</span> <span class="p">)</span>
@@ -244,6 +219,7 @@ defined target or a new selector / el</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
     <span class="nx">constructor</span><span class="p">(</span> <span class="p">{</span>
+                    <span class="nx">slug</span><span class="p">,</span>
                     <span class="nx">api</span>         <span class="o">=</span> <span class="s1">&#39;https://live.styla.com&#39;</span><span class="p">,</span>
                     <span class="nx">domain</span>      <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
                     <span class="nx">iframe</span>      <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
@@ -255,7 +231,6 @@ defined target or a new selector / el</p>
                     <span class="nx">offset</span>      <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
                     <span class="nx">imageSize</span>   <span class="o">=</span> <span class="mi">400</span><span class="p">,</span>
                     <span class="nx">storiesApi</span>  <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
-                    <span class="nx">slug</span>        <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
                     <span class="nx">tag</span>         <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
                     <span class="nx">target</span>      <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">,</span>
                     <span class="nx">title</span>       <span class="o">=</span> <span class="kc">false</span>
@@ -276,9 +251,7 @@ defined target or a new selector / el</p>
         <span class="k">this</span><span class="p">.</span><span class="nx">iframe</span>     <span class="o">=</span> <span class="nx">iframe</span><span class="p">;</span>
         <span class="k">this</span><span class="p">.</span><span class="nx">ignore</span>     <span class="o">=</span> <span class="nx">ignore</span><span class="p">;</span>
 
-        <span class="kd">let</span> <span class="nx">ignoreBonus</span> <span class="o">=</span> <span class="nx">ignore</span> <span class="o">?</span> <span class="mi">1</span> <span class="o">:</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">// adds an extra story if one is set to be ignored.  </span>
-
-        <span class="k">this</span><span class="p">.</span><span class="nx">limit</span>      <span class="o">=</span> <span class="nx">limit</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">limit</span>      <span class="o">=</span> <span class="nx">limit</span> <span class="o">=</span> <span class="nx">ignore</span> <span class="o">?</span> <span class="nx">limit</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">:</span> <span class="nx">limit</span><span class="p">;</span>
         <span class="k">this</span><span class="p">.</span><span class="nx">minWidth</span>   <span class="o">=</span> <span class="nx">minWidth</span><span class="p">;</span>
         <span class="k">this</span><span class="p">.</span><span class="nx">newTab</span>     <span class="o">=</span> <span class="nx">newTab</span><span class="p">;</span>
         <span class="k">this</span><span class="p">.</span><span class="nx">offset</span>     <span class="o">=</span> <span class="nx">offset</span><span class="p">;</span>
@@ -288,20 +261,19 @@ defined target or a new selector / el</p>
         <span class="k">this</span><span class="p">.</span><span class="nx">tag</span>        <span class="o">=</span> <span class="nx">tag</span><span class="p">;</span>
         <span class="k">this</span><span class="p">.</span><span class="nx">target</span>     <span class="o">=</span> <span class="nx">target</span><span class="p">;</span>
         <span class="k">this</span><span class="p">.</span><span class="nx">title</span>      <span class="o">=</span> <span class="nx">title</span><span class="p">;</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">version</span>    <span class="o">=</span> <span class="nx">version</span><span class="p">;</span>
 
-        <span class="kd">let</span> <span class="nx">url</span> <span class="o">=</span> <span class="nx">tag</span> <span class="o">?</span> <span class="err">`</span><span class="nx">$</span><span class="p">{</span><span class="nx">api</span><span class="p">}</span><span class="o">/</span><span class="nx">api</span><span class="o">/</span><span class="nx">feeds</span><span class="o">/</span><span class="nx">tags</span><span class="o">/</span><span class="nx">$</span><span class="p">{</span><span class="nx">tag</span><span class="p">}</span><span class="o">?</span><span class="nx">offset</span><span class="o">=</span><span class="nx">$</span><span class="p">{</span><span class="nx">offset</span><span class="p">}</span><span class="o">&amp;</span><span class="nx">limit</span><span class="o">=</span><span class="nx">$</span><span class="p">{</span><span class="nx">limit</span> <span class="o">+</span> <span class="nx">ignoreBonus</span><span class="p">}</span><span class="o">&amp;</span><span class="nx">domain</span><span class="o">=</span><span class="nx">$</span><span class="p">{</span><span class="nx">slug</span><span class="p">}</span><span class="err">`</span> <span class="o">:</span>
+        <span class="kd">let</span> <span class="nx">url</span> <span class="o">=</span> <span class="nx">tag</span> <span class="o">?</span> <span class="err">`</span><span class="nx">$</span><span class="p">{</span><span class="nx">api</span><span class="p">}</span><span class="o">/</span><span class="nx">api</span><span class="o">/</span><span class="nx">feeds</span><span class="o">/</span><span class="nx">tags</span><span class="o">/</span><span class="nx">$</span><span class="p">{</span><span class="nx">tag</span><span class="p">}</span><span class="o">?</span><span class="nx">offset</span><span class="o">=</span><span class="nx">$</span><span class="p">{</span><span class="nx">offset</span><span class="p">}</span><span class="o">&amp;</span><span class="nx">limit</span><span class="o">=</span><span class="nx">$</span><span class="p">{</span><span class="nx">limit</span><span class="p">}</span><span class="o">&amp;</span><span class="nx">domain</span><span class="o">=</span><span class="nx">$</span><span class="p">{</span><span class="nx">slug</span><span class="p">}</span><span class="err">`</span> <span class="o">:</span>
                         <span class="err">`</span><span class="nx">$</span><span class="p">{</span><span class="nx">api</span><span class="p">}</span><span class="o">/</span><span class="nx">api</span><span class="o">/</span><span class="nx">feeds</span><span class="o">/</span><span class="nx">all</span><span class="o">?</span><span class="nx">domain</span><span class="o">=</span><span class="nx">$</span><span class="p">{</span><span class="nx">slug</span><span class="p">}</span><span class="o">&amp;</span><span class="nx">offset</span><span class="o">=</span><span class="nx">$</span><span class="p">{</span><span class="nx">offset</span><span class="p">}</span><span class="o">&amp;</span><span class="nx">limit</span><span class="o">=</span><span class="nx">$</span><span class="p">{</span><span class="nx">limit</span><span class="p">}</span><span class="err">`</span><span class="p">;</span>
 
-        <span class="kd">let</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">url</span>        <span class="o">=</span> <span class="nx">url</span><span class="p">;</span>
 
-        <span class="nx">http</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span> <span class="nx">storiesApi</span> <span class="o">||</span><span class="err"> </span><span class="nx">url</span> <span class="p">).</span><span class="nx">then</span><span class="p">(</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">stories</span> <span class="p">)</span>
-        <span class="p">{</span> 
-            <span class="kd">let</span> <span class="nx">build</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Build</span><span class="p">(</span> <span class="nx">self</span><span class="p">,</span> <span class="nx">stories</span> <span class="p">);</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">http</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span> <span class="nx">storiesApi</span> <span class="o">||</span><span class="err"> </span><span class="nx">url</span> <span class="p">).</span><span class="nx">then</span><span class="p">(</span> <span class="nx">stories</span> <span class="o">=&gt;</span>
+        <span class="p">{</span>
+            <span class="kd">let</span> <span class="nx">build</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Build</span><span class="p">(</span> <span class="k">this</span><span class="p">,</span> <span class="nx">stories</span> <span class="p">);</span>
         <span class="p">}</span> <span class="p">);</span>
-        
 
-        <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+
+        <span class="nb">Object</span><span class="p">.</span><span class="nx">defineProperty</span><span class="p">(</span> <span class="k">this</span><span class="p">,</span> <span class="s1">&#39;version&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="nx">value</span> <span class="o">:</span> <span class="nx">version</span> <span class="p">}</span> <span class="p">);</span>
     <span class="p">}</span>
 
 
@@ -334,25 +306,27 @@ defined target or a new selector / el</p>
         <td class="code highlight"><div class="highlight"><pre>
     <span class="nx">destroy</span><span class="p">()</span>
     <span class="p">{</span>
-        <span class="kd">let</span> <span class="nx">refs</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">refs</span><span class="p">;</span>
+        <span class="kd">let</span> <span class="nx">refs</span>    <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">refs</span><span class="p">;</span>
+        <span class="kd">let</span> <span class="nx">styles</span>  <span class="o">=</span> <span class="nx">refs</span><span class="p">.</span><span class="nx">styles</span><span class="p">;</span>
+        <span class="kd">let</span> <span class="nx">wrapper</span> <span class="o">=</span> <span class="nx">refs</span><span class="p">.</span><span class="nx">wrapper</span><span class="p">;</span>
+        <span class="kd">let</span> <span class="nx">head</span>    <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">head</span><span class="p">;</span>
 
-        <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span> <span class="nx">refs</span> <span class="p">).</span><span class="nx">forEach</span><span class="p">(</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">key</span> <span class="p">)</span>
+        <span class="nx">wrapper</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">.</span><span class="nx">removeChild</span><span class="p">(</span> <span class="nx">wrapper</span> <span class="p">);</span>
+
+        <span class="nx">styles</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span> <span class="nx">el</span> <span class="o">=&gt;</span>
         <span class="p">{</span>
-            <span class="kd">let</span> <span class="nx">el</span>      <span class="o">=</span> <span class="nx">refs</span><span class="p">[</span> <span class="nx">key</span> <span class="p">];</span>
-            <span class="kd">let</span> <span class="nx">parent</span>  <span class="o">=</span> <span class="nx">el</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">;</span>
-
-            <span class="k">if</span> <span class="p">(</span> <span class="nx">parent</span> <span class="p">)</span>
-            <span class="p">{</span>
-                <span class="nx">parent</span><span class="p">.</span><span class="nx">removeChild</span><span class="p">(</span> <span class="nx">el</span> <span class="p">);</span>
-            <span class="p">}</span>
+            <span class="nx">head</span><span class="p">.</span><span class="nx">removeChild</span><span class="p">(</span> <span class="nx">el</span> <span class="p">);</span>
         <span class="p">}</span> <span class="p">);</span>
 
         <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
     <span class="p">}</span>
 <span class="p">};</span>
 
+<span class="nx">StylaWidget</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">http</span> <span class="o">=</span> <span class="nx">http</span><span class="p">;</span>
+
 <span class="nb">window</span><span class="p">[</span> <span class="err">`</span><span class="nx">StylaWidget_$</span><span class="p">{</span><span class="nx">format</span><span class="p">}</span><span class="err">`</span> <span class="p">]</span> <span class="o">=</span> <span class="nx">StylaWidget</span><span class="p">;</span>
 
+<span class="nb">Object</span><span class="p">.</span><span class="nx">defineProperty</span><span class="p">(</span> <span class="nx">StylaWidget</span><span class="p">,</span> <span class="s1">&#39;version&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="nx">value</span> <span class="o">:</span> <span class="nx">version</span> <span class="p">}</span> <span class="p">);</span>
 
 <span class="kr">export</span> <span class="k">default</span> <span class="nx">StylaWidget</span><span class="p">;</span>
 </pre></div>

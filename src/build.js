@@ -15,6 +15,8 @@ import { http } from 'microbejs/dist/microbe.http.min';
 const baseStyles        = `styla-widget-css-goes-here`;
 const specificStyles    = `styla-build-specific-css-goes-here`;
 const wrapperID         = `styla-widget`;
+
+/* istanbul ignore next */
 const _reportError      = function( e ){ console.log( `err`, e ) };
 
 
@@ -56,10 +58,8 @@ class Build
      *
      * @return _DOMElement_ imageWrapper
      */
-    buildImage( images, title, context )
+    buildImage( images, title )
     {
-        this.context            = this.context || context;
-
         let create              = this.create;
         let imageWrapper        = create( `div`, classes.IMAGE_WRAPPER );
         let imageSize           = this.context.imageSize;
@@ -90,11 +90,11 @@ class Build
      *
      * @return _Void_
      */
-    buildStories = ( resDomainConfig, parsedDomainConfig ) =>
+    buildStories( domainConfig = '{}' )
     {
-        let domainConfig = this.domainConfig = parsedDomainConfig || JSON.parse( resDomainConfig );
+        let domainConfigParsed = this.domainConfig = JSON.parse( domainConfig );
 
-        if ( Object.keys( domainConfig ).length === 0 )
+        if ( Object.keys( domainConfigParsed ).length === 0 )
         {
             throw `Styla Widget error: Could not find magazine, please check if slug is configured correctly.`;
         }
@@ -115,7 +115,7 @@ class Build
 
             resImages.forEach( function( _i ){ images[ _i.id ] = _i; });
             context.images  = images;
-            
+
             let _els        = stories.stories.map( this.buildStory );
             let styling     = this.compileStyles();
 
@@ -124,6 +124,8 @@ class Build
 
             return refs.wrapper;
         }
+
+        return false;
     }
 
 
@@ -138,7 +140,7 @@ class Build
      *
      * @return _DOMElement_ outer story element
      */
-    buildStory = ( { title, description, images, externalPermalink, id }, i = 0 ) =>
+    buildStory( { title, description, images, externalPermalink, id }, i = 0 )
     {
         let context     = this.context;
 
@@ -193,7 +195,7 @@ class Build
      *
      * @return _DOMElement_ style element
      */
-    buildStoryText( title, description )
+    buildStoryText( title, description = '{}' )
     {
         let create          = this.create;
         let textWrapper     = create( `div`,    classes.TEXT_WRAPPER );
@@ -247,7 +249,7 @@ class Build
      * builds the title element, fills it, and attaches it to the container
      *
      * @param {String} title string to set the ttle to (for testing purposes)
-     * 
+     *
      * @return _DOMElement_
      */
     buildTitle( title )
@@ -332,23 +334,25 @@ class Build
      */
     constructor( context, stories )
     {
-        this.context    = context;
-        this.now        = Date.now();
-        this.ignored    = 0;
+        this.context        = context;
+        this.now            = Date.now();
+        this.ignored        = 0;
+
+        this.buildStories   = this.buildStories.bind( this );
+        this.buildStory     = this.buildStory.bind( this );
 
         if ( !context.refs.wrapper )
         {
             context.stories = JSON.parse( stories );
             let format      = context.format.toLowerCase();
 
-            let container   = context.refs.container = this.create( `DIV`, `${classes.CONTAINER}  styla-widget-${this.now}` );
+            context.refs.container = this.create( `DIV`, `${classes.CONTAINER}  styla-widget-${this.now}` );
             let wrapper     = context.refs.wrapper   = this.create( `DIV`, `${classes.WRAPPER}  ${format}` );
             wrapper.id      = wrapperID;
 
-            let domainConfigAPI   = `${context.api}/api/config/`;
-            http.get( domainConfigAPI + context.slug ).then( this.buildStories ).catch( _reportError );
+            let domainConfigAPI   = `${context.api}/api/config/${context.slug}`;
 
-            return container;
+            this.http.get( domainConfigAPI ).then( this.buildStories ).catch( _reportError );
         }
 
         return this;
@@ -466,7 +470,7 @@ class Build
 
         if ( this.domainConfig.embed.customFontUrl )
         {
-            arr.push( this.includeFonts( head ) );
+            arr.push( this.includeFonts() );
         }
 
         arr = arr.filter( el => el );
@@ -489,8 +493,8 @@ class Build
         el.type         = `text/css`;
         el.rel          = `stylesheet`;
         let fontUrl     = this.domainConfig.embed.customFontUrl
-        el.href         = fontUrl.indexOf( '//' ) !== -1 ? 
-                            fontUrl : 
+        el.href         = fontUrl.indexOf( '//' ) !== -1 ?
+                            fontUrl :
                             `//${fontUrl}`;
 
         document.head.appendChild( el );
@@ -519,21 +523,35 @@ class Build
             {
                 domain = context.linkDomain;
             }
-            else if ( embed )
-            {
-                domain = `${embed.magazineUrl}/${embed.rootPath}`;
-            }
             else
             {
-                throw `Styla Widget error: No domain defined or bad domain config`;
+                if ( embed )
+                {
+                    let rootPath = embed.rootPath;
+
+                    if ( rootPath[0] === '/' )
+                    {
+                        rootPath = rootPath.slice( 1 );
+                    }
+
+                    domain = `${embed.magazineUrl}/${rootPath}`;
+                }
+                else
+                {
+                    throw `Styla Widget error: No domain defined or bad domain config.`;
+                }
             }
 
             domain = domain.replace( /^(http(s)?:)?\/\//, '' );
 
             return context.domain = domain;
         }
+
+        return context.domain;
     }
 };
 
+
+Build.prototype.http = http;
 
 export default Build;

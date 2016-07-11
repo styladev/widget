@@ -6,23 +6,24 @@
  *
  * @author "Mouse Braun <mouse@styla.com>"
  * @author "Elias Liedholm <elias@styla.com>"
- */ 
+ */
 
-import version  from './version.js';
-import classes  from './classes.js';
-import Build    from './build.js';
+import version  from '/version';
+import classes  from '/classes';
+import Build    from '/build';
 
 import { http } from 'microbejs/dist/microbe.http.min';
 
 let format  = `styla-widget-format-goes-here`;
 format      = format[0].toUpperCase() + format.slice( 1 );
 
+
 class StylaWidget
 {
     /**
      * ## attach
      *
-     * adds the previously configured widget to the currently 
+     * adds the previously configured widget to the currently
      * defined target or a new selector / el
      *
      * @return _Void_
@@ -32,25 +33,22 @@ class StylaWidget
         target      = this.checkTarget( target, this.minWidth );
 
         let refs    = this.refs;
+        let styles  = refs.styles;
         let head    = document.head;
 
-        if ( refs.baseStyle )
+        let baseStyle = head.querySelector( `.${classes.BASE_STYLES}` );
+
+        if ( baseStyle )
         {
-            let styles  = refs.styles;
-            
-            styles.forEach( function( el )
-            {
-                head.appendChild( el );
-            } );
-
-            if ( head.querySelector( `.${classes.BASE_STYLES}` ) )
-            {
-                head.appendChild( refs.baseStyle );
-            }
-
-            head.appendChild( refs.themeStyle );
-            target.appendChild( refs.wrapper );
+            head.removeChild( baseStyle );
         }
+
+        target.appendChild( refs.wrapper );
+
+        styles.forEach( el =>
+        {
+            head.appendChild( el );
+        } );
 
         return this;
     }
@@ -62,13 +60,17 @@ class StylaWidget
      * makes sure the target is a DOMelement and wide enough
      *
      * @param {String or DOMElement} target attach point for the widget
-     * 
      */
     checkTarget( target, minWidth )
     {
         if ( typeof target === `string` )
         {
-            return document.querySelector( target );
+            target = document.querySelector( target );
+
+            if ( target )
+            {
+                return target;
+            }
         }
 
         if ( typeof target === `undefined` || target === null )
@@ -95,6 +97,7 @@ class StylaWidget
      * @return _Object_ this
      */
     constructor( {
+                    slug,
                     api         = 'https://live.styla.com',
                     domain      = false,
                     iframe      = false,
@@ -106,7 +109,6 @@ class StylaWidget
                     offset      = 0,
                     imageSize   = 400,
                     storiesApi  = false,
-                    slug        = false,
                     tag         = false,
                     target      = document.body,
                     title       = false
@@ -127,9 +129,7 @@ class StylaWidget
         this.iframe     = iframe;
         this.ignore     = ignore;
 
-        let ignoreBonus = ignore ? 1 : 0; // adds an extra story if one is set to be ignored.  
-
-        this.limit      = limit;
+        this.limit      = limit = ignore ? limit + 1 : limit;
         this.minWidth   = minWidth;
         this.newTab     = newTab;
         this.offset     = offset;
@@ -139,20 +139,19 @@ class StylaWidget
         this.tag        = tag;
         this.target     = target;
         this.title      = title;
-        this.version    = version;
 
-        let url = tag ? `${api}/api/feeds/tags/${tag}?offset=${offset}&limit=${limit + ignoreBonus}&domain=${slug}` :
+        let url = tag ? `${api}/api/feeds/tags/${tag}?offset=${offset}&limit=${limit}&domain=${slug}` :
                         `${api}/api/feeds/all?domain=${slug}&offset=${offset}&limit=${limit}`;
 
-        let self = this;
+        this.url        = url;
 
-        http.get( storiesApi || url ).then( function( stories )
-        { 
-            let build = new Build( self, stories );
+        this.http.get( storiesApi || url ).then( stories =>
+        {
+            let build = new Build( this, stories );
         } );
-        
 
-        return this;
+
+        Object.defineProperty( this, 'version', { value : version } );
     }
 
 
@@ -165,25 +164,27 @@ class StylaWidget
      */
     destroy()
     {
-        let refs = this.refs;
+        let refs    = this.refs;
+        let styles  = refs.styles;
+        let wrapper = refs.wrapper;
+        let head    = document.head;
 
-        Object.keys( refs ).forEach( function( key )
+        wrapper.parentNode.removeChild( wrapper );
+
+        styles.forEach( el =>
         {
-            let el      = refs[ key ];
-            let parent  = el.parentNode;
-
-            if ( parent )
-            {
-                parent.removeChild( el );
-            }
+            head.removeChild( el );
         } );
 
         return this;
     }
 };
 
+StylaWidget.prototype.http = http;
+
 window[ `StylaWidget_${format}` ] = StylaWidget;
 
+Object.defineProperty( StylaWidget, 'version', { value : version } );
 
 export default StylaWidget;
 

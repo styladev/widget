@@ -1,4 +1,4 @@
-Styla Widget  1.0.15
+Styla Widget  1.1.0
 =======
 
 
@@ -6,7 +6,7 @@ The Styla Widget™ is a simple way to display stories from a Styla Magazine in 
 smaller format, anywhere on your site. A story in the widget functions as
 a teaser and will send the reader directly to the magazine when clicked on.
 
-Visit the [demo page](a href="http://static.styla.com/test/widget/") to see the
+Visit the [demo page](http://static.styla.com/test/widget/) to see the
 widget in action.
 
 Using the Widget
@@ -127,7 +127,7 @@ dev installation
 git clone git@github.com:styladev/widget.git
 cd widget
 npm i
-npm run gulp
+npm run build
 ```
 
 
@@ -153,8 +153,18 @@ This project adheres to the [Contributor Covenant](http://contributor-covenant.o
 Change log
 ==========
 
+### 1.1.0
+
+    + test suites changes to mocha and istanbul
+
+
+### 1.0.16
+
+    + updated link test
+
+
 ### 1.0.15
-    
+
     + internal reconfigurations on their way to the ability to handle multiple formats at once
     + adjusted how style tags are added and stored
     + removed trailing slash from links
