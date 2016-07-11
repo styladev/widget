@@ -22,3 +22,4 @@ tests/tests.dist.js
 demo/demoDist.js
 
 dist/*.min.css
+coverage/
