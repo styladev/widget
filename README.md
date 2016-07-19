@@ -156,6 +156,7 @@ Change log
 ### 1.1.1
 
     + tile layout style fix
+    + new layout: cards
 
 ### 1.1.0
 
