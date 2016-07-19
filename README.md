@@ -1,4 +1,4 @@
-Styla Widget  1.1.0
+Styla Widget  1.1.1
 =======
 
 
@@ -152,6 +152,10 @@ This project adheres to the [Contributor Covenant](http://contributor-covenant.o
 
 Change log
 ==========
+
+### 1.1.1
+
+    + tile layout style fix
 
 ### 1.1.0
 
