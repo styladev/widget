@@ -1,4 +1,4 @@
-Styla Widget  1.1.1
+Styla Widget  1.2.0
 =======
 
 
@@ -82,7 +82,8 @@ window.stylaWidget = {
     slug        // (REQUIRED) Magazine name
     storiesApi  // (default: false) manually set the exact api address to get
                 //      stories from
-    tag         // (default: none) Filter stories by tag
+    tag         // (default: false) Filter stories by tag
+    category    // (default: false) Filter stories by category
     target      // (default: document.body) mount point of the widget. Accepts
                 //      DOM elements and selector strings
     title       // (default: false) header title
@@ -152,6 +153,9 @@ This project adheres to the [Contributor Covenant](http://contributor-covenant.o
 
 Change log
 ==========
+
+### 1.2.0
+    + possibility to load stories per category
 
 ### 1.1.1
 

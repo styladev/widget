@@ -155,6 +155,22 @@ describe( 'constructor', () =>
         assert.equal( stylaWidget.url, 'https://live.styla.com/api/feeds/tags/moon?offset=0&limit=5&domain=braunhamburg' );
     } );
 
+    it( 'should be able to build using the category feed', () =>
+    {
+        let stylaWidget = new BaseWidget( { slug: 'braunhamburg', category: '2262' } );
+        assert.equal( stylaWidget.url, 'https://live.styla.com/api/feeds/boards/2262/user/braunhamburg?domain=braunhamburg&offset=0' );
+    } );
+
+    it( 'should throw a console error if both tag and category is set' , () =>
+    {
+        sinon.stub( console, 'error', () => {} );
+
+        let stylaWidget = new BaseWidget( { slug: 'braunhamburg', tag: 'fussball', category: '2262' } );
+        assert.equal( console.error.callCount, 1 )
+
+        console.error.restore();
+
+    } );
 
     it( 'should set the correct defaults', () =>
     {
@@ -171,6 +187,7 @@ describe( 'constructor', () =>
         assert.equal( stylaWidget.imageSize, 400 );
         assert.equal( stylaWidget.storiesApi, false );
         assert.equal( stylaWidget.tag, false );
+        assert.equal( stylaWidget.category, false );
         assert.equal( stylaWidget.target, document.body );
         assert.equal( stylaWidget.title, false );
     } );
