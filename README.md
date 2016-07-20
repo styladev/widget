@@ -36,6 +36,8 @@ Tiles is not the only layout available.  Just change the word tiles out for anot
 + horizontal
 + related stories
 + list
++ tiles
++ cards
 
 
 See a live example on the [demo page](http://static.styla.com/test/widget/)
