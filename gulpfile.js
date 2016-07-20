@@ -44,6 +44,7 @@ gulp.task( 'browserifyFiles', function()
             insertStyles( 'stories', 'baseWidget.js', '' );
             insertStyles( 'horizontal', 'baseWidget.js', '' );
             insertStyles( 'tiles', 'baseWidget.js', '' );
+            insertStyles( 'cards', 'baseWidget.js', '' );
         } );
 } );
 
@@ -58,8 +59,9 @@ gulp.task( 'min', function()
         {
             insertStyles( 'list', 'baseWidget.min.js', '.min' );
             insertStyles( 'stories', 'baseWidget.min.js', '.min' );
-            insertStyles( 'horizontal', 'baseWidget.min.js', '.min' )
+            insertStyles( 'horizontal', 'baseWidget.min.js', '.min' );
             insertStyles( 'tiles', 'baseWidget.min.js', '.min' );
+            insertStyles( 'cards', 'baseWidget.min.js', '.min' );
         } );
 } );
 
@@ -110,14 +112,25 @@ gulp.task( 'css-min', function()
         .pipe( minifycss() )
         .pipe( gulp.dest( 'dist' ) );
 
+    gulp.src( './src/cards.css' )
+        .pipe( rename( { suffix: '.min' } ) )
+        .pipe( minifycss() )
+        .pipe( gulp.dest( 'dist' ) );
+
     gulp.src( './src/baseStyles.css' )
-            .pipe( rename( { suffix: '.min' } ) )
-            .pipe( minifycss() )
-            .pipe( gulp.dest( 'dist' ) );
+        .pipe( rename( { suffix: '.min' } ) )
+        .pipe( minifycss() )
+        .pipe( gulp.dest( 'dist' ) );
 } );
 
 
 gulp.task( 'default', function()
 {
     gulp.start( [ 'browserifyFiles', 'min' ] );
+
+    gulp.src( [
+        './src/index.html',
+        './src/logotype.svg'
+    ] )
+        .pipe( gulp.dest( 'dist' ) );
 } );
