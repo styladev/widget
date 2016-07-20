@@ -157,6 +157,7 @@ Change log
 
     + tile layout style fix
     + new layout: cards
+    + host demo page on widget.styla.com
 
 ### 1.1.0
 

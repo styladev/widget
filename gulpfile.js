@@ -118,13 +118,19 @@ gulp.task( 'css-min', function()
         .pipe( gulp.dest( 'dist' ) );
 
     gulp.src( './src/baseStyles.css' )
-            .pipe( rename( { suffix: '.min' } ) )
-            .pipe( minifycss() )
-            .pipe( gulp.dest( 'dist' ) );
+        .pipe( rename( { suffix: '.min' } ) )
+        .pipe( minifycss() )
+        .pipe( gulp.dest( 'dist' ) );
 } );
 
 
 gulp.task( 'default', function()
 {
     gulp.start( [ 'browserifyFiles', 'min' ] );
+
+    gulp.src( [
+        './src/index.html',
+        './src/logotype.svg'
+    ] )
+        .pipe( gulp.dest( 'dist' ) );
 } );
