@@ -110,6 +110,7 @@ class StylaWidget
                     imageSize   = 400,
                     storiesApi  = false,
                     tag         = false,
+                    category    = false,
                     target      = document.body,
                     title       = false
                     } = {} )
@@ -137,11 +138,24 @@ class StylaWidget
         this.slug       = slug;
         this.storiesApi = storiesApi;
         this.tag        = tag;
+        this.category   = category;
         this.target     = target;
         this.title      = title;
 
-        let url = tag ? `${api}/api/feeds/tags/${tag}?offset=${offset}&limit=${limit}&domain=${slug}` :
-                        `${api}/api/feeds/all?domain=${slug}&offset=${offset}&limit=${limit}`;
+        let url
+
+        if ( tag != false )
+        {
+            url = `${api}/api/feeds/tags/${tag}?offset=${offset}&limit=${limit}&domain=${slug}`;
+        }
+        else if ( category != false )
+        {
+            url = `${api}/api/feeds/boards/${category}/user/${slug}?domain=${slug}&offset=${offset}`;
+        }
+        else
+        {
+            url = `${api}/api/feeds/all?domain=${slug}&offset=${offset}&limit=${limit}`;
+        }
 
         this.url        = url;
 
@@ -187,4 +201,3 @@ window[ `StylaWidget_${format}` ] = StylaWidget;
 Object.defineProperty( StylaWidget, 'version', { value : version } );
 
 export default StylaWidget;
-
