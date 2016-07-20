@@ -142,7 +142,11 @@ class StylaWidget
         this.target     = target;
         this.title      = title;
 
-        let url
+        if ( tag !== false && category !== false ) {
+            console.error( `Styla Widget error: Both tag and category filter has been added to the configuration, but only one can be used, stories will be filtered only by tag.` );
+        }
+
+        let url;
 
         if ( tag != false )
         {
