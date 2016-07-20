@@ -110,6 +110,12 @@
                 width:                  90vw;
                 height:                 14em;
             }
+
+            .styla-widget__target-cards
+            {
+                width:                  90vw;
+                height:                 24em;
+            }
         </style>
     </head>
     <body>
@@ -121,7 +127,7 @@
         <p>In order to guide visitors to your magazine, you can include a widget (or more) on any page on your website. You can find a number of example widgets below.</p>
         <h3>Style it according to your needs</h3>
         <p>If you are interested in using a widget on your site, <br>we will gladly help you with adapting the widget <br>to meet your needs. Please contact your Styla account manager for more information on our widgets.</p>
-        <p><a href="#list">List</a> <a href="#horizontal">Horizontal</a> <a href="#tiles">Tiles</a></p>
+        <p><a href="#list">List</a> <a href="#horizontal">Horizontal</a> <a href="#tiles">Tiles</a> <a href="#cards">Cards</a></p>
         <hr>
 
         <a name="list"></a>
@@ -165,6 +171,19 @@
         <div class="target styla-widget__target-tiles--square"></div>
         <div class="target styla-widget__target-tiles--portrait"></div>
         <div class="target styla-widget__target-tiles--horizontal"></div>
+        <hr>
+
+        <a name="cards"></a>
+        <h2>e.g. the Cards</h2>
+        <p>
+            The Cards is a simple layout that's easy on the eyes. Its toned down
+            aesthetic leaves room for your content to do the talking, and it blends
+            well on a large variety of websites.
+        </p>
+        <ul>
+            <li>Images are cropped to fill the space</li>
+        </ul>
+        <div class="target styla-widget__target-cards"></div>
 
         <br>
         <hr>
@@ -175,9 +194,10 @@
     </body>
 
 
-    <script src="../dist/list.js"></script>
-    <script src="../dist/tiles.js"></script>
-    <script src="../dist/horizontal.js"></script>
+    <script src="./list.js"></script>
+    <script src="./tiles.js"></script>
+    <script src="./horizontal.js"></script>
+    <script src="./cards.js"></script>
     <script>
         new StylaWidget_Tiles( {
             newTab  : true,
@@ -218,6 +238,13 @@
             newTab  : true,
             slug    : 'styla-menfashion',
             target  : '.styla-widget__target-horizontal',
+            limit   : 4
+        } );
+
+        new StylaWidget_Cards( {
+            newTab  : true,
+            slug    : 'booksandpaper',
+            target  : '.styla-widget__target-cards',
             limit   : 4
         } );
     </script>

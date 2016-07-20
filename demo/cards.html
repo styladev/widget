@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>Styla Horizontal Widget Demo</title>
+        <style>
+            body
+            {
+                text-align:             center;
+                margin:                 0 auto;
+                background:             #eee;
+                height:                 100vh;
+            }
+
+            .styla-widget__target
+            {
+                text-align:             left;
+                background:             #FFF;
+                box-shadow:             3px 3px 0px #ccc;
+                height:                 24em;
+                top:                    5%;
+                position:               relative;
+                display:                inline-block;
+                margin:                 0 1em;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="styla-widget__target" style="width: 90%;"></div>
+        <script src="../dist/cards.js"></script>
+        <script>
+            new StylaWidget_Cards( {
+                newTab  : true,
+                slug    : 'booksandpaper',
+                target  : '.styla-widget__target',
+                limit   : 4
+            } );
+        </script>
+    </body>
+</html>
