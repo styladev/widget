@@ -111,7 +111,6 @@ class Build
 
         if ( resImages )
         {
-            context.title = this.buildTitle();
 
             resImages.forEach( function( _i ){ images[ _i.id ] = _i; });
             context.images  = images;
@@ -240,38 +239,6 @@ class Build
         el.appendChild( t );
 
         return el;
-    }
-
-
-    /**
-     * ## buildTitle
-     *
-     * builds the title element, fills it, and attaches it to the container
-     *
-     * @param {String} title string to set the ttle to (for testing purposes)
-     *
-     * @return _DOMElement_
-     */
-    buildTitle( title )
-    {
-        let context     = this.context;
-        title       = title || this.domainConfig.title;
-
-        if ( context.title === true && title )
-        {
-            context.title = title;
-        }
-
-        if ( context.title )
-        {
-            let text        = context.title;
-            let title       = context.title    = this.create( `DIV`, classes.TITLE );
-            title.innerHTML = text;
-
-            context.refs.container.appendChild( title );
-        }
-
-        return context.title;
     }
 
 
