@@ -1,4 +1,4 @@
-Styla Widget  1.3.0
+Styla Widget  1.3.1
 =======
 
 
@@ -155,6 +155,9 @@ This project adheres to the [Contributor Covenant](http://contributor-covenant.o
 
 Change log
 ==========
+
+### 1.3.1
+    + fix tile widget styling
 
 ### 1.3.0
     + fixed theme styling for related stories
