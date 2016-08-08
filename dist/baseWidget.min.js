@@ -20,15 +20,15 @@ var _createClass = function () { function defineProperties(target, props) { for 
  * @author "Elias Liedholm <elias@styla.com>"
  */
 
-var _version = require('/Library/WebServer/Documents/widget/src/version');
+var _version = require('/Users/elias/develop/widget/src/version');
 
 var _version2 = _interopRequireDefault(_version);
 
-var _classes = require('/Library/WebServer/Documents/widget/src/classes');
+var _classes = require('/Users/elias/develop/widget/src/classes');
 
 var _classes2 = _interopRequireDefault(_classes);
 
-var _build = require('/Library/WebServer/Documents/widget/src/build');
+var _build = require('/Users/elias/develop/widget/src/build');
 
 var _build2 = _interopRequireDefault(_build);
 
@@ -148,10 +148,10 @@ var StylaWidget = function () {
         var storiesApi = _ref$storiesApi === undefined ? false : _ref$storiesApi;
         var _ref$tag = _ref.tag;
         var tag = _ref$tag === undefined ? false : _ref$tag;
+        var _ref$category = _ref.category;
+        var category = _ref$category === undefined ? false : _ref$category;
         var _ref$target = _ref.target;
         var target = _ref$target === undefined ? document.body : _ref$target;
-        var _ref$title = _ref.title;
-        var title = _ref$title === undefined ? false : _ref$title;
 
         _classCallCheck(this, StylaWidget);
 
@@ -177,10 +177,22 @@ var StylaWidget = function () {
         this.slug = slug;
         this.storiesApi = storiesApi;
         this.tag = tag;
+        this.category = category;
         this.target = target;
-        this.title = title;
 
-        var url = tag ? api + '/api/feeds/tags/' + tag + '?offset=' + offset + '&limit=' + limit + '&domain=' + slug : api + '/api/feeds/all?domain=' + slug + '&offset=' + offset + '&limit=' + limit;
+        if (tag !== false && category !== false) {
+            console.error('Styla Widget error: Both tag and category filter has been added to the configuration, but only one can be used, stories will be filtered only by tag.');
+        }
+
+        var url = void 0;
+
+        if (tag != false) {
+            url = api + '/api/feeds/tags/' + tag + '?offset=' + offset + '&limit=' + limit + '&domain=' + slug;
+        } else if (category != false) {
+            url = api + '/api/feeds/boards/' + category + '/user/' + slug + '?domain=' + slug + '&offset=' + offset;
+        } else {
+            url = api + '/api/feeds/all?domain=' + slug + '&offset=' + offset + '&limit=' + limit;
+        }
 
         this.url = url;
 
@@ -231,7 +243,7 @@ Object.defineProperty(StylaWidget, 'version', { value: _version2.default });
 
 exports.default = StylaWidget;
 
-},{"/Library/WebServer/Documents/widget/src/build":3,"/Library/WebServer/Documents/widget/src/classes":4,"/Library/WebServer/Documents/widget/src/version":5,"microbejs/dist/microbe.http.min":1}],3:[function(require,module,exports){
+},{"/Users/elias/develop/widget/src/build":3,"/Users/elias/develop/widget/src/classes":4,"/Users/elias/develop/widget/src/version":5,"microbejs/dist/microbe.http.min":1}],3:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -361,7 +373,6 @@ var Build = function () {
             refs.styles = this.includeBaseStyles();
 
             if (resImages) {
-                context.title = this.buildTitle();
 
                 resImages.forEach(function (_i) {
                     images[_i.id] = _i;
@@ -500,37 +511,6 @@ var Build = function () {
         }
 
         /**
-         * ## buildTitle
-         *
-         * builds the title element, fills it, and attaches it to the container
-         *
-         * @param {String} title string to set the ttle to (for testing purposes)
-         *
-         * @return _DOMElement_
-         */
-
-    }, {
-        key: 'buildTitle',
-        value: function buildTitle(title) {
-            var context = this.context;
-            title = title || this.domainConfig.title;
-
-            if (context.title === true && title) {
-                context.title = title;
-            }
-
-            if (context.title) {
-                var text = context.title;
-                var _title = context.title = this.create('DIV', _classes2.default.TITLE);
-                _title.innerHTML = text;
-
-                context.refs.container.appendChild(_title);
-            }
-
-            return context.title;
-        }
-
-        /**
          * ## compileStyles
          *
          * compiles the styles and returns them added to the style tag
@@ -547,7 +527,7 @@ var Build = function () {
             var context = this.context;
 
             if (theme) {
-                css = '.styla-widget-' + now + ' .' + _classes2.default.HEADLINE + ',\n                .styla-widget-' + now + ' .' + _classes2.default.TITLE + '\n                {\n                    font-family:        ' + theme.hff + ';\n                    font-weight:        ' + theme.hfw + ';\n                    font-style:         ' + theme.hfs + ';\n                    text-decoration:    ' + theme.htd + ';\n                    letter-spacing:     ' + theme.hls + ';\n                    color:              ' + theme.htc + ';\n                }\n                .styla-widget-' + now + ' .' + _classes2.default.PARAGRAPH + ', .styla-widget-' + now + ' .' + _classes2.default.PARAGRAPH_AFTER + '\n                {\n                    font-family:        ' + theme.sff + ';\n                    font-weight:        ' + theme.sfw + ';\n                    color:              ' + theme.stc + ';\n                }\n                .styla-widget-' + now + ' .' + _classes2.default.PARAGRAPH_AFTER + ':after\n                {\n                    content:            \'' + theme.strm + '\';\n                    font-weight:        ' + theme.strmw + ';\n                    text-decoration:    ' + theme.strmd + ';\n                }';
+                css = '#styla-widget .styla-widget-' + now + ' .' + _classes2.default.HEADLINE + ',\n                #styla-widget .styla-widget-' + now + ' .' + _classes2.default.TITLE + '\n                {\n                    font-family:        ' + theme.hff + ';\n                    font-weight:        ' + theme.hfw + ';\n                    font-style:         ' + theme.hfs + ';\n                    text-decoration:    ' + theme.htd + ';\n                    letter-spacing:     ' + theme.hls + ';\n                    color:              ' + theme.htc + ';\n                }\n                #styla-widget .styla-widget-' + now + ' .' + _classes2.default.PARAGRAPH + ', #styla-widget .styla-widget-' + now + ' .' + _classes2.default.PARAGRAPH_AFTER + '\n                {\n                    font-family:        ' + theme.sff + ';\n                    font-weight:        ' + theme.sfw + ';\n                    color:              ' + theme.stc + ';\n                }\n                #styla-widget .styla-widget-' + now + ' .' + _classes2.default.PARAGRAPH_AFTER + ':after\n                {\n                    content:            \'' + theme.strm + '\';\n                    font-weight:        ' + theme.strmw + ';\n                    text-decoration:    ' + theme.strmd + ';\n                }';
             }
 
             var el = this.buildStyleTag(css);
@@ -827,6 +807,6 @@ module.exports = {
 },{}],5:[function(require,module,exports){
 'use strict';
 
-module.exports = '1.1.0';
+module.exports = '1.3.1';
 
 },{}]},{},[2]);
