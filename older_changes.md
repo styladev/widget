@@ -1,7 +1,78 @@
 Older changes
 =============
 
+
+
 This is truncated from the readme file to keep down the size
+
+### 1.2.0
+    + possibility to load stories per category
+
+### 1.1.1
+
+    + tile layout style fix
+    + new layout: cards
+    + host demo page on widget.styla.com
+
+### 1.1.0
+
+    + test suites changes to mocha and istanbul
+
+
+### 1.0.16
+
+    + updated link test
+
+
+### 1.0.15
+
+    + internal reconfigurations on their way to the ability to handle multiple formats at once
+    + adjusted how style tags are added and stored
+    + removed trailing slash from links
+
+
+### 1.0.14
+
+    + all tests fixed
+
+
+### 1.0.13
+
+    + tile layout style fix
+
+
+### 1.0.12
+
+    + tile layout does not break if a story only has very little content
+
+
+### 1.0.11
+
+    + set domain config api dynamically
+
+
+### 1.0.10
+
+    + ie fixes
+
+
+### 1.0.9
+
+    + updated setDomain to be more robust
+
+
+### 1.0.7
+
+    + added css prefixes for IE
+    + fixed an issue where ignored stories were added anyways
+
+
+### 1.0.6
+
+    + css-wrap removed from package and gulpfile
+    + added a console log to investigate stage
+
+
 
 ### 1.0.5
 
@@ -40,7 +111,7 @@ This is truncated from the readme file to keep down the size
     + build is now a constructor
     + implementation changes to allow for multiple widgets on one page
 
-    
+
 ### 0.4.9
 
     + i a !
@@ -152,4 +223,3 @@ This is truncated from the readme file to keep down the size
 
     + fixed a bug where links were malformed missing a `/`
     + internal refactoring
-    

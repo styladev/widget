@@ -1,4 +1,4 @@
-Styla Widget  1.3.1
+Styla Widget  1.3.2
 =======
 
 
@@ -156,81 +156,15 @@ This project adheres to the [Contributor Covenant](http://contributor-covenant.o
 Change log
 ==========
 
+### 1.3.2
+    + fixed tests
+
 ### 1.3.1
     + fix tile widget styling
 
 ### 1.3.0
     + fixed theme styling for related stories
     + related stories uses square images
-
-### 1.2.0
-    + possibility to load stories per category
-
-### 1.1.1
-
-    + tile layout style fix
-    + new layout: cards
-    + host demo page on widget.styla.com
-
-### 1.1.0
-
-    + test suites changes to mocha and istanbul
-
-
-### 1.0.16
-
-    + updated link test
-
-
-### 1.0.15
-
-    + internal reconfigurations on their way to the ability to handle multiple formats at once
-    + adjusted how style tags are added and stored
-    + removed trailing slash from links
-
-
-### 1.0.14
-
-    + all tests fixed
-
-
-### 1.0.13
-
-    + tile layout style fix
-
-
-### 1.0.12
-
-    + tile layout does not break if a story only has very little content
-
-
-### 1.0.11
-
-    + set domain config api dynamically
-
-
-### 1.0.10
-
-    + ie fixes
-
-
-### 1.0.9
-
-    + updated setDomain to be more robust
-
-
-### 1.0.7
-
-    + added css prefixes for IE
-    + fixed an issue where ignored stories were added anyways
-
-
-### 1.0.6
-
-    + css-wrap removed from package and gulpfile
-    + added a console log to investigate stage
-
-
 
 Older Changes
 =============
