@@ -111,7 +111,6 @@ class Build
 
         if ( resImages )
         {
-            context.title = this.buildTitle();
 
             resImages.forEach( function( _i ){ images[ _i.id ] = _i; });
             context.images  = images;
@@ -244,38 +243,6 @@ class Build
 
 
     /**
-     * ## buildTitle
-     *
-     * builds the title element, fills it, and attaches it to the container
-     *
-     * @param {String} title string to set the ttle to (for testing purposes)
-     *
-     * @return _DOMElement_
-     */
-    buildTitle( title )
-    {
-        let context     = this.context;
-        title       = title || this.domainConfig.title;
-
-        if ( context.title === true && title )
-        {
-            context.title = title;
-        }
-
-        if ( context.title )
-        {
-            let text        = context.title;
-            let title       = context.title    = this.create( `DIV`, classes.TITLE );
-            title.innerHTML = text;
-
-            context.refs.container.appendChild( title );
-        }
-
-        return context.title;
-    }
-
-
-    /**
      * ## compileStyles
      *
      * compiles the styles and returns them added to the style tag
@@ -292,8 +259,8 @@ class Build
         if ( theme )
         {
             css =
-                `.styla-widget-${now} .${classes.HEADLINE},
-                .styla-widget-${now} .${classes.TITLE}
+                `#styla-widget .styla-widget-${now} .${classes.HEADLINE},
+                #styla-widget .styla-widget-${now} .${classes.TITLE}
                 {
                     font-family:        ${theme.hff};
                     font-weight:        ${theme.hfw};
@@ -302,13 +269,13 @@ class Build
                     letter-spacing:     ${theme.hls};
                     color:              ${theme.htc};
                 }
-                .styla-widget-${now} .${classes.PARAGRAPH}, .styla-widget-${now} .${classes.PARAGRAPH_AFTER}
+                #styla-widget .styla-widget-${now} .${classes.PARAGRAPH}, #styla-widget .styla-widget-${now} .${classes.PARAGRAPH_AFTER}
                 {
                     font-family:        ${theme.sff};
                     font-weight:        ${theme.sfw};
                     color:              ${theme.stc};
                 }
-                .styla-widget-${now} .${classes.PARAGRAPH_AFTER}:after
+                #styla-widget .styla-widget-${now} .${classes.PARAGRAPH_AFTER}:after
                 {
                     content:            '${theme.strm}';
                     font-weight:        ${theme.strmw};

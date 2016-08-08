@@ -286,33 +286,6 @@ describe( 'buildStyleTag', () =>
 
 
 /**
- * ## buildTitle
- *
- * builds a style tag and appends it to the DOM
- *
- * @param {String} title string to set the ttle to (for testing purposes)
- *
- * @return _DOMElement_ style element
- */
-describe( 'buildTitle', () =>
-{
-    it( 'should correctly build a title', () =>
-    {
-        build.context.title = true;
-
-        let el      = build.buildTitle( 'moon' );
-
-        assert.ok( el.nodeType === 1, 'title is a dom element' );
-        assert.equal( el.tagName, 'DIV', 'title is a div tag' );
-        assert.equal( el.className, classes.TITLE, 'title class is set' );
-        assert.equal( 'moon', el.innerHTML, 'title has the right text' );
-
-        build.context.title = false;
-    } );
-} );
-
-
-/**
  * ## compileStyles
  *
  * compiles the styles and returns them added to the style tag

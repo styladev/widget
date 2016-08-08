@@ -1,4 +1,4 @@
-Styla Widget  1.2.0
+Styla Widget  1.3.0
 =======
 
 
@@ -155,6 +155,10 @@ This project adheres to the [Contributor Covenant](http://contributor-covenant.o
 
 Change log
 ==========
+
+### 1.3.0
+    + fixed theme styling for related stories
+    + related stories uses square images
 
 ### 1.2.0
     + possibility to load stories per category
