@@ -1,4 +1,4 @@
-Styla Widget  1.3.2
+Styla Widget  1.3.3
 =======
 
 
@@ -155,6 +155,9 @@ This project adheres to the [Contributor Covenant](http://contributor-covenant.o
 
 Change log
 ==========
+
+### 1.3.3
+    + fix release
 
 ### 1.3.2
     + fixed tests
