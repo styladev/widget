@@ -1,4 +1,4 @@
-Styla Widget  1.2.0
+Styla Widget  1.3.0
 =======
 
 
@@ -36,6 +36,8 @@ Tiles is not the only layout available.  Just change the word tiles out for anot
 + horizontal
 + related stories
 + list
++ tiles
++ cards
 
 
 See a live example on the [demo page](http://static.styla.com/test/widget/)
@@ -153,6 +155,10 @@ This project adheres to the [Contributor Covenant](http://contributor-covenant.o
 
 Change log
 ==========
+
+### 1.3.0
+    + fixed theme styling for related stories
+    + related stories uses square images
 
 ### 1.2.0
     + possibility to load stories per category

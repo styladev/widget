@@ -111,8 +111,7 @@ class StylaWidget
                     storiesApi  = false,
                     tag         = false,
                     category    = false,
-                    target      = document.body,
-                    title       = false
+                    target      = document.body
                     } = {} )
     {
         target = this.checkTarget( target, minWidth );
@@ -140,7 +139,6 @@ class StylaWidget
         this.tag        = tag;
         this.category   = category;
         this.target     = target;
-        this.title      = title;
 
         if ( tag !== false && category !== false ) {
             console.error( `Styla Widget error: Both tag and category filter has been added to the configuration, but only one can be used, stories will be filtered only by tag.` );
