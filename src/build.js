@@ -259,8 +259,8 @@ class Build
         if ( theme )
         {
             css =
-                `.styla-widget-${now} .${classes.HEADLINE},
-                .styla-widget-${now} .${classes.TITLE}
+                `#styla-widget .styla-widget-${now} .${classes.HEADLINE},
+                #styla-widget .styla-widget-${now} .${classes.TITLE}
                 {
                     font-family:        ${theme.hff};
                     font-weight:        ${theme.hfw};
@@ -269,13 +269,13 @@ class Build
                     letter-spacing:     ${theme.hls};
                     color:              ${theme.htc};
                 }
-                .styla-widget-${now} .${classes.PARAGRAPH}, .styla-widget-${now} .${classes.PARAGRAPH_AFTER}
+                #styla-widget .styla-widget-${now} .${classes.PARAGRAPH}, #styla-widget .styla-widget-${now} .${classes.PARAGRAPH_AFTER}
                 {
                     font-family:        ${theme.sff};
                     font-weight:        ${theme.sfw};
                     color:              ${theme.stc};
                 }
-                .styla-widget-${now} .${classes.PARAGRAPH_AFTER}:after
+                #styla-widget .styla-widget-${now} .${classes.PARAGRAPH_AFTER}:after
                 {
                     content:            '${theme.strm}';
                     font-weight:        ${theme.strmw};
