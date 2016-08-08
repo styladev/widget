@@ -189,7 +189,6 @@ describe( 'constructor', () =>
         assert.equal( stylaWidget.tag, false );
         assert.equal( stylaWidget.category, false );
         assert.equal( stylaWidget.target, document.body );
-        assert.equal( stylaWidget.title, false );
     } );
 
 

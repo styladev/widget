@@ -301,7 +301,7 @@ describe( 'compileStyles', () =>
         build.domainConfig = domainConfig;
         let el = build.compileStyles();
         assert.ok( el.nodeType === 1, 'Styles is a dom element' );
-        assert.equal( el.textContent[0], '.', 'Styles css is set' );
+        assert.equal( el.textContent[0], '#', 'Styles css is set' );
     } );
 
 
