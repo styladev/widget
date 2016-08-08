@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="doc-style.css" />
   <script src="doc-filelist.js"></script>
   <script>
-    var relativeDir = "", thisFile = "Library/WebServer/Documents/widget//build.js", defaultSidebar = true;
+    var relativeDir = "", thisFile = "Users/elias/develop/widget//build.js", defaultSidebar = true;
   </script>
   <script src="doc-script.js"></script>
   <script src="list.js"></script>
@@ -39,9 +39,6 @@
       </div>
       <div class="heading h2">
         <a href="#buildstyletag">buildStyleTag</a>
-      </div>
-      <div class="heading h2">
-        <a href="#buildtitle">buildTitle</a>
       </div>
       <div class="heading h2">
         <a href="#compilestyles">compileStyles</a>
@@ -293,7 +290,6 @@ stories</p>
 
         <span class="k">if</span> <span class="p">(</span> <span class="nx">resImages</span> <span class="p">)</span>
         <span class="p">{</span>
-            <span class="nx">context</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">buildTitle</span><span class="p">();</span>
 
             <span class="nx">resImages</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_i</span> <span class="p">){</span> <span class="nx">images</span><span class="p">[</span> <span class="nx">_i</span><span class="p">.</span><span class="nx">id</span> <span class="p">]</span> <span class="o">=</span> <span class="nx">_i</span><span class="p">;</span> <span class="p">});</span>
             <span class="nx">context</span><span class="p">.</span><span class="nx">images</span>  <span class="o">=</span> <span class="nx">images</span><span class="p">;</span>
@@ -512,62 +508,6 @@ and returns the outer wrapper</p>
       <tr>
         <td class="docs"><div class="dox">
   <div class="summary">
-<div class="pilwrap" id="buildtitle">
-  <h2>
-    <a href="#buildtitle" name="buildtitle" class="pilcrow">&#182;</a>
-    buildTitle
-  </h2>
-</div>
-
-  </div>
-  <div class="body"><p>builds the title element, fills it, and attaches it to the container</p>
-  </div>
-  <div class="details">
-    <div class="dox_tag_title">Params</div>
-    <div class="dox_tag_detail">
-      <span class="dox_tag_name">title</span>
-      <span class="dox_type">String</span>
-      <span>string to set the ttle to (for testing purposes)</span>
-    </div>
-    <div class="dox_tag_title">Returns</div>
-    <div class="dox_tag_detail">
-      <span class="dox_tag_name"></span>
-      <span><em>DOMElement</em></span>
-    </div>
-  </div>
-</div>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="nx">buildTitle</span><span class="p">(</span> <span class="nx">title</span> <span class="p">)</span>
-    <span class="p">{</span>
-        <span class="kd">let</span> <span class="nx">context</span>     <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">context</span><span class="p">;</span>
-        <span class="nx">title</span>       <span class="o">=</span> <span class="nx">title</span> <span class="o">||</span><span class="err"> </span><span class="k">this</span><span class="p">.</span><span class="nx">domainConfig</span><span class="p">.</span><span class="nx">title</span><span class="p">;</span>
-
-        <span class="k">if</span> <span class="p">(</span> <span class="nx">context</span><span class="p">.</span><span class="nx">title</span> <span class="o">===</span> <span class="kc">true</span> <span class="o">&amp;&amp;</span> <span class="nx">title</span> <span class="p">)</span>
-        <span class="p">{</span>
-            <span class="nx">context</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="nx">title</span><span class="p">;</span>
-        <span class="p">}</span>
-
-        <span class="k">if</span> <span class="p">(</span> <span class="nx">context</span><span class="p">.</span><span class="nx">title</span> <span class="p">)</span>
-        <span class="p">{</span>
-            <span class="kd">let</span> <span class="nx">text</span>        <span class="o">=</span> <span class="nx">context</span><span class="p">.</span><span class="nx">title</span><span class="p">;</span>
-            <span class="kd">let</span> <span class="nx">title</span>       <span class="o">=</span> <span class="nx">context</span><span class="p">.</span><span class="nx">title</span>    <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span> <span class="err">`</span><span class="nx">DIV</span><span class="err">`</span><span class="p">,</span> <span class="nx">classes</span><span class="p">.</span><span class="nx">TITLE</span> <span class="p">);</span>
-            <span class="nx">title</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nx">text</span><span class="p">;</span>
-
-            <span class="nx">context</span><span class="p">.</span><span class="nx">refs</span><span class="p">.</span><span class="nx">container</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span> <span class="nx">title</span> <span class="p">);</span>
-        <span class="p">}</span>
-
-        <span class="k">return</span> <span class="nx">context</span><span class="p">.</span><span class="nx">title</span><span class="p">;</span>
-    <span class="p">}</span>
-
-
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs"><div class="dox">
-  <div class="summary">
 <div class="pilwrap" id="compilestyles">
   <h2>
     <a href="#compilestyles" name="compilestyles" class="pilcrow">&#182;</a>
@@ -598,8 +538,7 @@ and returns the outer wrapper</p>
         <span class="k">if</span> <span class="p">(</span> <span class="nx">theme</span> <span class="p">)</span>
         <span class="p">{</span>
             <span class="nx">css</span> <span class="o">=</span>
-                <span class="err">`</span><span class="p">.</span><span class="nx">styla</span><span class="o">-</span><span class="nx">widget</span><span class="o">-</span><span class="nx">$</span><span class="p">{</span><span class="nx">now</span><span class="p">}</span> <span class="p">.</span><span class="nx">$</span><span class="p">{</span><span class="nx">classes</span><span class="p">.</span><span class="nx">HEADLINE</span><span class="p">},</span>
-                <span class="p">.</span><span class="nx">styla</span><span class="o">-</span><span class="nx">widget</span><span class="o">-</span><span class="nx">$</span><span class="p">{</span><span class="nx">now</span><span class="p">}</span> <span class="p">.</span><span class="nx">$</span><span class="p">{</span><span class="nx">classes</span><span class="p">.</span><span class="nx">TITLE</span><span class="p">}</span>
+                <span class="err">`#</span><span class="nx">styla</span><span class="o">-</span><span class="nx">widget</span> <span class="p">.</span><span class="nx">styla</span><span class="o">-</span><span class="nx">widget</span><span class="o">-</span><span class="nx">$</span><span class="p">{</span><span class="nx">now</span><span class="p">}</span> <span class="p">.</span><span class="nx">$</span><span class="p">{</span><span class="nx">classes</span><span class="p">.</span><span class="nx">HEADLINE</span><span class="p">}</span>
                 <span class="p">{</span>
                     <span class="nx">font</span><span class="o">-</span><span class="nx">family</span><span class="o">:</span>        <span class="nx">$</span><span class="p">{</span><span class="nx">theme</span><span class="p">.</span><span class="nx">hff</span><span class="p">};</span>
                     <span class="nx">font</span><span class="o">-</span><span class="nx">weight</span><span class="o">:</span>        <span class="nx">$</span><span class="p">{</span><span class="nx">theme</span><span class="p">.</span><span class="nx">hfw</span><span class="p">};</span>
@@ -608,13 +547,14 @@ and returns the outer wrapper</p>
                     <span class="nx">letter</span><span class="o">-</span><span class="nx">spacing</span><span class="o">:</span>     <span class="nx">$</span><span class="p">{</span><span class="nx">theme</span><span class="p">.</span><span class="nx">hls</span><span class="p">};</span>
                     <span class="nx">color</span><span class="o">:</span>              <span class="nx">$</span><span class="p">{</span><span class="nx">theme</span><span class="p">.</span><span class="nx">htc</span><span class="p">};</span>
                 <span class="p">}</span>
-                <span class="p">.</span><span class="nx">styla</span><span class="o">-</span><span class="nx">widget</span><span class="o">-</span><span class="nx">$</span><span class="p">{</span><span class="nx">now</span><span class="p">}</span> <span class="p">.</span><span class="nx">$</span><span class="p">{</span><span class="nx">classes</span><span class="p">.</span><span class="nx">PARAGRAPH</span><span class="p">},</span> <span class="p">.</span><span class="nx">styla</span><span class="o">-</span><span class="nx">widget</span><span class="o">-</span><span class="nx">$</span><span class="p">{</span><span class="nx">now</span><span class="p">}</span> <span class="p">.</span><span class="nx">$</span><span class="p">{</span><span class="nx">classes</span><span class="p">.</span><span class="nx">PARAGRAPH_AFTER</span><span class="p">}</span>
+                <span class="err">#</span><span class="nx">styla</span><span class="o">-</span><span class="nx">widget</span> <span class="p">.</span><span class="nx">styla</span><span class="o">-</span><span class="nx">widget</span><span class="o">-</span><span class="nx">$</span><span class="p">{</span><span class="nx">now</span><span class="p">}</span> <span class="p">.</span><span class="nx">$</span><span class="p">{</span><span class="nx">classes</span><span class="p">.</span><span class="nx">PARAGRAPH</span><span class="p">},</span> 
+                <span class="err">#</span><span class="nx">styla</span><span class="o">-</span><span class="nx">widget</span> <span class="p">.</span><span class="nx">styla</span><span class="o">-</span><span class="nx">widget</span><span class="o">-</span><span class="nx">$</span><span class="p">{</span><span class="nx">now</span><span class="p">}</span> <span class="p">.</span><span class="nx">$</span><span class="p">{</span><span class="nx">classes</span><span class="p">.</span><span class="nx">PARAGRAPH_AFTER</span><span class="p">}</span>
                 <span class="p">{</span>
                     <span class="nx">font</span><span class="o">-</span><span class="nx">family</span><span class="o">:</span>        <span class="nx">$</span><span class="p">{</span><span class="nx">theme</span><span class="p">.</span><span class="nx">sff</span><span class="p">};</span>
                     <span class="nx">font</span><span class="o">-</span><span class="nx">weight</span><span class="o">:</span>        <span class="nx">$</span><span class="p">{</span><span class="nx">theme</span><span class="p">.</span><span class="nx">sfw</span><span class="p">};</span>
                     <span class="nx">color</span><span class="o">:</span>              <span class="nx">$</span><span class="p">{</span><span class="nx">theme</span><span class="p">.</span><span class="nx">stc</span><span class="p">};</span>
                 <span class="p">}</span>
-                <span class="p">.</span><span class="nx">styla</span><span class="o">-</span><span class="nx">widget</span><span class="o">-</span><span class="nx">$</span><span class="p">{</span><span class="nx">now</span><span class="p">}</span> <span class="p">.</span><span class="nx">$</span><span class="p">{</span><span class="nx">classes</span><span class="p">.</span><span class="nx">PARAGRAPH_AFTER</span><span class="p">}</span><span class="o">:</span><span class="nx">after</span>
+                <span class="err">#</span><span class="nx">styla</span><span class="o">-</span><span class="nx">widget</span> <span class="p">.</span><span class="nx">styla</span><span class="o">-</span><span class="nx">widget</span><span class="o">-</span><span class="nx">$</span><span class="p">{</span><span class="nx">now</span><span class="p">}</span> <span class="p">.</span><span class="nx">$</span><span class="p">{</span><span class="nx">classes</span><span class="p">.</span><span class="nx">PARAGRAPH_AFTER</span><span class="p">}</span><span class="o">:</span><span class="nx">after</span>
                 <span class="p">{</span>
                     <span class="nx">content</span><span class="o">:</span>            <span class="s1">&#39;${theme.strm}&#39;</span><span class="p">;</span>
                     <span class="nx">font</span><span class="o">-</span><span class="nx">weight</span><span class="o">:</span>        <span class="nx">$</span><span class="p">{</span><span class="nx">theme</span><span class="p">.</span><span class="nx">strmw</span><span class="p">};</span>

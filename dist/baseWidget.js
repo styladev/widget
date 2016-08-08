@@ -527,7 +527,7 @@ var Build = function () {
             var context = this.context;
 
             if (theme) {
-                css = '#styla-widget .styla-widget-' + now + ' .' + _classes2.default.HEADLINE + ',\n                #styla-widget .styla-widget-' + now + ' .' + _classes2.default.TITLE + '\n                {\n                    font-family:        ' + theme.hff + ';\n                    font-weight:        ' + theme.hfw + ';\n                    font-style:         ' + theme.hfs + ';\n                    text-decoration:    ' + theme.htd + ';\n                    letter-spacing:     ' + theme.hls + ';\n                    color:              ' + theme.htc + ';\n                }\n                #styla-widget .styla-widget-' + now + ' .' + _classes2.default.PARAGRAPH + ', #styla-widget .styla-widget-' + now + ' .' + _classes2.default.PARAGRAPH_AFTER + '\n                {\n                    font-family:        ' + theme.sff + ';\n                    font-weight:        ' + theme.sfw + ';\n                    color:              ' + theme.stc + ';\n                }\n                #styla-widget .styla-widget-' + now + ' .' + _classes2.default.PARAGRAPH_AFTER + ':after\n                {\n                    content:            \'' + theme.strm + '\';\n                    font-weight:        ' + theme.strmw + ';\n                    text-decoration:    ' + theme.strmd + ';\n                }';
+                css = '#styla-widget .styla-widget-' + now + ' .' + _classes2.default.HEADLINE + '\n                {\n                    font-family:        ' + theme.hff + ';\n                    font-weight:        ' + theme.hfw + ';\n                    font-style:         ' + theme.hfs + ';\n                    text-decoration:    ' + theme.htd + ';\n                    letter-spacing:     ' + theme.hls + ';\n                    color:              ' + theme.htc + ';\n                }\n                #styla-widget .styla-widget-' + now + ' .' + _classes2.default.PARAGRAPH + ', \n                #styla-widget .styla-widget-' + now + ' .' + _classes2.default.PARAGRAPH_AFTER + '\n                {\n                    font-family:        ' + theme.sff + ';\n                    font-weight:        ' + theme.sfw + ';\n                    color:              ' + theme.stc + ';\n                }\n                #styla-widget .styla-widget-' + now + ' .' + _classes2.default.PARAGRAPH_AFTER + ':after\n                {\n                    content:            \'' + theme.strm + '\';\n                    font-weight:        ' + theme.strmw + ';\n                    text-decoration:    ' + theme.strmd + ';\n                }';
             }
 
             var el = this.buildStyleTag(css);
@@ -800,13 +800,12 @@ module.exports = {
     STYLES: 'styla-widget__styling',
     TEXT_WRAPPER: 'styla-widget__textwrap',
     THEME_STYLES: 'styla-widget__theme-styling',
-    TITLE: 'styla-widget__title',
     WRAPPER: 'styla-widget__wrapper'
 };
 
 },{}],5:[function(require,module,exports){
 'use strict';
 
-module.exports = '1.3.1';
+module.exports = '1.3.2';
 
 },{}]},{},[2]);
