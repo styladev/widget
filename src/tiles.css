@@ -89,19 +89,19 @@
     display:                            -webkit-box;
     -webkit-box-orient:                 vertical;
     -webkit-line-clamp:                 2;
-    color:                              #FFF;
+    color:                              #FFF !important; /* Override Theme Styling */
     text-shadow:                        1px 1px 1px rgba(0,0,0,0.65);
 }
 
 #styla-widget.tiles .styla-widget__paragraph
 {
     max-height:                         4.5em;
-    color:                              #FFF;
+    color:                              #FFF !important; /* Override Theme Styling */
 }
 
 #styla-widget.tiles .styla-widget__paragraph-after
 {
-    color:                              #FFF;
+    color:                              #FFF !important; /* Override Theme Styling */
     line-height:                        1.5em;
 }
 
