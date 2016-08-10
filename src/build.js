@@ -268,7 +268,7 @@ class Build
                     letter-spacing:     ${theme.hls};
                     color:              ${theme.htc};
                 }
-                #styla-widget .styla-widget-${now} .${classes.PARAGRAPH}, 
+                #styla-widget .styla-widget-${now} .${classes.PARAGRAPH},
                 #styla-widget .styla-widget-${now} .${classes.PARAGRAPH_AFTER}
                 {
                     font-family:        ${theme.sff};
