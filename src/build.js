@@ -166,6 +166,15 @@ class Build
             storyLink.appendChild( this.buildImage( images, title ) );
             storyLink.appendChild( this.buildStoryText( title, description ) );
 
+            if ( context.cta )
+            {
+                let callToAction        = create( `div`,    classes.CALLTOACTION);
+
+                callToAction.innerHTML  = ( context.cta );
+
+                storyLink.appendChild( callToAction );
+            }
+
             let container   = context.refs.container;
             let wrapper     = context.refs.wrapper;
 
@@ -269,17 +278,17 @@ class Build
                     letter-spacing:     ${theme.hls};
                     color:              ${theme.htc};
                 }
-                #styla-widget .styla-widget-${now} .${classes.PARAGRAPH}, #styla-widget .styla-widget-${now} .${classes.PARAGRAPH_AFTER}
+                #styla-widget .styla-widget-${now} .${classes.PARAGRAPH},
+                #styla-widget .styla-widget-${now} .${classes.PARAGRAPH_AFTER},
+                #styla-widget .styla-widget-${now} .${classes.CALLTOACTION}
                 {
                     font-family:        ${theme.sff};
                     font-weight:        ${theme.sfw};
                     color:              ${theme.stc};
                 }
-                #styla-widget .styla-widget-${now} .${classes.PARAGRAPH_AFTER}:after
+                #styla-widget .styla-widget-${now} .${classes.CALLTOACTION}
                 {
-                    content:            '${theme.strm}';
-                    font-weight:        ${theme.strmw};
-                    text-decoration:    ${theme.strmd};
+                    color:              ${theme.ltc};
                 }`;
         }
 

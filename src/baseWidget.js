@@ -111,6 +111,7 @@ class StylaWidget
                     storiesApi  = false,
                     tag         = false,
                     category    = false,
+                    cta         = false,
                     target      = document.body
                     } = {} )
     {
@@ -138,6 +139,7 @@ class StylaWidget
         this.storiesApi = storiesApi;
         this.tag        = tag;
         this.category   = category;
+        this.cta        = cta;
         this.target     = target;
 
         if ( tag !== false && category !== false ) {

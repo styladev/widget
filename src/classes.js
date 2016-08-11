@@ -24,5 +24,6 @@ module.exports = {
     TEXT_WRAPPER        : 'styla-widget__textwrap',
     THEME_STYLES        : 'styla-widget__theme-styling',
     TITLE               : 'styla-widget__title',
-    WRAPPER             : 'styla-widget__wrapper'
+    WRAPPER             : 'styla-widget__wrapper',
+    CALLTOACTION        : 'styla-widget__calltoaction'
 };

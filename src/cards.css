@@ -54,3 +54,9 @@
 {
     max-height:                         6em;
 }
+
+#styla-widget.cards .styla-widget__calltoaction
+{
+    line-height:                        2em;
+    text-decoration:                    underline;
+}
