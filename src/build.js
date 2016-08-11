@@ -99,8 +99,6 @@ class Build
             throw `Styla Widget error: Could not find magazine, please check if slug is configured correctly.`;
         }
 
-        console.log("Warning: This version of the Styla widget has been deprecated. Please contact Styla for information on how to upgrade to the latest version.")
-
         let images      = {};
         let context     = this.context;
         let stories     = context.stories;
