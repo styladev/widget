@@ -21,4 +21,6 @@ npm-debug.log
 tests/tests.dist.js
 demo/demoDist.js
 dist/
+
+dist/*.min.css
 coverage/

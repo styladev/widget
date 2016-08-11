@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>index.html</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="doc-style.css" />
+  <script src="doc-filelist.js"></script>
+  <script>
+    var relativeDir = "", thisFile = "Users/elias/develop/widget//index.html", defaultSidebar = true;
+  </script>
+  <script src="doc-script.js"></script>
+  <script src="list.js"></script>
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container"><div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+      <tr>
+        <td class="docs">
+          <h1>index.html</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1">&#182;</a>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+    <span class="nt">&lt;head&gt;</span>
+        <span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;Content-Type&quot;</span> <span class="na">content=</span><span class="s">&quot;text/html; charset=utf-8&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;title&gt;</span>Styla Widgets<span class="nt">&lt;/title&gt;</span>
+        <span class="nt">&lt;link</span> <span class="na">href=</span><span class="s">&quot;http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic&quot;</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">type=</span><span class="s">&quot;text/css&quot;</span><span class="nt">&gt;</span>
+
+        <span class="nt">&lt;style&gt;</span>
+            <span class="nt">body</span>
+            <span class="p">{</span>
+                <span class="k">text-align</span><span class="o">:</span>             <span class="k">left</span><span class="p">;</span>
+                <span class="k">margin</span><span class="o">:</span>                 <span class="m">0</span> <span class="m">5</span><span class="n">vw</span><span class="p">;</span>
+                <span class="k">background</span><span class="o">:</span>             <span class="m">#f7f6f4</span><span class="p">;</span>
+                <span class="k">height</span><span class="o">:</span>                 <span class="m">100</span><span class="n">vh</span><span class="p">;</span>
+                <span class="k">font-family</span><span class="o">:</span>            <span class="s2">&quot;Lato&quot;</span><span class="o">,</span> <span class="k">sans-serif</span><span class="p">;</span>
+                <span class="k">font-weight</span><span class="o">:</span>            <span class="m">300</span><span class="p">;</span>
+            <span class="p">}</span>
+
+            <span class="nt">a</span>
+            <span class="p">{</span>
+                <span class="k">color</span><span class="o">:</span>                  <span class="m">#000</span><span class="p">;</span>
+            <span class="p">}</span>
+
+            <span class="nt">h1</span><span class="o">,</span> <span class="nt">h2</span>
+            <span class="p">{</span>
+                <span class="k">text-transform</span><span class="o">:</span>         <span class="k">uppercase</span><span class="p">;</span>
+                <span class="k">font-weight</span><span class="o">:</span>            <span class="k">bold</span><span class="p">;</span>
+            <span class="p">}</span>
+
+            <span class="nt">ul</span> <span class="o">&gt;</span> <span class="nt">li</span>
+            <span class="p">{</span>
+                <span class="k">line-height</span><span class="o">:</span>            <span class="m">1.5em</span><span class="p">;</span>
+            <span class="p">}</span>
+
+            <span class="nt">hr</span>
+            <span class="p">{</span>
+                <span class="k">border-style</span><span class="o">:</span>           <span class="k">solid</span><span class="p">;</span>
+                <span class="k">border-top</span><span class="o">:</span>             <span class="m">0</span><span class="p">;</span>
+            <span class="p">}</span>
+
+            <span class="nc">.logotype</span> <span class="p">{</span>
+                <span class="k">display</span><span class="o">:</span>                <span class="k">block</span><span class="p">;</span>
+                <span class="k">width</span><span class="o">:</span>                  <span class="m">5em</span><span class="p">;</span>
+                <span class="k">height</span><span class="o">:</span>                 <span class="m">5em</span><span class="p">;</span>
+                <span class="k">background</span><span class="o">:</span>             <span class="m">#000</span><span class="p">;</span>
+                <span class="k">display</span><span class="o">:</span>                <span class="n">flex</span><span class="p">;</span>
+                <span class="n">align</span><span class="o">-</span><span class="n">items</span><span class="o">:</span>            <span class="k">center</span><span class="p">;</span>
+                <span class="k">text-align</span><span class="o">:</span>             <span class="k">center</span><span class="p">;</span>
+                <span class="k">float</span><span class="o">:</span>                  <span class="k">left</span><span class="p">;</span>
+                <span class="k">margin-right</span><span class="o">:</span>           <span class="m">1.5em</span><span class="p">;</span>
+            <span class="p">}</span>
+
+            <span class="nc">.logotype__image</span>
+            <span class="p">{</span>
+                <span class="k">display</span><span class="o">:</span>                <span class="k">block</span><span class="p">;</span>
+                <span class="k">margin</span><span class="o">:</span>                 <span class="m">0</span> <span class="k">auto</span><span class="p">;</span>
+                <span class="k">width</span><span class="o">:</span>                  <span class="m">70</span><span class="o">%</span><span class="p">;</span>
+            <span class="p">}</span>
+
+            <span class="nt">p</span><span class="nd">:not</span><span class="o">(</span><span class="nc">.target</span><span class="o">)</span>
+            <span class="p">{</span>
+                <span class="k">max-width</span><span class="o">:</span>              <span class="m">370px</span><span class="p">;</span>
+                <span class="k">line-height</span><span class="o">:</span>            <span class="m">1.5em</span><span class="p">;</span>
+            <span class="p">}</span>
+
+            <span class="nc">.target</span>
+            <span class="p">{</span>
+                <span class="k">text-align</span><span class="o">:</span>             <span class="k">left</span><span class="p">;</span>
+                <span class="k">background</span><span class="o">:</span>             <span class="m">#FFF</span><span class="p">;</span>
+                <span class="n">box</span><span class="o">-</span><span class="n">shadow</span><span class="o">:</span>             <span class="m">3px</span> <span class="m">3px</span> <span class="m">0px</span> <span class="m">#ccc</span><span class="p">;</span>
+                <span class="k">position</span><span class="o">:</span>               <span class="k">relative</span><span class="p">;</span>
+                <span class="k">display</span><span class="o">:</span>                <span class="k">inline</span><span class="o">-</span><span class="k">block</span><span class="p">;</span>
+                <span class="k">margin</span><span class="o">:</span>                 <span class="m">1em</span> <span class="m">0</span> <span class="m">2em</span><span class="p">;</span>
+            <span class="p">}</span>
+
+            <span class="nc">.styla-widget__target-tiles--square</span>
+            <span class="p">{</span>
+                <span class="k">height</span><span class="o">:</span>                 <span class="m">22</span><span class="o">.</span><span class="m">5</span><span class="n">vw</span><span class="p">;</span>
+                <span class="k">width</span><span class="o">:</span>                  <span class="m">90</span><span class="n">vw</span><span class="p">;</span>
+                <span class="k">min-width</span><span class="o">:</span>              <span class="m">16em</span><span class="p">;</span>
+                <span class="k">min-height</span><span class="o">:</span>             <span class="m">16em</span><span class="p">;</span>
+            <span class="p">}</span>
+
+            <span class="nc">.styla-widget__target-tiles--portrait</span><span class="o">,</span>
+            <span class="nc">.styla-widget__target-tiles--horizontal</span>
+            <span class="p">{</span>
+                <span class="k">height</span><span class="o">:</span>                 <span class="m">20em</span><span class="p">;</span>
+                <span class="k">width</span><span class="o">:</span>                  <span class="m">90</span><span class="n">vw</span><span class="p">;</span>
+                <span class="k">min-width</span><span class="o">:</span>              <span class="m">16em</span><span class="p">;</span>
+                <span class="k">min-height</span><span class="o">:</span>             <span class="m">16em</span><span class="p">;</span>
+            <span class="p">}</span>
+
+            <span class="nc">.styla-widget__target-list--slim</span>
+            <span class="p">{</span>
+                <span class="k">height</span><span class="o">:</span>                 <span class="m">900px</span><span class="p">;</span>
+                <span class="k">width</span><span class="o">:</span>                  <span class="m">300px</span><span class="p">;</span>
+                <span class="k">max-width</span><span class="o">:</span>              <span class="m">100</span><span class="o">%</span><span class="p">;</span>
+                <span class="k">margin-right</span><span class="o">:</span>           <span class="m">2em</span><span class="p">;</span>
+            <span class="p">}</span>
+
+            <span class="nc">.styla-widget__target-list--wide</span>
+            <span class="p">{</span>
+                <span class="k">height</span><span class="o">:</span>                 <span class="m">900px</span><span class="p">;</span>
+                <span class="k">width</span><span class="o">:</span>                  <span class="m">600px</span><span class="p">;</span>
+                <span class="k">max-width</span><span class="o">:</span>              <span class="m">100</span><span class="o">%</span><span class="p">;</span>
+            <span class="p">}</span>
+
+            <span class="nc">.styla-widget__target-horizontal</span>
+            <span class="p">{</span>
+                <span class="k">width</span><span class="o">:</span>                  <span class="m">90</span><span class="n">vw</span><span class="p">;</span>
+                <span class="k">height</span><span class="o">:</span>                 <span class="m">14em</span><span class="p">;</span>
+            <span class="p">}</span>
+
+            <span class="nc">.styla-widget__target-cards</span>
+            <span class="p">{</span>
+                <span class="k">width</span><span class="o">:</span>                  <span class="m">90</span><span class="n">vw</span><span class="p">;</span>
+                <span class="k">height</span><span class="o">:</span>                 <span class="m">24em</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="nt">&lt;/style&gt;</span>
+    <span class="nt">&lt;/head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;logotype&quot;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">&quot;logotype.svg&quot;</span> <span class="na">class=</span><span class="s">&quot;logotype__image&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;/div&gt;</span>
+        <span class="nt">&lt;h1&gt;</span>Widgets<span class="nt">&lt;/h1&gt;</span>
+        <span class="nt">&lt;br&gt;</span>
+        <span class="nt">&lt;p&gt;</span>In order to guide visitors to your magazine, you can include a widget (or more) on any page on your website. You can find a number of example widgets below.<span class="nt">&lt;/p&gt;</span>
+        <span class="nt">&lt;h3&gt;</span>Style it according to your needs<span class="nt">&lt;/h3&gt;</span>
+        <span class="nt">&lt;p&gt;</span>If you are interested in using a widget on your site, <span class="nt">&lt;br&gt;</span>we will gladly help you with adapting the widget <span class="nt">&lt;br&gt;</span>to meet your needs. Please contact your Styla account manager for more information on our widgets.<span class="nt">&lt;/p&gt;</span>
+        <span class="nt">&lt;p&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;#list&quot;</span><span class="nt">&gt;</span>List<span class="nt">&lt;/a&gt;</span> <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;#horizontal&quot;</span><span class="nt">&gt;</span>Horizontal<span class="nt">&lt;/a&gt;</span> <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;#tiles&quot;</span><span class="nt">&gt;</span>Tiles<span class="nt">&lt;/a&gt;</span> <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;#cards&quot;</span><span class="nt">&gt;</span>Cards<span class="nt">&lt;/a&gt;&lt;/p&gt;</span>
+        <span class="nt">&lt;hr&gt;</span>
+
+        <span class="nt">&lt;a</span> <span class="na">name=</span><span class="s">&quot;list&quot;</span><span class="nt">&gt;&lt;/a&gt;</span>
+        <span class="nt">&lt;h2&gt;</span>e.g. the List<span class="nt">&lt;/h2&gt;</span>
+        <span class="nt">&lt;p&gt;</span>
+            Classy, clean and compatible. The List features stories in a vertically positioned format.
+        <span class="nt">&lt;/p&gt;</span>
+        <span class="nt">&lt;ul&gt;</span>
+            <span class="nt">&lt;li&gt;</span>Images keep their original ratio<span class="nt">&lt;/li&gt;</span>
+            <span class="nt">&lt;li&gt;</span>Vertical layout<span class="nt">&lt;/li&gt;</span>
+            <span class="nt">&lt;li&gt;</span>Adapts your content to the space it&#39;s given<span class="nt">&lt;/li&gt;</span>
+            <span class="nt">&lt;li&gt;</span>Widths between 250 and 600 pixels<span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;/ul&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;target styla-widget__target-list--slim&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;target styla-widget__target-list--wide&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+        <span class="nt">&lt;hr&gt;</span>
+
+        <span class="nt">&lt;a</span> <span class="na">name=</span><span class="s">&quot;horizontal&quot;</span><span class="nt">&gt;&lt;/a&gt;</span>
+        <span class="nt">&lt;h2</span> <span class="na">name=</span><span class="s">&quot;horizontal&quot;</span><span class="nt">&gt;</span>e.g. the Horizontal<span class="nt">&lt;/h2&gt;</span>
+        <span class="nt">&lt;p&gt;</span>
+            An alternative take on The List, features the same visually stunning layouts – now positioned horizontally.
+        <span class="nt">&lt;/p&gt;</span>
+        <span class="nt">&lt;ul&gt;</span>
+            <span class="nt">&lt;li&gt;</span>Images keep their original ratio<span class="nt">&lt;/li&gt;</span>
+            <span class="nt">&lt;li&gt;</span>Horizontal layout<span class="nt">&lt;/li&gt;</span>
+            <span class="nt">&lt;li&gt;</span>Fixed height<span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;/ul&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;target styla-widget__target-horizontal&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+        <span class="nt">&lt;hr&gt;</span>
+
+        <span class="nt">&lt;a</span> <span class="na">name=</span><span class="s">&quot;tiles&quot;</span><span class="nt">&gt;&lt;/a&gt;</span>
+        <span class="nt">&lt;h2&gt;</span>e.g. the Tiles<span class="nt">&lt;/h2&gt;</span>
+        <span class="nt">&lt;p&gt;</span>
+            Let this modern layout strike you not only with its looks, but also
+            its versatility. It&#39;s the perfect alternative for giving your visual
+            content the attention it deserves.
+        <span class="nt">&lt;/p&gt;</span>
+        <span class="nt">&lt;ul&gt;</span>
+            <span class="nt">&lt;li&gt;</span>Images are cropped to fill the space<span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;/ul&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;target styla-widget__target-tiles--square&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;target styla-widget__target-tiles--portrait&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;target styla-widget__target-tiles--horizontal&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+        <span class="nt">&lt;hr&gt;</span>
+
+        <span class="nt">&lt;a</span> <span class="na">name=</span><span class="s">&quot;cards&quot;</span><span class="nt">&gt;&lt;/a&gt;</span>
+        <span class="nt">&lt;h2&gt;</span>e.g. the Cards<span class="nt">&lt;/h2&gt;</span>
+        <span class="nt">&lt;p&gt;</span>
+            The Cards is a simple layout that&#39;s easy on the eyes. Its toned down
+            aesthetic leaves room for your content to do the talking, and it blends
+            well on a large variety of websites.
+        <span class="nt">&lt;/p&gt;</span>
+        <span class="nt">&lt;ul&gt;</span>
+            <span class="nt">&lt;li&gt;</span>Images are cropped to fill the space<span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;/ul&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;target styla-widget__target-cards&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+
+        <span class="nt">&lt;br&gt;</span>
+        <span class="nt">&lt;hr&gt;</span>
+        <span class="nt">&lt;br&gt;</span>
+        <span class="nt">&lt;b&gt;</span>Styla<span class="nt">&lt;/b&gt;</span> | Content Marketing for e-Commerce | <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;http://styla.com/&quot;</span><span class="nt">&gt;</span>www.styla.com<span class="nt">&lt;/a&gt;</span>
+        <span class="nt">&lt;br&gt;</span>
+        <span class="nt">&lt;br&gt;</span>
+    <span class="nt">&lt;/body&gt;</span>
+
+
+    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;./list.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;./tiles.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;./horizontal.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;./cards.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+    <span class="nt">&lt;script&gt;</span>
+        <span class="k">new</span> <span class="nx">StylaWidget_Tiles</span><span class="p">(</span> <span class="p">{</span>
+            <span class="nx">newTab</span>  <span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="nx">slug</span>    <span class="o">:</span> <span class="s1">&#39;consulting-beauty&#39;</span><span class="p">,</span>
+            <span class="nx">target</span>  <span class="o">:</span> <span class="s1">&#39;.styla-widget__target-tiles--square&#39;</span><span class="p">,</span>
+            <span class="nx">limit</span>   <span class="o">:</span> <span class="mi">4</span>
+        <span class="p">}</span> <span class="p">);</span>
+
+        <span class="k">new</span> <span class="nx">StylaWidget_Tiles</span><span class="p">(</span> <span class="p">{</span>
+            <span class="nx">newTab</span>  <span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="nx">slug</span>    <span class="o">:</span> <span class="s1">&#39;styla-menfashion&#39;</span><span class="p">,</span>
+            <span class="nx">target</span>  <span class="o">:</span> <span class="s1">&#39;.styla-widget__target-tiles--portrait&#39;</span><span class="p">,</span>
+            <span class="nx">limit</span>   <span class="o">:</span> <span class="mi">8</span>
+        <span class="p">}</span> <span class="p">);</span>
+
+        <span class="k">new</span> <span class="nx">StylaWidget_Tiles</span><span class="p">(</span> <span class="p">{</span>
+            <span class="nx">newTab</span>  <span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="nx">slug</span>    <span class="o">:</span> <span class="s1">&#39;styla-womenfashion&#39;</span><span class="p">,</span>
+            <span class="nx">target</span>  <span class="o">:</span> <span class="s1">&#39;.styla-widget__target-tiles--horizontal&#39;</span><span class="p">,</span>
+            <span class="nx">limit</span>   <span class="o">:</span> <span class="mi">3</span>
+        <span class="p">}</span> <span class="p">);</span>
+
+        <span class="k">new</span> <span class="nx">StylaWidget_List</span><span class="p">(</span> <span class="p">{</span>
+            <span class="nx">newTab</span>  <span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="nx">slug</span>    <span class="o">:</span> <span class="s1">&#39;styla-homedecor&#39;</span><span class="p">,</span>
+            <span class="nx">target</span>  <span class="o">:</span> <span class="s1">&#39;.styla-widget__target-list--slim&#39;</span><span class="p">,</span>
+            <span class="nx">limit</span>   <span class="o">:</span> <span class="mi">4</span>
+        <span class="p">}</span> <span class="p">);</span>
+
+        <span class="k">new</span> <span class="nx">StylaWidget_List</span><span class="p">(</span> <span class="p">{</span>
+            <span class="nx">newTab</span>  <span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="nx">slug</span>    <span class="o">:</span> <span class="s1">&#39;styla-beauty&#39;</span><span class="p">,</span>
+            <span class="nx">target</span>  <span class="o">:</span> <span class="s1">&#39;.styla-widget__target-list--wide&#39;</span><span class="p">,</span>
+            <span class="nx">limit</span>   <span class="o">:</span> <span class="mi">4</span>
+        <span class="p">}</span> <span class="p">);</span>
+
+        <span class="k">new</span> <span class="nx">StylaWidget_Horizontal</span><span class="p">(</span> <span class="p">{</span>
+            <span class="nx">newTab</span>  <span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="nx">slug</span>    <span class="o">:</span> <span class="s1">&#39;styla-menfashion&#39;</span><span class="p">,</span>
+            <span class="nx">target</span>  <span class="o">:</span> <span class="s1">&#39;.styla-widget__target-horizontal&#39;</span><span class="p">,</span>
+            <span class="nx">limit</span>   <span class="o">:</span> <span class="mi">4</span>
+        <span class="p">}</span> <span class="p">);</span>
+
+        <span class="k">new</span> <span class="nx">StylaWidget_Cards</span><span class="p">(</span> <span class="p">{</span>
+            <span class="nx">newTab</span>  <span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="nx">slug</span>    <span class="o">:</span> <span class="s1">&#39;booksandpaper&#39;</span><span class="p">,</span>
+            <span class="nx">target</span>  <span class="o">:</span> <span class="s1">&#39;.styla-widget__target-cards&#39;</span><span class="p">,</span>
+            <span class="nx">limit</span>   <span class="o">:</span> <span class="mi">4</span>
+        <span class="p">}</span> <span class="p">);</span>
+    <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</pre></div>
+        </td>
+      </tr>
+  </tbody>
+</table>
+  </div>
+</body>
+</html>

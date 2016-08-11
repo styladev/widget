@@ -268,8 +268,7 @@ class Build
         if ( theme )
         {
             css =
-                `#styla-widget .styla-widget-${now} .${classes.HEADLINE},
-                #styla-widget .styla-widget-${now} .${classes.TITLE}
+                `#styla-widget .styla-widget-${now} .${classes.HEADLINE}
                 {
                     font-family:        ${theme.hff};
                     font-weight:        ${theme.hfw};

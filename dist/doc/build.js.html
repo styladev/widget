@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>build.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="doc-style.css" />
+  <script src="doc-filelist.js"></script>
+  <script>
+    var relativeDir = "", thisFile = "Users/elias/develop/widget//build.js", defaultSidebar = true;
+  </script>
+  <script src="doc-script.js"></script>
+  <script src="list.js"></script>
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+      <div class="heading h2">
+        <a href="#this.js">this.js</a>
+      </div>
+      <div class="heading h2">
+        <a href="#buildheadline">buildHeadline</a>
+      </div>
+      <div class="heading h2">
+        <a href="#buildimage">buildImage</a>
+      </div>
+      <div class="heading h2">
+        <a href="#buildstories">buildStories</a>
+      </div>
+      <div class="heading h2">
+        <a href="#buildstory">buildStory</a>
+      </div>
+      <div class="heading h2">
+        <a href="#buildstorytext">buildStoryText</a>
+      </div>
+      <div class="heading h2">
+        <a href="#buildstyletag">buildStyleTag</a>
+      </div>
+      <div class="heading h2">
+        <a href="#compilestyles">compileStyles</a>
+      </div>
+      <div class="heading h2">
+        <a href="#constructor">constructor</a>
+      </div>
+      <div class="heading h2">
+        <a href="#create">create</a>
+      </div>
+      <div class="heading h2">
+        <a href="#getdescription">getDescription</a>
+      </div>
+      <div class="heading h2">
+        <a href="#getimageurl">getImageUrl</a>
+      </div>
+      <div class="heading h2">
+        <a href="#includebasestyles">includeBaseStyles</a>
+      </div>
+      <div class="heading h2">
+        <a href="#includefonts">includeFonts</a>
+      </div>
+      <div class="heading h2">
+        <a href="#setdomain">setDomain</a>
+      </div>
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container"><div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="this.js">
+  <h2>
+    <a href="#this.js" name="this.js" class="pilcrow">&#182;</a>
+    this.js
+  </h2>
+</div>
+
+  </div>
+  <div class="body"><p>this contains methods to build the bite sized widget that do not need to be
+outwardly facing</p>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre><span class="kr">import</span> <span class="nx">classes</span>  <span class="nx">from</span> <span class="s1">&#39;./classes.js&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">http</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;microbejs/dist/microbe.http.min&#39;</span><span class="p">;</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2">&#182;</a>
+</div>
+<div class="dox">
+  <div class="summary"><p>exchanged for css in the gulp build</p>
+  </div>
+  <div class="body">
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="kr">const</span> <span class="nx">baseStyles</span>        <span class="o">=</span> <span class="err">`</span><span class="nx">styla</span><span class="o">-</span><span class="nx">widget</span><span class="o">-</span><span class="nx">css</span><span class="o">-</span><span class="nx">goes</span><span class="o">-</span><span class="nx">here</span><span class="err">`</span><span class="p">;</span>
+<span class="kr">const</span> <span class="nx">specificStyles</span>    <span class="o">=</span> <span class="err">`</span><span class="nx">styla</span><span class="o">-</span><span class="nx">build</span><span class="o">-</span><span class="nx">specific</span><span class="o">-</span><span class="nx">css</span><span class="o">-</span><span class="nx">goes</span><span class="o">-</span><span class="nx">here</span><span class="err">`</span><span class="p">;</span>
+<span class="kr">const</span> <span class="nx">wrapperID</span>         <span class="o">=</span> <span class="err">`</span><span class="nx">styla</span><span class="o">-</span><span class="nx">widget</span><span class="err">`</span><span class="p">;</span>
+
+<span class="cm">/* istanbul ignore next */</span>
+<span class="kr">const</span> <span class="nx">_reportError</span>      <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">e</span> <span class="p">){</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span> <span class="err">`</span><span class="nx">err</span><span class="err">`</span><span class="p">,</span> <span class="nx">e</span> <span class="p">)</span> <span class="p">};</span>
+
+
+<span class="kr">class</span> <span class="nx">Build</span>
+<span class="p">{</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="buildheadline">
+  <h2>
+    <a href="#buildheadline" name="buildheadline" class="pilcrow">&#182;</a>
+    buildHeadline
+  </h2>
+</div>
+
+  </div>
+  <div class="body"><p>builds the headline and headline wrapper and fills the wrapper with the
+element and text</p>
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Params</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">title</span>
+      <span class="dox_type">String</span>
+      <span>story headline</span>
+    </div>
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span><em>DOMElement</em> headlineWrapper</span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">buildHeadline</span><span class="p">(</span> <span class="nx">title</span> <span class="p">)</span>
+    <span class="p">{</span>
+        <span class="kd">let</span> <span class="nx">create</span>              <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">create</span><span class="p">;</span>
+        <span class="kd">let</span> <span class="nx">headlineWrapper</span>     <span class="o">=</span> <span class="nx">create</span><span class="p">(</span> <span class="err">`</span><span class="nx">div</span><span class="err">`</span><span class="p">,</span> <span class="nx">classes</span><span class="p">.</span><span class="nx">HEADLINE_WRAPPER</span> <span class="p">);</span>
+        <span class="kd">let</span> <span class="nx">headline</span>            <span class="o">=</span> <span class="nx">create</span><span class="p">(</span> <span class="err">`</span><span class="nx">h3</span><span class="err">`</span><span class="p">,</span>  <span class="nx">classes</span><span class="p">.</span><span class="nx">HEADLINE</span> <span class="p">);</span>
+
+        <span class="nx">headline</span><span class="p">.</span><span class="nx">textContent</span>    <span class="o">=</span> <span class="nx">title</span><span class="p">;</span>
+
+        <span class="nx">headlineWrapper</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span> <span class="nx">headline</span> <span class="p">);</span>
+
+        <span class="k">return</span> <span class="nx">headlineWrapper</span><span class="p">;</span>
+    <span class="p">}</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="buildimage">
+  <h2>
+    <a href="#buildimage" name="buildimage" class="pilcrow">&#182;</a>
+    buildImage
+  </h2>
+</div>
+
+  </div>
+  <div class="body"><p>builds the headline and headline wrapper and fills the wrapper with the
+element and text</p>
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Params</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">images</span>
+      <span class="dox_type">Array</span>
+      <span>array of images from the product api</span>
+    </div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">title</span>
+      <span class="dox_type">String</span>
+      <span>story headline</span>
+    </div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">context</span>
+      <span class="dox_type">Object</span>
+      <span>sub for this.context - needed for testing</span>
+    </div>
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span><em>DOMElement</em> imageWrapper</span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">buildImage</span><span class="p">(</span> <span class="nx">images</span><span class="p">,</span> <span class="nx">title</span> <span class="p">)</span>
+    <span class="p">{</span>
+        <span class="kd">let</span> <span class="nx">create</span>              <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">create</span><span class="p">;</span>
+        <span class="kd">let</span> <span class="nx">imageWrapper</span>        <span class="o">=</span> <span class="nx">create</span><span class="p">(</span> <span class="err">`</span><span class="nx">div</span><span class="err">`</span><span class="p">,</span> <span class="nx">classes</span><span class="p">.</span><span class="nx">IMAGE_WRAPPER</span> <span class="p">);</span>
+        <span class="kd">let</span> <span class="nx">imageSize</span>           <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">context</span><span class="p">.</span><span class="nx">imageSize</span><span class="p">;</span>
+        <span class="kd">let</span> <span class="nx">id</span>                  <span class="o">=</span> <span class="nx">images</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">id</span><span class="p">;</span>
+        <span class="kd">let</span> <span class="nx">imgObj</span>              <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">context</span><span class="p">.</span><span class="nx">images</span><span class="p">[</span> <span class="nx">id</span> <span class="p">];</span>
+
+        <span class="kd">let</span> <span class="nx">url</span>                 <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">getImageUrl</span><span class="p">(</span> <span class="nx">imgObj</span><span class="p">.</span><span class="nx">fileName</span><span class="p">,</span> <span class="nx">imageSize</span> <span class="p">);</span>
+
+        <span class="kd">let</span> <span class="nx">image</span>               <span class="o">=</span> <span class="nx">create</span><span class="p">(</span> <span class="err">`</span><span class="nx">img</span><span class="err">`</span><span class="p">,</span> <span class="nx">classes</span><span class="p">.</span><span class="nx">IMAGE</span> <span class="p">);</span>
+        <span class="nx">image</span><span class="p">.</span><span class="nx">src</span>               <span class="o">=</span> <span class="nx">url</span><span class="p">;</span>
+        <span class="nx">image</span><span class="p">.</span><span class="nx">alt</span>               <span class="o">=</span> <span class="nx">imgObj</span><span class="p">.</span><span class="nx">caption</span> <span class="o">||</span> <span class="nx">title</span><span class="p">;</span>
+        <span class="nx">image</span><span class="p">.</span><span class="nx">title</span>             <span class="o">=</span> <span class="nx">title</span><span class="p">;</span>
+
+        <span class="nx">imageWrapper</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span> <span class="nx">image</span> <span class="p">);</span>
+
+        <span class="k">return</span> <span class="nx">imageWrapper</span><span class="p">;</span>
+    <span class="p">}</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="buildstories">
+  <h2>
+    <a href="#buildstories" name="buildstories" class="pilcrow">&#182;</a>
+    buildStories
+  </h2>
+</div>
+
+  </div>
+  <div class="body"><p>after recieving the story data, this parses and build the individual
+stories</p>
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Params</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">domainConfig</span>
+      <span class="dox_type">String</span>
+      <span>JSON response from the product api</span>
+    </div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">parsedDomainConfig</span>
+      <span class="dox_type">Object</span>
+      <span>parsed JSON object for testing</span>
+    </div>
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span><em>Void</em></span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">buildStories</span><span class="p">(</span> <span class="nx">domainConfig</span> <span class="o">=</span> <span class="s1">&#39;{}&#39;</span> <span class="p">)</span>
+    <span class="p">{</span>
+        <span class="kd">let</span> <span class="nx">domainConfigParsed</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">domainConfig</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span> <span class="nx">domainConfig</span> <span class="p">);</span>
+
+        <span class="k">if</span> <span class="p">(</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span> <span class="nx">domainConfigParsed</span> <span class="p">).</span><span class="nx">length</span> <span class="o">===</span> <span class="mi">0</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">throw</span> <span class="err">`</span><span class="nx">Styla</span> <span class="nx">Widget</span> <span class="nx">error</span><span class="o">:</span> <span class="nx">Could</span> <span class="nx">not</span> <span class="nx">find</span> <span class="nx">magazine</span><span class="p">,</span> <span class="nx">please</span> <span class="nx">check</span> <span class="k">if</span> <span class="nx">slug</span> <span class="nx">is</span> <span class="nx">configured</span> <span class="nx">correctly</span><span class="p">.</span><span class="err">`</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="kd">let</span> <span class="nx">images</span>      <span class="o">=</span> <span class="p">{};</span>
+        <span class="kd">let</span> <span class="nx">context</span>     <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">context</span><span class="p">;</span>
+        <span class="kd">let</span> <span class="nx">stories</span>     <span class="o">=</span> <span class="nx">context</span><span class="p">.</span><span class="nx">stories</span><span class="p">;</span>
+        <span class="kd">let</span> <span class="nx">resImages</span>   <span class="o">=</span> <span class="nx">stories</span><span class="p">.</span><span class="nx">images</span><span class="p">;</span>
+        <span class="kd">let</span> <span class="nx">refs</span>        <span class="o">=</span> <span class="nx">context</span><span class="p">.</span><span class="nx">refs</span><span class="p">;</span>
+
+        <span class="nx">context</span><span class="p">.</span><span class="nx">domain</span>  <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">setDomain</span><span class="p">();</span>
+
+        <span class="nx">refs</span><span class="p">.</span><span class="nx">styles</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">includeBaseStyles</span><span class="p">();</span>
+
+        <span class="k">if</span> <span class="p">(</span> <span class="nx">resImages</span> <span class="p">)</span>
+        <span class="p">{</span>
+
+            <span class="nx">resImages</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_i</span> <span class="p">){</span> <span class="nx">images</span><span class="p">[</span> <span class="nx">_i</span><span class="p">.</span><span class="nx">id</span> <span class="p">]</span> <span class="o">=</span> <span class="nx">_i</span><span class="p">;</span> <span class="p">});</span>
+            <span class="nx">context</span><span class="p">.</span><span class="nx">images</span>  <span class="o">=</span> <span class="nx">images</span><span class="p">;</span>
+
+            <span class="kd">let</span> <span class="nx">_els</span>        <span class="o">=</span> <span class="nx">stories</span><span class="p">.</span><span class="nx">stories</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">buildStory</span> <span class="p">);</span>
+            <span class="kd">let</span> <span class="nx">styling</span>     <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">compileStyles</span><span class="p">();</span>
+
+            <span class="nb">document</span><span class="p">.</span><span class="nx">head</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span> <span class="nx">styling</span> <span class="p">);</span>
+            <span class="nx">context</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span> <span class="nx">context</span><span class="p">.</span><span class="nx">refs</span><span class="p">.</span><span class="nx">wrapper</span> <span class="p">);</span>
+
+            <span class="k">return</span> <span class="nx">refs</span><span class="p">.</span><span class="nx">wrapper</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+    <span class="p">}</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="buildstory">
+  <h2>
+    <a href="#buildstory" name="buildstory" class="pilcrow">&#182;</a>
+    buildStory
+  </h2>
+</div>
+
+  </div>
+  <div class="body"><p>builds each story off the retrieved json.  skips a story if the id matches ignore.
+no matter what it will always build the number of stories set in the limit</p>
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Params</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">json</span>
+      <span class="dox_type">Object</span>
+      <span>image data</span>
+    </div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">i</span>
+      <span class="dox_type">Number</span>
+      <span>iterator</span>
+    </div>
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span><em>DOMElement</em> outer story element</span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">buildStory</span><span class="p">(</span> <span class="p">{</span> <span class="nx">title</span><span class="p">,</span> <span class="nx">description</span><span class="p">,</span> <span class="nx">images</span><span class="p">,</span> <span class="nx">externalPermalink</span><span class="p">,</span> <span class="nx">id</span> <span class="p">},</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">)</span>
+    <span class="p">{</span>
+        <span class="kd">let</span> <span class="nx">context</span>     <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">context</span><span class="p">;</span>
+
+        <span class="k">if</span> <span class="p">(</span> <span class="err">`</span><span class="nx">$</span><span class="p">{</span><span class="nx">context</span><span class="p">.</span><span class="nx">ignore</span><span class="p">}</span><span class="err">`</span> <span class="o">!==</span> <span class="err">`</span><span class="nx">$</span><span class="p">{</span><span class="nx">id</span><span class="p">}</span><span class="err">`</span> <span class="o">&amp;&amp;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">ignored</span> <span class="o">+</span> <span class="nx">context</span><span class="p">.</span><span class="nx">limit</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="kd">let</span> <span class="nx">create</span>              <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">create</span><span class="p">;</span>
+
+            <span class="kd">let</span> <span class="nx">story</span>               <span class="o">=</span> <span class="nx">create</span><span class="p">(</span> <span class="err">`</span><span class="nx">div</span><span class="err">`</span><span class="p">,</span>    <span class="nx">classes</span><span class="p">.</span><span class="nx">STORY</span> <span class="p">);</span>
+            <span class="kd">let</span> <span class="nx">storyLink</span>           <span class="o">=</span> <span class="nx">create</span><span class="p">(</span> <span class="err">`</span><span class="nx">a</span><span class="err">`</span><span class="p">,</span>      <span class="nx">classes</span><span class="p">.</span><span class="nx">STORY_LINK</span> <span class="p">);</span>
+
+            <span class="nx">storyLink</span><span class="p">.</span><span class="nx">href</span>          <span class="o">=</span> <span class="err">`</span><span class="c1">//${context.domain}/story/${externalPermalink}`;</span>
+
+            <span class="k">if</span> <span class="p">(</span> <span class="nx">context</span><span class="p">.</span><span class="nx">newTab</span> <span class="p">)</span>
+            <span class="p">{</span>
+                <span class="nx">storyLink</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span> <span class="err">`</span><span class="nx">target</span><span class="err">`</span><span class="p">,</span> <span class="err">`</span><span class="nx">_blank</span><span class="err">`</span> <span class="p">);</span>
+            <span class="p">}</span>
+            <span class="k">else</span> <span class="k">if</span> <span class="p">(</span> <span class="nx">context</span><span class="p">.</span><span class="nx">iframe</span> <span class="p">)</span>
+            <span class="p">{</span>
+                <span class="nx">storyLink</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span> <span class="err">`</span><span class="nx">target</span><span class="err">`</span><span class="p">,</span> <span class="err">`</span><span class="nx">_top</span><span class="err">`</span> <span class="p">);</span>
+            <span class="p">}</span>
+
+            <span class="nx">story</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span> <span class="nx">storyLink</span> <span class="p">);</span>
+
+            <span class="nx">storyLink</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">buildImage</span><span class="p">(</span> <span class="nx">images</span><span class="p">,</span> <span class="nx">title</span> <span class="p">)</span> <span class="p">);</span>
+            <span class="nx">storyLink</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">buildStoryText</span><span class="p">(</span> <span class="nx">title</span><span class="p">,</span> <span class="nx">description</span> <span class="p">)</span> <span class="p">);</span>
+
+            <span class="kd">let</span> <span class="nx">container</span>   <span class="o">=</span> <span class="nx">context</span><span class="p">.</span><span class="nx">refs</span><span class="p">.</span><span class="nx">container</span><span class="p">;</span>
+            <span class="kd">let</span> <span class="nx">wrapper</span>     <span class="o">=</span> <span class="nx">context</span><span class="p">.</span><span class="nx">refs</span><span class="p">.</span><span class="nx">wrapper</span><span class="p">;</span>
+
+            <span class="nx">container</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span> <span class="nx">story</span> <span class="p">);</span>
+            <span class="nx">wrapper</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span> <span class="nx">container</span> <span class="p">);</span>
+
+            <span class="k">return</span> <span class="nx">story</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">else</span>
+        <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">ignored</span><span class="o">++</span><span class="p">;</span>
+
+            <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="buildstorytext">
+  <h2>
+    <a href="#buildstorytext" name="buildstorytext" class="pilcrow">&#182;</a>
+    buildStoryText
+  </h2>
+</div>
+
+  </div>
+  <div class="body"><p>builds the story text (including headline and content), combines them
+and returns the outer wrapper</p>
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Params</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">title</span>
+      <span class="dox_type">String</span>
+      <span>story headline</span>
+    </div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">description</span>
+      <span class="dox_type">String</span>
+      <span>copy of the story to be inserted</span>
+    </div>
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span><em>DOMElement</em> style element</span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">buildStoryText</span><span class="p">(</span> <span class="nx">title</span><span class="p">,</span> <span class="nx">description</span> <span class="o">=</span> <span class="s1">&#39;{}&#39;</span> <span class="p">)</span>
+    <span class="p">{</span>
+        <span class="kd">let</span> <span class="nx">create</span>          <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">create</span><span class="p">;</span>
+        <span class="kd">let</span> <span class="nx">textWrapper</span>     <span class="o">=</span> <span class="nx">create</span><span class="p">(</span> <span class="err">`</span><span class="nx">div</span><span class="err">`</span><span class="p">,</span>    <span class="nx">classes</span><span class="p">.</span><span class="nx">TEXT_WRAPPER</span> <span class="p">);</span>
+
+        <span class="kd">let</span> <span class="nx">headlineWrapper</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">buildHeadline</span><span class="p">(</span> <span class="nx">title</span> <span class="p">);</span>
+        <span class="nx">textWrapper</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span> <span class="nx">headlineWrapper</span> <span class="p">);</span>
+
+        <span class="kd">let</span> <span class="nx">paragraph</span>       <span class="o">=</span> <span class="nx">create</span><span class="p">(</span> <span class="err">`</span><span class="nx">div</span><span class="err">`</span><span class="p">,</span>    <span class="nx">classes</span><span class="p">.</span><span class="nx">PARAGRAPH</span> <span class="p">);</span>
+        <span class="nx">description</span>         <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">getDescription</span><span class="p">(</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span> <span class="nx">description</span> <span class="p">)</span> <span class="p">);</span>
+
+        <span class="k">if</span> <span class="p">(</span> <span class="nx">description</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="nx">paragraph</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nx">description</span><span class="p">;</span>
+            <span class="nx">paragraph</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nx">paragraph</span><span class="p">.</span><span class="nx">textContent</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="nx">textWrapper</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span> <span class="nx">paragraph</span> <span class="p">);</span>
+
+        <span class="kd">let</span> <span class="nx">paragraphAfter</span>  <span class="o">=</span> <span class="nx">create</span><span class="p">(</span> <span class="err">`</span><span class="nx">div</span><span class="err">`</span><span class="p">,</span>    <span class="nx">classes</span><span class="p">.</span><span class="nx">PARAGRAPH_AFTER</span> <span class="p">);</span>
+        <span class="nx">textWrapper</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span> <span class="nx">paragraphAfter</span> <span class="p">);</span>
+
+        <span class="k">return</span> <span class="nx">textWrapper</span><span class="p">;</span>
+    <span class="p">}</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="buildstyletag">
+  <h2>
+    <a href="#buildstyletag" name="buildstyletag" class="pilcrow">&#182;</a>
+    buildStyleTag
+  </h2>
+</div>
+
+  </div>
+  <div class="body"><p>builds a style tag and appends it to the DOM</p>
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Params</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">css</span>
+      <span class="dox_type">String</span>
+      <span>styles to add to the created tag</span>
+    </div>
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span><em>DOMElement</em> style element</span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">buildStyleTag</span><span class="p">(</span> <span class="nx">css</span> <span class="p">)</span>
+    <span class="p">{</span>
+        <span class="kd">let</span> <span class="nx">el</span>          <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span> <span class="err">`</span><span class="nx">style</span><span class="err">`</span> <span class="p">);</span>
+        <span class="nx">el</span><span class="p">.</span><span class="nx">type</span>         <span class="o">=</span> <span class="err">`</span><span class="nx">text</span><span class="o">/</span><span class="nx">css</span><span class="err">`</span><span class="p">;</span>
+        <span class="nx">el</span><span class="p">.</span><span class="nx">className</span>    <span class="o">=</span> <span class="nx">classes</span><span class="p">.</span><span class="nx">STYLES</span><span class="p">;</span>
+
+        <span class="kd">let</span> <span class="nx">t</span>   <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createTextNode</span><span class="p">(</span> <span class="nx">css</span> <span class="p">);</span>
+        <span class="nx">el</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span> <span class="nx">t</span> <span class="p">);</span>
+
+        <span class="k">return</span> <span class="nx">el</span><span class="p">;</span>
+    <span class="p">}</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="compilestyles">
+  <h2>
+    <a href="#compilestyles" name="compilestyles" class="pilcrow">&#182;</a>
+    compileStyles
+  </h2>
+</div>
+
+  </div>
+  <div class="body"><p>compiles the styles and returns them added to the style tag</p>
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span><em>DOMElement</em> style element</span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">compileStyles</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="kd">let</span> <span class="nx">theme</span>   <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">domainConfig</span><span class="p">.</span><span class="nx">theme</span><span class="p">;</span>
+        <span class="kd">let</span> <span class="nx">css</span>     <span class="o">=</span> <span class="err">``</span><span class="p">;</span>
+        <span class="kd">let</span> <span class="nx">now</span>     <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">now</span><span class="p">;</span>
+        <span class="kd">let</span> <span class="nx">context</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">context</span><span class="p">;</span>
+
+        <span class="k">if</span> <span class="p">(</span> <span class="nx">theme</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="nx">css</span> <span class="o">=</span>
+                <span class="err">`#</span><span class="nx">styla</span><span class="o">-</span><span class="nx">widget</span> <span class="p">.</span><span class="nx">styla</span><span class="o">-</span><span class="nx">widget</span><span class="o">-</span><span class="nx">$</span><span class="p">{</span><span class="nx">now</span><span class="p">}</span> <span class="p">.</span><span class="nx">$</span><span class="p">{</span><span class="nx">classes</span><span class="p">.</span><span class="nx">HEADLINE</span><span class="p">}</span>
+                <span class="p">{</span>
+                    <span class="nx">font</span><span class="o">-</span><span class="nx">family</span><span class="o">:</span>        <span class="nx">$</span><span class="p">{</span><span class="nx">theme</span><span class="p">.</span><span class="nx">hff</span><span class="p">};</span>
+                    <span class="nx">font</span><span class="o">-</span><span class="nx">weight</span><span class="o">:</span>        <span class="nx">$</span><span class="p">{</span><span class="nx">theme</span><span class="p">.</span><span class="nx">hfw</span><span class="p">};</span>
+                    <span class="nx">font</span><span class="o">-</span><span class="nx">style</span><span class="o">:</span>         <span class="nx">$</span><span class="p">{</span><span class="nx">theme</span><span class="p">.</span><span class="nx">hfs</span><span class="p">};</span>
+                    <span class="nx">text</span><span class="o">-</span><span class="nx">decoration</span><span class="o">:</span>    <span class="nx">$</span><span class="p">{</span><span class="nx">theme</span><span class="p">.</span><span class="nx">htd</span><span class="p">};</span>
+                    <span class="nx">letter</span><span class="o">-</span><span class="nx">spacing</span><span class="o">:</span>     <span class="nx">$</span><span class="p">{</span><span class="nx">theme</span><span class="p">.</span><span class="nx">hls</span><span class="p">};</span>
+                    <span class="nx">color</span><span class="o">:</span>              <span class="nx">$</span><span class="p">{</span><span class="nx">theme</span><span class="p">.</span><span class="nx">htc</span><span class="p">};</span>
+                <span class="p">}</span>
+                <span class="err">#</span><span class="nx">styla</span><span class="o">-</span><span class="nx">widget</span> <span class="p">.</span><span class="nx">styla</span><span class="o">-</span><span class="nx">widget</span><span class="o">-</span><span class="nx">$</span><span class="p">{</span><span class="nx">now</span><span class="p">}</span> <span class="p">.</span><span class="nx">$</span><span class="p">{</span><span class="nx">classes</span><span class="p">.</span><span class="nx">PARAGRAPH</span><span class="p">},</span> 
+                <span class="err">#</span><span class="nx">styla</span><span class="o">-</span><span class="nx">widget</span> <span class="p">.</span><span class="nx">styla</span><span class="o">-</span><span class="nx">widget</span><span class="o">-</span><span class="nx">$</span><span class="p">{</span><span class="nx">now</span><span class="p">}</span> <span class="p">.</span><span class="nx">$</span><span class="p">{</span><span class="nx">classes</span><span class="p">.</span><span class="nx">PARAGRAPH_AFTER</span><span class="p">}</span>
+                <span class="p">{</span>
+                    <span class="nx">font</span><span class="o">-</span><span class="nx">family</span><span class="o">:</span>        <span class="nx">$</span><span class="p">{</span><span class="nx">theme</span><span class="p">.</span><span class="nx">sff</span><span class="p">};</span>
+                    <span class="nx">font</span><span class="o">-</span><span class="nx">weight</span><span class="o">:</span>        <span class="nx">$</span><span class="p">{</span><span class="nx">theme</span><span class="p">.</span><span class="nx">sfw</span><span class="p">};</span>
+                    <span class="nx">color</span><span class="o">:</span>              <span class="nx">$</span><span class="p">{</span><span class="nx">theme</span><span class="p">.</span><span class="nx">stc</span><span class="p">};</span>
+                <span class="p">}</span>
+                <span class="err">#</span><span class="nx">styla</span><span class="o">-</span><span class="nx">widget</span> <span class="p">.</span><span class="nx">styla</span><span class="o">-</span><span class="nx">widget</span><span class="o">-</span><span class="nx">$</span><span class="p">{</span><span class="nx">now</span><span class="p">}</span> <span class="p">.</span><span class="nx">$</span><span class="p">{</span><span class="nx">classes</span><span class="p">.</span><span class="nx">PARAGRAPH_AFTER</span><span class="p">}</span><span class="o">:</span><span class="nx">after</span>
+                <span class="p">{</span>
+                    <span class="nx">content</span><span class="o">:</span>            <span class="s1">&#39;${theme.strm}&#39;</span><span class="p">;</span>
+                    <span class="nx">font</span><span class="o">-</span><span class="nx">weight</span><span class="o">:</span>        <span class="nx">$</span><span class="p">{</span><span class="nx">theme</span><span class="p">.</span><span class="nx">strmw</span><span class="p">};</span>
+                    <span class="nx">text</span><span class="o">-</span><span class="nx">decoration</span><span class="o">:</span>    <span class="nx">$</span><span class="p">{</span><span class="nx">theme</span><span class="p">.</span><span class="nx">strmd</span><span class="p">};</span>
+                <span class="p">}</span><span class="err">`</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="kd">let</span> <span class="nx">el</span>          <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">buildStyleTag</span><span class="p">(</span> <span class="nx">css</span> <span class="p">);</span>
+        <span class="nx">el</span><span class="p">.</span><span class="nx">className</span>    <span class="o">=</span> <span class="err">`</span><span class="nx">$</span><span class="p">{</span><span class="nx">classes</span><span class="p">.</span><span class="nx">THEME_STYLES</span><span class="p">}</span>  <span class="nx">styla</span><span class="o">-</span><span class="nx">widget__$</span><span class="p">{</span><span class="nx">context</span><span class="p">.</span><span class="nx">format</span><span class="p">}</span><span class="err">`</span><span class="p">;</span>
+
+        <span class="nx">context</span><span class="p">.</span><span class="nx">refs</span><span class="p">.</span><span class="nx">themeStyle</span> <span class="o">=</span> <span class="nx">el</span><span class="p">;</span>
+
+        <span class="k">return</span> <span class="nx">el</span><span class="p">;</span>
+    <span class="p">}</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="constructor_NaN">
+  <h2>
+    <a href="#constructor_NaN" name="constructor_NaN" class="pilcrow">&#182;</a>
+    constructor
+  </h2>
+</div>
+
+  </div>
+  <div class="body"><p>builds build</p>
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Params</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">context</span>
+      <span class="dox_type">Object</span>
+      <span>context to be passed to this.context</span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">constructor</span><span class="p">(</span> <span class="nx">context</span><span class="p">,</span> <span class="nx">stories</span> <span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">context</span>        <span class="o">=</span> <span class="nx">context</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">now</span>            <span class="o">=</span> <span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">();</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">ignored</span>        <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+        <span class="k">this</span><span class="p">.</span><span class="nx">buildStories</span>   <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">buildStories</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span> <span class="k">this</span> <span class="p">);</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">buildStory</span>     <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">buildStory</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span> <span class="k">this</span> <span class="p">);</span>
+
+        <span class="k">if</span> <span class="p">(</span> <span class="o">!</span><span class="nx">context</span><span class="p">.</span><span class="nx">refs</span><span class="p">.</span><span class="nx">wrapper</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="nx">context</span><span class="p">.</span><span class="nx">stories</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span> <span class="nx">stories</span> <span class="p">);</span>
+            <span class="kd">let</span> <span class="nx">format</span>      <span class="o">=</span> <span class="nx">context</span><span class="p">.</span><span class="nx">format</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">();</span>
+
+            <span class="nx">context</span><span class="p">.</span><span class="nx">refs</span><span class="p">.</span><span class="nx">container</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span> <span class="err">`</span><span class="nx">DIV</span><span class="err">`</span><span class="p">,</span> <span class="err">`</span><span class="nx">$</span><span class="p">{</span><span class="nx">classes</span><span class="p">.</span><span class="nx">CONTAINER</span><span class="p">}</span>  <span class="nx">styla</span><span class="o">-</span><span class="nx">widget</span><span class="o">-</span><span class="nx">$</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">now</span><span class="p">}</span><span class="err">`</span> <span class="p">);</span>
+            <span class="kd">let</span> <span class="nx">wrapper</span>     <span class="o">=</span> <span class="nx">context</span><span class="p">.</span><span class="nx">refs</span><span class="p">.</span><span class="nx">wrapper</span>   <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span> <span class="err">`</span><span class="nx">DIV</span><span class="err">`</span><span class="p">,</span> <span class="err">`</span><span class="nx">$</span><span class="p">{</span><span class="nx">classes</span><span class="p">.</span><span class="nx">WRAPPER</span><span class="p">}</span>  <span class="nx">$</span><span class="p">{</span><span class="nx">format</span><span class="p">}</span><span class="err">`</span> <span class="p">);</span>
+            <span class="nx">wrapper</span><span class="p">.</span><span class="nx">id</span>      <span class="o">=</span> <span class="nx">wrapperID</span><span class="p">;</span>
+
+            <span class="kd">let</span> <span class="nx">domainConfigAPI</span>   <span class="o">=</span> <span class="err">`</span><span class="nx">$</span><span class="p">{</span><span class="nx">context</span><span class="p">.</span><span class="nx">api</span><span class="p">}</span><span class="o">/</span><span class="nx">api</span><span class="o">/</span><span class="nx">config</span><span class="o">/</span><span class="nx">$</span><span class="p">{</span><span class="nx">context</span><span class="p">.</span><span class="nx">slug</span><span class="p">}</span><span class="err">`</span><span class="p">;</span>
+
+            <span class="k">this</span><span class="p">.</span><span class="nx">http</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span> <span class="nx">domainConfigAPI</span> <span class="p">).</span><span class="nx">then</span><span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">buildStories</span> <span class="p">).</span><span class="k">catch</span><span class="p">(</span> <span class="nx">_reportError</span> <span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+    <span class="p">}</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="create">
+  <h2>
+    <a href="#create" name="create" class="pilcrow">&#182;</a>
+    create
+  </h2>
+</div>
+
+  </div>
+  <div class="body"><p>creates an element with the supplied tagname and classname</p>
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Params</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">tag</span>
+      <span class="dox_type">String</span>
+      <span>tagname</span>
+    </div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">clss</span>
+      <span class="dox_type">String</span>
+      <span>className to add to the created element</span>
+    </div>
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span><em>DOMElement</em> newly created element</span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">create</span><span class="p">(</span> <span class="nx">tag</span><span class="p">,</span> <span class="nx">clss</span> <span class="p">)</span>
+    <span class="p">{</span>
+        <span class="kd">let</span> <span class="nx">_el</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span> <span class="nx">tag</span><span class="p">.</span><span class="nx">toUpperCase</span><span class="p">()</span> <span class="p">);</span>
+
+        <span class="k">if</span> <span class="p">(</span> <span class="nx">clss</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="nx">_el</span><span class="p">.</span><span class="nx">className</span> <span class="o">=</span> <span class="nx">clss</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="nx">_el</span><span class="p">;</span>
+    <span class="p">}</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="getdescription">
+  <h2>
+    <a href="#getdescription" name="getdescription" class="pilcrow">&#182;</a>
+    getDescription
+  </h2>
+</div>
+
+  </div>
+  <div class="body"><p>gets the first text description in the content and returns that</p>
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Params</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">arr</span>
+      <span class="dox_type">Array</span>
+      <span>array filled w/ content</span>
+    </div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">i</span>
+      <span class="dox_type">Number</span>
+      <span>recursive index</span>
+    </div>
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span><em>String or Boolean</em> text content or false</span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">getDescription</span><span class="p">(</span> <span class="nx">arr</span><span class="p">,</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">)</span>
+    <span class="p">{</span>
+        <span class="kd">let</span> <span class="nx">text</span>        <span class="o">=</span> <span class="nx">arr</span><span class="p">[</span> <span class="nx">i</span> <span class="p">];</span>
+
+        <span class="k">if</span> <span class="p">(</span> <span class="o">!</span><span class="nx">text</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="kd">let</span> <span class="nx">el</span>          <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span> <span class="err">`</span><span class="nx">div</span><span class="err">`</span> <span class="p">);</span>
+        <span class="nx">el</span><span class="p">.</span><span class="nx">innerHTML</span>    <span class="o">=</span> <span class="nx">text</span><span class="p">.</span><span class="nx">content</span><span class="p">;</span>
+        <span class="kd">let</span> <span class="nx">actualText</span>  <span class="o">=</span> <span class="nx">el</span><span class="p">.</span><span class="nx">textContent</span><span class="p">;</span>
+
+        <span class="k">if</span> <span class="p">(</span> <span class="nx">text</span><span class="p">.</span><span class="nx">type</span> <span class="o">!==</span> <span class="err">`</span><span class="nx">text</span><span class="err">`</span> <span class="o">||</span><span class="err"> </span><span class="nx">actualText</span> <span class="o">===</span> <span class="err">``</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">getDescription</span><span class="p">(</span> <span class="nx">arr</span><span class="p">,</span> <span class="nx">i</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="nx">text</span><span class="p">.</span><span class="nx">content</span><span class="p">;</span>
+    <span class="p">}</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="getimageurl">
+  <h2>
+    <a href="#getimageurl" name="getimageurl" class="pilcrow">&#182;</a>
+    getImageUrl
+  </h2>
+</div>
+
+  </div>
+  <div class="body"><p>uses the filename and size to create the full image url</p>
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Params</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">filename</span>
+      <span class="dox_type">String</span>
+      <span>from the image data object</span>
+    </div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">imageSize</span>
+      <span class="dox_type">NumberorString</span>
+      <span>width to grab from the server</span>
+    </div>
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span><em>String</em> file name</span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">getImageUrl</span><span class="p">(</span> <span class="nx">filename</span><span class="p">,</span> <span class="nx">imageSize</span> <span class="o">=</span> <span class="mi">400</span> <span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="err">`</span><span class="c1">//img.styla.com/resizer/sfh_${imageSize}x0/_${filename}?still`;</span>
+    <span class="p">}</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="includebasestyles">
+  <h2>
+    <a href="#includebasestyles" name="includebasestyles" class="pilcrow">&#182;</a>
+    includeBaseStyles
+  </h2>
+</div>
+
+  </div>
+  <div class="body"><p>creates the base styles DOM element and adds it to the head</p>
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span><em>Void</em></span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">includeBaseStyles</span><span class="p">(</span> <span class="nx">css</span> <span class="p">)</span>
+    <span class="p">{</span>
+        <span class="kd">let</span> <span class="nx">el</span><span class="p">;</span>
+        <span class="kd">let</span> <span class="nx">self</span>        <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+        <span class="kd">let</span> <span class="nx">context</span>     <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">context</span><span class="p">;</span>
+        <span class="kd">let</span> <span class="nx">formatCaps</span>  <span class="o">=</span> <span class="nx">context</span><span class="p">.</span><span class="nx">format</span><span class="p">.</span><span class="nx">toUpperCase</span><span class="p">();</span>
+        <span class="kd">let</span> <span class="nx">head</span>        <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">head</span><span class="p">;</span>
+
+        <span class="kd">function</span> <span class="nx">_addBaseStyle</span><span class="p">(</span> <span class="nx">css</span><span class="p">,</span> <span class="nx">_class</span><span class="p">,</span> <span class="nx">_format</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="kd">let</span> <span class="nx">baseStyle</span> <span class="o">=</span> <span class="nx">head</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span> <span class="err">`</span><span class="p">.</span><span class="nx">$</span><span class="p">{</span><span class="nx">_class</span><span class="p">}</span><span class="err">`</span> <span class="p">);</span>
+
+            <span class="k">if</span> <span class="p">(</span> <span class="o">!</span><span class="nx">baseStyle</span> <span class="p">)</span>
+            <span class="p">{</span>
+                <span class="nx">el</span>              <span class="o">=</span> <span class="nx">self</span><span class="p">.</span><span class="nx">buildStyleTag</span><span class="p">(</span> <span class="nx">css</span> <span class="p">);</span>
+                <span class="nx">el</span><span class="p">.</span><span class="nx">className</span>    <span class="o">=</span> <span class="err">`</span><span class="nx">$</span><span class="p">{</span><span class="nx">_class</span><span class="p">}</span>  <span class="nx">$</span><span class="p">{</span><span class="nx">classes</span><span class="p">.</span><span class="nx">STYLES</span><span class="p">}</span><span class="err">`</span><span class="p">;</span>
+
+                <span class="nx">context</span><span class="p">.</span><span class="nx">refs</span><span class="p">[</span> <span class="err">`</span><span class="nx">$</span><span class="p">{</span><span class="nx">_format</span><span class="p">}</span><span class="nx">Style</span><span class="err">`</span> <span class="p">]</span> <span class="o">=</span> <span class="nx">el</span><span class="p">;</span>
+
+                <span class="nx">head</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span> <span class="nx">el</span> <span class="p">);</span>
+            <span class="p">}</span>
+
+            <span class="k">return</span> <span class="nx">el</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="kd">let</span> <span class="nx">arr</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span> <span class="mi">2</span> <span class="p">);</span>
+
+        <span class="nx">arr</span><span class="p">[</span> <span class="mi">0</span> <span class="p">]</span> <span class="o">=</span> <span class="nx">_addBaseStyle</span><span class="p">(</span> <span class="nx">css</span> <span class="o">||</span><span class="err"> </span><span class="nx">baseStyles</span><span class="p">,</span> <span class="err">`</span><span class="nx">$</span><span class="p">{</span><span class="nx">classes</span><span class="p">.</span><span class="nx">BASE_STYLES</span><span class="p">}</span><span class="err">`</span><span class="p">,</span> <span class="s1">&#39;base&#39;</span> <span class="p">);</span>
+        <span class="nx">arr</span><span class="p">[</span> <span class="mi">1</span> <span class="p">]</span> <span class="o">=</span> <span class="nx">_addBaseStyle</span><span class="p">(</span> <span class="nx">specificStyles</span><span class="p">,</span> <span class="nx">classes</span><span class="p">[</span> <span class="err">`</span><span class="nx">$</span><span class="p">{</span><span class="nx">formatCaps</span><span class="p">}</span><span class="nx">_STYLES</span><span class="err">`</span> <span class="p">],</span> <span class="nx">context</span><span class="p">.</span><span class="nx">format</span> <span class="p">);</span>
+
+
+        <span class="k">if</span> <span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">domainConfig</span><span class="p">.</span><span class="nx">embed</span><span class="p">.</span><span class="nx">customFontUrl</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="nx">arr</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">includeFonts</span><span class="p">()</span> <span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="nx">arr</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span> <span class="nx">el</span> <span class="o">=&gt;</span> <span class="nx">el</span> <span class="p">);</span>
+
+        <span class="k">return</span> <span class="nx">arr</span><span class="p">;</span>
+    <span class="p">}</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="includefonts">
+  <h2>
+    <a href="#includefonts" name="includefonts" class="pilcrow">&#182;</a>
+    includeFonts
+  </h2>
+</div>
+
+  </div>
+  <div class="body"><p>includes the webfonts link element</p>
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span><em>DOMElement</em> link element</span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">includeFonts</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="kd">let</span> <span class="nx">el</span>          <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span> <span class="err">`</span><span class="nx">link</span><span class="err">`</span> <span class="p">);</span>
+        <span class="nx">el</span><span class="p">.</span><span class="nx">className</span>    <span class="o">=</span> <span class="nx">classes</span><span class="p">.</span><span class="nx">FONT_LINK</span><span class="p">;</span>
+        <span class="nx">el</span><span class="p">.</span><span class="nx">type</span>         <span class="o">=</span> <span class="err">`</span><span class="nx">text</span><span class="o">/</span><span class="nx">css</span><span class="err">`</span><span class="p">;</span>
+        <span class="nx">el</span><span class="p">.</span><span class="nx">rel</span>          <span class="o">=</span> <span class="err">`</span><span class="nx">stylesheet</span><span class="err">`</span><span class="p">;</span>
+        <span class="kd">let</span> <span class="nx">fontUrl</span>     <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">domainConfig</span><span class="p">.</span><span class="nx">embed</span><span class="p">.</span><span class="nx">customFontUrl</span>
+        <span class="nx">el</span><span class="p">.</span><span class="nx">href</span>         <span class="o">=</span> <span class="nx">fontUrl</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span> <span class="s1">&#39;//&#39;</span> <span class="p">)</span> <span class="o">!==</span> <span class="o">-</span><span class="mi">1</span> <span class="o">?</span>
+                            <span class="nx">fontUrl</span> <span class="o">:</span>
+                            <span class="err">`</span><span class="c1">//${fontUrl}`;</span>
+
+        <span class="nb">document</span><span class="p">.</span><span class="nx">head</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span> <span class="nx">el</span> <span class="p">);</span>
+
+        <span class="k">return</span> <span class="nx">el</span><span class="p">;</span>
+    <span class="p">}</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="setdomain">
+  <h2>
+    <a href="#setdomain" name="setdomain" class="pilcrow">&#182;</a>
+    setDomain
+  </h2>
+</div>
+
+  </div>
+  <div class="body"><p>takes pieces of the domainConfig and builds the domain</p>
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span><em>String</em> domain address</span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">setDomain</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="kd">let</span> <span class="nx">embed</span>   <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">domainConfig</span><span class="p">.</span><span class="nx">embed</span><span class="p">;</span>
+        <span class="kd">let</span> <span class="nx">context</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">context</span><span class="p">;</span>
+
+        <span class="kd">let</span> <span class="nx">domain</span><span class="p">;</span>
+
+        <span class="k">if</span> <span class="p">(</span> <span class="o">!</span><span class="nx">context</span><span class="p">.</span><span class="nx">domain</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span> <span class="nx">context</span><span class="p">.</span><span class="nx">linkDomain</span> <span class="p">)</span>
+            <span class="p">{</span>
+                <span class="nx">domain</span> <span class="o">=</span> <span class="nx">context</span><span class="p">.</span><span class="nx">linkDomain</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="k">else</span>
+            <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span> <span class="nx">embed</span> <span class="p">)</span>
+                <span class="p">{</span>
+                    <span class="kd">let</span> <span class="nx">rootPath</span> <span class="o">=</span> <span class="nx">embed</span><span class="p">.</span><span class="nx">rootPath</span><span class="p">;</span>
+
+                    <span class="k">if</span> <span class="p">(</span> <span class="nx">rootPath</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">===</span> <span class="s1">&#39;/&#39;</span> <span class="p">)</span>
+                    <span class="p">{</span>
+                        <span class="nx">rootPath</span> <span class="o">=</span> <span class="nx">rootPath</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span> <span class="mi">1</span> <span class="p">);</span>
+                    <span class="p">}</span>
+
+                    <span class="nx">domain</span> <span class="o">=</span> <span class="err">`</span><span class="nx">$</span><span class="p">{</span><span class="nx">embed</span><span class="p">.</span><span class="nx">magazineUrl</span><span class="p">}</span><span class="o">/</span><span class="nx">$</span><span class="p">{</span><span class="nx">rootPath</span><span class="p">}</span><span class="err">`</span><span class="p">;</span>
+                <span class="p">}</span>
+                <span class="k">else</span>
+                <span class="p">{</span>
+                    <span class="k">throw</span> <span class="err">`</span><span class="nx">Styla</span> <span class="nx">Widget</span> <span class="nx">error</span><span class="o">:</span> <span class="nx">No</span> <span class="nx">domain</span> <span class="nx">defined</span> <span class="nx">or</span> <span class="nx">bad</span> <span class="nx">domain</span> <span class="nx">config</span><span class="p">.</span><span class="err">`</span><span class="p">;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+
+            <span class="nx">domain</span> <span class="o">=</span> <span class="nx">domain</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span> <span class="sr">/^(http(s)?:)?\/\//</span><span class="p">,</span> <span class="s1">&#39;&#39;</span> <span class="p">);</span>
+
+            <span class="k">return</span> <span class="nx">context</span><span class="p">.</span><span class="nx">domain</span> <span class="o">=</span> <span class="nx">domain</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="nx">context</span><span class="p">.</span><span class="nx">domain</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+
+
+<span class="nx">Build</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">http</span> <span class="o">=</span> <span class="nx">http</span><span class="p">;</span>
+
+<span class="kr">export</span> <span class="k">default</span> <span class="nx">Build</span><span class="p">;</span>
+</pre></div>
+        </td>
+      </tr>
+  </tbody>
+</table>
+  </div>
+</body>
+</html>
