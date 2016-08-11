@@ -197,25 +197,18 @@ describe( 'buildStory', () =>
         assert.equal( href, `//test/story/externalPermalink`, 'storyLink has correct href' );
     } );
 
-
-
-    it( 'should adjust it\'s link to consider build options', () =>
+    it( 'should build the Call-To-Action', () =>
     {
-        build.context.newTab = true;
+        build.context.cta = 'boop';
         story = build.buildStory( storyObj );
-        let storyLink = story.childNodes[0];
 
-        assert.equal( storyLink.getAttribute( `target` ), `_blank`, `newTab gets target="_blank"` );
-        build.context.newTab = false;
+        let storyLink = story.childNodes;
 
-
-        build.context.iframe = true;
-        story = build.buildStory( storyObj );
-        storyLink = story.childNodes[0];
-
-        assert.equal( storyLink.getAttribute( `target` ), `_top`, `iframe gets target="_top"` );
-        build.context.iframe = false;
+        assert.equal( storyLink[0].childNodes[2].className, 'styla-widget__calltoaction', 'Call To Action element exists' );
+        assert.equal( storyLink[0].childNodes[2].innerHTML, 'boop', 'Call to Action element is displaying the correct text' );
+        build.context.cta = false;
     } );
+
 } );
 
 
