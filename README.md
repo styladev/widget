@@ -176,6 +176,9 @@ Change log
     + removed iframe option
     + removed newtab option
 
+### 1.3.4
+    + deprecated warning
+
 ### 1.3.3
     + fix release
 
