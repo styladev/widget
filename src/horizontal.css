@@ -116,3 +116,9 @@
 {
     display:                            none;
 }
+
+/* This design has no support for call to action */
+#styla-widget.horizontal .styla-widget__calltoaction
+{
+    display:                            none;
+}
