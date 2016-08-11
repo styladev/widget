@@ -152,15 +152,6 @@ class Build
 
             storyLink.href          = `//${context.domain}/story/${externalPermalink}`;
 
-            if ( context.newTab )
-            {
-                storyLink.setAttribute( `target`, `_blank` );
-            }
-            else if ( context.iframe )
-            {
-                storyLink.setAttribute( `target`, `_top` );
-            }
-
             story.appendChild( storyLink );
 
             storyLink.appendChild( this.buildImage( images, title ) );

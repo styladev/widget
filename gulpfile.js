@@ -15,6 +15,8 @@ const year          = now.getUTCFullYear();
 const version       = _package.version;
 const homepage      = _package.homepage;
 
+const majorVersion  = version.slice(0,1)
+
 const licenceLong   = '/*!\n' +
                       ' * Styla bite-sized widget v' + version + '\n' +
                       ' * ' + homepage + '\n' +
@@ -57,11 +59,11 @@ gulp.task( 'min', function()
         .pipe( fs.createWriteStream( __dirname + '/dist/baseWidget.min.js' ) )
         .on( 'finish', function()
         {
-            insertStyles( 'list', 'baseWidget.min.js', '.min' );
-            insertStyles( 'stories', 'baseWidget.min.js', '.min' );
-            insertStyles( 'horizontal', 'baseWidget.min.js', '.min' );
-            insertStyles( 'tiles', 'baseWidget.min.js', '.min' );
-            insertStyles( 'cards', 'baseWidget.min.js', '.min' );
+            insertStyles( 'list', 'baseWidget.min.js', `.v${majorVersion}.min` );
+            insertStyles( 'stories', 'baseWidget.min.js', `.v${majorVersion}.min` );
+            insertStyles( 'horizontal', 'baseWidget.min.js', `.v${majorVersion}.min` );
+            insertStyles( 'tiles', 'baseWidget.min.js', `.v${majorVersion}.min` );
+            insertStyles( 'cards', 'baseWidget.min.js', `.v${majorVersion}.min` );
         } );
 } );
 

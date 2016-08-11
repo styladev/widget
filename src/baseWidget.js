@@ -127,12 +127,10 @@ class StylaWidget
         this.api        = api;
         this.domain     = domain;
         this.linkDomain = linkDomain;
-        this.iframe     = iframe;
         this.ignore     = ignore;
 
         this.limit      = limit = ignore ? limit + 1 : limit;
         this.minWidth   = minWidth;
-        this.newTab     = newTab;
         this.offset     = offset;
         this.imageSize  = imageSize;
         this.slug       = slug;
