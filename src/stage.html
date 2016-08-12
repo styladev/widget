@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+
+<!--
+
+    This page displays a widget which pulls its stories from the Shopware 5 CI magazine.
+    It is intended for testing purposes only.
+
+-->
+
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>Styla Cards Widget Demo</title>
+        <style>
+            body
+            {
+                text-align:             center;
+                margin:                 0 auto;
+                background:             #eee;
+                height:                 100vh;
+            }
+
+            .styla-widget__target
+            {
+                text-align:             left;
+                background:             #FFF;
+                box-shadow:             3px 3px 0px #ccc;
+                height:                 24em;
+                top:                    5%;
+                position:               relative;
+                display:                inline-block;
+                margin:                 0 1em;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Stage widget</h1>
+        <p>Displaying stories from <a href="http://shopware5.magalog.net/magazine">shopware5.magalog.net/magazine</a> </p>
+        <div class="styla-widget__target" style="width: 90%;"></div>
+        <script src="./cards.js"></script>
+        <script>
+            new StylaWidget_Cards( {
+                newTab  : true,
+                slug    : 'ci-shopware5',
+                api     : 'http://stage.magalog.net',
+                target  : '.styla-widget__target',
+                limit   : 4,
+                cta     : 'Read more'
+            } );
+        </script>
+    </body>
+</html>

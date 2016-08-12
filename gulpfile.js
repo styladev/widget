@@ -132,6 +132,7 @@ gulp.task( 'default', function()
 
     gulp.src( [
         './src/index.html',
+        './src/stage.html',
         './src/logotype.svg'
     ] )
         .pipe( gulp.dest( 'dist' ) );
