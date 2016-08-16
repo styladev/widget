@@ -194,7 +194,7 @@ describe( 'buildStory', () =>
         assert.equal( storyLink.className, classes.STORY_LINK, 'storyLink has correct class name' );
 
         let href = storyLink.href.replace( /^https?:/, '' )
-        assert.equal( href, `//test/story/externalPermalink`, 'storyLink has correct href' );
+        assert.equal( href, `//test/story/externalPermalink?styla_ref=about:blank&styla_wdgt_var=Styla-widget-format-goes-here`, 'storyLink has correct href' );
     } );
 
     it( 'should build the Call-To-Action', () =>

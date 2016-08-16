@@ -150,7 +150,7 @@ class Build
             let story               = create( `div`,    classes.STORY );
             let storyLink           = create( `a`,      classes.STORY_LINK );
 
-            storyLink.href          = `//${context.domain}/story/${externalPermalink}`;
+            storyLink.href          = `//${context.domain}/story/${externalPermalink}?styla_ref=${window.location.href}&styla_wdgt_var=${context.format}`;
 
             story.appendChild( storyLink );
 
