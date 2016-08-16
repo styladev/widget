@@ -20,6 +20,8 @@ npm-debug.log
 
 tests/tests.dist.js
 demo/demoDist.js
+demo/local.html
+
 dist/
 
 dist/*.min.css
