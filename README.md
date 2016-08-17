@@ -175,6 +175,7 @@ Change log
     + cards layout includes custom Call-To-Action option
     + removed iframe option
     + removed newtab option
+    + adds tracking parameters to URL
 
 ### 1.3.3
     + fix release
