@@ -150,21 +150,24 @@ class Build
             let story               = create( `div`,    classes.STORY );
             let storyLink           = create( `a`,      classes.STORY_LINK );
 
-            storyLink.href          = `//${context.domain}/story/${externalPermalink}`;
+            let format              = encodeURIComponent(context.format);
+            let location            = encodeURIComponent(window.location.href);
 
-            if ( context.newTab )
-            {
-                storyLink.setAttribute( `target`, `_blank` );
-            }
-            else if ( context.iframe )
-            {
-                storyLink.setAttribute( `target`, `_top` );
-            }
+            storyLink.href          = `//${context.domain}/story/${externalPermalink}?styla_ref=${ location }&styla_wdgt_var=${ format }`;
 
             story.appendChild( storyLink );
 
             storyLink.appendChild( this.buildImage( images, title ) );
             storyLink.appendChild( this.buildStoryText( title, description ) );
+
+            if ( context.cta )
+            {
+                let callToAction        = create( `div`,    classes.CALLTOACTION);
+
+                callToAction.innerHTML  = ( context.cta );
+
+                storyLink.appendChild( callToAction );
+            }
 
             let container   = context.refs.container;
             let wrapper     = context.refs.wrapper;
@@ -269,17 +272,16 @@ class Build
                     color:              ${theme.htc};
                 }
                 #styla-widget .styla-widget-${now} .${classes.PARAGRAPH},
-                #styla-widget .styla-widget-${now} .${classes.PARAGRAPH_AFTER}
+                #styla-widget .styla-widget-${now} .${classes.PARAGRAPH_AFTER},
+                #styla-widget .styla-widget-${now} .${classes.CALLTOACTION}
                 {
                     font-family:        ${theme.sff};
                     font-weight:        ${theme.sfw};
                     color:              ${theme.stc};
                 }
-                #styla-widget .styla-widget-${now} .${classes.PARAGRAPH_AFTER}:after
+                #styla-widget .styla-widget-${now} .${classes.CALLTOACTION}
                 {
-                    content:            '${theme.strm}';
-                    font-weight:        ${theme.strmw};
-                    text-decoration:    ${theme.strmd};
+                    color:              ${theme.ltc};
                 }`;
         }
 

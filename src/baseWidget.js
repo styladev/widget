@@ -111,6 +111,7 @@ class StylaWidget
                     storiesApi  = false,
                     tag         = false,
                     category    = false,
+                    cta         = false,
                     target      = document.body
                     } = {} )
     {
@@ -126,18 +127,17 @@ class StylaWidget
         this.api        = api;
         this.domain     = domain;
         this.linkDomain = linkDomain;
-        this.iframe     = iframe;
         this.ignore     = ignore;
 
         this.limit      = limit = ignore ? limit + 1 : limit;
         this.minWidth   = minWidth;
-        this.newTab     = newTab;
         this.offset     = offset;
         this.imageSize  = imageSize;
         this.slug       = slug;
         this.storiesApi = storiesApi;
         this.tag        = tag;
         this.category   = category;
+        this.cta        = cta;
         this.target     = target;
 
         if ( tag !== false && category !== false ) {

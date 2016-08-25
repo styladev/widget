@@ -194,28 +194,21 @@ describe( 'buildStory', () =>
         assert.equal( storyLink.className, classes.STORY_LINK, 'storyLink has correct class name' );
 
         let href = storyLink.href.replace( /^https?:/, '' )
-        assert.equal( href, `//test/story/externalPermalink`, 'storyLink has correct href' );
+        assert.equal( href, `//test/story/externalPermalink?styla_ref=about:blank&styla_wdgt_var=Styla-widget-format-goes-here`, 'storyLink has correct href' );
     } );
 
-
-
-    it( 'should adjust it\'s link to consider build options', () =>
+    it( 'should build the Call-To-Action', () =>
     {
-        build.context.newTab = true;
+        build.context.cta = 'boop';
         story = build.buildStory( storyObj );
-        let storyLink = story.childNodes[0];
 
-        assert.equal( storyLink.getAttribute( `target` ), `_blank`, `newTab gets target="_blank"` );
-        build.context.newTab = false;
+        let storyLink = story.childNodes;
 
-
-        build.context.iframe = true;
-        story = build.buildStory( storyObj );
-        storyLink = story.childNodes[0];
-
-        assert.equal( storyLink.getAttribute( `target` ), `_top`, `iframe gets target="_top"` );
-        build.context.iframe = false;
+        assert.equal( storyLink[0].childNodes[2].className, 'styla-widget__calltoaction', 'Call To Action element exists' );
+        assert.equal( storyLink[0].childNodes[2].innerHTML, 'boop', 'Call to Action element is displaying the correct text' );
+        build.context.cta = false;
     } );
+
 } );
 
 

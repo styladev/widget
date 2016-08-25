@@ -177,18 +177,17 @@ describe( 'constructor', () =>
         let stylaWidget = new BaseWidget( { slug: 'braunhamburg' } );
 
         assert.equal( stylaWidget.api, 'https://live.styla.com' );
-        assert.equal( stylaWidget.iframe, false );
         assert.equal( stylaWidget.ignore, false );
         assert.equal( stylaWidget.limit, 5 );
         assert.equal( stylaWidget.linkDomain, false );
         assert.equal( stylaWidget.minWidth, 250 );
-        assert.equal( stylaWidget.newTab, false );
         assert.equal( stylaWidget.offset, 0 );
         assert.equal( stylaWidget.imageSize, 400 );
         assert.equal( stylaWidget.storiesApi, false );
         assert.equal( stylaWidget.tag, false );
         assert.equal( stylaWidget.category, false );
         assert.equal( stylaWidget.target, document.body );
+        assert.equal( stylaWidget.cta, false );
     } );
 
 
