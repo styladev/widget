@@ -86,6 +86,7 @@ window.stylaWidget = {
     category    // (default: false) Filter stories by category
     target      // (default: document.body) mount point of the widget. Accepts
                 //      DOM elements and selector strings
+    cta         // (default: false) Add custom Call-To-Action string [cards layout only]
 };
 ```
 
