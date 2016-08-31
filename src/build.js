@@ -153,7 +153,9 @@ class Build
             let format              = encodeURIComponent(context.format);
             let location            = encodeURIComponent(window.location.href);
 
-            storyLink.href          = `//${context.domain}/story/${externalPermalink}?styla_ref=${ location }&styla_wdgt_var=${ format }`;
+            let pushstate           = this.domainConfig.embed.pushstateDefault ? "/" : "#";
+
+            storyLink.href          = `//${context.domain}${ pushstate }story/${ externalPermalink }?styla_ref=${ location }&styla_wdgt_var=${ format }`;
 
             story.appendChild( storyLink );
 

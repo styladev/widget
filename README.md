@@ -1,4 +1,4 @@
-Styla Widget  2.0.0
+Styla Widget  2.0.1
 =======
 
 
@@ -86,6 +86,7 @@ window.stylaWidget = {
     category    // (default: false) Filter stories by category
     target      // (default: document.body) mount point of the widget. Accepts
                 //      DOM elements and selector strings
+    cta         // (default: false) Add custom Call-To-Action string [cards layout only]
 };
 ```
 
@@ -169,6 +170,9 @@ This project adheres to the [Contributor Covenant](http://contributor-covenant.o
 
 Change log
 ==========
+
+### 2.0.1
+    + added support for links with hashtag navigation
 
 ### 2.0.0
     + all layouts truncate text with ellipsis instead of using theme styling.
