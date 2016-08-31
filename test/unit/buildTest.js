@@ -166,6 +166,8 @@ describe( 'buildStories', () =>
  */
 describe( 'buildStory', () =>
 {
+    build.domainConfig      = domainConfig;
+
     let id                  = Object.keys( stylaWidget.images )[0];
 
     let storyObj = {
@@ -177,7 +179,6 @@ describe( 'buildStory', () =>
 
     let story = build.buildStory( storyObj );
 
-
     it( 'should correctly build the story wrapper', () =>
     {
         assert.ok( story.nodeType === 1, 'Story wrapper is a dom element' );
@@ -185,7 +186,7 @@ describe( 'buildStory', () =>
     } );
 
 
-    it( 'should correctly build the story link', () =>
+    it( 'should build correct story link with hashtag navigation', () =>
     {
         let storyLink = story.childNodes;
         assert.equal( storyLink.length, 1, 'story has only one child' );
@@ -193,8 +194,22 @@ describe( 'buildStory', () =>
 
         assert.equal( storyLink.className, classes.STORY_LINK, 'storyLink has correct class name' );
 
-        let href = storyLink.href.replace( /^https?:/, '' )
-        assert.equal( href, `//test/story/externalPermalink?styla_ref=about:blank&styla_wdgt_var=Styla-widget-format-goes-here`, 'storyLink has correct href' );
+        let href = storyLink.href.replace( /^https?:/, '' );
+        assert.equal( href, `//test#story/externalPermalink?styla_ref=about%3Ablank&styla_wdgt_var=Styla-widget-format-goes-here`, 'storyLink has correct href' );
+    } );
+
+    it( 'should build correct story link with pushstate', () =>
+    {
+        build.domainConfig.embed.pushstateDefault = true;
+        story = build.buildStory( storyObj );
+
+        let storyLink   = story.childNodes;
+        storyLink       = storyLink[0];
+        let href        = storyLink.href.replace( /^https?:/, '' );
+
+        assert.equal( href, `//test/story/externalPermalink?styla_ref=about%3Ablank&styla_wdgt_var=Styla-widget-format-goes-here`, 'storyLink has correct href' );
+
+        build.domainConfig      = domainConfig;
     } );
 
     it( 'should build the Call-To-Action', () =>
