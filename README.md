@@ -40,7 +40,7 @@ Tiles is not the only layout available.  Just change the word tiles out for anot
 + cards
 
 
-See a live example on the [demo page](http://static.styla.com/test/widget/)
+See a live example on the [demo page](http://widget.styla.com)
 
 
 ### Positioning
