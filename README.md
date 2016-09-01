@@ -65,7 +65,7 @@ size isset to 14px, one story will be exactly 14 times that value, in this case
 ### Additional options
 
 ```js
-window.stylaWidget = {
+new StylaWidget_List( {
     api         // (default: 'http://live.styla.com') base api url
     domain      // (default: false) if filled, this manually sets the base url for links
     ignore      // (default: false) story id to ignore when rendering (generally
@@ -87,7 +87,7 @@ window.stylaWidget = {
     target      // (default: document.body) mount point of the widget. Accepts
                 //      DOM elements and selector strings
     cta         // (default: false) Add custom Call-To-Action string [cards layout only]
-};
+} );
 ```
 
 Use this snippet to include the Styla widget on your page. You can build more
