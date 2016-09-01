@@ -101,13 +101,12 @@ than one widget by simply adding it to the script, and picking your options
         new StylaWidget_Tiles( {
             limit   : 10,
             offset  : 2,
-            slug    : 'uhrenschmuck24',
+            slug    : 'demo',
             target  : '.styla-widget__target'
         } );
 
         new StylaWidget_List( {
-            newTab  : true,
-            slug    : 'braunhamburg',
+            slug    : 'demo',
             target  : '.styla-widget__target2'
         } );
     </script>
