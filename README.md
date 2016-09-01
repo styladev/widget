@@ -43,6 +43,8 @@ See a live example on the [demo page](http://widget.styla.com)
 
 ### Positioning
 
+* The following documentation only applies to the list-style widget. *
+
 The Widget is responsive 🎉, and will automagically fit stories into the space
 that it is given. For this to work, the desired width and height must be set on
 the wrapping element.
