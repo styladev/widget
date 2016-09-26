@@ -1,4 +1,4 @@
-Styla Widget  2.0.0
+Styla Widget  2.1.0
 =======
 
 
@@ -169,6 +169,10 @@ This project adheres to the [Contributor Covenant](http://contributor-covenant.o
 
 Change log
 ==========
+
+### 2.1.0
+    + added support for links with hashtag navigation
+    + new feed API format
 
 ### 2.0.0
     + all layouts truncate text with ellipsis instead of using theme styling.

@@ -101,7 +101,7 @@ class Build
 
         let images      = {};
         let context     = this.context;
-        let stories     = context.stories;
+        let stories     = context.stories.data;
         let resImages   = stories.images;
         let refs        = context.refs;
 
