@@ -1,4 +1,4 @@
-Styla Widget  1.3.3
+Styla Widget  2.1.0
 =======
 
 
@@ -6,8 +6,6 @@ The Styla Widget™ is a simple way to display stories from a Styla Magazine in 
 smaller format, anywhere on your site. A story in the widget functions as
 a teaser and will send the reader directly to the magazine when clicked on.
 
-Visit the [demo page](http://static.styla.com/test/widget/) to see the
-widget in action.
 
 Using the Widget
 ----------------
@@ -40,10 +38,12 @@ Tiles is not the only layout available.  Just change the word tiles out for anot
 + cards
 
 
-See a live example on the [demo page](http://static.styla.com/test/widget/)
+See a live example on the [demo page](http://widget.styla.com)
 
 
 ### Positioning
+
+*The following documentation on positioning only applies to the list-style widget.*
 
 The Widget is responsive 🎉, and will automagically fit stories into the space
 that it is given. For this to work, the desired width and height must be set on
@@ -65,10 +65,9 @@ size isset to 14px, one story will be exactly 14 times that value, in this case
 ### Additional options
 
 ```js
-window.stylaWidget = {
+new StylaWidget_List( {
     api         // (default: 'http://live.styla.com') base api url
     domain      // (default: false) if filled, this manually sets the base url for links
-    iframe      // (default: false) open links on parent frame (top)
     ignore      // (default: false) story id to ignore when rendering (generally
                 //      this represents the story that you're on)
     imageSize   // (default: 400) requested size (in pixels) of
@@ -79,7 +78,6 @@ window.stylaWidget = {
     linkDomain  // (default: false) domain to send links to.  this is ONLY
                 //      necessary on domains that do not use the domainConfig
     minWidth    // (default: 250) minimum width (in px) for the mount point of the widget
-    newTab      // (default: false) open links in a new tab
     offset      // (default: 0) amount of entries to skip
     slug        // (REQUIRED) Magazine name
     storiesApi  // (default: false) manually set the exact api address to get
@@ -88,26 +86,27 @@ window.stylaWidget = {
     category    // (default: false) Filter stories by category
     target      // (default: document.body) mount point of the widget. Accepts
                 //      DOM elements and selector strings
-};
+    cta         // (default: false) Add custom Call-To-Action string [cards layout only]
+} );
 ```
 
-use this snippet to include the Styla widget on your page. You can build more than one widget by simply adding it to the script, and picking your options
+Use this snippet to include the Styla widget on your page. You can build more
+than one widget by simply adding it to the script, and picking your options
 
 
 ```html
-    <script src="http://widget.styla.com/tiles.min.js"></script>
-    <script src="http://widget.styla.com/list.min.js"></script>
+    <script src="http://widget.styla.com/tiles.v2.min.js"></script>
+    <script src="http://widget.styla.com/list.v2.min.js"></script>
     <script>
         new StylaWidget_Tiles( {
             limit   : 10,
             offset  : 2,
-            slug    : 'uhrenschmuck24',
+            slug    : 'demo',
             target  : '.styla-widget__target'
         } );
 
-        new StylaWidge_List( {
-            newTab  : true,
-            slug    : 'braunhamburg',
+        new StylaWidget_List( {
+            slug    : 'demo',
             target  : '.styla-widget__target2'
         } );
     </script>
@@ -136,8 +135,24 @@ npm run build
 Releasing
 --------
 
-When you release a new verion, commit it to dev (keeps dev upto date), commit it to master, then commit it to release. It must be released from the `release` branch.  It is the *only* branch that commits the dist files
+When you release a new verion, commit it to dev (keeps dev upto date), commit it
+to master, then commit it to release. It must be released from the `release` branch.  
+It is the *only* branch that commits the dist files
 
+
+Versioning
+--------
+
+For each major version change the version number in the minified js file will
+increase. When the new version is committed to master and deployed to S3 they
+will not overwrite the older versions. Which means that clients must manually
+upgrade their implementations to use the later version of the widget.
+
+Note that the first versions (beta and 1) did not use versioning in the file name,
+so for example tiles.min.js represents the first version.
+
+The non-minified files do not include a version number and will always be
+overwritten with the edge version upon deploy.
 
 
 Contributing
@@ -154,6 +169,17 @@ This project adheres to the [Contributor Covenant](http://contributor-covenant.o
 
 Change log
 ==========
+
+### 2.1.0
+    + added support for links with hashtag navigation
+    + new feed API format
+
+### 2.0.0
+    + all layouts truncate text with ellipsis instead of using theme styling.
+    + cards layout includes custom Call-To-Action option
+    + removed iframe option
+    + removed newtab option
+    + adds tracking parameters to URL
 
 ### 1.3.3
     + fix release

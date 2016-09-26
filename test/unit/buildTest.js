@@ -4,7 +4,7 @@ import BaseWidget   from '/baseWidget'
 import classes      from '/classes';
 
 import domainConfig from '../domainConfig';
-import stories      from '../stories';
+import feed      from '../feed';
 
 
 import assert       from 'assert';
@@ -39,7 +39,7 @@ sinon.stub( Build.prototype.http, 'get', getStub );
 
 let stylaWidget = new BaseWidget( { target: document.body, slug: 'braunhamburg', domain: 'test' } );
 
-let build       = new Build( stylaWidget, JSON.stringify( stories ) );
+let build       = new Build( stylaWidget, JSON.stringify( stories.data.stories ) );
 
 
 /**
@@ -87,10 +87,10 @@ describe( 'buildHeadline', () =>
  */
 describe( 'buildImage', () =>
 {
-    let id              = stories.images[0].id;
+    let id              = feed.data.images[0].id;
 
     let images          = {};
-    stories.images.forEach( function( _i ){ images[ _i.id ] = _i; } );
+    feed.data.images.forEach( function( _i ){ images[ _i.id ] = _i; } );
 
     build.context.images = images;
 
@@ -146,7 +146,7 @@ describe( 'buildStories', () =>
     it( 'should return nothing if there are no images', () =>
     {
         let tempImages = build.context.stories.images;
-        build.context.stories.images = false;
+        build.context.stories.data.images = false;
 
         assert.equal( build.buildStories( JSON.stringify( domainConfig ) ), false, 'no images ' );
 
@@ -166,6 +166,8 @@ describe( 'buildStories', () =>
  */
 describe( 'buildStory', () =>
 {
+    build.domainConfig      = domainConfig;
+
     let id                  = Object.keys( stylaWidget.images )[0];
 
     let storyObj = {
@@ -177,7 +179,6 @@ describe( 'buildStory', () =>
 
     let story = build.buildStory( storyObj );
 
-
     it( 'should correctly build the story wrapper', () =>
     {
         assert.ok( story.nodeType === 1, 'Story wrapper is a dom element' );
@@ -185,7 +186,7 @@ describe( 'buildStory', () =>
     } );
 
 
-    it( 'should correctly build the story link', () =>
+    it( 'should build correct story link with hashtag navigation', () =>
     {
         let storyLink = story.childNodes;
         assert.equal( storyLink.length, 1, 'story has only one child' );
@@ -193,29 +194,36 @@ describe( 'buildStory', () =>
 
         assert.equal( storyLink.className, classes.STORY_LINK, 'storyLink has correct class name' );
 
-        let href = storyLink.href.replace( /^https?:/, '' )
-        assert.equal( href, `//test/story/externalPermalink`, 'storyLink has correct href' );
+        let href = storyLink.href.replace( /^https?:/, '' );
+        assert.equal( href, `//test/story/externalPermalink?styla_ref=about%3Ablank&styla_wdgt_var=Styla-widget-format-goes-here`, 'storyLink has correct href' );
     } );
 
-
-
-    it( 'should adjust it\'s link to consider build options', () =>
+    it( 'should build correct story link with pushstate', () =>
     {
-        build.context.newTab = true;
+        build.domainConfig.embed.pushstateDefault = true;
         story = build.buildStory( storyObj );
-        let storyLink = story.childNodes[0];
 
-        assert.equal( storyLink.getAttribute( `target` ), `_blank`, `newTab gets target="_blank"` );
-        build.context.newTab = false;
+        let storyLink   = story.childNodes;
+        storyLink       = storyLink[0];
+        let href        = storyLink.href.replace( /^https?:/, '' );
 
+        assert.equal( href, `//test/story/externalPermalink?styla_ref=about%3Ablank&styla_wdgt_var=Styla-widget-format-goes-here`, 'storyLink has correct href' );
 
-        build.context.iframe = true;
-        story = build.buildStory( storyObj );
-        storyLink = story.childNodes[0];
-
-        assert.equal( storyLink.getAttribute( `target` ), `_top`, `iframe gets target="_top"` );
-        build.context.iframe = false;
+        build.domainConfig      = domainConfig;
     } );
+
+    it( 'should build the Call-To-Action', () =>
+    {
+        build.context.cta = 'boop';
+        story = build.buildStory( storyObj );
+
+        let storyLink = story.childNodes;
+
+        assert.equal( storyLink[0].childNodes[2].className, 'styla-widget__calltoaction', 'Call To Action element exists' );
+        assert.equal( storyLink[0].childNodes[2].innerHTML, 'boop', 'Call to Action element is displaying the correct text' );
+        build.context.cta = false;
+    } );
+
 } );
 
 

@@ -45,6 +45,11 @@
     object-fit:                         cover;
 }
 
+#styla-widget.cards .styla-widget__textwrap
+{
+    width:                              100%;
+}
+
 #styla-widget.cards .styla-widget__headline
 {
     font-size:                          1.5em;
@@ -53,4 +58,14 @@
 #styla-widget.cards .styla-widget__paragraph
 {
     max-height:                         6em;
+}
+
+#styla-widget.cards .styla-widget__calltoaction
+{
+    line-height:                        2em;
+}
+
+#styla-widget.cards .styla-widget__calltoaction:hover
+{
+    text-decoration:                    underline;
 }

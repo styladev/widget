@@ -150,6 +150,8 @@ var StylaWidget = function () {
         var tag = _ref$tag === undefined ? false : _ref$tag;
         var _ref$category = _ref.category;
         var category = _ref$category === undefined ? false : _ref$category;
+        var _ref$cta = _ref.cta;
+        var cta = _ref$cta === undefined ? false : _ref$cta;
         var _ref$target = _ref.target;
         var target = _ref$target === undefined ? document.body : _ref$target;
 
@@ -166,18 +168,17 @@ var StylaWidget = function () {
         this.api = api;
         this.domain = domain;
         this.linkDomain = linkDomain;
-        this.iframe = iframe;
         this.ignore = ignore;
 
         this.limit = limit = ignore ? limit + 1 : limit;
         this.minWidth = minWidth;
-        this.newTab = newTab;
         this.offset = offset;
         this.imageSize = imageSize;
         this.slug = slug;
         this.storiesApi = storiesApi;
         this.tag = tag;
         this.category = category;
+        this.cta = cta;
         this.target = target;
 
         if (tag !== false && category !== false) {
@@ -364,7 +365,7 @@ var Build = function () {
 
             var images = {};
             var context = this.context;
-            var stories = context.stories;
+            var stories = context.stories.data;
             var resImages = stories.images;
             var refs = context.refs;
 
@@ -421,18 +422,23 @@ var Build = function () {
                 var story = create('div', _classes2.default.STORY);
                 var storyLink = create('a', _classes2.default.STORY_LINK);
 
-                storyLink.href = '//' + context.domain + '/story/' + externalPermalink;
+                var format = encodeURIComponent(context.format);
+                var location = encodeURIComponent(window.location.href);
 
-                if (context.newTab) {
-                    storyLink.setAttribute('target', '_blank');
-                } else if (context.iframe) {
-                    storyLink.setAttribute('target', '_top');
-                }
+                storyLink.href = '//' + context.domain + '/story/' + externalPermalink + '?styla_ref=' + location + '&styla_wdgt_var=' + format;
 
                 story.appendChild(storyLink);
 
                 storyLink.appendChild(this.buildImage(images, title));
                 storyLink.appendChild(this.buildStoryText(title, description));
+
+                if (context.cta) {
+                    var callToAction = create('div', _classes2.default.CALLTOACTION);
+
+                    callToAction.innerHTML = context.cta;
+
+                    storyLink.appendChild(callToAction);
+                }
 
                 var container = context.refs.container;
                 var wrapper = context.refs.wrapper;
@@ -527,7 +533,7 @@ var Build = function () {
             var context = this.context;
 
             if (theme) {
-                css = '#styla-widget .styla-widget-' + now + ' .' + _classes2.default.HEADLINE + '\n                {\n                    font-family:        ' + theme.hff + ';\n                    font-weight:        ' + theme.hfw + ';\n                    font-style:         ' + theme.hfs + ';\n                    text-decoration:    ' + theme.htd + ';\n                    letter-spacing:     ' + theme.hls + ';\n                    color:              ' + theme.htc + ';\n                }\n                #styla-widget .styla-widget-' + now + ' .' + _classes2.default.PARAGRAPH + ', \n                #styla-widget .styla-widget-' + now + ' .' + _classes2.default.PARAGRAPH_AFTER + '\n                {\n                    font-family:        ' + theme.sff + ';\n                    font-weight:        ' + theme.sfw + ';\n                    color:              ' + theme.stc + ';\n                }\n                #styla-widget .styla-widget-' + now + ' .' + _classes2.default.PARAGRAPH_AFTER + ':after\n                {\n                    content:            \'' + theme.strm + '\';\n                    font-weight:        ' + theme.strmw + ';\n                    text-decoration:    ' + theme.strmd + ';\n                }';
+                css = '#styla-widget .styla-widget-' + now + ' .' + _classes2.default.HEADLINE + '\n                {\n                    font-family:        ' + theme.hff + ';\n                    font-weight:        ' + theme.hfw + ';\n                    font-style:         ' + theme.hfs + ';\n                    text-decoration:    ' + theme.htd + ';\n                    letter-spacing:     ' + theme.hls + ';\n                    color:              ' + theme.htc + ';\n                }\n                #styla-widget .styla-widget-' + now + ' .' + _classes2.default.PARAGRAPH + ',\n                #styla-widget .styla-widget-' + now + ' .' + _classes2.default.PARAGRAPH_AFTER + ',\n                #styla-widget .styla-widget-' + now + ' .' + _classes2.default.CALLTOACTION + '\n                {\n                    font-family:        ' + theme.sff + ';\n                    font-weight:        ' + theme.sfw + ';\n                    color:              ' + theme.stc + ';\n                }\n                #styla-widget .styla-widget-' + now + ' .' + _classes2.default.CALLTOACTION + '\n                {\n                    color:              ' + theme.ltc + ';\n                }';
             }
 
             var el = this.buildStyleTag(css);
@@ -800,12 +806,14 @@ module.exports = {
     STYLES: 'styla-widget__styling',
     TEXT_WRAPPER: 'styla-widget__textwrap',
     THEME_STYLES: 'styla-widget__theme-styling',
-    WRAPPER: 'styla-widget__wrapper'
+    TITLE: 'styla-widget__title',
+    WRAPPER: 'styla-widget__wrapper',
+    CALLTOACTION: 'styla-widget__calltoaction'
 };
 
 },{}],5:[function(require,module,exports){
 'use strict';
 
-module.exports = '1.3.3';
+module.exports = '2.1.0';
 
 },{}]},{},[2]);

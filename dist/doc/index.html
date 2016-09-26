@@ -56,11 +56,11 @@
   <div class="details">
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>"Mouse Braun <a href="m&#97;&#105;&#108;&#x74;&#x6F;:&#x6D;&#111;&#117;&#x73;&#x65;&#64;&#x73;&#x74;&#121;&#x6C;&#97;.&#99;o&#109;">&#x6D;&#111;&#117;&#x73;&#x65;&#64;&#x73;&#x74;&#121;&#x6C;&#97;.&#99;o&#109;</a>"</span>
+      <span>"Mouse Braun <a href="&#109;&#x61;&#x69;&#108;&#x74;&#x6F;:&#109;&#111;&#x75;&#x73;&#101;&#x40;&#x73;&#x74;&#x79;l&#x61;&#x2E;&#99;&#111;&#109;">&#109;&#111;&#x75;&#x73;&#101;&#x40;&#x73;&#x74;&#x79;l&#x61;&#x2E;&#99;&#111;&#109;</a>"</span>
     </div>
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>"Elias Liedholm <a href="&#x6D;&#97;&#105;&#x6C;t&#111;:&#x65;&#x6C;&#105;&#x61;&#115;&#x40;&#115;&#x74;&#121;&#x6C;&#x61;&#46;&#x63;&#x6F;&#x6D;">&#x65;&#x6C;&#105;&#x61;&#115;&#x40;&#115;&#x74;&#121;&#x6C;&#x61;&#46;&#x63;&#x6F;&#x6D;</a>"</span>
+      <span>"Elias Liedholm <a href="m&#97;&#105;l&#116;&#111;:&#x65;l&#x69;&#97;s&#64;s&#x74;&#121;&#108;&#x61;&#x2E;&#x63;&#111;&#x6D;">&#x65;l&#x69;&#97;s&#64;s&#x74;&#121;&#108;&#x61;&#x2E;&#x63;&#111;&#x6D;</a>"</span>
     </div>
   </div>
 </div>
@@ -233,6 +233,7 @@ defined target or a new selector / el</p>
                     <span class="nx">storiesApi</span>  <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
                     <span class="nx">tag</span>         <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
                     <span class="nx">category</span>    <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
+                    <span class="nx">cta</span>         <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
                     <span class="nx">target</span>      <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">body</span>
                     <span class="p">}</span> <span class="o">=</span> <span class="p">{}</span> <span class="p">)</span>
     <span class="p">{</span>
@@ -248,18 +249,17 @@ defined target or a new selector / el</p>
         <span class="k">this</span><span class="p">.</span><span class="nx">api</span>        <span class="o">=</span> <span class="nx">api</span><span class="p">;</span>
         <span class="k">this</span><span class="p">.</span><span class="nx">domain</span>     <span class="o">=</span> <span class="nx">domain</span><span class="p">;</span>
         <span class="k">this</span><span class="p">.</span><span class="nx">linkDomain</span> <span class="o">=</span> <span class="nx">linkDomain</span><span class="p">;</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">iframe</span>     <span class="o">=</span> <span class="nx">iframe</span><span class="p">;</span>
         <span class="k">this</span><span class="p">.</span><span class="nx">ignore</span>     <span class="o">=</span> <span class="nx">ignore</span><span class="p">;</span>
 
         <span class="k">this</span><span class="p">.</span><span class="nx">limit</span>      <span class="o">=</span> <span class="nx">limit</span> <span class="o">=</span> <span class="nx">ignore</span> <span class="o">?</span> <span class="nx">limit</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">:</span> <span class="nx">limit</span><span class="p">;</span>
         <span class="k">this</span><span class="p">.</span><span class="nx">minWidth</span>   <span class="o">=</span> <span class="nx">minWidth</span><span class="p">;</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">newTab</span>     <span class="o">=</span> <span class="nx">newTab</span><span class="p">;</span>
         <span class="k">this</span><span class="p">.</span><span class="nx">offset</span>     <span class="o">=</span> <span class="nx">offset</span><span class="p">;</span>
         <span class="k">this</span><span class="p">.</span><span class="nx">imageSize</span>  <span class="o">=</span> <span class="nx">imageSize</span><span class="p">;</span>
         <span class="k">this</span><span class="p">.</span><span class="nx">slug</span>       <span class="o">=</span> <span class="nx">slug</span><span class="p">;</span>
         <span class="k">this</span><span class="p">.</span><span class="nx">storiesApi</span> <span class="o">=</span> <span class="nx">storiesApi</span><span class="p">;</span>
         <span class="k">this</span><span class="p">.</span><span class="nx">tag</span>        <span class="o">=</span> <span class="nx">tag</span><span class="p">;</span>
         <span class="k">this</span><span class="p">.</span><span class="nx">category</span>   <span class="o">=</span> <span class="nx">category</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">cta</span>        <span class="o">=</span> <span class="nx">cta</span><span class="p">;</span>
         <span class="k">this</span><span class="p">.</span><span class="nx">target</span>     <span class="o">=</span> <span class="nx">target</span><span class="p">;</span>
 
         <span class="k">if</span> <span class="p">(</span> <span class="nx">tag</span> <span class="o">!==</span> <span class="kc">false</span> <span class="o">&amp;&amp;</span> <span class="nx">category</span> <span class="o">!==</span> <span class="kc">false</span> <span class="p">)</span> <span class="p">{</span>

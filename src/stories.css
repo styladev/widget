@@ -89,3 +89,9 @@
     width:                              100%;
     height:                             2em;
 }
+
+/* This design has no support for call to action */
+#styla-widget.stories .styla-widget__calltoaction
+{
+    display:                            none;
+}

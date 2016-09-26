@@ -23,5 +23,7 @@ module.exports = {
     STYLES              : 'styla-widget__styling',
     TEXT_WRAPPER        : 'styla-widget__textwrap',
     THEME_STYLES        : 'styla-widget__theme-styling',
-    WRAPPER             : 'styla-widget__wrapper'
+    TITLE               : 'styla-widget__title',
+    WRAPPER             : 'styla-widget__wrapper',
+    CALLTOACTION        : 'styla-widget__calltoaction'
 };
