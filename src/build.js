@@ -101,7 +101,7 @@ class Build
 
         let images      = {};
         let context     = this.context;
-        let stories     = context.stories;
+        let stories     = context.stories.data;
         let resImages   = stories.images;
         let refs        = context.refs;
 
@@ -153,9 +153,7 @@ class Build
             let format              = encodeURIComponent(context.format);
             let location            = encodeURIComponent(window.location.href);
 
-            let pushstate           = this.domainConfig.embed.pushstateDefault ? "/" : "#";
-
-            storyLink.href          = `//${context.domain}${ pushstate }story/${ externalPermalink }?styla_ref=${ location }&styla_wdgt_var=${ format }`;
+            storyLink.href          = `//${context.domain}/story/${externalPermalink}?styla_ref=${ location }&styla_wdgt_var=${ format }`;
 
             story.appendChild( storyLink );
 

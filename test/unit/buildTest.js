@@ -4,7 +4,7 @@ import BaseWidget   from '/baseWidget'
 import classes      from '/classes';
 
 import domainConfig from '../domainConfig';
-import stories      from '../stories';
+import feed      from '../feed';
 
 
 import assert       from 'assert';
@@ -39,7 +39,7 @@ sinon.stub( Build.prototype.http, 'get', getStub );
 
 let stylaWidget = new BaseWidget( { target: document.body, slug: 'braunhamburg', domain: 'test' } );
 
-let build       = new Build( stylaWidget, JSON.stringify( stories ) );
+let build       = new Build( stylaWidget, JSON.stringify( stories.data.stories ) );
 
 
 /**
@@ -87,10 +87,10 @@ describe( 'buildHeadline', () =>
  */
 describe( 'buildImage', () =>
 {
-    let id              = stories.images[0].id;
+    let id              = feed.data.images[0].id;
 
     let images          = {};
-    stories.images.forEach( function( _i ){ images[ _i.id ] = _i; } );
+    feed.data.images.forEach( function( _i ){ images[ _i.id ] = _i; } );
 
     build.context.images = images;
 
@@ -146,7 +146,7 @@ describe( 'buildStories', () =>
     it( 'should return nothing if there are no images', () =>
     {
         let tempImages = build.context.stories.images;
-        build.context.stories.images = false;
+        build.context.stories.data.images = false;
 
         assert.equal( build.buildStories( JSON.stringify( domainConfig ) ), false, 'no images ' );
 
@@ -195,7 +195,7 @@ describe( 'buildStory', () =>
         assert.equal( storyLink.className, classes.STORY_LINK, 'storyLink has correct class name' );
 
         let href = storyLink.href.replace( /^https?:/, '' );
-        assert.equal( href, `//test#story/externalPermalink?styla_ref=about%3Ablank&styla_wdgt_var=Styla-widget-format-goes-here`, 'storyLink has correct href' );
+        assert.equal( href, `//test/story/externalPermalink?styla_ref=about%3Ablank&styla_wdgt_var=Styla-widget-format-goes-here`, 'storyLink has correct href' );
     } );
 
     it( 'should build correct story link with pushstate', () =>
