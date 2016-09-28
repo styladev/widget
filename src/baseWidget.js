@@ -18,6 +18,9 @@ let format  = 'styla-widget-format-goes-here';
 format      = format[ 0 ].toUpperCase() + format.slice( 1 );
 
 
+/**
+ * StylaWidget base class
+ */
 class StylaWidget
 {
     /**
@@ -26,7 +29,9 @@ class StylaWidget
      * adds the previously configured widget to the currently
      * defined target or a new selector / el
      *
-     * @return _Void_
+     * @param {DOMElement} target mount target
+     *
+     * @return {Void} void
      */
     attach( target = this.target )
     {
@@ -59,7 +64,10 @@ class StylaWidget
      *
      * makes sure the target is a DOMelement and wide enough
      *
-     * @param {String or DOMElement} target attach point for the widget
+     * @param {Mixed} target attach point for the widget _String or DOMElement_
+     * @param {Number} minWidth minimum acceptable width to fit the widget
+     *
+     * @return {DOMElelemt} mount point
      */
     checkTarget( target, minWidth )
     {
@@ -75,13 +83,13 @@ class StylaWidget
 
         if ( typeof target === 'undefined' || target === null )
         {
-            console.error( 'Styla Widget error: Cant find target element in DOM. Widget will render directly in body' );
+            console.error( 'Styla Widget error: Cant find target element in DOM. Widget will render directly in body' ); // eslint-disable-line
 
             return document.body;
         }
         else if ( target.offsetWidth < minWidth )
         {
-            throw 'Styla Widget error: Target element too small to render widget ¯\\_(ツ)_/¯';
+            throw 'Styla Widget error: Target element too small to render widget ¯\\_(ツ)_/¯'; // eslint-disable-line
         }
 
         return target;
@@ -95,7 +103,7 @@ class StylaWidget
      *
      * @param {String} domain target domain to grab products from
      *
-     * @return _Object_ this
+     * @return {Object} this
      */
     constructor( {
                     slug,
@@ -113,6 +121,7 @@ class StylaWidget
                     tag         = false,
                     category    = false,
                     cta         = false,
+                    randomize,
                     target      = document.body
                     } = {} )
     {
@@ -143,31 +152,61 @@ class StylaWidget
         this.cta        = cta;
         this.target     = target;
 
+        const fetchLimit = randomize && limit < randomize ? randomize : limit;
+
         if ( tag !== false && category !== false )
         {
-            console.error( 'Styla Widget error: Both tag and category filter has been added to the configuration, but only one can be used, stories will be filtered only by tag.' );
+            console.error( 'Styla Widget error: Both tag and category filter has been added to the configuration, but only one can be used, stories will be filtered only by tag.' ); // eslint-disable-line
         }
 
         let url;
 
         if ( tag != false )
         {
-            url = `${api}/api/feeds/tags/${tag}?offset=${offset}&limit=${limit}&domain=${slug}`;
+            url = `${api}/api/feeds/tags/${tag}?offset=${offset}&limit=${fetchLimit}&domain=${slug}`; // eslint-disable-line
         }
         else if ( category != false )
         {
-            url = `${api}/api/feeds/boards/${category}/user/${slug}?domain=${slug}&offset=${offset}`;
+            url = `${api}/api/feeds/boards/${category}/user/${slug}?domain=${slug}&offset=${offset}`; // eslint-disable-line
         }
         else
         {
-            url = `${api}/api/feeds/all?domain=${slug}&offset=${offset}&limit=${limit}`;
+            url = `${api}/api/feeds/all?domain=${slug}&offset=${offset}&limit=${fetchLimit}`; // eslint-disable-line
         }
 
-        this.url        = url;
+        this.url = url;
 
-        this.http.get( storiesApi || url ).then( stories =>
+        this.http.get( storiesApi || url ).then( res =>
         {
-            new Build( this, stories );
+            res = JSON.parse( res );
+
+            /**
+             * ## removeOne
+             *
+             * recursive - checks if the array is over a limit, removes one,
+             * then checks if more need to be removed
+             *
+             * @param {Array} arr array to check the length of
+             * @param {Numbers} limit story count
+             *
+             * @return {Array} shortened array
+             */
+            function removeOne( arr, limit )
+            {
+                if ( arr.length <= limit )
+                {
+                    return arr;
+                }
+
+                const rand = Math.floor( Math.random() * arr.length );
+                arr.splice( rand, 1 );
+
+                return removeOne( arr, limit );
+            }
+
+            res.stories = removeOne( res.stories, limit );
+
+            new Build( this, res );
         } );
 
 
@@ -182,7 +221,7 @@ class StylaWidget
      *
      * removes the styla widget from the DOM
      *
-     * @return _Void_
+     * @return {Void} void
      */
     destroy()
     {

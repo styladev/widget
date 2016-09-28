@@ -79,6 +79,7 @@ new StylaWidget_List( {
                 //      necessary on domains that do not use the domainConfig
     minWidth    // (default: 250) minimum width (in px) for the mount point of the widget
     offset      // (default: 0) amount of entries to skip
+    randomize   // (default: 5) gives a random [limit] stories from the first [randomize] results
     slug        // (REQUIRED) Magazine name
     storiesApi  // (default: false) manually set the exact api address to get
                 //      stories from
@@ -136,7 +137,7 @@ Releasing
 --------
 
 When you release a new verion, commit it to dev (keeps dev upto date), commit it
-to master, then commit it to release. It must be released from the `release` branch.  
+to master, then commit it to release. It must be released from the `release` branch.
 It is the *only* branch that commits the dist files
 
 

@@ -21,6 +21,9 @@ const wrapperID         = 'styla-widget';
 const reportError      =  e => console.error( 'err', e );
 
 
+/**
+ * StylaWidget build tools
+ */
 class Build
 {
     /**
@@ -99,12 +102,12 @@ class Build
 
         if ( Object.keys( domainConfigParsed ).length === 0 )
         {
-            throw 'Styla Widget error: Could not find magazine, please check if slug is configured correctly.';
+            throw 'Styla Widget error: Could not find magazine, please check if slug is configured correctly.'; // eslint-disable-line
         }
 
         const images      = {};
         const context     = this.context;
-        const stories     = context.stories.data;
+        const stories     = context.stories;
         const resImages   = stories.images;
         const refs        = context.refs;
 
@@ -134,8 +137,9 @@ class Build
     /**
      * ## buildStory
      *
-     * builds each story off the retrieved json.  skips a story if the id matches ignore.
-     * no matter what it will always build the number of stories set in the limit
+     * builds each story off the retrieved json.  skips a story if the id #
+     * matches ignore.  no matter what it will always build the number of
+     * stories set in the limit
      *
      * @param {Object} json image data
      * @param {Number} i iterator
@@ -157,7 +161,7 @@ class Build
             const format    = encodeURIComponent( context.format );
             const location  = encodeURIComponent( window.location.href );
 
-            storyLink.href  = `//${context.domain}/story/${externalPermalink}?styla_ref=${location}&styla_wdgt_var=${format}`;
+            storyLink.href  = `//${context.domain}/story/${externalPermalink}?styla_ref=${location}&styla_wdgt_var=${format}`; // eslint-disable-line
 
             story.appendChild( storyLink );
 
@@ -287,8 +291,8 @@ class Build
                 }`;
         }
 
-        const el          = this.buildStyleTag( css );
-        el.className    = `${classes.THEME_STYLES}  styla-widget__${context.format}`;
+        const el        = this.buildStyleTag( css );
+        el.className    = `${classes.THEME_STYLES}  styla-widget__${context.format}`; // eslint-disable-line
 
         context.refs.themeStyle = el;
 
@@ -302,6 +306,9 @@ class Build
      * builds build
      *
      * @param {Object} context context to be passed to this.context
+     * @param {String} stories json string of the stories object
+     *
+     * @return {Class} instance of build class
      */
     constructor( context, stories )
     {
@@ -314,12 +321,12 @@ class Build
 
         if ( !context.refs.wrapper )
         {
-            context.stories = JSON.parse( stories );
-            const format      = context.format.toLowerCase();
+            context.stories = stories;
+            const format    = context.format.toLowerCase();
 
             context.refs.container = this.create( 'DIV',
                             `${classes.CONTAINER}  styla-widget-${this.now}` );
-            const wrapper     = context.refs.wrapper   = this.create( 'DIV',
+            const wrapper   = context.refs.wrapper   = this.create( 'DIV',
                                             `${classes.WRAPPER}  ${format}` );
             wrapper.id      = wrapperID;
 
@@ -395,9 +402,9 @@ class Build
      * uses the filename and size to create the full image url
      *
      * @param {String} filename from the image data object
-     * @param {Number or String} imageSize width to grab from the server
+     * @param {Mixed} imageSize width to grab from the server _Number or String_
      *
-     * @return _String_ file name
+     * @return {String} file name
      */
     getImageUrl( filename, imageSize = 400 )
     {
@@ -410,6 +417,8 @@ class Build
      *
      * creates the base styles DOM element and adds it to the head
      *
+     * @param {String} css style in css for tag insertion
+     *
      * @return {Void} void
      */
     includeBaseStyles( css )
@@ -420,22 +429,32 @@ class Build
         const formatCaps  = context.format.toUpperCase();
         const head        = document.head;
 
-        function addBaseStyle( css, _class, _format )
+        /**
+         * ## addBaseStyle
+         *
+         * @param {String} css style in css for tag insertion
+         * @param {String} clss class to add to the baseStyle tag
+         * @param {String} format end format of the widget
+         *
+         * @return {DOMElement} style tag
+         */
+        function addBaseStyle( css, clss, format )
         {
-            const baseStyle = head.querySelector( `.${_class}` );
+            const baseStyle = head.querySelector( `.${clss}` );
 
             if ( !baseStyle )
             {
                 el              = self.buildStyleTag( css );
-                el.className    = `${_class}  ${classes.STYLES}`;
+                el.className    = `${clss}  ${classes.STYLES}`;
 
-                context.refs[ `${_format}Style` ] = el;
+                context.refs[ `${format}Style` ] = el;
 
                 head.appendChild( el );
             }
 
             return el;
         }
+
 
         let arr = new Array( 2 );
 
@@ -489,7 +508,7 @@ class Build
      *
      * takes pieces of the domainConfig and builds the domain
      *
-     * @return _String_ domain address
+     * @return {String} domain address
      */
     setDomain()
     {
@@ -517,7 +536,7 @@ class Build
             }
             else
             {
-                throw 'Styla Widget error: No domain defined or bad domain config.';
+                throw 'Styla Widget error: No domain defined or bad domain config.'; // eslint-disable-line
             }
 
             domain = domain.replace( /^(http(s)?:)?\/\//, '' );
