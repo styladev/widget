@@ -1,4 +1,4 @@
-
+/* globals document, console, window */
 /**
  * Styla bite-sized widget
  *
@@ -14,8 +14,8 @@ import Build    from '/build';
 
 import { http } from 'microbejs/dist/microbe.http.min';
 
-let format  = `styla-widget-format-goes-here`;
-format      = format[0].toUpperCase() + format.slice( 1 );
+let format  = 'styla-widget-format-goes-here';
+format      = format[ 0 ].toUpperCase() + format.slice( 1 );
 
 
 class StylaWidget
@@ -32,11 +32,11 @@ class StylaWidget
     {
         target      = this.checkTarget( target, this.minWidth );
 
-        let refs    = this.refs;
-        let styles  = refs.styles;
-        let head    = document.head;
+        const refs    = this.refs;
+        const styles  = refs.styles;
+        const head    = document.head;
 
-        let baseStyle = head.querySelector( `.${classes.BASE_STYLES}` );
+        const baseStyle = head.querySelector( `.${classes.BASE_STYLES}` );
 
         if ( baseStyle )
         {
@@ -63,7 +63,7 @@ class StylaWidget
      */
     checkTarget( target, minWidth )
     {
-        if ( typeof target === `string` )
+        if ( typeof target === 'string' )
         {
             target = document.querySelector( target );
 
@@ -73,14 +73,15 @@ class StylaWidget
             }
         }
 
-        if ( typeof target === `undefined` || target === null )
+        if ( typeof target === 'undefined' || target === null )
         {
-            console.error( `Styla Widget error: Cant find target element in DOM. Widget will render directly in body` );
+            console.error( 'Styla Widget error: Cant find target element in DOM. Widget will render directly in body' );
+
             return document.body;
         }
         else if ( target.offsetWidth < minWidth )
         {
-            throw `Styla Widget error: Target element too small to render widget ¯\\_(ツ)_/¯`;
+            throw 'Styla Widget error: Target element too small to render widget ¯\\_(ツ)_/¯';
         }
 
         return target;
@@ -119,7 +120,7 @@ class StylaWidget
 
         if ( !slug )
         {
-            throw `Styla Widget error: No slug defined, cannot render widget`;
+            throw 'Styla Widget error: No slug defined, cannot render widget';
         }
 
         this.format     = format;
@@ -128,6 +129,8 @@ class StylaWidget
         this.domain     = domain;
         this.linkDomain = linkDomain;
         this.ignore     = ignore;
+        this.iframe     = iframe;
+        this.newTab     = newTab;
 
         this.limit      = limit = ignore ? limit + 1 : limit;
         this.minWidth   = minWidth;
@@ -140,8 +143,9 @@ class StylaWidget
         this.cta        = cta;
         this.target     = target;
 
-        if ( tag !== false && category !== false ) {
-            console.error( `Styla Widget error: Both tag and category filter has been added to the configuration, but only one can be used, stories will be filtered only by tag.` );
+        if ( tag !== false && category !== false )
+        {
+            console.error( 'Styla Widget error: Both tag and category filter has been added to the configuration, but only one can be used, stories will be filtered only by tag.' );
         }
 
         let url;
@@ -161,13 +165,15 @@ class StylaWidget
 
         this.url        = url;
 
-        this.http.get( storiesApi || url ).then( stories =>
+        this.http.get( storiesApi || url ).then( stories =>
         {
-            let build = new Build( this, stories );
+            new Build( this, stories );
         } );
 
 
-        Object.defineProperty( this, 'version', { value : version } );
+        Object.defineProperty( this, 'version', {
+            value : version
+        } );
     }
 
 
@@ -180,10 +186,10 @@ class StylaWidget
      */
     destroy()
     {
-        let refs    = this.refs;
-        let styles  = refs.styles;
-        let wrapper = refs.wrapper;
-        let head    = document.head;
+        const refs    = this.refs;
+        const styles  = refs.styles;
+        const wrapper = refs.wrapper;
+        const head    = document.head;
 
         wrapper.parentNode.removeChild( wrapper );
 
@@ -194,12 +200,14 @@ class StylaWidget
 
         return this;
     }
-};
+}
 
 StylaWidget.prototype.http = http;
 
 window[ `StylaWidget_${format}` ] = StylaWidget;
 
-Object.defineProperty( StylaWidget, 'version', { value : version } );
+Object.defineProperty( StylaWidget, 'version', {
+    value : version
+} );
 
 export default StylaWidget;
