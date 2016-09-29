@@ -22,31 +22,6 @@ const refs = stylaWidget.refs;
 
 
 /**
- * ## destroy
- *
- * removes the styla widget from the DOM
- *
- * @return _Void_
- */
-describe( 'destroy', () =>
-{
-    it( 'should remove the widget from the DOM', () =>
-    {
-        stylaWidget.destroy();
-
-        const parent  = refs.wrapper.parentNode;
-        assert.equal( parent, null );
-
-        refs.styles.forEach( el =>
-        {
-            const parent  = el.parentNode;
-            assert.equal( parent, null );
-        } );
-    } );
-} );
-
-
-/**
  * ## attach
  *
  * adds the styla widget to the DOM
@@ -163,6 +138,7 @@ describe( 'constructor', () =>
         assert.equal( stylaWidget.url, 'https://live.styla.com/api/feeds/tags/moon?offset=0&limit=5&domain=braunhamburg' );
     } );
 
+
     it( 'should be able to build using the category feed', () =>
     {
         const stylaWidget = new BaseWidget( {
@@ -171,6 +147,7 @@ describe( 'constructor', () =>
         } );
         assert.equal( stylaWidget.url, 'https://live.styla.com/api/feeds/boards/2262/user/braunhamburg?domain=braunhamburg&offset=0' );
     } );
+
 
     it( 'should throw a console error if both tag and category is set', () =>
     {
@@ -189,6 +166,21 @@ describe( 'constructor', () =>
         console.error.restore();
 
     } );
+
+
+
+    it( 'should be able to randomize the results slightly', () =>
+    {
+        const stylaWidget = new BaseWidget( {
+            slug        : 'braunhamburg',
+            tag         : 'moon',
+            randomize   : 10,
+            limit       : 5
+        } );
+
+        assert.equal( stylaWidget.url, 'https://live.styla.com/api/feeds/tags/moon?offset=0&limit=10&domain=braunhamburg' );
+    } );
+
 
     it( 'should set the correct defaults', () =>
     {
@@ -209,6 +201,29 @@ describe( 'constructor', () =>
         assert.equal( stylaWidget.target, document.body );
         assert.equal( stylaWidget.cta, false );
     } );
+} );
 
 
+/**
+ * ## destroy
+ *
+ * removes the styla widget from the DOM
+ *
+ * @return _Void_
+ */
+describe( 'destroy', () =>
+{
+    it( 'should remove the widget from the DOM', () =>
+    {
+        stylaWidget.destroy();
+
+        const parent  = refs.wrapper.parentNode;
+        assert.equal( parent, null );
+
+        refs.styles.forEach( el =>
+        {
+            const parent  = el.parentNode;
+            assert.equal( parent, null );
+        } );
+    } );
 } );

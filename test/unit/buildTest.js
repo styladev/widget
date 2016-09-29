@@ -200,8 +200,10 @@ describe( 'buildStory', () =>
         images              : [ {
             id : id
         } ],
+        id                  : 666,
         externalPermalink   : 'externalPermalink'
     };
+
 
     let story = build.buildStory( storyObj );
 
@@ -226,6 +228,7 @@ describe( 'buildStory', () =>
         assert.equal( href, '//test/story/externalPermalink?styla_ref=about%3Ablank&styla_wdgt_var=Styla-widget-format-goes-here', 'storyLink has correct href' ); // eslint-disable-line
     } );
 
+
     it( 'should build correct story link with pushstate', () =>
     {
         build.domainConfig.embed.pushstateDefault = true;
@@ -239,6 +242,7 @@ describe( 'buildStory', () =>
 
         build.domainConfig      = domainConfig;
     } );
+
 
     it( 'should build the Call-To-Action', () =>
     {
@@ -254,6 +258,14 @@ describe( 'buildStory', () =>
         build.context.cta = false;
     } );
 
+
+    it( 'should ignore a story with the passed ignore id', () =>
+    {
+        build.context.ignore = 666;
+        story = build.buildStory( storyObj );
+
+        assert.equal( story, false, 'story ignored' );
+    } );
 } );
 
 
