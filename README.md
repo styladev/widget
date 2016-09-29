@@ -18,7 +18,7 @@ slug `MAGAZINE_NAME` to match the name of the magazine.  This code *MUST* be ins
 the target element.  To be safe, our recommendation is to insert it after the body in the page
 
 ```html
-    <script src="http://widget.styla.com/tiles.min.js"></script>
+    <script src="http://widget.styla.com/tiles.v2.min.js"></script>
     <script>
         new StylaWidget_Tiles( {
             slug    : 'MAGAZINE_NAME',
