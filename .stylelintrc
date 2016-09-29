@@ -3,11 +3,9 @@
     "at-rule-blacklist": [],
     "at-rule-empty-line-before": "always",
     "at-rule-name-case": "lower",
-    "at-rule-name-newline-after": "always",
     "at-rule-name-space-after": "always",
     "at-rule-no-unknown": true,
     "at-rule-no-vendor-prefix": true,
-    "at-rule-whitelist": [],
     "block-closing-brace-newline-after": "always",
     "block-closing-brace-newline-before": "always",
     "block-no-empty": true,
@@ -65,7 +63,6 @@
     "media-query-list-comma-space-before": "always",
     "no-browser-hacks": true,
     "no-descending-specificity": true,
-    "no-duplicate-selectors": true,
     "no-empty-source": true,
     "no-eol-whitespace": true,
     "no-extra-semicolons": true,
@@ -77,9 +74,11 @@
     "property-blacklist": [],
     "property-case": "lower",
     "root-no-standard-properties": true,
-    "rule-nested-empty-line-before": "always",
+    "rule-nested-empty-line-before": ["always", {
+        "ignore": ["after-comment"]
+        }],
     "rule-non-nested-empty-line-before": ["always", {
-        "except": ["after-single-line-comment"]
+        "ignore": ["after-comment"]
         }],
     "selector-attribute-brackets-space-inside": "always",
     "selector-attribute-operator-blacklist": [],
@@ -110,7 +109,7 @@
     "unit-blacklist": [],
     "unit-case": "lower",
     "unit-no-unknown": true,
-    "value-list-comma-space-after": "always",
+    "value-list-comma-space-after": "always-single-line",
     "value-list-max-empty-lines": 2,
   }
 }
