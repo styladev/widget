@@ -1,3 +1,4 @@
+/* globals document, window */
 /**
  * ## this.js
  *
@@ -12,14 +13,19 @@ import { http } from 'microbejs/dist/microbe.http.min';
 /*
     exchanged for css in the gulp build
  */
-const baseStyles        = `styla-widget-css-goes-here`;
-const specificStyles    = `styla-build-specific-css-goes-here`;
-const wrapperID         = `styla-widget`;
+const baseStyles        = 'styla-widget-css-goes-here';
+const specificStyles    = 'styla-build-specific-css-goes-here';
+const wrapperID         = 'styla-widget';
 
 /* istanbul ignore next */
-const _reportError      = function( e ){ console.log( `err`, e ) };
+const reportError      =  () =>
+{
+};
 
 
+/**
+ * StylaWidget build tools
+ */
 class Build
 {
     /**
@@ -30,13 +36,13 @@ class Build
      *
      * @param {String} title story headline
      *
-     * @return _DOMElement_ headlineWrapper
+     * @return {DOMElement} headlineWrapper
      */
     buildHeadline( title )
     {
-        let create              = this.create;
-        let headlineWrapper     = create( `div`, classes.HEADLINE_WRAPPER );
-        let headline            = create( `h3`,  classes.HEADLINE );
+        const create              = this.create;
+        const headlineWrapper     = create( 'div', classes.HEADLINE_WRAPPER );
+        const headline            = create( 'h3',  classes.HEADLINE );
 
         headline.textContent    = title;
 
@@ -56,19 +62,20 @@ class Build
      * @param {String} title story headline
      * @param {Object} context sub for this.context - needed for testing
      *
-     * @return _DOMElement_ imageWrapper
+     * @return {DOMElement} imageWrapper
      */
     buildImage( images, title )
     {
-        let create              = this.create;
-        let imageWrapper        = create( `div`, classes.IMAGE_WRAPPER );
-        let imageSize           = this.context.imageSize;
-        let id                  = images[0].id;
-        let imgObj              = this.context.images[ id ];
+        const create              = this.create;
+        const imageWrapper        = create( 'div', classes.IMAGE_WRAPPER );
+        const imageSize           = this.context.imageSize;
+        const id                  = images[ 0 ].id;
+        const imgObj              = this.context.images[ id ];
 
-        let url                 = this.getImageUrl( imgObj.fileName, imageSize );
+        const url                 = this.getImageUrl( imgObj.fileName,
+                                                                    imageSize );
 
-        let image               = create( `img`, classes.IMAGE );
+        const image               = create( 'img', classes.IMAGE );
         image.src               = url;
         image.alt               = imgObj.caption || title;
         image.title             = title;
@@ -88,22 +95,23 @@ class Build
      * @param {String} domainConfig JSON response from the product api
      * @param {Object} parsedDomainConfig parsed JSON object for testing
      *
-     * @return _Void_
+     @return {DOMElement} wrapper element
      */
     buildStories( domainConfig = '{}' )
     {
-        let domainConfigParsed = this.domainConfig = JSON.parse( domainConfig );
+        const domainConfigParsed = this.domainConfig =
+                                                    JSON.parse( domainConfig );
 
         if ( Object.keys( domainConfigParsed ).length === 0 )
         {
-            throw `Styla Widget error: Could not find magazine, please check if slug is configured correctly.`;
+            throw 'Styla Widget error: Could not find magazine, please check if slug is configured correctly.'; // eslint-disable-line
         }
 
-        let images      = {};
-        let context     = this.context;
-        let stories     = context.stories.data;
-        let resImages   = stories.images;
-        let refs        = context.refs;
+        const images      = {};
+        const context     = this.context;
+        const stories     = context.stories;
+        const resImages   = stories.images;
+        const refs        = context.refs;
 
         context.domain  = this.setDomain();
 
@@ -112,11 +120,11 @@ class Build
         if ( resImages )
         {
 
-            resImages.forEach( function( _i ){ images[ _i.id ] = _i; });
+            resImages.forEach( i => images[ i.id ] = i );
             context.images  = images;
 
-            let _els        = stories.stories.map( this.buildStory );
-            let styling     = this.compileStyles();
+            stories.stories.forEach( this.buildStory );
+            const styling     = this.compileStyles();
 
             document.head.appendChild( styling );
             context.target.appendChild( context.refs.wrapper );
@@ -131,29 +139,31 @@ class Build
     /**
      * ## buildStory
      *
-     * builds each story off the retrieved json.  skips a story if the id matches ignore.
-     * no matter what it will always build the number of stories set in the limit
+     * builds each story off the retrieved json.  skips a story if the id #
+     * matches ignore.  no matter what it will always build the number of
+     * stories set in the limit
      *
      * @param {Object} json image data
      * @param {Number} i iterator
      *
-     * @return _DOMElement_ outer story element
+     * @return {DOMElement} outer story element
      */
     buildStory( { title, description, images, externalPermalink, id }, i = 0 )
     {
-        let context     = this.context;
+        const context     = this.context;
 
-        if ( `${context.ignore}` !== `${id}` && i < this.ignored + context.limit )
+        if ( `${context.ignore}` !== `${id}` &&
+                    i < this.ignored + context.limit )
         {
-            let create              = this.create;
+            const create    = this.create;
 
-            let story               = create( `div`,    classes.STORY );
-            let storyLink           = create( `a`,      classes.STORY_LINK );
+            const story     = create( 'div',    classes.STORY );
+            const storyLink = create( 'a',      classes.STORY_LINK );
 
-            let format              = encodeURIComponent(context.format);
-            let location            = encodeURIComponent(window.location.href);
+            const format    = encodeURIComponent( context.format );
+            const location  = encodeURIComponent( window.location.href );
 
-            storyLink.href          = `//${context.domain}/story/${externalPermalink}?styla_ref=${ location }&styla_wdgt_var=${ format }`;
+            storyLink.href  = `//${context.domain}/story/${externalPermalink}?styla_ref=${location}&styla_wdgt_var=${format}`; // eslint-disable-line
 
             story.appendChild( storyLink );
 
@@ -162,27 +172,25 @@ class Build
 
             if ( context.cta )
             {
-                let callToAction        = create( `div`,    classes.CALLTOACTION);
+                const callToAction = create( 'div', classes.CALL_TO_ACTION );
 
-                callToAction.innerHTML  = ( context.cta );
+                callToAction.innerHTML  =  context.cta ;
 
                 storyLink.appendChild( callToAction );
             }
 
-            let container   = context.refs.container;
-            let wrapper     = context.refs.wrapper;
+            const container   = context.refs.container;
+            const wrapper     = context.refs.wrapper;
 
             container.appendChild( story );
             wrapper.appendChild( container );
 
             return story;
         }
-        else
-        {
-            this.ignored++;
 
-            return false;
-        }
+        this.ignored++;
+
+        return false;
     }
 
 
@@ -195,17 +203,17 @@ class Build
      * @param {String} title story headline
      * @param {String} description copy of the story to be inserted
      *
-     * @return _DOMElement_ style element
+     * @return {DOMElement} style element
      */
     buildStoryText( title, description = '{}' )
     {
-        let create          = this.create;
-        let textWrapper     = create( `div`,    classes.TEXT_WRAPPER );
+        const create          = this.create;
+        const textWrapper     = create( 'div',    classes.TEXT_WRAPPER );
 
-        let headlineWrapper = this.buildHeadline( title );
+        const headlineWrapper = this.buildHeadline( title );
         textWrapper.appendChild( headlineWrapper );
 
-        let paragraph       = create( `div`,    classes.PARAGRAPH );
+        const paragraph       = create( 'div',    classes.PARAGRAPH );
         description         = this.getDescription( JSON.parse( description ) );
 
         if ( description )
@@ -216,7 +224,7 @@ class Build
 
         textWrapper.appendChild( paragraph );
 
-        let paragraphAfter  = create( `div`,    classes.PARAGRAPH_AFTER );
+        const paragraphAfter  = create( 'div',    classes.PARAGRAPH_AFTER );
         textWrapper.appendChild( paragraphAfter );
 
         return textWrapper;
@@ -230,15 +238,15 @@ class Build
      *
      * @param {String} css styles to add to the created tag
      *
-     * @return _DOMElement_ style element
+     * @return {DOMElement} style element
      */
     buildStyleTag( css )
     {
-        let el          = document.createElement( `style` );
-        el.type         = `text/css`;
+        const el          = document.createElement( 'style' );
+        el.type         = 'text/css';
         el.className    = classes.STYLES;
 
-        let t   = document.createTextNode( css );
+        const t   = document.createTextNode( css );
         el.appendChild( t );
 
         return el;
@@ -250,14 +258,14 @@ class Build
      *
      * compiles the styles and returns them added to the style tag
      *
-     * @return _DOMElement_ style element
+     * @return {DOMElement} style element
      */
     compileStyles()
     {
-        let theme   = this.domainConfig.theme;
-        let css     = ``;
-        let now     = this.now;
-        let context = this.context;
+        const theme   = this.domainConfig.theme;
+        let css     = '';
+        const now     = this.now;
+        const context = this.context;
 
         if ( theme )
         {
@@ -285,8 +293,8 @@ class Build
                 }`;
         }
 
-        let el          = this.buildStyleTag( css );
-        el.className    = `${classes.THEME_STYLES}  styla-widget__${context.format}`;
+        const el        = this.buildStyleTag( css );
+        el.className    = `${classes.THEME_STYLES}  styla-widget__${context.format}`; // eslint-disable-line
 
         context.refs.themeStyle = el;
 
@@ -300,6 +308,9 @@ class Build
      * builds build
      *
      * @param {Object} context context to be passed to this.context
+     * @param {String} stories json string of the stories object
+     *
+     * @return {Class} instance of build class
      */
     constructor( context, stories )
     {
@@ -312,16 +323,20 @@ class Build
 
         if ( !context.refs.wrapper )
         {
-            context.stories = JSON.parse( stories );
-            let format      = context.format.toLowerCase();
+            context.stories = stories;
+            const format    = context.format.toLowerCase();
 
-            context.refs.container = this.create( `DIV`, `${classes.CONTAINER}  styla-widget-${this.now}` );
-            let wrapper     = context.refs.wrapper   = this.create( `DIV`, `${classes.WRAPPER}  ${format}` );
+            context.refs.container = this.create( 'DIV',
+                            `${classes.CONTAINER}  styla-widget-${this.now}` );
+            const wrapper   = context.refs.wrapper   = this.create( 'DIV',
+                                            `${classes.WRAPPER}  ${format}` );
             wrapper.id      = wrapperID;
 
-            let domainConfigAPI   = `${context.api}/api/config/${context.slug}`;
+            const domainConfigAPI = `${context.api}/api/config/${context.slug}`;
 
-            this.http.get( domainConfigAPI ).then( this.buildStories ).catch( _reportError );
+            this.http.get( domainConfigAPI )
+                        .then( this.buildStories )
+                        .catch( reportError );
         }
 
         return this;
@@ -336,18 +351,18 @@ class Build
      * @param {String} tag tagname
      * @param {String} clss className to add to the created element
      *
-     * @return _DOMElement_ newly created element
+     * @return {DOMElement} newly created element
      */
     create( tag, clss )
     {
-        let _el = document.createElement( tag.toUpperCase() );
+        const el = document.createElement( tag.toUpperCase() );
 
         if ( clss )
         {
-            _el.className = clss;
+            el.className = clss;
         }
 
-        return _el;
+        return el;
     }
 
 
@@ -359,22 +374,22 @@ class Build
      * @param {Array} arr array filled w/ content
      * @param {Number} i recursive index
      *
-     * @return _String or Boolean_ text content or false
+     * @return {Mixed} text content or false _String or Boolean_
      */
     getDescription( arr, i = 0 )
     {
-        let text        = arr[ i ];
+        const text        = arr[ i ];
 
         if ( !text )
         {
             return false;
         }
 
-        let el          = this.create( `div` );
+        const el          = this.create( 'div' );
         el.innerHTML    = text.content;
-        let actualText  = el.textContent;
+        const actualText  = el.textContent;
 
-        if ( text.type !== `text` || actualText === `` )
+        if ( text.type !== 'text' || actualText === '' )
         {
             return this.getDescription( arr, i + 1 );
         }
@@ -389,9 +404,9 @@ class Build
      * uses the filename and size to create the full image url
      *
      * @param {String} filename from the image data object
-     * @param {Number or String} imageSize width to grab from the server
+     * @param {Mixed} imageSize width to grab from the server _Number or String_
      *
-     * @return _String_ file name
+     * @return {String} file name
      */
     getImageUrl( filename, imageSize = 400 )
     {
@@ -404,26 +419,37 @@ class Build
      *
      * creates the base styles DOM element and adds it to the head
      *
-     * @return _Void_
+     * @param {String} css style in css for tag insertion
+     *
+     * @return {Void} void
      */
     includeBaseStyles( css )
     {
         let el;
-        let self        = this;
-        let context     = this.context;
-        let formatCaps  = context.format.toUpperCase();
-        let head        = document.head;
+        const self        = this;
+        const context     = this.context;
+        const formatCaps  = context.format.toUpperCase();
+        const head        = document.head;
 
-        function _addBaseStyle( css, _class, _format )
+        /**
+         * ## addBaseStyle
+         *
+         * @param {String} css style in css for tag insertion
+         * @param {String} clss class to add to the baseStyle tag
+         * @param {String} format end format of the widget
+         *
+         * @return {DOMElement} style tag
+         */
+        function addBaseStyle( css, clss, format )
         {
-            let baseStyle = head.querySelector( `.${_class}` );
+            const baseStyle = head.querySelector( `.${clss}` );
 
             if ( !baseStyle )
             {
                 el              = self.buildStyleTag( css );
-                el.className    = `${_class}  ${classes.STYLES}`;
+                el.className    = `${clss}  ${classes.STYLES}`;
 
-                context.refs[ `${_format}Style` ] = el;
+                context.refs[ `${format}Style` ] = el;
 
                 head.appendChild( el );
             }
@@ -431,10 +457,17 @@ class Build
             return el;
         }
 
+
         let arr = new Array( 2 );
 
-        arr[ 0 ] = _addBaseStyle( css || baseStyles, `${classes.BASE_STYLES}`, 'base' );
-        arr[ 1 ] = _addBaseStyle( specificStyles, classes[ `${formatCaps}_STYLES` ], context.format );
+        arr[ 0 ] = addBaseStyle( css || baseStyles,
+                                `${classes.BASE_STYLES}`,
+                                 'base'
+                            );
+        arr[ 1 ] = addBaseStyle( specificStyles,
+                                classes[ `${formatCaps}_STYLES` ],
+                                context.format
+                            );
 
 
         if ( this.domainConfig.embed.customFontUrl )
@@ -453,15 +486,15 @@ class Build
      *
      * includes the webfonts link element
      *
-     * @return _DOMElement_ link element
+     * @return {DOMElement} link element
      */
     includeFonts()
     {
-        let el          = document.createElement( `link` );
+        const el          = document.createElement( 'link' );
         el.className    = classes.FONT_LINK;
-        el.type         = `text/css`;
-        el.rel          = `stylesheet`;
-        let fontUrl     = this.domainConfig.embed.customFontUrl
+        el.type         = 'text/css';
+        el.rel          = 'stylesheet';
+        const fontUrl     = this.domainConfig.embed.customFontUrl;
         el.href         = fontUrl.indexOf( '//' ) !== -1 ?
                             fontUrl :
                             `//${fontUrl}`;
@@ -477,12 +510,12 @@ class Build
      *
      * takes pieces of the domainConfig and builds the domain
      *
-     * @return _String_ domain address
+     * @return {String} domain address
      */
     setDomain()
     {
-        let embed   = this.domainConfig.embed;
-        let context = this.context;
+        const embed   = this.domainConfig.embed;
+        const context = this.context;
 
         let domain;
 
@@ -492,23 +525,20 @@ class Build
             {
                 domain = context.linkDomain;
             }
+            else if ( embed )
+            {
+                let rootPath = embed.rootPath;
+
+                if ( rootPath[ 0 ] === '/' )
+                {
+                    rootPath = rootPath.slice( 1 );
+                }
+
+                domain = `${embed.magazineUrl}/${rootPath}`;
+            }
             else
             {
-                if ( embed )
-                {
-                    let rootPath = embed.rootPath;
-
-                    if ( rootPath[0] === '/' )
-                    {
-                        rootPath = rootPath.slice( 1 );
-                    }
-
-                    domain = `${embed.magazineUrl}/${rootPath}`;
-                }
-                else
-                {
-                    throw `Styla Widget error: No domain defined or bad domain config.`;
-                }
+                throw 'Styla Widget error: No domain defined or bad domain config.'; // eslint-disable-line
             }
 
             domain = domain.replace( /^(http(s)?:)?\/\//, '' );
@@ -518,7 +548,7 @@ class Build
 
         return context.domain;
     }
-};
+}
 
 
 Build.prototype.http = http;

@@ -1,4 +1,4 @@
 
-import versionTest      from './unit/versionTest';
-import buildTest        from './unit/buildTest';
-import baseWidgetTest   from './unit/baseWidgetTest';
+import './unit/versionTest';
+import './unit/buildTest';
+import './unit/baseWidgetTest';
