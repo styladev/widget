@@ -1,3 +1,4 @@
+/* globals describe, it, document, console */
 /*
  * no idea...   nothing working on this side.  maybe a jsdom issue?
  *
@@ -5,48 +6,19 @@
  *
  * https://github.com/tmpvar/jsdom/issues/1517
  */
-
-
-import Build        from '/build';
-import BaseWidget   from '/baseWidget'
-import version      from '/version';
-import classes      from '/classes';
+import BaseWidget   from '/baseWidget';
 
 import assert       from 'assert';
 import sinon        from 'sinon';
 
 
-let stylaWidget = new BaseWidget( { target: document.body,
-                                        slug: 'braunhamburg',
-                                        domain: 'test'
-                                    } );
-
-let refs = stylaWidget.refs;
-
-
-/**
- * ## destroy
- *
- * removes the styla widget from the DOM
- *
- * @return _Void_
- */
-describe( 'destroy', () =>
-{
-    it( 'should remove the widget from the DOM', () =>
-    {
-        stylaWidget.destroy();
-
-        let parent  = refs.wrapper.parentNode;
-        assert.equal( parent, null );
-
-        refs.styles.forEach( el =>
-        {
-            let parent  = el.parentNode;
-            assert.equal( parent, null );
-        } );
-    } );
+const stylaWidget = new BaseWidget( {
+    target : document.body,
+    slug   : 'braunhamburg',
+    domain : 'test'
 } );
+
+const refs = stylaWidget.refs;
 
 
 /**
@@ -62,12 +34,12 @@ describe( 'attach', () =>
     {
         stylaWidget.attach();
 
-        let parent  = refs.wrapper.parentNode;
+        const parent  = refs.wrapper.parentNode;
         assert.equal( parent.nodeType, 1 );
 
         refs.styles.forEach( el =>
         {
-            let parent  = el.parentNode;
+            const parent  = el.parentNode;
             assert.equal( parent.nodeType, 1 );
         } );
     } );
@@ -77,12 +49,12 @@ describe( 'attach', () =>
     {
         stylaWidget.attach( 'div' );
 
-        let parent  = refs.wrapper.parentNode;
+        const parent  = refs.wrapper.parentNode;
         assert.equal( parent.nodeType, 1 );
 
         refs.styles.forEach( el =>
         {
-            let parent  = el.parentNode;
+            const parent  = el.parentNode;
             assert.equal( parent.nodeType, 1 );
         } );
     } );
@@ -100,16 +72,18 @@ describe( 'checkTarget', () =>
 {
     it( 'should change a string into a DOM element', () =>
     {
-        let target = stylaWidget.checkTarget( 'body' );
+        const target = stylaWidget.checkTarget( 'body' );
         assert.deepEqual( document.body, target );
     } );
 
 
     it( 'should fallback to the body when no other element is supplied', () =>
     {
-        sinon.stub( console, 'error', () => {} );
+        sinon.stub( console, 'error', () =>
+        {
+        } );
 
-        let target = stylaWidget.checkTarget( 'moon' );
+        const target = stylaWidget.checkTarget( 'moon' );
         assert.deepEqual( document.body, target );
 
         console.error.restore();
@@ -119,7 +93,9 @@ describe( 'checkTarget', () =>
     it( 'should fail if the element width is under the min width', () =>
     {
         document.body.offsetWidth = 149;
-        assert.throws( function(){ stylaWidget.checkTarget( document.body, 250 ); }, `Styla Widget error: Target element too small to render widget ¯\\_(ツ)_/¯` );
+        assert.throws( () => stylaWidget.checkTarget( document.body, 250 ),
+                    `Styla Widget error: Target element too small
+                                    to render widget ¯\\_(ツ)_/¯` );
         document.body.offsetWidth = 260;
     } );
 } );
@@ -138,43 +114,79 @@ describe( 'constructor', () =>
 {
     it( 'should not build without a slug', () =>
     {
-        assert.throws( function(){ new BaseWidget() }, `Styla Widget error: No slug defined, cannot render widget` );
+        assert.throws( () => new BaseWidget(),
+                'Styla Widget error: No slug defined, cannot render widget' );
     } );
 
 
     it( 'should adds one to the limit if there is a story to ignore', () =>
     {
-        let stylaWidget = new BaseWidget( { slug: 'braunhamburg', ignore: 'khfvk' } );
+        const stylaWidget = new BaseWidget( {
+            slug   : 'braunhamburg',
+            ignore : 'khfvk'
+        } );
         assert.equal( stylaWidget.limit, 6 );
     } );
 
 
     it( 'should be able to build using the tag feed', () =>
     {
-        let stylaWidget = new BaseWidget( { slug: 'braunhamburg', tag: 'moon' } );
+        const stylaWidget = new BaseWidget( {
+            slug : 'braunhamburg',
+            tag  : 'moon'
+        } );
         assert.equal( stylaWidget.url, 'https://live.styla.com/api/feeds/tags/moon?offset=0&limit=5&domain=braunhamburg' );
     } );
 
+
     it( 'should be able to build using the category feed', () =>
     {
-        let stylaWidget = new BaseWidget( { slug: 'braunhamburg', category: '2262' } );
+        const stylaWidget = new BaseWidget( {
+            slug     : 'braunhamburg',
+            category : '2262'
+        } );
         assert.equal( stylaWidget.url, 'https://live.styla.com/api/feeds/boards/2262/user/braunhamburg?domain=braunhamburg&offset=0' );
     } );
 
-    it( 'should throw a console error if both tag and category is set' , () =>
-    {
-        sinon.stub( console, 'error', () => {} );
 
-        let stylaWidget = new BaseWidget( { slug: 'braunhamburg', tag: 'fussball', category: '2262' } );
-        assert.equal( console.error.callCount, 1 )
+    it( 'should throw a console error if both tag and category is set', () =>
+    {
+        sinon.stub( console, 'error', () =>
+        {
+        } );
+
+        new BaseWidget( {
+            slug     : 'braunhamburg',
+            tag      : 'fussball',
+            category : '2262'
+        } );
+
+        assert.equal( console.error.callCount, 1 );
 
         console.error.restore();
 
     } );
 
+
+
+    it( 'should be able to randomize the results slightly', () =>
+    {
+        const stylaWidget = new BaseWidget( {
+            slug        : 'braunhamburg',
+            tag         : 'moon',
+            randomize   : 10,
+            limit       : 5
+        } );
+
+        assert.equal( stylaWidget.url, 'https://live.styla.com/api/feeds/tags/moon?offset=0&limit=10&domain=braunhamburg' );
+    } );
+
+
     it( 'should set the correct defaults', () =>
     {
-        let stylaWidget = new BaseWidget( { slug: 'braunhamburg' } );
+        const stylaWidget = new BaseWidget( {
+            slug : 'braunhamburg'
+        } );
 
         assert.equal( stylaWidget.api, 'https://live.styla.com' );
         assert.equal( stylaWidget.ignore, false );
@@ -189,6 +201,29 @@ describe( 'constructor', () =>
         assert.equal( stylaWidget.target, document.body );
         assert.equal( stylaWidget.cta, false );
     } );
+} );
 
 
+/**
+ * ## destroy
+ *
+ * removes the styla widget from the DOM
+ *
+ * @return _Void_
+ */
+describe( 'destroy', () =>
+{
+    it( 'should remove the widget from the DOM', () =>
+    {
+        stylaWidget.destroy();
+
+        const parent  = refs.wrapper.parentNode;
+        assert.equal( parent, null );
+
+        refs.styles.forEach( el =>
+        {
+            const parent  = el.parentNode;
+            assert.equal( parent, null );
+        } );
+    } );
 } );
