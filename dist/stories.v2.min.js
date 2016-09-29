@@ -1,12 +1,12 @@
 /*!
- * Styla bite-sized widget v2.1.0
+ * Styla bite-sized widget v2.1.1
  * https://github.com/styladev/widget
  *
  * Copyright 2016 Styla GmbH and other contributors
  * Released under the MIT license
  * https://github.com/styladev/widget/blob/master/license.md
  *
- * Date: Mon Sep 26 2016
+ * Date: Thu Sep 29 2016
  * */
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 (function (global){
@@ -20,7 +20,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /* globals document, console, window */
 /**
  * Styla bite-sized widget
  *
@@ -51,6 +51,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var format = 'stories';
 format = format[0].toUpperCase() + format.slice(1);
 
+/**
+ * StylaWidget base class
+ */
+
 var StylaWidget = function () {
     _createClass(StylaWidget, [{
         key: 'attach',
@@ -61,7 +65,9 @@ var StylaWidget = function () {
          * adds the previously configured widget to the currently
          * defined target or a new selector / el
          *
-         * @return _Void_
+         * @param {DOMElement} target mount target
+         *
+         * @return {Void} void
          */
         value: function attach() {
             var target = arguments.length <= 0 || arguments[0] === undefined ? this.target : arguments[0];
@@ -92,7 +98,10 @@ var StylaWidget = function () {
          *
          * makes sure the target is a DOMelement and wide enough
          *
-         * @param {String or DOMElement} target attach point for the widget
+         * @param {Mixed} target attach point for the widget _String or DOMElement_
+         * @param {Number} minWidth minimum acceptable width to fit the widget
+         *
+         * @return {DOMElelemt} mount point
          */
 
     }, {
@@ -107,10 +116,11 @@ var StylaWidget = function () {
             }
 
             if (typeof target === 'undefined' || target === null) {
-                console.error('Styla Widget error: Cant find target element in DOM. Widget will render directly in body');
+                console.error('Styla Widget error: Cant find target element in DOM. Widget will render directly in body'); // eslint-disable-line
+
                 return document.body;
             } else if (target.offsetWidth < minWidth) {
-                throw 'Styla Widget error: Target element too small to render widget ¯\\_(ツ)_/¯';
+                throw 'Styla Widget error: Target element too small to render widget ¯\\_(ツ)_/¯'; // eslint-disable-line
             }
 
             return target;
@@ -123,7 +133,7 @@ var StylaWidget = function () {
          *
          * @param {String} domain target domain to grab products from
          *
-         * @return _Object_ this
+         * @return {Object} this
          */
 
     }]);
@@ -162,6 +172,7 @@ var StylaWidget = function () {
         var category = _ref$category === undefined ? false : _ref$category;
         var _ref$cta = _ref.cta;
         var cta = _ref$cta === undefined ? false : _ref$cta;
+        var randomize = _ref.randomize;
         var _ref$target = _ref.target;
         var target = _ref$target === undefined ? document.body : _ref$target;
 
@@ -179,6 +190,8 @@ var StylaWidget = function () {
         this.domain = domain;
         this.linkDomain = linkDomain;
         this.ignore = ignore;
+        this.iframe = iframe;
+        this.newTab = newTab;
 
         this.limit = limit = ignore ? limit + 1 : limit;
         this.minWidth = minWidth;
@@ -191,27 +204,57 @@ var StylaWidget = function () {
         this.cta = cta;
         this.target = target;
 
+        var fetchLimit = randomize && limit < randomize ? randomize : limit;
+
         if (tag !== false && category !== false) {
-            console.error('Styla Widget error: Both tag and category filter has been added to the configuration, but only one can be used, stories will be filtered only by tag.');
+            console.error('Styla Widget error: Both tag and category filter has been added to the configuration, but only one can be used, stories will be filtered only by tag.'); // eslint-disable-line
         }
 
         var url = void 0;
 
         if (tag != false) {
-            url = api + '/api/feeds/tags/' + tag + '?offset=' + offset + '&limit=' + limit + '&domain=' + slug;
+            url = api + '/api/feeds/tags/' + tag + '?offset=' + offset + '&limit=' + fetchLimit + '&domain=' + slug; // eslint-disable-line
         } else if (category != false) {
-            url = api + '/api/feeds/boards/' + category + '/user/' + slug + '?domain=' + slug + '&offset=' + offset;
+            url = api + '/api/feeds/boards/' + category + '/user/' + slug + '?domain=' + slug + '&offset=' + offset; // eslint-disable-line
         } else {
-            url = api + '/api/feeds/all?domain=' + slug + '&offset=' + offset + '&limit=' + limit;
+            url = api + '/api/feeds/all?domain=' + slug + '&offset=' + offset + '&limit=' + fetchLimit; // eslint-disable-line
         }
 
         this.url = url;
 
-        this.http.get(storiesApi || url).then(function (stories) {
-            var build = new _build2.default(_this, stories);
+        this.http.get(storiesApi || url).then(function (res) {
+            res = JSON.parse(res);
+
+            /**
+             * ## removeOne
+             *
+             * recursive - checks if the array is over a limit, removes one,
+             * then checks if more need to be removed
+             *
+             * @param {Array} arr array to check the length of
+             * @param {Numbers} limit story count
+             *
+             * @return {Array} shortened array
+             */
+            function removeOne(arr, limit) {
+                if (arr.length <= limit) {
+                    return arr;
+                }
+
+                var rand = Math.floor(Math.random() * arr.length);
+                arr.splice(rand, 1);
+
+                return removeOne(arr, limit);
+            }
+
+            res.stories = removeOne(res.stories, limit);
+
+            new _build2.default(_this, res);
         });
 
-        Object.defineProperty(this, 'version', { value: _version2.default });
+        Object.defineProperty(this, 'version', {
+            value: _version2.default
+        });
     }
 
     /**
@@ -219,7 +262,7 @@ var StylaWidget = function () {
      *
      * removes the styla widget from the DOM
      *
-     * @return _Void_
+     * @return {Void} void
      */
 
 
@@ -244,13 +287,13 @@ var StylaWidget = function () {
     return StylaWidget;
 }();
 
-;
-
 StylaWidget.prototype.http = _microbeHttp.http;
 
 window['StylaWidget_' + format] = StylaWidget;
 
-Object.defineProperty(StylaWidget, 'version', { value: _version2.default });
+Object.defineProperty(StylaWidget, 'version', {
+    value: _version2.default
+});
 
 exports.default = StylaWidget;
 
@@ -261,12 +304,13 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /**
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * ## this.js
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * this contains methods to build the bite sized widget that do not need to be
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * outwardly facing
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      */
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /* globals document, window */
+/**
+ * ## this.js
+ *
+ * this contains methods to build the bite sized widget that do not need to be
+ * outwardly facing
+ */
 
 var _classes = require('./classes.js');
 
@@ -281,14 +325,16 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 /*
     exchanged for css in the gulp build
  */
-var baseStyles = '#styla-widget p{margin:0}#styla-widget.styla-widget__wrapper{width:100%;height:100%}#styla-widget .styla-widget__container{box-sizing:border-box;position:relative;overflow:hidden;height:100%;width:100%;min-height:14em;font-size:14px}#styla-widget .styla-widget__story{margin-bottom:1em;position:relative}#styla-widget .styla-widget__link{position:absolute;width:100%;display:-moz-flex;display:-webkit-flex;display:flex;text-decoration:none;color:inherit}#styla-widget__link>div{display:inline-block}#styla-widget .styla-widget__image{max-height:100%;max-width:100%;height:100%;object-fit:contain}#styla-widget .styla-widget__textwrap{display:block;flex-grow:1;-webkit-flex-grow:1;-moz-flex-grow:1;max-height:100%;overflow:hidden;float:left}#styla-widget .styla-widget__headlinewrap{display:flex;flex-direction:column;justify-content:flex-end;-webkit-justify-content:flex-end;-moz-justify-content:flex-end}#styla-widget .styla-widget__headline,#styla-widget .styla-widget__title{line-height:1.25em;max-height:2.5em;overflow:hidden}#styla-widget .styla-widget__title{font-size:2em;text-align:center;margin-bottom:30px}#styla-widget .styla-widget__paragraph{font-size:1em;line-height:1.5em;overflow:hidden;position:relative;word-wrap:break-word}#styla-widget .styla-widget__paragraph-after::after{content:"..."}';
-var specificStyles = '#styla-widget.stories .styla-widget__story{overflow:hidden;height:5em}#styla-widget.stories .styla-widget__link{height:5em}#styla-widget.stories__link>div{display:inline-block}#styla-widget.stories .styla-widget__image,#styla-widget.stories .styla-widget__imagewrap{width:85px;object-fit:cover}#styla-widget.stories .styla-widget__imagewrap{margin:0 3% 0 0;height:100%}#styla-widget.stories .styla-widget__textwrap{width:calc(100% - 85px);display:block;flex-grow:1;max-height:100%;overflow:hidden;float:left}#styla-widget.stories .styla-widget__headlinewrap{height:2em;display:flex;flex-direction:column;justify-content:flex-end}#styla-widget.stories .styla-widget__headline{font-size:1.4em;line-height:1.25em;max-height:2.5em;overflow:hidden;margin:0 0 .25em;word-wrap:break-word;text-overflow:ellipsis;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2}#styla-widget.stories .styla-widget__paragraph{font-size:1em;line-height:1.5em;height:3em;overflow:hidden;position:relative;word-wrap:break-word;text-overflow:ellipsis}#styla-widget.stories .styla-widget__paragraph:after{position:absolute;left:0;top:7.5em;display:block;background-color:#FFF;width:100%;height:2em}#styla-widget.stories .styla-widget__calltoaction{display:none}';
+var baseStyles = '#styla-widget p{margin:0}#styla-widget.styla-widget__wrapper{width:100%;height:100%}#styla-widget .styla-widget__container{box-sizing:border-box;position:relative;overflow:hidden;height:100%;width:100%;min-height:14em;font-size:14px}#styla-widget .styla-widget__story{margin-bottom:1em;position:relative}#styla-widget .styla-widget__link{position:absolute;width:100%;display:-moz-flex;display:-webkit-flex;display:flex;text-decoration:none;color:inherit}#styla-widget__link>div{display:inline-block}#styla-widget .styla-widget__image{max-height:100%;max-width:100%;height:100%;object-fit:contain}#styla-widget .styla-widget__textwrap{display:block;-moz-flex-grow:1;-webkit-flex-grow:1;flex-grow:1;max-height:100%;overflow:hidden;float:left}#styla-widget .styla-widget__headlinewrap{display:flex;flex-direction:column;-moz-justify-content:flex-end;-webkit-justify-content:flex-end;justify-content:flex-end}#styla-widget .styla-widget__headline,#styla-widget .styla-widget__title{line-height:1.25em;max-height:2.5em;overflow:hidden}#styla-widget .styla-widget__title{font-size:2em;text-align:center;margin-bottom:30px}#styla-widget .styla-widget__paragraph{font-size:1em;line-height:1.5em;overflow:hidden;position:relative;word-wrap:break-word}#styla-widget .styla-widget__paragraph-after:after{content:"..."}';
+var specificStyles = '#styla-widget.stories .styla-widget__story{overflow:hidden;height:5em}#styla-widget.stories .styla-widget__link{height:5em}#styla-widget.stories__link>div{display:inline-block}#styla-widget.stories .styla-widget__image,#styla-widget.stories .styla-widget__imagewrap{width:85px;object-fit:cover}#styla-widget.stories .styla-widget__imagewrap{margin:0 3% 0 0;height:100%}#styla-widget.stories .styla-widget__textwrap{width:calc(100% - 85px);display:block;flex-grow:1;max-height:100%;overflow:hidden;float:left}#styla-widget.stories .styla-widget__headlinewrap{height:2em;display:flex;flex-direction:column;justify-content:flex-end}#styla-widget.stories .styla-widget__headline{font-size:1.4em;line-height:1.25em;max-height:2.5em;overflow:hidden;margin:0 0 .25em;word-wrap:break-word;text-overflow:ellipsis;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2}#styla-widget.stories .styla-widget__paragraph{font-size:1em;line-height:1.5em;height:3em;overflow:hidden;position:relative;word-wrap:break-word;text-overflow:ellipsis}#styla-widget.stories .styla-widget__paragraph:after{position:absolute;left:0;top:7.5em;display:block;background-color:#fff;width:100%;height:2em}#styla-widget.stories .styla-widget__calltoaction{display:none}';
 var wrapperID = 'styla-widget';
 
 /* istanbul ignore next */
-var _reportError = function _reportError(e) {
-    console.log('err', e);
-};
+var reportError = function reportError() {};
+
+/**
+ * StylaWidget build tools
+ */
 
 var Build = function () {
     _createClass(Build, [{
@@ -302,7 +348,7 @@ var Build = function () {
          *
          * @param {String} title story headline
          *
-         * @return _DOMElement_ headlineWrapper
+         * @return {DOMElement} headlineWrapper
          */
         value: function buildHeadline(title) {
             var create = this.create;
@@ -326,7 +372,7 @@ var Build = function () {
          * @param {String} title story headline
          * @param {Object} context sub for this.context - needed for testing
          *
-         * @return _DOMElement_ imageWrapper
+         * @return {DOMElement} imageWrapper
          */
 
     }, {
@@ -359,7 +405,7 @@ var Build = function () {
          * @param {String} domainConfig JSON response from the product api
          * @param {Object} parsedDomainConfig parsed JSON object for testing
          *
-         * @return _Void_
+         @return {DOMElement} wrapper element
          */
 
     }, {
@@ -370,12 +416,12 @@ var Build = function () {
             var domainConfigParsed = this.domainConfig = JSON.parse(domainConfig);
 
             if (Object.keys(domainConfigParsed).length === 0) {
-                throw 'Styla Widget error: Could not find magazine, please check if slug is configured correctly.';
+                throw 'Styla Widget error: Could not find magazine, please check if slug is configured correctly.'; // eslint-disable-line
             }
 
             var images = {};
             var context = this.context;
-            var stories = context.stories.data;
+            var stories = context.stories;
             var resImages = stories.images;
             var refs = context.refs;
 
@@ -385,12 +431,12 @@ var Build = function () {
 
             if (resImages) {
 
-                resImages.forEach(function (_i) {
-                    images[_i.id] = _i;
+                resImages.forEach(function (i) {
+                    return images[i.id] = i;
                 });
                 context.images = images;
 
-                var _els = stories.stories.map(this.buildStory);
+                stories.stories.forEach(this.buildStory);
                 var styling = this.compileStyles();
 
                 document.head.appendChild(styling);
@@ -405,13 +451,14 @@ var Build = function () {
         /**
          * ## buildStory
          *
-         * builds each story off the retrieved json.  skips a story if the id matches ignore.
-         * no matter what it will always build the number of stories set in the limit
+         * builds each story off the retrieved json.  skips a story if the id #
+         * matches ignore.  no matter what it will always build the number of
+         * stories set in the limit
          *
          * @param {Object} json image data
          * @param {Number} i iterator
          *
-         * @return _DOMElement_ outer story element
+         * @return {DOMElement} outer story element
          */
 
     }, {
@@ -435,7 +482,7 @@ var Build = function () {
                 var format = encodeURIComponent(context.format);
                 var location = encodeURIComponent(window.location.href);
 
-                storyLink.href = '//' + context.domain + '/story/' + externalPermalink + '?styla_ref=' + location + '&styla_wdgt_var=' + format;
+                storyLink.href = '//' + context.domain + '/story/' + externalPermalink + '?styla_ref=' + location + '&styla_wdgt_var=' + format; // eslint-disable-line
 
                 story.appendChild(storyLink);
 
@@ -443,7 +490,7 @@ var Build = function () {
                 storyLink.appendChild(this.buildStoryText(title, description));
 
                 if (context.cta) {
-                    var callToAction = create('div', _classes2.default.CALLTOACTION);
+                    var callToAction = create('div', _classes2.default.CALL_TO_ACTION);
 
                     callToAction.innerHTML = context.cta;
 
@@ -457,11 +504,11 @@ var Build = function () {
                 wrapper.appendChild(container);
 
                 return story;
-            } else {
-                this.ignored++;
-
-                return false;
             }
+
+            this.ignored++;
+
+            return false;
         }
 
         /**
@@ -473,7 +520,7 @@ var Build = function () {
          * @param {String} title story headline
          * @param {String} description copy of the story to be inserted
          *
-         * @return _DOMElement_ style element
+         * @return {DOMElement} style element
          */
 
     }, {
@@ -510,7 +557,7 @@ var Build = function () {
          *
          * @param {String} css styles to add to the created tag
          *
-         * @return _DOMElement_ style element
+         * @return {DOMElement} style element
          */
 
     }, {
@@ -531,7 +578,7 @@ var Build = function () {
          *
          * compiles the styles and returns them added to the style tag
          *
-         * @return _DOMElement_ style element
+         * @return {DOMElement} style element
          */
 
     }, {
@@ -547,7 +594,7 @@ var Build = function () {
             }
 
             var el = this.buildStyleTag(css);
-            el.className = _classes2.default.THEME_STYLES + '  styla-widget__' + context.format;
+            el.className = _classes2.default.THEME_STYLES + '  styla-widget__' + context.format; // eslint-disable-line
 
             context.refs.themeStyle = el;
 
@@ -560,6 +607,9 @@ var Build = function () {
          * builds build
          *
          * @param {Object} context context to be passed to this.context
+         * @param {String} stories json string of the stories object
+         *
+         * @return {Class} instance of build class
          */
 
     }]);
@@ -575,7 +625,7 @@ var Build = function () {
         this.buildStory = this.buildStory.bind(this);
 
         if (!context.refs.wrapper) {
-            context.stories = JSON.parse(stories);
+            context.stories = stories;
             var format = context.format.toLowerCase();
 
             context.refs.container = this.create('DIV', _classes2.default.CONTAINER + '  styla-widget-' + this.now);
@@ -584,7 +634,7 @@ var Build = function () {
 
             var domainConfigAPI = context.api + '/api/config/' + context.slug;
 
-            this.http.get(domainConfigAPI).then(this.buildStories).catch(_reportError);
+            this.http.get(domainConfigAPI).then(this.buildStories).catch(reportError);
         }
 
         return this;
@@ -598,20 +648,20 @@ var Build = function () {
      * @param {String} tag tagname
      * @param {String} clss className to add to the created element
      *
-     * @return _DOMElement_ newly created element
+     * @return {DOMElement} newly created element
      */
 
 
     _createClass(Build, [{
         key: 'create',
         value: function create(tag, clss) {
-            var _el = document.createElement(tag.toUpperCase());
+            var el = document.createElement(tag.toUpperCase());
 
             if (clss) {
-                _el.className = clss;
+                el.className = clss;
             }
 
-            return _el;
+            return el;
         }
 
         /**
@@ -622,7 +672,7 @@ var Build = function () {
          * @param {Array} arr array filled w/ content
          * @param {Number} i recursive index
          *
-         * @return _String or Boolean_ text content or false
+         * @return {Mixed} text content or false _String or Boolean_
          */
 
     }, {
@@ -653,9 +703,9 @@ var Build = function () {
          * uses the filename and size to create the full image url
          *
          * @param {String} filename from the image data object
-         * @param {Number or String} imageSize width to grab from the server
+         * @param {Mixed} imageSize width to grab from the server _Number or String_
          *
-         * @return _String_ file name
+         * @return {String} file name
          */
 
     }, {
@@ -671,7 +721,9 @@ var Build = function () {
          *
          * creates the base styles DOM element and adds it to the head
          *
-         * @return _Void_
+         * @param {String} css style in css for tag insertion
+         *
+         * @return {Void} void
          */
 
     }, {
@@ -683,14 +735,23 @@ var Build = function () {
             var formatCaps = context.format.toUpperCase();
             var head = document.head;
 
-            function _addBaseStyle(css, _class, _format) {
-                var baseStyle = head.querySelector('.' + _class);
+            /**
+             * ## addBaseStyle
+             *
+             * @param {String} css style in css for tag insertion
+             * @param {String} clss class to add to the baseStyle tag
+             * @param {String} format end format of the widget
+             *
+             * @return {DOMElement} style tag
+             */
+            function addBaseStyle(css, clss, format) {
+                var baseStyle = head.querySelector('.' + clss);
 
                 if (!baseStyle) {
                     el = self.buildStyleTag(css);
-                    el.className = _class + '  ' + _classes2.default.STYLES;
+                    el.className = clss + '  ' + _classes2.default.STYLES;
 
-                    context.refs[_format + 'Style'] = el;
+                    context.refs[format + 'Style'] = el;
 
                     head.appendChild(el);
                 }
@@ -700,8 +761,8 @@ var Build = function () {
 
             var arr = new Array(2);
 
-            arr[0] = _addBaseStyle(css || baseStyles, '' + _classes2.default.BASE_STYLES, 'base');
-            arr[1] = _addBaseStyle(specificStyles, _classes2.default[formatCaps + '_STYLES'], context.format);
+            arr[0] = addBaseStyle(css || baseStyles, '' + _classes2.default.BASE_STYLES, 'base');
+            arr[1] = addBaseStyle(specificStyles, _classes2.default[formatCaps + '_STYLES'], context.format);
 
             if (this.domainConfig.embed.customFontUrl) {
                 arr.push(this.includeFonts());
@@ -719,7 +780,7 @@ var Build = function () {
          *
          * includes the webfonts link element
          *
-         * @return _DOMElement_ link element
+         * @return {DOMElement} link element
          */
 
     }, {
@@ -742,7 +803,7 @@ var Build = function () {
          *
          * takes pieces of the domainConfig and builds the domain
          *
-         * @return _String_ domain address
+         * @return {String} domain address
          */
 
     }, {
@@ -756,18 +817,16 @@ var Build = function () {
             if (!context.domain) {
                 if (context.linkDomain) {
                     domain = context.linkDomain;
-                } else {
-                    if (embed) {
-                        var rootPath = embed.rootPath;
+                } else if (embed) {
+                    var rootPath = embed.rootPath;
 
-                        if (rootPath[0] === '/') {
-                            rootPath = rootPath.slice(1);
-                        }
-
-                        domain = embed.magazineUrl + '/' + rootPath;
-                    } else {
-                        throw 'Styla Widget error: No domain defined or bad domain config.';
+                    if (rootPath[0] === '/') {
+                        rootPath = rootPath.slice(1);
                     }
+
+                    domain = embed.magazineUrl + '/' + rootPath;
+                } else {
+                    throw 'Styla Widget error: No domain defined or bad domain config.'; // eslint-disable-line
                 }
 
                 domain = domain.replace(/^(http(s)?:)?\/\//, '');
@@ -782,8 +841,6 @@ var Build = function () {
     return Build;
 }();
 
-;
-
 Build.prototype.http = _microbeHttp.http;
 
 exports.default = Build;
@@ -791,6 +848,7 @@ exports.default = Build;
 },{"./classes.js":4,"microbejs/dist/microbe.http.min":1}],4:[function(require,module,exports){
 'use strict';
 
+/* globals module */
 /**
  * ## classes.js
  *
@@ -799,31 +857,32 @@ exports.default = Build;
  */
 module.exports = {
     BASE_STYLES: 'styla-widget__base-styling',
-    FONT_LINK: 'styla-widget__font-link',
-    TILES_STYLES: 'styla-widget__tiles-styling',
-    LIST_STYLES: 'styla-widget__list-styling',
-    HORIZONTAL_STYLES: 'styla-widget__horizontal-styling',
-    STORIES_STYLES: 'styla-widget__stories-styling',
+    CALL_TO_ACTION: 'styla-widget__calltoaction',
     CONTAINER: 'styla-widget__container',
+    FONT_LINK: 'styla-widget__font-link',
     HEADLINE: 'styla-widget__headline',
     HEADLINE_WRAPPER: 'styla-widget__headlinewrap',
+    HORIZONTAL_STYLES: 'styla-widget__horizontal-styling',
     IMAGE: 'styla-widget__image',
     IMAGE_WRAPPER: 'styla-widget__imagewrap',
+    LIST_STYLES: 'styla-widget__list-styling',
     PARAGRAPH: 'styla-widget__paragraph',
     PARAGRAPH_AFTER: 'styla-widget__paragraph-after',
+    STORIES_STYLES: 'styla-widget__stories-styling',
     STORY: 'styla-widget__story',
     STORY_LINK: 'styla-widget__link',
     STYLES: 'styla-widget__styling',
     TEXT_WRAPPER: 'styla-widget__textwrap',
     THEME_STYLES: 'styla-widget__theme-styling',
+    TILES_STYLES: 'styla-widget__tiles-styling',
     TITLE: 'styla-widget__title',
-    WRAPPER: 'styla-widget__wrapper',
-    CALLTOACTION: 'styla-widget__calltoaction'
+    WRAPPER: 'styla-widget__wrapper'
 };
 
 },{}],5:[function(require,module,exports){
 'use strict';
 
-module.exports = '2.1.0';
+/* globals module */
+module.exports = '2.1.1';
 
 },{}]},{},[2]);
