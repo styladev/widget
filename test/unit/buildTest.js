@@ -52,7 +52,7 @@ const stylaWidget = new BaseWidget( {
     domain : 'test'
 } );
 
-const build  = new Build( stylaWidget, JSON.stringify( feed.data.stories ) );
+const build  = new Build( stylaWidget, JSON.stringify( feed.stories ) );
 
 
 /**
@@ -100,10 +100,10 @@ describe( 'buildHeadline', () =>
  */
 describe( 'buildImage', () =>
 {
-    const id              = feed.data.images[ 0 ].id;
+    const id              = feed.images[ 0 ].id;
 
     const images          = {};
-    feed.data.images.forEach( i => images[ i.id ] = i );
+    feed.images.forEach( i => images[ i.id ] = i );
 
     build.context.images = images;
 
