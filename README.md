@@ -1,4 +1,4 @@
-Styla Widget  2.1.0
+Styla Widget  2.1.1
 =======
 
 
@@ -170,6 +170,11 @@ This project adheres to the [Contributor Covenant](http://contributor-covenant.o
 
 Change log
 ==========
+
+### 2.1.1
+    + rolling back api changes
+    + added randomize option
+    + added eslint
 
 ### 2.1.0
     + added support for links with hashtag navigation

@@ -176,7 +176,6 @@ describe( 'constructor', () =>
     {
         sinon.stub( console, 'error', () =>
         {
-
         } );
 
         new BaseWidget( {
@@ -184,6 +183,7 @@ describe( 'constructor', () =>
             tag      : 'fussball',
             category : '2262'
         } );
+
         assert.equal( console.error.callCount, 1 );
 
         console.error.restore();

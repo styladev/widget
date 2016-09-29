@@ -1,4 +1,4 @@
-/* globals console, document, window */
+/* globals document, window */
 /**
  * ## this.js
  *
@@ -18,7 +18,9 @@ const specificStyles    = 'styla-build-specific-css-goes-here';
 const wrapperID         = 'styla-widget';
 
 /* istanbul ignore next */
-const reportError      =  e => console.error( 'err', e );
+const reportError      =  () =>
+{
+};
 
 
 /**
@@ -93,7 +95,7 @@ class Build
      * @param {String} domainConfig JSON response from the product api
      * @param {Object} parsedDomainConfig parsed JSON object for testing
      *
-     * @return {Void} void
+     @return {DOMElement} wrapper element
      */
     buildStories( domainConfig = '{}' )
     {

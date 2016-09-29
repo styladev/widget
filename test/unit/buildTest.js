@@ -23,7 +23,12 @@ const getStub = url =>
         {
             try
             {
-                return _func( res );
+                _func( res );
+                const result  = {
+                    catch : _func => _func( {} )
+                };
+
+                return result;
             }
             catch ( e )
             {
@@ -138,13 +143,14 @@ describe( 'buildImage', () =>
  * @param {String} domainConfig JSON response from the product api
  * @param {Object} parsedDomainConfig parsed JSON object for testing
  *
- * @return _DOMElement_ wrapper element
+ * @return {DOMElement} wrapper element
  */
 describe( 'buildStories', () =>
 {
     it( 'should correctly build the stories wrapper', () =>
     {
         const wrapper = build.buildStories( JSON.stringify( domainConfig ) );
+
         assert.ok( wrapper.nodeType === 1, 'Wrapper is a dom element' );
         assert.ok( wrapper.className.indexOf( classes.WRAPPER ) !== -1,
                                             'Wrapper has correct class name' );
@@ -162,11 +168,11 @@ describe( 'buildStories', () =>
     it( 'should return nothing if there are no images', () =>
     {
         const tempImages = build.context.stories.images;
-        build.context.stories.data.images = false;
+        build.context.stories.images = false;
 
         assert.equal( build.buildStories( JSON.stringify( domainConfig ) ),
                         false,
-                        'no images ' );
+                        'no images' );
 
         build.context.stories.images = tempImages;
     } );
