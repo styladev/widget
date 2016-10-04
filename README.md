@@ -1,4 +1,4 @@
-Styla Widget  2.1.1
+Styla Widget  2.1.2
 =======
 
 
@@ -170,6 +170,9 @@ This project adheres to the [Contributor Covenant](http://contributor-covenant.o
 
 Change log
 ==========
+
+### 2.1.2
+    + bump version number to replaces borked release 2.1.1 (missing dist files)
 
 ### 2.1.1
     + rolling back api changes
