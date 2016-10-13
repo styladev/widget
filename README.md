@@ -1,4 +1,5 @@
-Styla Widget  2.1.2
+Styla Widget  2.1.3
+
 =======
 
 
@@ -170,6 +171,9 @@ This project adheres to the [Contributor Covenant](http://contributor-covenant.o
 
 Change log
 ==========
+
+### 2.1.3
+    + add top and bottom margin to h3 headlines
 
 ### 2.1.2
     + bump version number to replaces borked release 2.1.1 (missing dist files)

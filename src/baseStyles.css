@@ -87,6 +87,8 @@
     line-height:                        1.25em;
     max-height:                         2.5em;
     overflow:                           hidden;
+    margin-top:                         1em;
+    margin-bottom:                      1em;
 }
 
 
