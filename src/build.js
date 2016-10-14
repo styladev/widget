@@ -113,6 +113,7 @@ class Build
         const resImages   = stories.images;
         const refs        = context.refs;
 
+        context.route     = domainConfigParsed.routes.story;
         context.domain  = this.setDomain();
 
         refs.styles = this.includeBaseStyles();
@@ -160,10 +161,7 @@ class Build
             const story     = create( 'div',    classes.STORY );
             const storyLink = create( 'a',      classes.STORY_LINK );
 
-            const format    = encodeURIComponent( context.format );
-            const location  = encodeURIComponent( window.location.href );
-
-            storyLink.href  = `//${context.domain}/story/${externalPermalink}?styla_ref=${location}&styla_wdgt_var=${format}`; // eslint-disable-line
+            storyLink.href  = this.buildStoryLink( externalPermalink );
 
             story.appendChild( storyLink );
 
@@ -191,6 +189,31 @@ class Build
         this.ignored++;
 
         return false;
+    }
+
+
+    /**
+     * ## buildStoryLink
+     *
+     * builds unique link for each story
+     *
+     * @param {String} slug for story
+     *
+     * @return {String} complete url
+     */
+    buildStoryLink( slug )
+    {
+        const context       = this.context;
+
+        const format        = encodeURIComponent( context.format );
+        const location      = encodeURIComponent( window.location.href );
+        const parameters    = `?styla_ref=${location}&styla_wdgt_var=${format}`;
+
+        const path = context.route.replace( /%2\$s_%3\$s/, slug );
+
+        const url = `//${context.domain}/${path}${parameters}`;
+
+        return url;
     }
 
 
@@ -320,6 +343,7 @@ class Build
 
         this.buildStories   = this.buildStories.bind( this );
         this.buildStory     = this.buildStory.bind( this );
+        this.buildStoryLink = this.buildStoryLink.bind( this );
 
         if ( !context.refs.wrapper )
         {
@@ -508,7 +532,8 @@ class Build
     /**
      * ## setDomain
      *
-     * takes pieces of the domainConfig and builds the domain
+     * takes pieces of the domainConfig and builds the complete domain
+     * including root path
      *
      * @return {String} domain address
      */
