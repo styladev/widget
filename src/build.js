@@ -153,9 +153,17 @@ class Build
     {
         const context     = this.context;
 
+        if ( context.ignore != false
+            && i == context.limit - 1
+            && this.ignored == 0 )
+        {
+            return false;
+        }
+
         if ( `${context.ignore}` !== `${id}` &&
                     i < this.ignored + context.limit )
         {
+
             const create    = this.create;
 
             const story     = create( 'div',    classes.STORY );
