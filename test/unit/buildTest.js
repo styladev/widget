@@ -225,13 +225,14 @@ describe( 'buildStory', () =>
                                         'storyLink has correct class name' );
 
         const href = storyLink.href.replace( /^https?:/, '' );
-        assert.equal( href, '//test/story/externalPermalink?styla_ref=about%3Ablank&styla_wdgt_var=Styla-widget-format-goes-here', 'storyLink has correct href' ); // eslint-disable-line
+        assert.equal( href, '//test#story/externalPermalink?styla_ref=about%3Ablank&styla_wdgt_var=Styla-widget-format-goes-here', 'storyLink has correct href' ); // eslint-disable-line
     } );
 
 
-    it( 'should build correct story link with pushstate', () =>
+    it( 'should build correct story link with pushstate true', () =>
     {
-        build.domainConfig.embed.pushstateDefault = true;
+        build.context.pushstate = '/';
+
         story = build.buildStory( storyObj );
 
         let storyLink   = story.childNodes;
@@ -240,7 +241,7 @@ describe( 'buildStory', () =>
 
         assert.equal( href, '//test/story/externalPermalink?styla_ref=about%3Ablank&styla_wdgt_var=Styla-widget-format-goes-here', 'storyLink has correct href' ); // eslint-disable-line
 
-        build.domainConfig      = domainConfig;
+        build.context.pushstate = '#';
     } );
 
 
@@ -286,7 +287,7 @@ describe( 'buildStoryLink', () =>
     it( 'should correctly build a story link', () =>
     {
         assert.equal( url,
-            '//test/story/slug?styla_ref=about%3Ablank&styla_wdgt_var=Styla-widget-format-goes-here', //eslint-disable-line
+            '//test#story/slug?styla_ref=about%3Ablank&styla_wdgt_var=Styla-widget-format-goes-here', //eslint-disable-line
             'link has correct format' );
     } );
 } );

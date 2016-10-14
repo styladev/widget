@@ -29,6 +29,7 @@ const domainConfig = {
         'stylaAnalyticsTracker' : 'UA-75512366-48',
         'googleTrackingAccount' : [ 'UA-28225899-2', 'UA-51795421-2' ],
         'customFontUrl'         : '//fonts.googleapis.com/css?family=Roboto:400,400italic,700',
+        'pushstateDefault'      : false,
         'feature'               : {
             'feed_poweredBy'          : true,
             'client_feedSearch'       : true,
