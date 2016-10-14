@@ -1,4 +1,4 @@
-Styla Widget  2.1.3
+Styla Widget  2.1.4
 
 =======
 
@@ -172,6 +172,11 @@ This project adheres to the [Contributor Covenant](http://contributor-covenant.o
 Change log
 ==========
 
+### 2.1.4
+    + fix bug where more than limited amount of stories can be rendered if both
+    randomize and ignore story is active
+    + get route configuration from domain config to format links correctly
+
 ### 2.1.3
     + add top and bottom margin to h3 headlines
 
@@ -183,7 +188,7 @@ Change log
     + added randomize option
     + added eslint
     + added stylelint
-    + changed `npm run test` from a simple to a comverage test
+    + changed `npm run test` from a simple to a coverage test
 
 ### 2.1.0
     + added support for links with hashtag navigation
