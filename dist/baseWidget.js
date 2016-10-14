@@ -415,6 +415,8 @@ var Build = function () {
             var resImages = stories.images;
             var refs = context.refs;
 
+            context.route = domainConfigParsed.routes.story;
+            context.pushstate = domainConfigParsed.embed.pushstateDefault ? '/' : '#';
             context.domain = this.setDomain();
 
             refs.styles = this.includeBaseStyles();
@@ -463,16 +465,18 @@ var Build = function () {
 
             var context = this.context;
 
+            if (context.ignore != false && i == context.limit - 1 && this.ignored == 0) {
+                return false;
+            }
+
             if ('' + context.ignore !== '' + id && i < this.ignored + context.limit) {
+
                 var create = this.create;
 
                 var story = create('div', _classes2.default.STORY);
                 var storyLink = create('a', _classes2.default.STORY_LINK);
 
-                var format = encodeURIComponent(context.format);
-                var location = encodeURIComponent(window.location.href);
-
-                storyLink.href = '//' + context.domain + '/story/' + externalPermalink + '?styla_ref=' + location + '&styla_wdgt_var=' + format; // eslint-disable-line
+                storyLink.href = this.buildStoryLink(externalPermalink);
 
                 story.appendChild(storyLink);
 
@@ -499,6 +503,30 @@ var Build = function () {
             this.ignored++;
 
             return false;
+        }
+
+        /**
+         * ## buildStoryLink
+         *
+         * builds unique link for each story
+         *
+         * @param {String} slug for story
+         *
+         * @return {String} complete url
+         */
+
+    }, {
+        key: 'buildStoryLink',
+        value: function buildStoryLink(slug) {
+            var context = this.context;
+
+            var format = encodeURIComponent(context.format);
+            var location = encodeURIComponent(window.location.href);
+            var parameters = '?styla_ref=' + location + '&styla_wdgt_var=' + format;
+
+            var path = context.route.replace(/%2\$s_%3\$s/, slug);
+
+            return '//' + context.domain + context.pushstate + path + parameters;
         }
 
         /**
@@ -613,6 +641,7 @@ var Build = function () {
 
         this.buildStories = this.buildStories.bind(this);
         this.buildStory = this.buildStory.bind(this);
+        this.buildStoryLink = this.buildStoryLink.bind(this);
 
         if (!context.refs.wrapper) {
             context.stories = stories;
@@ -791,7 +820,8 @@ var Build = function () {
         /**
          * ## setDomain
          *
-         * takes pieces of the domainConfig and builds the domain
+         * takes pieces of the domainConfig and builds the complete domain
+         * including root path
          *
          * @return {String} domain address
          */
@@ -872,6 +902,7 @@ module.exports = {
 },{}],5:[function(require,module,exports){
 'use strict';
 
-module.exports = '2.1.3';
+/* globals module */
+module.exports = '2.1.4';
 
 },{}]},{},[2]);
