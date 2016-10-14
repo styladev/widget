@@ -269,6 +269,28 @@ describe( 'buildStory', () =>
 } );
 
 
+/**
+ * ## buildStoryLink
+ *
+ * builds unique link for each story
+ *
+ * @param {String} slug for story
+ *
+ * @return {String} complete url
+ */
+describe( 'buildStoryLink', () =>
+{
+    const slug = 'slug';
+    const url = build.buildStoryLink( slug );
+
+    it( 'should correctly build a story link', () =>
+    {
+        assert.equal( url,
+            '//test/story/slug?styla_ref=about%3Ablank&styla_wdgt_var=Styla-widget-format-goes-here', //eslint-disable-line
+            'link has correct format' );
+    } );
+} );
+
 
 /**
  * ## buildStoryText
