@@ -114,6 +114,8 @@ class Build
         const refs        = context.refs;
 
         context.route     = domainConfigParsed.routes.story;
+        context.pushstate = domainConfigParsed.embed.pushstateDefault ? '/' :
+            '#';
         context.domain  = this.setDomain();
 
         refs.styles = this.includeBaseStyles();
@@ -219,9 +221,7 @@ class Build
 
         const path = context.route.replace( /%2\$s_%3\$s/, slug );
 
-        const url = `//${context.domain}/${path}${parameters}`;
-
-        return url;
+        return `//${context.domain}${context.pushstate}${path}${parameters}`;
     }
 
 

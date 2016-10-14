@@ -188,7 +188,7 @@ Change log
     + added randomize option
     + added eslint
     + added stylelint
-    + changed `npm run test` from a simple to a comverage test
+    + changed `npm run test` from a simple to a coverage test
 
 ### 2.1.0
     + added support for links with hashtag navigation
