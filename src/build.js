@@ -115,7 +115,6 @@ class Build
         const refs        = context.refs;
 
         context.route     = domainConfigParsed.routes.story;
-        console.log(  domainConfigParsed.embed.pushstateDefault  );
         context.pushstate = domainConfigParsed.embed.pushstateDefault ? '/' :
             '#';
         context.domain  = this.setDomain();
