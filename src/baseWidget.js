@@ -1,3 +1,4 @@
+
 /* globals document, console, window */
 /**
  * Styla bite-sized widget

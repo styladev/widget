@@ -43,6 +43,7 @@ const getStub = url =>
     };
 };
 
+
 sinon.stub( Build.prototype.http, 'get', getStub );
 
 
