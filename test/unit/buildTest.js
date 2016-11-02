@@ -43,6 +43,7 @@ const getStub = url =>
     };
 };
 
+
 sinon.stub( Build.prototype.http, 'get', getStub );
 
 
@@ -175,6 +176,18 @@ describe( 'buildStories', () =>
                         'no images' );
 
         build.context.stories.images = tempImages;
+    } );
+
+
+    it( 'should correctly determine the pushstateDefault', () =>
+    {
+        domainConfig.embed.pushstateDefault = true;
+        build.buildStories( JSON.stringify( domainConfig ) );
+        assert.equal(  build.context.pushstate, '/' );
+
+        domainConfig.embed.pushstateDefault = false;
+        build.buildStories( JSON.stringify( domainConfig ) );
+        assert.equal(  build.context.pushstate, '#' );
     } );
 } );
 

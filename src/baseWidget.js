@@ -1,3 +1,4 @@
+
 /* globals document, console, window */
 /**
  * Styla bite-sized widget
@@ -152,7 +153,8 @@ class StylaWidget
         this.cta        = cta;
         this.target     = target;
 
-        const fetchLimit = randomize && limit < randomize ? randomize : limit;
+        let fetchLimit  = randomize && limit < randomize ? randomize : limit;
+        fetchLimit      = fetchLimit + offset;
 
         if ( tag !== false && category !== false )
         {
@@ -163,22 +165,23 @@ class StylaWidget
 
         if ( tag != false )
         {
-            url = `${api}/api/feeds/tags/${tag}?offset=${offset}&limit=${fetchLimit}&domain=${slug}`; // eslint-disable-line
+            url = `${api}/api/feeds/tags/${tag}?limit=${fetchLimit}&domain=${slug}`; // eslint-disable-line
         }
         else if ( category != false )
         {
-            url = `${api}/api/feeds/boards/${category}/user/${slug}?domain=${slug}&offset=${offset}`; // eslint-disable-line
+            url = `${api}/api/feeds/boards/${category}/user/${slug}?domain=${slug}`; // eslint-disable-line
         }
         else
         {
-            url = `${api}/api/feeds/all?domain=${slug}&offset=${offset}&limit=${fetchLimit}`; // eslint-disable-line
+            url = `${api}/api/feeds/all?domain=${slug}&limit=${fetchLimit}`; // eslint-disable-line
         }
 
         this.url = url;
 
         this.http.get( storiesApi || url ).then( res =>
         {
-            res = JSON.parse( res );
+            res         = JSON.parse( res );
+            res.stories = res.stories.slice( offset );
 
             /**
              * ## removeOne

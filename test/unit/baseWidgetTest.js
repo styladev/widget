@@ -135,7 +135,7 @@ describe( 'constructor', () =>
             slug : 'braunhamburg',
             tag  : 'moon'
         } );
-        assert.equal( stylaWidget.url, 'https://live.styla.com/api/feeds/tags/moon?offset=0&limit=5&domain=braunhamburg' );
+        assert.equal( stylaWidget.url, 'https://live.styla.com/api/feeds/tags/moon?limit=5&domain=braunhamburg' );
     } );
 
 
@@ -145,7 +145,7 @@ describe( 'constructor', () =>
             slug     : 'braunhamburg',
             category : '2262'
         } );
-        assert.equal( stylaWidget.url, 'https://live.styla.com/api/feeds/boards/2262/user/braunhamburg?domain=braunhamburg&offset=0' );
+        assert.equal( stylaWidget.url, 'https://live.styla.com/api/feeds/boards/2262/user/braunhamburg?domain=braunhamburg' );
     } );
 
 
@@ -178,7 +178,7 @@ describe( 'constructor', () =>
             limit       : 5
         } );
 
-        assert.equal( stylaWidget.url, 'https://live.styla.com/api/feeds/tags/moon?offset=0&limit=10&domain=braunhamburg' );
+        assert.equal( stylaWidget.url, 'https://live.styla.com/api/feeds/tags/moon?limit=10&domain=braunhamburg' );
     } );
 
 
