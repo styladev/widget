@@ -171,7 +171,7 @@ This project adheres to the [Contributor Covenant](http://contributor-covenant.o
 Change log
 ==========
 
-### 2.1.4
+### 2.1.5
     + offset behavior changed
     + randomize removed
 
