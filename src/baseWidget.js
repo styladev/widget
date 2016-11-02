@@ -122,7 +122,6 @@ class StylaWidget
                     tag         = false,
                     category    = false,
                     cta         = false,
-                    randomize,
                     target      = document.body
                     } = {} )
     {
@@ -133,28 +132,27 @@ class StylaWidget
             throw 'Styla Widget error: No slug defined, cannot render widget';
         }
 
-        this.format     = format;
-        this.refs       = {};
-        this.api        = api;
-        this.domain     = domain;
-        this.linkDomain = linkDomain;
-        this.ignore     = ignore;
-        this.iframe     = iframe;
-        this.newTab     = newTab;
+        this.format         = format;
+        this.refs           = {};
+        this.api            = api;
+        this.domain         = domain;
+        this.linkDomain     = linkDomain;
+        this.ignore         = ignore;
+        this.iframe         = iframe;
+        this.newTab         = newTab;
 
-        this.limit      = limit = ignore ? limit + 1 : limit;
-        this.minWidth   = minWidth;
-        this.offset     = offset;
-        this.imageSize  = imageSize;
-        this.slug       = slug;
-        this.storiesApi = storiesApi;
-        this.tag        = tag;
-        this.category   = category;
-        this.cta        = cta;
-        this.target     = target;
+        this.limit          = limit = ignore ? limit + 1 : limit;
+        this.minWidth       = minWidth;
+        this.offset         = offset;
+        this.imageSize      = imageSize;
+        this.slug           = slug;
+        this.storiesApi     = storiesApi;
+        this.tag            = tag;
+        this.category       = category;
+        this.cta            = cta;
+        this.target         = target;
 
-        let fetchLimit  = randomize && limit < randomize ? randomize : limit;
-        fetchLimit      = fetchLimit + offset;
+        const fetchLimit    = limit + offset;
 
         if ( tag !== false && category !== false )
         {
@@ -184,7 +182,7 @@ class StylaWidget
             res.stories = res.stories.slice( offset );
 
             /**
-             * ## removeOne
+             * ## removeExtraStory
              *
              * recursive - checks if the array is over a limit, removes one,
              * then checks if more need to be removed
@@ -194,20 +192,21 @@ class StylaWidget
              *
              * @return {Array} shortened array
              */
-            function removeOne( arr, limit )
+            function removeExtraStory( arr, limit )
             {
-                if ( arr.length <= limit )
+                const len = arr.length;
+
+                if ( len <= limit )
                 {
                     return arr;
                 }
 
-                const rand = Math.floor( Math.random() * arr.length );
-                arr.splice( rand, 1 );
+                arr.splice( len - 1, 1 );
 
-                return removeOne( arr, limit );
+                return removeExtraStory( arr, limit );
             }
 
-            res.stories = removeOne( res.stories, limit );
+            res.stories = removeExtraStory( res.stories, limit );
 
             new Build( this, res );
         } );

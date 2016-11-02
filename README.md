@@ -80,7 +80,6 @@ new StylaWidget_List( {
                 //      necessary on domains that do not use the domainConfig
     minWidth    // (default: 250) minimum width (in px) for the mount point of the widget
     offset      // (default: 0) amount of entries to skip
-    randomize   // (default: 5) gives a random [limit] stories from the first [randomize] results
     slug        // (REQUIRED) Magazine name
     storiesApi  // (default: false) manually set the exact api address to get
                 //      stories from
@@ -171,6 +170,10 @@ This project adheres to the [Contributor Covenant](http://contributor-covenant.o
 
 Change log
 ==========
+
+### 2.1.4
+    + offset behavior changed
+    + randomize removed
 
 ### 2.1.4
     + fix bug where more than limited amount of stories can be rendered if both

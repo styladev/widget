@@ -168,20 +168,6 @@ describe( 'constructor', () =>
     } );
 
 
-
-    it( 'should be able to randomize the results slightly', () =>
-    {
-        const stylaWidget = new BaseWidget( {
-            slug        : 'braunhamburg',
-            tag         : 'moon',
-            randomize   : 10,
-            limit       : 5
-        } );
-
-        assert.equal( stylaWidget.url, 'https://live.styla.com/api/feeds/tags/moon?limit=10&domain=braunhamburg' );
-    } );
-
-
     it( 'should set the correct defaults', () =>
     {
         const stylaWidget = new BaseWidget( {
