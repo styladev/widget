@@ -29,7 +29,7 @@
         <a href="#constructor">constructor</a>
       </div>
       <div class="heading h2">
-        <a href="#removeone">removeOne</a>
+        <a href="#removeextrastory">removeExtraStory</a>
       </div>
       <div class="heading h2">
         <a href="#destroy">destroy</a>
@@ -71,11 +71,11 @@
   <div class="details">
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>"Mouse Braun <a href="&#x6D;&#x61;&#x69;&#x6C;&#116;&#111;:&#109;&#x6F;&#x75;&#x73;&#101;&#x40;&#x73;&#116;&#x79;&#108;&#97;.c&#111;&#109;">&#109;&#x6F;&#x75;&#x73;&#101;&#x40;&#x73;&#116;&#x79;&#108;&#97;.c&#111;&#109;</a>"</span>
+      <span>"Mouse Braun <a href="&#109;&#97;&#x69;&#x6C;&#116;&#x6F;:&#109;&#111;&#117;&#x73;&#101;&#x40;s&#x74;y&#x6C;&#x61;&#x2E;&#x63;&#111;&#109;">&#109;&#111;&#117;&#x73;&#101;&#x40;s&#x74;y&#x6C;&#x61;&#x2E;&#x63;&#111;&#109;</a>"</span>
     </div>
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>"Elias Liedholm <a href="&#x6D;a&#105;&#x6C;&#x74;&#x6F;:&#101;&#x6C;&#105;a&#x73;&#x40;&#115;&#116;&#121;&#108;&#x61;&#46;&#x63;o&#109;">&#101;&#x6C;&#105;a&#x73;&#x40;&#115;&#116;&#121;&#108;&#x61;&#46;&#x63;o&#109;</a>"</span>
+      <span>"Elias Liedholm <a href="&#x6D;&#97;&#105;&#x6C;&#116;&#x6F;:&#101;&#108;&#105;&#x61;&#115;&#64;s&#116;&#121;&#108;&#x61;&#x2E;&#x63;&#111;&#109;">&#101;&#108;&#105;&#x61;&#115;&#64;s&#116;&#121;&#108;&#x61;&#x2E;&#x63;&#111;&#109;</a>"</span>
     </div>
   </div>
 </div>
@@ -288,7 +288,6 @@ defined target or a new selector / el</p>
                     <span class="nx">tag</span>         <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
                     <span class="nx">category</span>    <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
                     <span class="nx">cta</span>         <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
-                    <span class="nx">randomize</span><span class="p">,</span>
                     <span class="nx">target</span>      <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">body</span>
                     <span class="p">}</span> <span class="o">=</span> <span class="p">{}</span> <span class="p">)</span>
     <span class="p">{</span>
@@ -299,27 +298,27 @@ defined target or a new selector / el</p>
             <span class="k">throw</span> <span class="s1">&#39;Styla Widget error: No slug defined, cannot render widget&#39;</span><span class="p">;</span>
         <span class="p">}</span>
 
-        <span class="k">this</span><span class="p">.</span><span class="nx">format</span>     <span class="o">=</span> <span class="nx">format</span><span class="p">;</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">refs</span>       <span class="o">=</span> <span class="p">{};</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">api</span>        <span class="o">=</span> <span class="nx">api</span><span class="p">;</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">domain</span>     <span class="o">=</span> <span class="nx">domain</span><span class="p">;</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">linkDomain</span> <span class="o">=</span> <span class="nx">linkDomain</span><span class="p">;</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">ignore</span>     <span class="o">=</span> <span class="nx">ignore</span><span class="p">;</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">iframe</span>     <span class="o">=</span> <span class="nx">iframe</span><span class="p">;</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">newTab</span>     <span class="o">=</span> <span class="nx">newTab</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">format</span>         <span class="o">=</span> <span class="nx">format</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">refs</span>           <span class="o">=</span> <span class="p">{};</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">api</span>            <span class="o">=</span> <span class="nx">api</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">domain</span>         <span class="o">=</span> <span class="nx">domain</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">linkDomain</span>     <span class="o">=</span> <span class="nx">linkDomain</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">ignore</span>         <span class="o">=</span> <span class="nx">ignore</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">iframe</span>         <span class="o">=</span> <span class="nx">iframe</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">newTab</span>         <span class="o">=</span> <span class="nx">newTab</span><span class="p">;</span>
 
-        <span class="k">this</span><span class="p">.</span><span class="nx">limit</span>      <span class="o">=</span> <span class="nx">limit</span> <span class="o">=</span> <span class="nx">ignore</span> <span class="o">?</span> <span class="nx">limit</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">:</span> <span class="nx">limit</span><span class="p">;</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">minWidth</span>   <span class="o">=</span> <span class="nx">minWidth</span><span class="p">;</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">offset</span>     <span class="o">=</span> <span class="nx">offset</span><span class="p">;</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">imageSize</span>  <span class="o">=</span> <span class="nx">imageSize</span><span class="p">;</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">slug</span>       <span class="o">=</span> <span class="nx">slug</span><span class="p">;</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">storiesApi</span> <span class="o">=</span> <span class="nx">storiesApi</span><span class="p">;</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">tag</span>        <span class="o">=</span> <span class="nx">tag</span><span class="p">;</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">category</span>   <span class="o">=</span> <span class="nx">category</span><span class="p">;</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">cta</span>        <span class="o">=</span> <span class="nx">cta</span><span class="p">;</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">target</span>     <span class="o">=</span> <span class="nx">target</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">limit</span>          <span class="o">=</span> <span class="nx">limit</span> <span class="o">=</span> <span class="nx">ignore</span> <span class="o">?</span> <span class="nx">limit</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">:</span> <span class="nx">limit</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">minWidth</span>       <span class="o">=</span> <span class="nx">minWidth</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">offset</span>         <span class="o">=</span> <span class="nx">offset</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">imageSize</span>      <span class="o">=</span> <span class="nx">imageSize</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">slug</span>           <span class="o">=</span> <span class="nx">slug</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">storiesApi</span>     <span class="o">=</span> <span class="nx">storiesApi</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">tag</span>            <span class="o">=</span> <span class="nx">tag</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">category</span>       <span class="o">=</span> <span class="nx">category</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">cta</span>            <span class="o">=</span> <span class="nx">cta</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">target</span>         <span class="o">=</span> <span class="nx">target</span><span class="p">;</span>
 
-        <span class="kr">const</span> <span class="nx">fetchLimit</span> <span class="o">=</span> <span class="nx">randomize</span> <span class="o">&amp;&amp;</span> <span class="nx">limit</span> <span class="o">&lt;</span> <span class="nx">randomize</span> <span class="o">?</span> <span class="nx">randomize</span> <span class="o">:</span> <span class="nx">limit</span><span class="p">;</span>
+        <span class="kr">const</span> <span class="nx">fetchLimit</span>    <span class="o">=</span> <span class="nx">limit</span> <span class="o">+</span> <span class="nx">offset</span><span class="p">;</span>
 
         <span class="k">if</span> <span class="p">(</span> <span class="nx">tag</span> <span class="o">!==</span> <span class="kc">false</span> <span class="o">&amp;&amp;</span> <span class="nx">category</span> <span class="o">!==</span> <span class="kc">false</span> <span class="p">)</span>
         <span class="p">{</span>
@@ -330,22 +329,23 @@ defined target or a new selector / el</p>
 
         <span class="k">if</span> <span class="p">(</span> <span class="nx">tag</span> <span class="o">!=</span> <span class="kc">false</span> <span class="p">)</span>
         <span class="p">{</span>
-            <span class="nx">url</span> <span class="o">=</span> <span class="err">`</span><span class="nx">$</span><span class="p">{</span><span class="nx">api</span><span class="p">}</span><span class="o">/</span><span class="nx">api</span><span class="o">/</span><span class="nx">feeds</span><span class="o">/</span><span class="nx">tags</span><span class="o">/</span><span class="nx">$</span><span class="p">{</span><span class="nx">tag</span><span class="p">}</span><span class="o">?</span><span class="nx">offset</span><span class="o">=</span><span class="nx">$</span><span class="p">{</span><span class="nx">offset</span><span class="p">}</span><span class="o">&amp;</span><span class="nx">limit</span><span class="o">=</span><span class="nx">$</span><span class="p">{</span><span class="nx">fetchLimit</span><span class="p">}</span><span class="o">&amp;</span><span class="nx">domain</span><span class="o">=</span><span class="nx">$</span><span class="p">{</span><span class="nx">slug</span><span class="p">}</span><span class="err">`</span><span class="p">;</span> <span class="c1">// eslint-disable-line</span>
+            <span class="nx">url</span> <span class="o">=</span> <span class="err">`</span><span class="nx">$</span><span class="p">{</span><span class="nx">api</span><span class="p">}</span><span class="o">/</span><span class="nx">api</span><span class="o">/</span><span class="nx">feeds</span><span class="o">/</span><span class="nx">tags</span><span class="o">/</span><span class="nx">$</span><span class="p">{</span><span class="nx">tag</span><span class="p">}</span><span class="o">?</span><span class="nx">limit</span><span class="o">=</span><span class="nx">$</span><span class="p">{</span><span class="nx">fetchLimit</span><span class="p">}</span><span class="o">&amp;</span><span class="nx">domain</span><span class="o">=</span><span class="nx">$</span><span class="p">{</span><span class="nx">slug</span><span class="p">}</span><span class="err">`</span><span class="p">;</span> <span class="c1">// eslint-disable-line</span>
         <span class="p">}</span>
         <span class="k">else</span> <span class="k">if</span> <span class="p">(</span> <span class="nx">category</span> <span class="o">!=</span> <span class="kc">false</span> <span class="p">)</span>
         <span class="p">{</span>
-            <span class="nx">url</span> <span class="o">=</span> <span class="err">`</span><span class="nx">$</span><span class="p">{</span><span class="nx">api</span><span class="p">}</span><span class="o">/</span><span class="nx">api</span><span class="o">/</span><span class="nx">feeds</span><span class="o">/</span><span class="nx">boards</span><span class="o">/</span><span class="nx">$</span><span class="p">{</span><span class="nx">category</span><span class="p">}</span><span class="o">/</span><span class="nx">user</span><span class="o">/</span><span class="nx">$</span><span class="p">{</span><span class="nx">slug</span><span class="p">}</span><span class="o">?</span><span class="nx">domain</span><span class="o">=</span><span class="nx">$</span><span class="p">{</span><span class="nx">slug</span><span class="p">}</span><span class="o">&amp;</span><span class="nx">offset</span><span class="o">=</span><span class="nx">$</span><span class="p">{</span><span class="nx">offset</span><span class="p">}</span><span class="err">`</span><span class="p">;</span> <span class="c1">// eslint-disable-line</span>
+            <span class="nx">url</span> <span class="o">=</span> <span class="err">`</span><span class="nx">$</span><span class="p">{</span><span class="nx">api</span><span class="p">}</span><span class="o">/</span><span class="nx">api</span><span class="o">/</span><span class="nx">feeds</span><span class="o">/</span><span class="nx">boards</span><span class="o">/</span><span class="nx">$</span><span class="p">{</span><span class="nx">category</span><span class="p">}</span><span class="o">/</span><span class="nx">user</span><span class="o">/</span><span class="nx">$</span><span class="p">{</span><span class="nx">slug</span><span class="p">}</span><span class="o">?</span><span class="nx">domain</span><span class="o">=</span><span class="nx">$</span><span class="p">{</span><span class="nx">slug</span><span class="p">}</span><span class="err">`</span><span class="p">;</span> <span class="c1">// eslint-disable-line</span>
         <span class="p">}</span>
         <span class="k">else</span>
         <span class="p">{</span>
-            <span class="nx">url</span> <span class="o">=</span> <span class="err">`</span><span class="nx">$</span><span class="p">{</span><span class="nx">api</span><span class="p">}</span><span class="o">/</span><span class="nx">api</span><span class="o">/</span><span class="nx">feeds</span><span class="o">/</span><span class="nx">all</span><span class="o">?</span><span class="nx">domain</span><span class="o">=</span><span class="nx">$</span><span class="p">{</span><span class="nx">slug</span><span class="p">}</span><span class="o">&amp;</span><span class="nx">offset</span><span class="o">=</span><span class="nx">$</span><span class="p">{</span><span class="nx">offset</span><span class="p">}</span><span class="o">&amp;</span><span class="nx">limit</span><span class="o">=</span><span class="nx">$</span><span class="p">{</span><span class="nx">fetchLimit</span><span class="p">}</span><span class="err">`</span><span class="p">;</span> <span class="c1">// eslint-disable-line</span>
+            <span class="nx">url</span> <span class="o">=</span> <span class="err">`</span><span class="nx">$</span><span class="p">{</span><span class="nx">api</span><span class="p">}</span><span class="o">/</span><span class="nx">api</span><span class="o">/</span><span class="nx">feeds</span><span class="o">/</span><span class="nx">all</span><span class="o">?</span><span class="nx">domain</span><span class="o">=</span><span class="nx">$</span><span class="p">{</span><span class="nx">slug</span><span class="p">}</span><span class="o">&amp;</span><span class="nx">limit</span><span class="o">=</span><span class="nx">$</span><span class="p">{</span><span class="nx">fetchLimit</span><span class="p">}</span><span class="err">`</span><span class="p">;</span> <span class="c1">// eslint-disable-line</span>
         <span class="p">}</span>
 
         <span class="k">this</span><span class="p">.</span><span class="nx">url</span> <span class="o">=</span> <span class="nx">url</span><span class="p">;</span>
 
         <span class="k">this</span><span class="p">.</span><span class="nx">http</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span> <span class="nx">storiesApi</span> <span class="o">||</span> <span class="nx">url</span> <span class="p">).</span><span class="nx">then</span><span class="p">(</span> <span class="nx">res</span> <span class="o">=&gt;</span>
         <span class="p">{</span>
-            <span class="nx">res</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span> <span class="nx">res</span> <span class="p">);</span>
+            <span class="nx">res</span>         <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span> <span class="nx">res</span> <span class="p">);</span>
+            <span class="nx">res</span><span class="p">.</span><span class="nx">stories</span> <span class="o">=</span> <span class="nx">res</span><span class="p">.</span><span class="nx">stories</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span> <span class="nx">offset</span> <span class="p">);</span>
 
 
 </pre></div>
@@ -354,10 +354,10 @@ defined target or a new selector / el</p>
       <tr>
         <td class="docs"><div class="dox">
   <div class="summary">
-<div class="pilwrap" id="removeone">
+<div class="pilwrap" id="removeextrastory">
   <h2>
-    <a href="#removeone" name="removeone" class="pilcrow">&#182;</a>
-    removeOne
+    <a href="#removeextrastory" name="removeextrastory" class="pilcrow">&#182;</a>
+    removeExtraStory
   </h2>
 </div>
 
@@ -387,20 +387,21 @@ then checks if more need to be removed</p>
 </div>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-            <span class="kd">function</span> <span class="nx">removeOne</span><span class="p">(</span> <span class="nx">arr</span><span class="p">,</span> <span class="nx">limit</span> <span class="p">)</span>
+            <span class="kd">function</span> <span class="nx">removeExtraStory</span><span class="p">(</span> <span class="nx">arr</span><span class="p">,</span> <span class="nx">limit</span> <span class="p">)</span>
             <span class="p">{</span>
-                <span class="k">if</span> <span class="p">(</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">length</span> <span class="o">&lt;=</span> <span class="nx">limit</span> <span class="p">)</span>
+                <span class="kr">const</span> <span class="nx">len</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
+
+                <span class="k">if</span> <span class="p">(</span> <span class="nx">len</span> <span class="o">&lt;=</span> <span class="nx">limit</span> <span class="p">)</span>
                 <span class="p">{</span>
                     <span class="k">return</span> <span class="nx">arr</span><span class="p">;</span>
                 <span class="p">}</span>
 
-                <span class="kr">const</span> <span class="nx">rand</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span> <span class="o">*</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">length</span> <span class="p">);</span>
-                <span class="nx">arr</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span> <span class="nx">rand</span><span class="p">,</span> <span class="mi">1</span> <span class="p">);</span>
+                <span class="nx">arr</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span> <span class="nx">len</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span> <span class="p">);</span>
 
-                <span class="k">return</span> <span class="nx">removeOne</span><span class="p">(</span> <span class="nx">arr</span><span class="p">,</span> <span class="nx">limit</span> <span class="p">);</span>
+                <span class="k">return</span> <span class="nx">removeExtraStory</span><span class="p">(</span> <span class="nx">arr</span><span class="p">,</span> <span class="nx">limit</span> <span class="p">);</span>
             <span class="p">}</span>
 
-            <span class="nx">res</span><span class="p">.</span><span class="nx">stories</span> <span class="o">=</span> <span class="nx">removeOne</span><span class="p">(</span> <span class="nx">res</span><span class="p">.</span><span class="nx">stories</span><span class="p">,</span> <span class="nx">limit</span> <span class="p">);</span>
+            <span class="nx">res</span><span class="p">.</span><span class="nx">stories</span> <span class="o">=</span> <span class="nx">removeExtraStory</span><span class="p">(</span> <span class="nx">res</span><span class="p">.</span><span class="nx">stories</span><span class="p">,</span> <span class="nx">limit</span> <span class="p">);</span>
 
             <span class="k">new</span> <span class="nx">Build</span><span class="p">(</span> <span class="k">this</span><span class="p">,</span> <span class="nx">res</span> <span class="p">);</span>
         <span class="p">}</span> <span class="p">);</span>

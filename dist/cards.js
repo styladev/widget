@@ -1,12 +1,12 @@
 /*!
- * Styla bite-sized widget v2.1.4
+ * Styla bite-sized widget v2.1.5
  * https://github.com/styladev/widget
  *
  * Copyright 2016 Styla GmbH and other contributors
  * Released under the MIT license
  * https://github.com/styladev/widget/blob/master/license.md
  *
- * Date: Fri Oct 14 2016
+ * Date: Thu Nov 03 2016
  * */
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 (function (global){
@@ -20,7 +20,8 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /* globals document, console, window */
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+/* globals document, console, window */
 /**
  * Styla bite-sized widget
  *
@@ -172,7 +173,6 @@ var StylaWidget = function () {
         var category = _ref$category === undefined ? false : _ref$category;
         var _ref$cta = _ref.cta;
         var cta = _ref$cta === undefined ? false : _ref$cta;
-        var randomize = _ref.randomize;
         var _ref$target = _ref.target;
         var target = _ref$target === undefined ? document.body : _ref$target;
 
@@ -204,7 +204,7 @@ var StylaWidget = function () {
         this.cta = cta;
         this.target = target;
 
-        var fetchLimit = randomize && limit < randomize ? randomize : limit;
+        var fetchLimit = limit + offset;
 
         if (tag !== false && category !== false) {
             console.error('Styla Widget error: Both tag and category filter has been added to the configuration, but only one can be used, stories will be filtered only by tag.'); // eslint-disable-line
@@ -213,20 +213,21 @@ var StylaWidget = function () {
         var url = void 0;
 
         if (tag != false) {
-            url = api + '/api/feeds/tags/' + tag + '?offset=' + offset + '&limit=' + fetchLimit + '&domain=' + slug; // eslint-disable-line
+            url = api + '/api/feeds/tags/' + tag + '?limit=' + fetchLimit + '&domain=' + slug; // eslint-disable-line
         } else if (category != false) {
-            url = api + '/api/feeds/boards/' + category + '/user/' + slug + '?domain=' + slug + '&offset=' + offset; // eslint-disable-line
+            url = api + '/api/feeds/boards/' + category + '/user/' + slug + '?domain=' + slug; // eslint-disable-line
         } else {
-            url = api + '/api/feeds/all?domain=' + slug + '&offset=' + offset + '&limit=' + fetchLimit; // eslint-disable-line
+            url = api + '/api/feeds/all?domain=' + slug + '&limit=' + fetchLimit; // eslint-disable-line
         }
 
         this.url = url;
 
         this.http.get(storiesApi || url).then(function (res) {
             res = JSON.parse(res);
+            res.stories = res.stories.slice(offset);
 
             /**
-             * ## removeOne
+             * ## removeExtraStory
              *
              * recursive - checks if the array is over a limit, removes one,
              * then checks if more need to be removed
@@ -236,18 +237,19 @@ var StylaWidget = function () {
              *
              * @return {Array} shortened array
              */
-            function removeOne(arr, limit) {
-                if (arr.length <= limit) {
+            function removeExtraStory(arr, limit) {
+                var len = arr.length;
+
+                if (len <= limit) {
                     return arr;
                 }
 
-                var rand = Math.floor(Math.random() * arr.length);
-                arr.splice(rand, 1);
+                arr.splice(len - 1, 1);
 
-                return removeOne(arr, limit);
+                return removeExtraStory(arr, limit);
             }
 
-            res.stories = removeOne(res.stories, limit);
+            res.stories = removeExtraStory(res.stories, limit);
 
             new _build2.default(_this, res);
         });
@@ -304,7 +306,8 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /* globals document, window */
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+/* globals document, window */
 /**
  * ## this.js
  *
@@ -913,6 +916,6 @@ module.exports = {
 'use strict';
 
 /* globals module */
-module.exports = '2.1.4';
+module.exports = '2.1.5';
 
 },{}]},{},[2]);
