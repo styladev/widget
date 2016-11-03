@@ -1,3 +1,4 @@
+
 /* globals document, console, window */
 /**
  * Styla bite-sized widget
@@ -121,7 +122,6 @@ class StylaWidget
                     tag         = false,
                     category    = false,
                     cta         = false,
-                    randomize,
                     target      = document.body
                     } = {} )
     {
@@ -132,27 +132,27 @@ class StylaWidget
             throw 'Styla Widget error: No slug defined, cannot render widget';
         }
 
-        this.format     = format;
-        this.refs       = {};
-        this.api        = api;
-        this.domain     = domain;
-        this.linkDomain = linkDomain;
-        this.ignore     = ignore;
-        this.iframe     = iframe;
-        this.newTab     = newTab;
+        this.format         = format;
+        this.refs           = {};
+        this.api            = api;
+        this.domain         = domain;
+        this.linkDomain     = linkDomain;
+        this.ignore         = ignore;
+        this.iframe         = iframe;
+        this.newTab         = newTab;
 
-        this.limit      = limit = ignore ? limit + 1 : limit;
-        this.minWidth   = minWidth;
-        this.offset     = offset;
-        this.imageSize  = imageSize;
-        this.slug       = slug;
-        this.storiesApi = storiesApi;
-        this.tag        = tag;
-        this.category   = category;
-        this.cta        = cta;
-        this.target     = target;
+        this.limit          = limit = ignore ? limit + 1 : limit;
+        this.minWidth       = minWidth;
+        this.offset         = offset;
+        this.imageSize      = imageSize;
+        this.slug           = slug;
+        this.storiesApi     = storiesApi;
+        this.tag            = tag;
+        this.category       = category;
+        this.cta            = cta;
+        this.target         = target;
 
-        const fetchLimit = randomize && limit < randomize ? randomize : limit;
+        const fetchLimit    = limit + offset;
 
         if ( tag !== false && category !== false )
         {
@@ -163,25 +163,26 @@ class StylaWidget
 
         if ( tag != false )
         {
-            url = `${api}/api/feeds/tags/${tag}?offset=${offset}&limit=${fetchLimit}&domain=${slug}`; // eslint-disable-line
+            url = `${api}/api/feeds/tags/${tag}?limit=${fetchLimit}&domain=${slug}`; // eslint-disable-line
         }
         else if ( category != false )
         {
-            url = `${api}/api/feeds/boards/${category}/user/${slug}?domain=${slug}&offset=${offset}`; // eslint-disable-line
+            url = `${api}/api/feeds/boards/${category}/user/${slug}?domain=${slug}`; // eslint-disable-line
         }
         else
         {
-            url = `${api}/api/feeds/all?domain=${slug}&offset=${offset}&limit=${fetchLimit}`; // eslint-disable-line
+            url = `${api}/api/feeds/all?domain=${slug}&limit=${fetchLimit}`; // eslint-disable-line
         }
 
         this.url = url;
 
         this.http.get( storiesApi || url ).then( res =>
         {
-            res = JSON.parse( res );
+            res         = JSON.parse( res );
+            res.stories = res.stories.slice( offset );
 
             /**
-             * ## removeOne
+             * ## removeExtraStory
              *
              * recursive - checks if the array is over a limit, removes one,
              * then checks if more need to be removed
@@ -191,20 +192,21 @@ class StylaWidget
              *
              * @return {Array} shortened array
              */
-            function removeOne( arr, limit )
+            function removeExtraStory( arr, limit )
             {
-                if ( arr.length <= limit )
+                const len = arr.length;
+
+                if ( len <= limit )
                 {
                     return arr;
                 }
 
-                const rand = Math.floor( Math.random() * arr.length );
-                arr.splice( rand, 1 );
+                arr.splice( len - 1, 1 );
 
-                return removeOne( arr, limit );
+                return removeExtraStory( arr, limit );
             }
 
-            res.stories = removeOne( res.stories, limit );
+            res.stories = removeExtraStory( res.stories, limit );
 
             new Build( this, res );
         } );
