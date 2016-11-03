@@ -99,6 +99,6 @@ var versionUrl      = './src/version.js';
 
 var newVersion      = process.argv[ 2 ] || updateVersion( versionUrl );
 
-updateLine( versionUrl, 0, 'module.exports = \'' + newVersion + '\';' );
+updateLine( versionUrl, 1, 'module.exports = \'' + newVersion + '\';' );
 updateLine( readmeUrl, 0, 'Styla Widget  ' + newVersion );
 updateLine( packageUrl, 2, '  "version": "' + newVersion + '",' );
