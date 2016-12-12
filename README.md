@@ -1,4 +1,4 @@
-Styla Widget  2.1.6
+Styla Widget  2.1.7
 
 =======
 
@@ -170,6 +170,9 @@ This project adheres to the [Contributor Covenant](http://contributor-covenant.o
 
 Change log
 ==========
+
+### 2.1.7
+    + fix wrapping issue for cards widget
 
 ### 2.1.6
     + fixed minimum height of cards widget
