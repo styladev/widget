@@ -906,6 +906,6 @@ module.exports = {
 'use strict';
 
 /* globals module */
-module.exports = '2.1.7';
+module.exports = '2.1.8';
 
 },{}]},{},[2]);
