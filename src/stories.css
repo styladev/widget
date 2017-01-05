@@ -45,7 +45,8 @@
 
 #styla-widget.stories .styla-widget__headlinewrap
 {
-    height:                             2em;
+    min-height:                         2em;
+    max-height:                         4em;
     display:                            flex;
     flex-direction:                     column;
     justify-content:                    flex-end;
