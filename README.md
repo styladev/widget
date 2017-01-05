@@ -1,4 +1,4 @@
-Styla Widget  2.1.7
+Styla Widget  2.1.8
 
 =======
 
@@ -170,6 +170,9 @@ This project adheres to the [Contributor Covenant](http://contributor-covenant.o
 
 Change log
 ==========
+
+### 2.1.8
+    + related stories layout allows headlines to wrap on two lines
 
 ### 2.1.7
     + fix wrapping issue for cards widget
