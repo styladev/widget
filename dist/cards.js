@@ -1,5 +1,5 @@
 /*!
- * Styla bite-sized widget v2.1.8
+ * Styla bite-sized widget v2.1.9
  * https://github.com/styladev/widget
  *
  * Copyright 2016-2017 Styla GmbH and other contributors
@@ -916,6 +916,6 @@ module.exports = {
 'use strict';
 
 /* globals module */
-module.exports = '2.1.8';
+module.exports = '2.1.9';
 
 },{}]},{},[2]);
