@@ -2,6 +2,7 @@ Styla Widget  2.1.9
 
 =======
 
+[![Build Status](https://travis-ci.org/styladev/widget.svg?branch=master)](https://travis-ci.org/styladev/widget)
 
 The Styla Widget™ is a simple way to display stories from a Styla Magazine in a
 smaller format, anywhere on your site. A story in the widget functions as
