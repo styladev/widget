@@ -523,11 +523,11 @@ class Build
      */
     includeFonts()
     {
-        const el          = document.createElement( 'link' );
+        const el        = document.createElement( 'link' );
         el.className    = classes.FONT_LINK;
         el.type         = 'text/css';
         el.rel          = 'stylesheet';
-        const fontUrl     = this.domainConfig.embed.customFontUrl;
+        const fontUrl   = this.domainConfig.embed.customFontUrl;
         el.href         = fontUrl.indexOf( '//' ) !== -1 ?
                             fontUrl :
                             `//${fontUrl}`;
