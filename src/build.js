@@ -115,8 +115,8 @@ class Build
         const refs        = context.refs;
 
         context.route     = domainConfigParsed.routes.story;
-        context.pushstate = domainConfigParsed.embed.pushstateDefault ? '/' :
-            '#';
+        context.pushstate = !domainConfigParsed.embed.pushstateDefault ? '#' :
+            '/';
         context.domain  = this.setDomain();
 
         refs.styles = this.includeBaseStyles();
@@ -274,7 +274,7 @@ class Build
      */
     buildStyleTag( css )
     {
-        const el          = document.createElement( 'style' );
+        const el        = document.createElement( 'style' );
         el.type         = 'text/css';
         el.className    = classes.STYLES;
 
@@ -295,7 +295,7 @@ class Build
     compileStyles()
     {
         const theme   = this.domainConfig.theme;
-        let css     = '';
+        let css       = '';
         const now     = this.now;
         const context = this.context;
 
@@ -523,11 +523,11 @@ class Build
      */
     includeFonts()
     {
-        const el          = document.createElement( 'link' );
+        const el        = document.createElement( 'link' );
         el.className    = classes.FONT_LINK;
         el.type         = 'text/css';
         el.rel          = 'stylesheet';
-        const fontUrl     = this.domainConfig.embed.customFontUrl;
+        const fontUrl   = this.domainConfig.embed.customFontUrl;
         el.href         = fontUrl.indexOf( '//' ) !== -1 ?
                             fontUrl :
                             `//${fontUrl}`;
