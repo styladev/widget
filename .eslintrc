@@ -36,7 +36,7 @@
         ],
         "keyword-spacing": [ 2, { "before": true, "after": true } ],
         "linebreak-style": [ 2, "unix" ],
-        "max-len": [ 2, { "ignoreUrls": true } ],
+        "max-len": [ 2, { "ignoreUrls": true, "code": 100 } ],
         "max-statements": [ 2, 60 ],
         "new-cap": 2,
         "new-parens": 2,
