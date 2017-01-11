@@ -419,7 +419,7 @@ var Build = function () {
             var refs = context.refs;
 
             context.route = domainConfigParsed.routes.story;
-            context.pushstate = !domainConfigParsed.embed.pushstateDefault ? '#' : '/';
+            context.pushstate = domainConfigParsed.embed.pushstateDefault === false ? '/' : '#';
             context.domain = this.setDomain();
 
             refs.styles = this.includeBaseStyles();
@@ -906,6 +906,6 @@ module.exports = {
 'use strict';
 
 /* globals module */
-module.exports = '2.1.10';
+module.exports = '2.1.11';
 
 },{}]},{},[2]);
