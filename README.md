@@ -1,4 +1,4 @@
-Styla Widget  2.1.9
+Styla Widget  2.1.10
 
 =======
 
@@ -171,6 +171,10 @@ This project adheres to the [Contributor Covenant](http://contributor-covenant.o
 
 Change log
 ==========
+
+### 2.1.10
+    + use pushstate navigation by default if nothing is specified in domain config (formerly
+    hashtag navigation).
 
 ### 2.1.9
     + fix broken release 2.1.8
