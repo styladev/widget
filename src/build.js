@@ -115,8 +115,7 @@ class Build
         const refs        = context.refs;
 
         context.route     = domainConfigParsed.routes.story;
-        context.pushstate = domainConfigParsed.embed.pushstateDefault ? '/' :
-            '#';
+        context.pushstate = domainConfigParsed.embed.pushstateDefault === false ? '/' : '#';
         context.domain  = this.setDomain();
 
         refs.styles = this.includeBaseStyles();
