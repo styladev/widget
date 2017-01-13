@@ -562,12 +562,22 @@ class Build
             {
                 let rootPath = embed.rootPath;
 
-                if ( rootPath[ 0 ] === '/' )
+                if ( rootPath[ 0 ] !== '/' )
                 {
-                    rootPath = rootPath.slice( 1 );
+                    rootPath = `/${rootPath}`;
                 }
 
-                domain = `${embed.magazineUrl}/${rootPath}`;
+                if ( rootPath.length > 1 && rootPath[ rootPath.length - 1 ] == '/' )
+                {
+                    rootPath = rootPath.substring( 0, rootPath.length - 1 );
+                }
+
+                if ( rootPath === '/' )
+                {
+                    rootPath = '';
+                }
+
+                domain = `${embed.magazineUrl}${rootPath}`;
             }
             else
             {
