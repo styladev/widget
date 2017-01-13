@@ -1,4 +1,4 @@
-Styla Widget  2.1.11
+Styla Widget  2.1.12
 
 =======
 
@@ -171,6 +171,9 @@ This project adheres to the [Contributor Covenant](http://contributor-covenant.o
 
 Change log
 ==========
+
+### 2.1.12
+    + generate links correctly regardless of domain config formatting
 
 ### 2.1.11
     + only use hashtag navigation when pushstateDefault is explicitly set to false
