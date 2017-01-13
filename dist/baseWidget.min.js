@@ -843,11 +843,19 @@ var Build = function () {
                 } else if (embed) {
                     var rootPath = embed.rootPath;
 
-                    if (rootPath[0] === '/') {
-                        rootPath = rootPath.slice(1);
+                    if (rootPath[0] !== '/') {
+                        rootPath = '/' + rootPath;
                     }
 
-                    domain = embed.magazineUrl + '/' + rootPath;
+                    if (rootPath.length > 1 && rootPath[rootPath.length - 1] == '/') {
+                        rootPath = rootPath.substring(0, rootPath.length - 1);
+                    }
+
+                    if (rootPath === '/') {
+                        rootPath = '';
+                    }
+
+                    domain = '' + embed.magazineUrl + rootPath;
                 } else {
                     throw 'Styla Widget error: No domain defined or bad domain config.'; // eslint-disable-line
                 }
@@ -906,6 +914,6 @@ module.exports = {
 'use strict';
 
 /* globals module */
-module.exports = '2.1.11';
+module.exports = '2.1.12';
 
 },{}]},{},[2]);

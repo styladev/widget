@@ -1129,12 +1129,22 @@ including root path</p>
             <span class="p">{</span>
                 <span class="kd">let</span> <span class="nx">rootPath</span> <span class="o">=</span> <span class="nx">embed</span><span class="p">.</span><span class="nx">rootPath</span><span class="p">;</span>
 
-                <span class="k">if</span> <span class="p">(</span> <span class="nx">rootPath</span><span class="p">[</span> <span class="mi">0</span> <span class="p">]</span> <span class="o">===</span> <span class="s1">&#39;/&#39;</span> <span class="p">)</span>
+                <span class="k">if</span> <span class="p">(</span> <span class="nx">rootPath</span><span class="p">[</span> <span class="mi">0</span> <span class="p">]</span> <span class="o">!==</span> <span class="s1">&#39;/&#39;</span> <span class="p">)</span>
                 <span class="p">{</span>
-                    <span class="nx">rootPath</span> <span class="o">=</span> <span class="nx">rootPath</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span> <span class="mi">1</span> <span class="p">);</span>
+                    <span class="nx">rootPath</span> <span class="o">=</span> <span class="err">`</span><span class="o">/</span><span class="nx">$</span><span class="p">{</span><span class="nx">rootPath</span><span class="p">}</span><span class="err">`</span><span class="p">;</span>
                 <span class="p">}</span>
 
-                <span class="nx">domain</span> <span class="o">=</span> <span class="err">`</span><span class="nx">$</span><span class="p">{</span><span class="nx">embed</span><span class="p">.</span><span class="nx">magazineUrl</span><span class="p">}</span><span class="o">/</span><span class="nx">$</span><span class="p">{</span><span class="nx">rootPath</span><span class="p">}</span><span class="err">`</span><span class="p">;</span>
+                <span class="k">if</span> <span class="p">(</span> <span class="nx">rootPath</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="nx">rootPath</span><span class="p">[</span> <span class="nx">rootPath</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">1</span> <span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;/&#39;</span> <span class="p">)</span>
+                <span class="p">{</span>
+                    <span class="nx">rootPath</span> <span class="o">=</span> <span class="nx">rootPath</span><span class="p">.</span><span class="nx">substring</span><span class="p">(</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">rootPath</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">1</span> <span class="p">);</span>
+                <span class="p">}</span>
+
+                <span class="k">if</span> <span class="p">(</span> <span class="nx">rootPath</span> <span class="o">===</span> <span class="s1">&#39;/&#39;</span> <span class="p">)</span>
+                <span class="p">{</span>
+                    <span class="nx">rootPath</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+                <span class="p">}</span>
+
+                <span class="nx">domain</span> <span class="o">=</span> <span class="err">`</span><span class="nx">$</span><span class="p">{</span><span class="nx">embed</span><span class="p">.</span><span class="nx">magazineUrl</span><span class="p">}</span><span class="nx">$</span><span class="p">{</span><span class="nx">rootPath</span><span class="p">}</span><span class="err">`</span><span class="p">;</span>
             <span class="p">}</span>
             <span class="k">else</span>
             <span class="p">{</span>

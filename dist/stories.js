@@ -1,12 +1,12 @@
 /*!
- * Styla bite-sized widget v2.1.11
+ * Styla bite-sized widget v2.1.12
  * https://github.com/styladev/widget
  *
  * Copyright 2016-2017 Styla GmbH and other contributors
  * Released under the MIT license
  * https://github.com/styladev/widget/blob/master/license.md
  *
- * Date: Wed Jan 11 2017
+ * Date: Fri Jan 13 2017
  * */
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 (function (global){
@@ -853,11 +853,19 @@ var Build = function () {
                 } else if (embed) {
                     var rootPath = embed.rootPath;
 
-                    if (rootPath[0] === '/') {
-                        rootPath = rootPath.slice(1);
+                    if (rootPath[0] !== '/') {
+                        rootPath = '/' + rootPath;
                     }
 
-                    domain = embed.magazineUrl + '/' + rootPath;
+                    if (rootPath.length > 1 && rootPath[rootPath.length - 1] == '/') {
+                        rootPath = rootPath.substring(0, rootPath.length - 1);
+                    }
+
+                    if (rootPath === '/') {
+                        rootPath = '';
+                    }
+
+                    domain = '' + embed.magazineUrl + rootPath;
                 } else {
                     throw 'Styla Widget error: No domain defined or bad domain config.'; // eslint-disable-line
                 }
@@ -916,6 +924,6 @@ module.exports = {
 'use strict';
 
 /* globals module */
-module.exports = '2.1.11';
+module.exports = '2.1.12';
 
 },{}]},{},[2]);
