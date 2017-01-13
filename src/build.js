@@ -562,16 +562,14 @@ class Build
             {
                 let rootPath = embed.rootPath;
 
-                debugger
-
                 if ( rootPath[ 0 ] !== '/' )
                 {
-                    rootPath = `/${rootPath}`
+                    rootPath = `/${rootPath}`;
                 }
 
-                if ( rootPath.length > 1 && rootPath[rootPath.length - 1 ] == '/' )
+                if ( rootPath.length > 1 && rootPath[ rootPath.length - 1 ] == '/' )
                 {
-                    rootPath = rootPath.substring(0, rootPath.length - 1)
+                    rootPath = rootPath.substring( 0, rootPath.length - 1 );
                 }
 
                 if ( rootPath === '/' )
