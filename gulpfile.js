@@ -1,13 +1,13 @@
-const gulp          = require( 'gulp' );
-const fs            = require( 'fs' );
-const browserify    = require( 'browserify' );
 const babelify      = require( 'babelify' );
+const browserify    = require( 'browserify' );
 const del           = require( 'del' );
-const uglify        = require( 'gulp-uglify' );
+const fs            = require( 'fs' );
+const gulp          = require( 'gulp' );
+const cleancss      = require( 'gulp-clean-css' );
 const header        = require( 'gulp-header' );
-const minifycss     = require( 'gulp-minify-css' );
 const rename        = require( 'gulp-rename' );
 const replace       = require( 'gulp-replace' );
+const uglify        = require( 'gulp-uglify' );
 
 const _package      = require( './package.json' );
 
@@ -15,6 +15,10 @@ const now           = new Date();
 const year          = now.getUTCFullYear();
 const version       = _package.version;
 const homepage      = _package.homepage;
+
+const srcPath       = 'src';   // source files
+const buildPath     = 'build'; // temporary files for building
+const distPath      = 'dist';  // final set of distribution files
 
 const majorVersion  = version.slice(0,1)
 
@@ -33,10 +37,25 @@ const licenceLong   = '/*!\n' +
 const licenceShort  = '/*! Styla Widget v' + version + ' | (c) ' + ( 2016 === year ? year : '2016-' + year ) + ' Styla GmbH | ' + homepage + '/blob/master/license.md */\n';
 
 
+
 gulp.task( 'clean', function() {
-    del(['dist']);
+    del([buildPath, distPath, 'coverage']);
 } );
 
+gulp.task( 'css', function()
+{
+    gulp.src( srcPath + '/*.css' )
+        .pipe( gulp.dest( buildPath + '/css' ) )
+        .pipe( rename( { suffix: '.min' } ) )
+        .pipe( cleancss() )
+        .pipe( gulp.dest( buildPath + '/css' ) );
+} );
+
+gulp.task( 'js', function()
+{
+    gulp.src( srcPath + '/baseWidget.js' );
+    // WIP
+}
 
 gulp.task( 'browserifyFiles', function()
 {
@@ -98,38 +117,6 @@ var insertStyles = function( target = 'list', file = 'list.min.js', suffix = '.m
 };
 
 
-gulp.task( 'css-min', function()
-{
-    gulp.src( './src/list.css' )
-        .pipe( rename( { suffix: '.min' } ) )
-        .pipe( minifycss() )
-        .pipe( gulp.dest( 'dist' ) );
-
-    gulp.src( './src/stories.css' )
-        .pipe( rename( { suffix: '.min' } ) )
-        .pipe( minifycss() )
-        .pipe( gulp.dest( 'dist' ) );
-
-    gulp.src( './src/horizontal.css' )
-        .pipe( rename( { suffix: '.min' } ) )
-        .pipe( minifycss() )
-        .pipe( gulp.dest( 'dist' ) );
-
-    gulp.src( './src/tiles.css' )
-        .pipe( rename( { suffix: '.min' } ) )
-        .pipe( minifycss() )
-        .pipe( gulp.dest( 'dist' ) );
-
-    gulp.src( './src/cards.css' )
-        .pipe( rename( { suffix: '.min' } ) )
-        .pipe( minifycss() )
-        .pipe( gulp.dest( 'dist' ) );
-
-    gulp.src( './src/baseStyles.css' )
-        .pipe( rename( { suffix: '.min' } ) )
-        .pipe( minifycss() )
-        .pipe( gulp.dest( 'dist' ) );
-} );
 
 
 gulp.task( 'default', function()

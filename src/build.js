@@ -1,7 +1,7 @@
 
 /* globals document, window */
 /**
- * ## this.js
+ * ## build.js
  *
  * this contains methods to build the bite sized widget that do not need to be
  * outwardly facing
