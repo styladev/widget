@@ -46,6 +46,7 @@
     "gulp-rename": "1.2.2",
     "gulp-replace": "0.5.4",
     "gulp-uglify": "1.5.1",
+    "gulp-util": "3.0.8",
     "istanbul-coveralls": "1.0.3",
     "jsdom": "9.4.0",
     "microbejs": "0.5.2",
@@ -53,7 +54,8 @@
     "mocha-istanbul": "0.2.0",
     "promise": "7.1.1",
     "sinon": "1.17.4",
-    "stylelint": "7.3.1"
+    "stylelint": "7.3.1",
+    "vinyl-source-stream": "1.1.0"
   },
   "license": "MIT",
   "bugs": {

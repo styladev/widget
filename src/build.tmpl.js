@@ -8,7 +8,7 @@
  */
 
 import classes  from './classes.js';
-import { http } from 'microbejs/dist/microbe.http.min';
+import { http } from 'microbejs';
 
 
 /*
@@ -215,9 +215,9 @@ class Build
     {
         const context       = this.context;
 
-        const format        = encodeURIComponent( context.format );
+        const layout        = encodeURIComponent( context.layout );
         const location      = encodeURIComponent( window.location.href );
-        const parameters    = `?styla_ref=${location}&styla_wdgt_var=${format}`;
+        const parameters    = `?styla_ref=${location}&styla_wdgt_var=${layout}`;
 
         const path = context.route.replace( /%2\$s_%3\$s/, slug );
 
@@ -325,7 +325,7 @@ class Build
         }
 
         const el        = this.buildStyleTag( css );
-        el.className    = `${classes.THEME_STYLES}  styla-widget__${context.format}`; // eslint-disable-line
+        el.className    = `${classes.THEME_STYLES}  styla-widget__${context.layout}`; // eslint-disable-line
 
         context.refs.themeStyle = el;
 
@@ -356,12 +356,12 @@ class Build
         if ( !context.refs.wrapper )
         {
             context.stories = stories;
-            const format    = context.format.toLowerCase();
+            const layout    = context.layout.toLowerCase();
 
             context.refs.container = this.create( 'DIV',
                             `${classes.CONTAINER}  styla-widget-${this.now}` );
             const wrapper   = context.refs.wrapper   = this.create( 'DIV',
-                                            `${classes.WRAPPER}  ${format}` );
+                                            `${classes.WRAPPER}  ${layout}` );
             wrapper.id      = wrapperID;
 
             const domainConfigAPI = `${context.api}/api/config/${context.slug}`;
@@ -460,7 +460,7 @@ class Build
         let el;
         const self        = this;
         const context     = this.context;
-        const formatCaps  = context.format.toUpperCase();
+        const layoutCaps  = context.layout.toUpperCase();
         const head        = document.head;
 
         /**
@@ -468,11 +468,11 @@ class Build
          *
          * @param {String} css style in css for tag insertion
          * @param {String} clss class to add to the baseStyle tag
-         * @param {String} format end format of the widget
+         * @param {String} layout layout of the widget
          *
          * @return {DOMElement} style tag
          */
-        function addBaseStyle( css, clss, format )
+        function addBaseStyle( css, clss, layout )
         {
             const baseStyle = head.querySelector( `.${clss}` );
 
@@ -481,7 +481,7 @@ class Build
                 el              = self.buildStyleTag( css );
                 el.className    = `${clss}  ${classes.STYLES}`;
 
-                context.refs[ `${format}Style` ] = el;
+                context.refs[ `${layout}Style` ] = el;
 
                 head.appendChild( el );
             }
@@ -497,8 +497,8 @@ class Build
                                  'base'
                             );
         arr[ 1 ] = addBaseStyle( specificStyles,
-                                classes[ `${formatCaps}_STYLES` ],
-                                context.format
+                                classes[ `${layoutCaps}_STYLES` ],
+                                context.layout
                             );
 
 

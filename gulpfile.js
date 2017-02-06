@@ -1,12 +1,14 @@
 const babelify      = require( 'babelify' );
 const browserify    = require( 'browserify' );
+const cleancss      = require( 'gulp-clean-css' );
 const del           = require( 'del' );
 const fs            = require( 'fs' );
 const gulp          = require( 'gulp' );
-const cleancss      = require( 'gulp-clean-css' );
+const gutil         = require( 'gulp-util' );
 const header        = require( 'gulp-header' );
 const rename        = require( 'gulp-rename' );
 const replace       = require( 'gulp-replace' );
+const source        = require( 'vinyl-source-stream');
 const uglify        = require( 'gulp-uglify' );
 
 const _package      = require( './package.json' );
@@ -36,7 +38,7 @@ const licenceLong   = '/*!\n' +
 
 const licenceShort  = '/*! Styla Widget v' + version + ' | (c) ' + ( 2016 === year ? year : '2016-' + year ) + ' Styla GmbH | ' + homepage + '/blob/master/license.md */\n';
 
-
+const layouts       = [ 'cards', 'horizontal', 'list', 'stories', 'tiles' ];
 
 gulp.task( 'clean', function() {
     del([buildPath, distPath, 'coverage']);
@@ -53,9 +55,26 @@ gulp.task( 'css', function()
 
 gulp.task( 'js', function()
 {
-    gulp.src( srcPath + '/baseWidget.js' );
-    // WIP
-}
+    return browserify( srcPath + '/baseWidget.tmpl.js' )
+        .transform (babelify)
+        .bundle()
+        .on('error', gutil.log) 
+        .pipe ( source( 'baseWidget.tmpl.js' ) ) // browserify destination name
+        .pipe ( gulp.dest( buildPath + '/js' ));
+});
+
+gulp.task( 'layouts', ['js'], function()
+{
+    for (let layout of layouts) 
+    {
+        gulp.src( buildPath + '/js/baseWidget.tmpl.js' )
+            .pipe( replace( 'TMPL-VARIABLE-LAYOUT', layout ) )
+            .pipe( rename( layout + '.js' ) )
+            .pipe( gulp.dest ( buildPath + '/js' ) );
+    }
+
+    // TODO : now insert header, css 
+});
 
 gulp.task( 'browserifyFiles', function()
 {
@@ -115,9 +134,6 @@ var insertStyles = function( target = 'list', file = 'list.min.js', suffix = '.m
             .pipe( rename( `${target}${suffix}.js` ) )
             .pipe( gulp.dest( `./${folder}/` ) );
 };
-
-
-
 
 gulp.task( 'default', function()
 {

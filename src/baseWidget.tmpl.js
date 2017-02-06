@@ -11,12 +11,12 @@
 
 import version  from '/version';
 import classes  from '/classes';
-import Build    from '/build';
+import Build    from '/build.tmpl';
 
-import { http } from 'microbejs/dist/microbe.http.min';
+import { http } from 'microbejs';
 
-let format  = 'styla-widget-format-goes-here';
-format      = format[ 0 ].toUpperCase() + format.slice( 1 );
+let layout  = 'TMPL-VARIABLE-LAYOUT';
+layout      = layout[ 0 ].toUpperCase() + layout.slice( 1 ); // TODO this should be moved to gulpfile
 
 
 /**
@@ -132,7 +132,7 @@ class StylaWidget
             throw 'Styla Widget error: No slug defined, cannot render widget';
         }
 
-        this.format         = format;
+        this.layout         = layout;
         this.refs           = {};
         this.api            = api;
         this.domain         = domain;
@@ -245,7 +245,7 @@ class StylaWidget
 
 StylaWidget.prototype.http = http;
 
-window[ `StylaWidget_${format}` ] = StylaWidget;
+window[ `StylaWidget_${layout}` ] = StylaWidget;
 
 Object.defineProperty( StylaWidget, 'version', {
     value : version
