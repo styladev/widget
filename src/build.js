@@ -400,15 +400,15 @@ class Build
      * gets description from the content and returns that. Either returns full text or only from
      * the first block
      *
-     * @param {Array} storyTextArr array filled w/ content
+     * @param {Array} textBlocks array filled w/ content
      * @param {Boolean} useFullText when false, use only the first text content block
      * @param {Number} i recursive index
      *
      * @return {String} text content. Might be empty if no text.
      */
-    getDescription( storyTextArr, useFullText = true, i = 0 )
+    getDescription( textBlocks, useFullText = true, i = 0 )
     {
-        const text = storyTextArr[ i ];
+        const text = textBlocks[ i ];
 
         if ( !text )
         {
@@ -427,14 +427,14 @@ class Build
         {
             if ( useFullText )
             {
-                return `${actualText} ${this.getDescription( storyTextArr, useFullText, i + 1 )}`;
+                return `${actualText} ${this.getDescription( textBlocks, useFullText, i + 1 )}`;
             }
 
             return actualText;
         }
 
         // !isTextValid
-        return this.getDescription( storyTextArr, useFullText, i + 1 );
+        return this.getDescription( textBlocks, useFullText, i + 1 );
     }
 
 
