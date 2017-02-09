@@ -338,7 +338,7 @@ describe( 'buildStoryText', () =>
         assert.equal( children[ 0 ].innerHTML,
                             '<h3 class="styla-widget__headline">moon?</h3>',
                             'headline is set right' );
-        assert.equal( children[ 1 ].innerHTML, 'description',
+        assert.equal( children[ 1 ].innerHTML, 'description ',
                                                 'description is set right' );
     } );
 
@@ -455,51 +455,54 @@ describe( 'create', () =>
 } );
 
 
-/**
- * ## getDescription
- *
- * gets the first text description in the content and returns that
- *
- * @param {Array} _arr array filled w/ content
- * @param {Number} i recursive index
- *
- * @return _String or Boolean_ text content or false
- */
 describe( 'getDescription', () =>
 {
-    it( 'should set the description correctly', () =>
+    const storyTextArr = [
+        {
+            type : 'moon'
+        },
+        {
+            type    : 'text',
+            content : 'doge 1'
+        },
+        {
+            type : 'moon'
+        },
+        {
+            type    : 'text',
+            content : 'doge 2'
+        },
+        {
+            type : 'moon'
+        }
+    ];
+
+    it( 'should by default return combined text from multiple content blocks', () =>
     {
-        const arr = [
-            {
-                type : 'moon'
-            },
-            {
-                type    : 'text',
-                content : 'doge'
-            },
-            {
-                type : 'moon'
-            },
-            {
-                type : 'moon'
-            }
-        ];
+        const text = build.getDescription( storyTextArr );
 
-        const text = build.getDescription( arr );
-
-        assert.equal( text, 'doge', 'story text is set correctly' );
+        assert.equal( text, 'doge 1 doge 2 ' );
     } );
 
-
-    it( 'should return false if there is no image', () =>
+    it( 'should return text from the first block only', () =>
     {
-        const arr = [
+        const text = build.getDescription( storyTextArr, false );
+
+        assert.equal( text, 'doge 1' );
+    } );
+
+    it( 'should return empty string if the index is out of range', () =>
+    {
+        const text = build.getDescription( storyTextArr, true, 10 );
+
+        assert.equal( text, '' );
+    } );
+
+    it( 'should return empty string if input does not contain any text block', () =>
+    {
+        const storyTextArrNoText = [
             {
                 type : 'moon'
-            },
-            {
-                type    : 'text',
-                content : 'doge'
             },
             {
                 type : 'moon'
@@ -509,9 +512,9 @@ describe( 'getDescription', () =>
             }
         ];
 
-        const text = build.getDescription( arr, 10 );
+        const text = build.getDescription( storyTextArrNoText );
 
-        assert.equal( text, false, 'story text fails correctly' );
+        assert.equal( text, '' );
     } );
 } );
 
