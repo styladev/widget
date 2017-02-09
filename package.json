@@ -1,9 +1,10 @@
 {
   "name": "stylaWidget",
-  "version": "2.1.11",
+  "version": "2.1.12",
   "contributors": [
     "Mouse Braun <mouse@styla.com>",
-    "Elias Liedholm <elias@styla.com>"
+    "Elias Liedholm <elias@styla.com>",
+    "Sven Ehlert <sven@styla.com" 
   ],
   "description": "small, bite-sized styla feeds",
   "repository": {
