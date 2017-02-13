@@ -2,6 +2,7 @@ const gulp          = require( 'gulp' );
 const fs            = require( 'fs' );
 const browserify    = require( 'browserify' );
 const babelify      = require( 'babelify' );
+const del           = require( 'del' );
 const uglify        = require( 'gulp-uglify' );
 const header        = require( 'gulp-header' );
 const minifycss     = require( 'gulp-minify-css' );
@@ -29,7 +30,12 @@ const licenceLong   = '/*!\n' +
                       ' *' +
                       ' */\n';
 
-const licenceShort  = '/*! Styla Widget v' + version + ' | (c) ' + ( 2016 === year ? year : '2015-' + year ) + ' Styla GmbH | ' + homepage + '/blob/master/license.md */\n';
+const licenceShort  = '/*! Styla Widget v' + version + ' | (c) ' + ( 2016 === year ? year : '2016-' + year ) + ' Styla GmbH | ' + homepage + '/blob/master/license.md */\n';
+
+
+gulp.task( 'clean', function() {
+    del(['dist']);
+} );
 
 
 gulp.task( 'browserifyFiles', function()
@@ -75,7 +81,7 @@ var insertStyles = function( target = 'list', file = 'list.min.js', suffix = '.m
 
     let _g = gulp.src( `./${folder}/${file}` );
 
-    if ( suffix === '.min' )
+    if ( suffix.endsWith( '.min' ) )
     {
         _g.pipe( uglify() ).pipe( header( licenceShort ) );
     }
