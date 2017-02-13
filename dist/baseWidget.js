@@ -61,7 +61,7 @@ var StylaWidget = function () {
          * @return {Void} void
          */
         value: function attach() {
-            var target = arguments.length <= 0 || arguments[0] === undefined ? this.target : arguments[0];
+            var target = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.target;
 
             target = this.checkTarget(target, this.minWidth);
 
@@ -132,39 +132,38 @@ var StylaWidget = function () {
     function StylaWidget() {
         var _this = this;
 
-        var _ref = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
-
-        var slug = _ref.slug;
-        var _ref$api = _ref.api;
-        var api = _ref$api === undefined ? 'https://live.styla.com' : _ref$api;
-        var _ref$domain = _ref.domain;
-        var domain = _ref$domain === undefined ? false : _ref$domain;
-        var _ref$iframe = _ref.iframe;
-        var iframe = _ref$iframe === undefined ? false : _ref$iframe;
-        var _ref$ignore = _ref.ignore;
-        var ignore = _ref$ignore === undefined ? false : _ref$ignore;
-        var _ref$limit = _ref.limit;
-        var limit = _ref$limit === undefined ? 5 : _ref$limit;
-        var _ref$linkDomain = _ref.linkDomain;
-        var linkDomain = _ref$linkDomain === undefined ? false : _ref$linkDomain;
-        var _ref$minWidth = _ref.minWidth;
-        var minWidth = _ref$minWidth === undefined ? 250 : _ref$minWidth;
-        var _ref$newTab = _ref.newTab;
-        var newTab = _ref$newTab === undefined ? false : _ref$newTab;
-        var _ref$offset = _ref.offset;
-        var offset = _ref$offset === undefined ? 0 : _ref$offset;
-        var _ref$imageSize = _ref.imageSize;
-        var imageSize = _ref$imageSize === undefined ? 400 : _ref$imageSize;
-        var _ref$storiesApi = _ref.storiesApi;
-        var storiesApi = _ref$storiesApi === undefined ? false : _ref$storiesApi;
-        var _ref$tag = _ref.tag;
-        var tag = _ref$tag === undefined ? false : _ref$tag;
-        var _ref$category = _ref.category;
-        var category = _ref$category === undefined ? false : _ref$category;
-        var _ref$cta = _ref.cta;
-        var cta = _ref$cta === undefined ? false : _ref$cta;
-        var _ref$target = _ref.target;
-        var target = _ref$target === undefined ? document.body : _ref$target;
+        var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+            slug = _ref.slug,
+            _ref$api = _ref.api,
+            api = _ref$api === undefined ? 'https://live.styla.com' : _ref$api,
+            _ref$domain = _ref.domain,
+            domain = _ref$domain === undefined ? false : _ref$domain,
+            _ref$iframe = _ref.iframe,
+            iframe = _ref$iframe === undefined ? false : _ref$iframe,
+            _ref$ignore = _ref.ignore,
+            ignore = _ref$ignore === undefined ? false : _ref$ignore,
+            _ref$limit = _ref.limit,
+            limit = _ref$limit === undefined ? 5 : _ref$limit,
+            _ref$linkDomain = _ref.linkDomain,
+            linkDomain = _ref$linkDomain === undefined ? false : _ref$linkDomain,
+            _ref$minWidth = _ref.minWidth,
+            minWidth = _ref$minWidth === undefined ? 250 : _ref$minWidth,
+            _ref$newTab = _ref.newTab,
+            newTab = _ref$newTab === undefined ? false : _ref$newTab,
+            _ref$offset = _ref.offset,
+            offset = _ref$offset === undefined ? 0 : _ref$offset,
+            _ref$imageSize = _ref.imageSize,
+            imageSize = _ref$imageSize === undefined ? 400 : _ref$imageSize,
+            _ref$storiesApi = _ref.storiesApi,
+            storiesApi = _ref$storiesApi === undefined ? false : _ref$storiesApi,
+            _ref$tag = _ref.tag,
+            tag = _ref$tag === undefined ? false : _ref$tag,
+            _ref$category = _ref.category,
+            category = _ref$category === undefined ? false : _ref$category,
+            _ref$cta = _ref.cta,
+            cta = _ref$cta === undefined ? false : _ref$cta,
+            _ref$target = _ref.target,
+            target = _ref$target === undefined ? document.body : _ref$target;
 
         _classCallCheck(this, StylaWidget);
 
@@ -404,7 +403,7 @@ var Build = function () {
     }, {
         key: 'buildStories',
         value: function buildStories() {
-            var domainConfig = arguments.length <= 0 || arguments[0] === undefined ? '{}' : arguments[0];
+            var domainConfig = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '{}';
 
             var domainConfigParsed = this.domainConfig = JSON.parse(domainConfig);
 
@@ -459,12 +458,12 @@ var Build = function () {
     }, {
         key: 'buildStory',
         value: function buildStory(_ref) {
-            var title = _ref.title;
-            var description = _ref.description;
-            var images = _ref.images;
-            var externalPermalink = _ref.externalPermalink;
-            var id = _ref.id;
-            var i = arguments.length <= 1 || arguments[1] === undefined ? 0 : arguments[1];
+            var title = _ref.title,
+                description = _ref.description,
+                images = _ref.images,
+                externalPermalink = _ref.externalPermalink,
+                id = _ref.id;
+            var i = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
 
             var context = this.context;
 
@@ -473,7 +472,6 @@ var Build = function () {
             }
 
             if ('' + context.ignore !== '' + id && i < this.ignored + context.limit) {
-
                 var create = this.create;
 
                 var story = create('div', _classes2.default.STORY);
@@ -539,7 +537,7 @@ var Build = function () {
          * and returns the outer wrapper
          *
          * @param {String} title story headline
-         * @param {String} description copy of the story to be inserted
+         * @param {Object} description copy of the story to be inserted
          *
          * @return {DOMElement} style element
          */
@@ -547,7 +545,7 @@ var Build = function () {
     }, {
         key: 'buildStoryText',
         value: function buildStoryText(title) {
-            var description = arguments.length <= 1 || arguments[1] === undefined ? '{}' : arguments[1];
+            var description = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '{}';
 
             var create = this.create;
             var textWrapper = create('div', _classes2.default.TEXT_WRAPPER);
@@ -558,10 +556,8 @@ var Build = function () {
             var paragraph = create('div', _classes2.default.PARAGRAPH);
             description = this.getDescription(JSON.parse(description));
 
-            if (description) {
-                paragraph.innerHTML = description;
-                paragraph.innerHTML = paragraph.textContent;
-            }
+            paragraph.innerHTML = description;
+            paragraph.innerHTML = paragraph.textContent; // What??
 
             textWrapper.appendChild(paragraph);
 
@@ -689,34 +685,46 @@ var Build = function () {
         /**
          * ## getDescription
          *
-         * gets the first text description in the content and returns that
+         * gets description from the content and returns that. Either returns full text or only from
+         * the first block
          *
-         * @param {Array} arr array filled w/ content
+         * @param {Array} textBlocks array filled w/ content
+         * @param {Boolean} useFullText when false, use only the first text content block
          * @param {Number} i recursive index
          *
-         * @return {Mixed} text content or false _String or Boolean_
+         * @return {String} text content. Might be empty if no text.
          */
 
     }, {
         key: 'getDescription',
-        value: function getDescription(arr) {
-            var i = arguments.length <= 1 || arguments[1] === undefined ? 0 : arguments[1];
+        value: function getDescription(textBlocks) {
+            var useFullText = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+            var i = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
 
-            var text = arr[i];
+            var text = textBlocks[i];
 
             if (!text) {
-                return false;
+                return '';
             }
 
+            // TODO this is dogey! A getter must not have side effects like
+            // manipulating the dom. At least remove it after use!
             var el = this.create('div');
             el.innerHTML = text.content;
             var actualText = el.textContent;
 
-            if (text.type !== 'text' || actualText === '') {
-                return this.getDescription(arr, i + 1);
+            var isTextValid = text.type == 'text' && actualText !== '';
+
+            if (isTextValid) {
+                if (useFullText) {
+                    return actualText + ' ' + this.getDescription(textBlocks, useFullText, i + 1);
+                }
+
+                return actualText;
             }
 
-            return text.content;
+            // !isTextValid
+            return this.getDescription(textBlocks, useFullText, i + 1);
         }
 
         /**
@@ -733,7 +741,7 @@ var Build = function () {
     }, {
         key: 'getImageUrl',
         value: function getImageUrl(filename) {
-            var imageSize = arguments.length <= 1 || arguments[1] === undefined ? 400 : arguments[1];
+            var imageSize = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 400;
 
             return '//img.styla.com/resizer/sfh_' + imageSize + 'x0/_' + filename + '?still';
         }
