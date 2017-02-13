@@ -1,4 +1,4 @@
-Styla Widget  2.1.9
+Styla Widget  2.1.12
 
 =======
 
@@ -171,6 +171,16 @@ This project adheres to the [Contributor Covenant](http://contributor-covenant.o
 
 Change log
 ==========
+
+### 2.1.12
+    + generate links correctly regardless of domain config formatting
+    + story text is not limited anymore to the first text element only
+
+### 2.1.11
+    + only use hashtag navigation when pushstateDefault is explicitly set to false
+
+### 2.1.10
+    + broken release
 
 ### 2.1.9
     + fix broken release 2.1.8
