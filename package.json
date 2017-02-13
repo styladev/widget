@@ -16,7 +16,7 @@
     "clean": "gulp clean",
     "css-min": "gulp css-min",
     "doc": "docker -o dist/doc/ -i src --sidebar true --js dist/list.js -c manni && cp ./dist/doc/baseWidget.js.html ./dist/doc/index.html",
-    "gulp": "mkdir -p ./dist && gulp",
+    "gulp": "gulp",
     "lint": "eslint ./src ./test --ext .js",
     "lintFix": "eslint ./src ./test --ext .js --fix",
     "min": "gulp min",

@@ -63,18 +63,26 @@ gulp.task( 'js', function()
         .pipe ( gulp.dest( buildPath + '/js' ));
 });
 
-gulp.task( 'layouts', ['js'], function()
+gulp.task( 'layouts', ['css', 'js'], function()
 {
+    let baseStyles = fs.readFileSync( `${buildPath}/css/baseStyles.css`, 'utf8' );
+        
     for (let layout of layouts) 
     {
         gulp.src( buildPath + '/js/baseWidget.tmpl.js' )
             .pipe( replace( 'TMPL-VARIABLE-LAYOUT', layout ) )
+            .pipe( replace ('TMPL-VARIABLE-BASESTYLES', baseStyles ) )
+            .pipe( replace ('TMPL-VARIABLE-SPECIFICSTYLES', 
+                fs.readFileSync( `${buildPath}/css/${layout}.css`, 'utf8' ) ) )
+            .pipe( header( licenceLong ) )
             .pipe( rename( layout + '.js' ) )
-            .pipe( gulp.dest ( buildPath + '/js' ) );
+            .pipe( gulp.dest( distPath ) )
+            .pipe( rename( `${layout}.v${majorVersion}.js` ) )
+            .pipe( gulp.dest( distPath ) );
     }
-
-    // TODO : now insert header, css 
 });
+
+
 
 gulp.task( 'browserifyFiles', function()
 {

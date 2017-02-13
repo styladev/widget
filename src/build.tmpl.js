@@ -14,8 +14,9 @@ import { http } from 'microbejs';
 /*
     exchanged for css in the gulp build
  */
-const baseStyles        = 'styla-widget-css-goes-here';
-const specificStyles    = 'styla-build-specific-css-goes-here';
+const baseStyles        = 'TMPL-VARIABLE-BASESTYLES';
+const specificStyles    = 'TMPL-VARIABLE-SPECIFICSTYLES';
+
 const wrapperID         = 'styla-widget';
 
 /* istanbul ignore next */
