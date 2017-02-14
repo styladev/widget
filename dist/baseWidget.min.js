@@ -557,11 +557,15 @@ var Build = function () {
             description = this.getDescription(JSON.parse(description));
 
             paragraph.innerHTML = description;
-            paragraph.innerHTML = paragraph.textContent; // What??
+
+            /* Magic: strips HTML from description */
+            paragraph.innerHTML = paragraph.textContent;
 
             textWrapper.appendChild(paragraph);
 
             var paragraphAfter = create('div', _classes2.default.PARAGRAPH_AFTER);
+            paragraphAfter.innerHTML = '…';
+
             textWrapper.appendChild(paragraphAfter);
 
             return textWrapper;
@@ -922,6 +926,6 @@ module.exports = {
 'use strict';
 
 /* globals module */
-module.exports = '2.1.13';
+module.exports = '2.1.14';
 
 },{}]},{},[2]);

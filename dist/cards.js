@@ -1,12 +1,12 @@
 /*!
- * Styla bite-sized widget v2.1.13
+ * Styla bite-sized widget v2.1.14
  * https://github.com/styladev/widget
  *
  * Copyright 2016-2017 Styla GmbH and other contributors
  * Released under the MIT license
  * https://github.com/styladev/widget/blob/master/license.md
  *
- * Date: Mon Feb 13 2017
+ * Date: Tue Feb 14 2017
  * */
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 (function (global){
@@ -327,7 +327,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 /*
     exchanged for css in the gulp build
  */
-var baseStyles = '#styla-widget p{margin:0}#styla-widget.styla-widget__wrapper{width:100%;height:100%}#styla-widget .styla-widget__container{box-sizing:border-box;position:relative;overflow:hidden;height:100%;width:100%;min-height:14em;font-size:14px}#styla-widget .styla-widget__story{margin-bottom:1em;position:relative}#styla-widget .styla-widget__link{position:absolute;width:100%;display:-moz-flex;display:-webkit-flex;display:flex;text-decoration:none;color:inherit}#styla-widget__link>div{display:inline-block}#styla-widget .styla-widget__image{max-height:100%;max-width:100%;height:100%;object-fit:contain}#styla-widget .styla-widget__textwrap{display:block;-moz-flex-grow:1;-webkit-flex-grow:1;flex-grow:1;max-height:100%;overflow:hidden;float:left}#styla-widget .styla-widget__headlinewrap{display:flex;flex-direction:column;-moz-justify-content:flex-end;-webkit-justify-content:flex-end;justify-content:flex-end}#styla-widget .styla-widget__headline,#styla-widget .styla-widget__title{line-height:1.25em;max-height:2.5em;overflow:hidden;margin-top:1em;margin-bottom:1em}#styla-widget .styla-widget__title{font-size:2em;text-align:center;margin-bottom:30px}#styla-widget .styla-widget__paragraph{font-size:1em;line-height:1.5em;overflow:hidden;position:relative;word-wrap:break-word}#styla-widget .styla-widget__paragraph-after:after{content:"..."}';
+var baseStyles = '#styla-widget p{margin:0}#styla-widget.styla-widget__wrapper{width:100%;height:100%}#styla-widget .styla-widget__container{box-sizing:border-box;position:relative;overflow:hidden;height:100%;width:100%;min-height:14em;font-size:14px}#styla-widget .styla-widget__story{margin-bottom:1em;position:relative}#styla-widget .styla-widget__link{position:absolute;width:100%;display:-moz-flex;display:-webkit-flex;display:flex;text-decoration:none;color:inherit}#styla-widget__link>div{display:inline-block}#styla-widget .styla-widget__image{max-height:100%;max-width:100%;height:100%;object-fit:contain}#styla-widget .styla-widget__textwrap{display:block;-moz-flex-grow:1;-webkit-flex-grow:1;flex-grow:1;max-height:100%;overflow:hidden;float:left}#styla-widget .styla-widget__headlinewrap{display:flex;flex-direction:column;-moz-justify-content:flex-end;-webkit-justify-content:flex-end;justify-content:flex-end}#styla-widget .styla-widget__headline,#styla-widget .styla-widget__title{line-height:1.25em;max-height:2.5em;overflow:hidden;margin-top:1em;margin-bottom:1em}#styla-widget .styla-widget__title{font-size:2em;text-align:center;margin-bottom:30px}#styla-widget .styla-widget__paragraph{font-size:1em;line-height:1.5em;overflow:hidden;position:relative;word-wrap:break-word}';
 var specificStyles = '#styla-widget.cards .styla-widget__container{display:-moz-flex;display:-ms-flex;display:-webkit-flex;display:flex;-moz-flex-direction:row;-ms-flex-direction:row;-webkit-flex-direction:row;flex-direction:row;-moz-flex-wrap:wrap;-ms-flex-wrap:wrap;-webkit-flex-wrap:wrap;flex-wrap:wrap;padding:0 .5em;height:26em;overflow:hidden}#styla-widget.cards .styla-widget__story{margin:.5em;width:18em;height:25em;display:block;float:left;-moz-flex-grow:1;-ms-flex-grow:1;-webkit-flex-grow:1;flex-grow:1}#styla-widget.cards .styla-widget__link{display:block}#styla-widget.cards .styla-widget__imagewrap{height:11em;width:100%}#styla-widget.cards .styla-widget__image{width:100%;object-fit:cover}#styla-widget.cards .styla-widget__textwrap{width:100%}#styla-widget.cards .styla-widget__headline{font-size:1.5em}#styla-widget.cards .styla-widget__paragraph{max-height:6em}#styla-widget.cards .styla-widget__calltoaction{line-height:2em}#styla-widget.cards .styla-widget__calltoaction:hover{text-decoration:underline}';
 var wrapperID = 'styla-widget';
 
@@ -567,11 +567,15 @@ var Build = function () {
             description = this.getDescription(JSON.parse(description));
 
             paragraph.innerHTML = description;
-            paragraph.innerHTML = paragraph.textContent; // What??
+
+            /* Magic: strips HTML from description */
+            paragraph.innerHTML = paragraph.textContent;
 
             textWrapper.appendChild(paragraph);
 
             var paragraphAfter = create('div', _classes2.default.PARAGRAPH_AFTER);
+            paragraphAfter.innerHTML = '…';
+
             textWrapper.appendChild(paragraphAfter);
 
             return textWrapper;
@@ -932,6 +936,6 @@ module.exports = {
 'use strict';
 
 /* globals module */
-module.exports = '2.1.13';
+module.exports = '2.1.14';
 
 },{}]},{},[2]);
