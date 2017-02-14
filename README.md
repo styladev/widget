@@ -1,4 +1,4 @@
-Styla Widget  2.1.13
+Styla Widget  2.1.14
 
 =======
 
@@ -171,6 +171,9 @@ This project adheres to the [Contributor Covenant](http://contributor-covenant.o
 
 Change log
 ==========
+
+### 2.1.14
+    + move after element content from css to js in order to fix minifying
 
 ### 2.1.13
     + story text is not limited anymore to the first text element only
