@@ -108,8 +108,3 @@
     position:                           relative;
     word-wrap:                          break-word;
 }
-
-#styla-widget .styla-widget__paragraph-after:after
-{
-    content:                            "...";
-}

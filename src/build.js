@@ -237,21 +237,25 @@ class Build
      */
     buildStoryText( title, description = '{}' )
     {
-        const create          = this.create;
-        const textWrapper     = create( 'div', classes.TEXT_WRAPPER );
+        const create                = this.create;
+        const textWrapper           = create( 'div', classes.TEXT_WRAPPER );
 
-        const headlineWrapper = this.buildHeadline( title );
+        const headlineWrapper       = this.buildHeadline( title );
         textWrapper.appendChild( headlineWrapper );
 
-        const paragraph       = create( 'div', classes.PARAGRAPH );
-        description           = this.getDescription( JSON.parse( description ) );
+        const paragraph             = create( 'div', classes.PARAGRAPH );
+        description                 = this.getDescription( JSON.parse( description ) );
 
-        paragraph.innerHTML = description;
-        paragraph.innerHTML = paragraph.textContent; // What??
+        paragraph.innerHTML         = description;
+
+        /* Magic: strips HTML from description */
+        paragraph.innerHTML         = paragraph.textContent;
 
         textWrapper.appendChild( paragraph );
 
-        const paragraphAfter  = create( 'div',    classes.PARAGRAPH_AFTER );
+        const paragraphAfter        = create( 'div', classes.PARAGRAPH_AFTER );
+        paragraphAfter.innerHTML    = '…';
+
         textWrapper.appendChild( paragraphAfter );
 
         return textWrapper;
