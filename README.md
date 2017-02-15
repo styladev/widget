@@ -1,4 +1,4 @@
-Styla Widget  2.1.14
+Styla Widget  2.1.15
 
 =======
 
@@ -171,6 +171,9 @@ This project adheres to the [Contributor Covenant](http://contributor-covenant.o
 
 Change log
 ==========
+
+### 2.1.15
+    + fix image positioning in tiles layout for firefox
 
 ### 2.1.14
     + move after element content from css to js in order to fix minifying
