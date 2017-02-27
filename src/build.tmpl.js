@@ -166,7 +166,6 @@ class Build
         if ( `${context.ignore}` !== `${id}` &&
                     i < this.ignored + context.limit )
         {
-
             const create    = this.create;
 
             const story     = create( 'div',    classes.STORY );
@@ -233,30 +232,31 @@ class Build
      * and returns the outer wrapper
      *
      * @param {String} title story headline
-     * @param {String} description copy of the story to be inserted
+     * @param {Object} description copy of the story to be inserted
      *
      * @return {DOMElement} style element
      */
     buildStoryText( title, description = '{}' )
     {
-        const create          = this.create;
-        const textWrapper     = create( 'div',    classes.TEXT_WRAPPER );
+        const create                = this.create;
+        const textWrapper           = create( 'div', classes.TEXT_WRAPPER );
 
-        const headlineWrapper = this.buildHeadline( title );
+        const headlineWrapper       = this.buildHeadline( title );
         textWrapper.appendChild( headlineWrapper );
 
-        const paragraph       = create( 'div',    classes.PARAGRAPH );
-        description         = this.getDescription( JSON.parse( description ) );
+        const paragraph             = create( 'div', classes.PARAGRAPH );
+        description                 = this.getDescription( JSON.parse( description ) );
 
-        if ( description )
-        {
-            paragraph.innerHTML = description;
-            paragraph.innerHTML = paragraph.textContent;
-        }
+        paragraph.innerHTML         = description;
+
+        /* Magic: strips HTML from description */
+        paragraph.innerHTML         = paragraph.textContent;
 
         textWrapper.appendChild( paragraph );
 
-        const paragraphAfter  = create( 'div',    classes.PARAGRAPH_AFTER );
+        const paragraphAfter        = create( 'div', classes.PARAGRAPH_AFTER );
+        paragraphAfter.innerHTML    = '…';
+
         textWrapper.appendChild( paragraphAfter );
 
         return textWrapper;
@@ -402,32 +402,44 @@ class Build
     /**
      * ## getDescription
      *
-     * gets the first text description in the content and returns that
+     * gets description from the content and returns that. Either returns full text or only from
+     * the first block
      *
-     * @param {Array} arr array filled w/ content
+     * @param {Array} textBlocks array filled w/ content
+     * @param {Boolean} useFullText when false, use only the first text content block
      * @param {Number} i recursive index
      *
-     * @return {Mixed} text content or false _String or Boolean_
+     * @return {String} text content. Might be empty if no text.
      */
-    getDescription( arr, i = 0 )
+    getDescription( textBlocks, useFullText = true, i = 0 )
     {
-        const text        = arr[ i ];
+        const text = textBlocks[ i ];
 
         if ( !text )
         {
-            return false;
+            return '';
         }
 
+        // TODO this is dogey! A getter must not have side effects like
+        // manipulating the dom. At least remove it after use!
         const el          = this.create( 'div' );
-        el.innerHTML    = text.content;
+        el.innerHTML      = text.content;
         const actualText  = el.textContent;
 
-        if ( text.type !== 'text' || actualText === '' )
+        const isTextValid = text.type == 'text' && actualText !== '';
+
+        if ( isTextValid )
         {
-            return this.getDescription( arr, i + 1 );
+            if ( useFullText )
+            {
+                return `${actualText} ${this.getDescription( textBlocks, useFullText, i + 1 )}`;
+            }
+
+            return actualText;
         }
 
-        return text.content;
+        // !isTextValid
+        return this.getDescription( textBlocks, useFullText, i + 1 );
     }
 
 

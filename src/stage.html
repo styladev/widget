@@ -20,7 +20,8 @@
                 height:                 100vh;
             }
 
-            .styla-widget__target
+            .styla-widget__target,
+            .styla-widget__target2
             {
                 text-align:             left;
                 background:             #FFF;
@@ -35,17 +36,32 @@
     </head>
     <body>
         <h1>Stage widget</h1>
-        <p>Displaying stories from <a href="http://shopware5.magalog.net/magazine">shopware5.magalog.net/magazine</a> </p>
+        <p>Displaying stories from <a href="http://oxid.stage.eu.magalog.net/magazine/">http://oxid.stage.eu.magalog.net/magazine/</a> </p>
+
+        <h2>Non minified version</h2>
         <div class="styla-widget__target" style="width: 90%;"></div>
         <script src="./cards.js"></script>
         <script>
             new StylaWidget_Cards( {
                 newTab  : true,
-                slug    : 'ci-shopware5',
+                slug    : 'ci-oxid4',
                 api     : 'http://stage.magalog.net',
                 target  : '.styla-widget__target',
                 limit   : 4,
                 cta     : 'Read more'
+            } );
+        </script>
+
+        <h2>Minified version</h2>
+        <div class="styla-widget__target2" style="width: 90%;"></div>
+        <script src="./tiles.v2.min.js"></script>
+        <script>
+            new StylaWidget_Tiles( {
+                newTab  : true,
+                slug    : 'ci-oxid4',
+                api     : 'http://stage.magalog.net',
+                target  : '.styla-widget__target2',
+                limit   : 4,
             } );
         </script>
     </body>

@@ -1,9 +1,10 @@
 {
   "name": "stylaWidget",
-  "version": "2.1.11",
+  "version": "2.1.15",
   "contributors": [
     "Mouse Braun <mouse@knoblau.ch>",
-    "Elias Liedholm <elias@styla.com>"
+    "Elias Liedholm <elias@styla.com>",
+    "Sven Ehlert <sven@styla.com" 
   ],
   "description": "small, bite-sized styla feeds",
   "repository": {
@@ -64,7 +65,7 @@
   "files": [
     "CODE_OF_CONDUCT.md",
     "README.md",
-    "liscence.md",
+    "license.md",
     "dist/",
     "demo/"
   ],
