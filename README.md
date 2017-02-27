@@ -123,15 +123,18 @@ Animated GIFs will be displayed as still images to reduce loading time and the
 impact on performance of a client website.
 
 
-dev installation
+Dev installation
 ----------------
 
 ```
 git clone git@github.com:styladev/widget.git
 cd widget
-npm i
+npm install
 npm run build
+python -m SimpleHTTPServer
 ```
+
+then, find a demo page at `localhost:8080/dist/stage.html`
 
 
 Releasing

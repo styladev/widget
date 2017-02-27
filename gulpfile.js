@@ -8,7 +8,7 @@ const gutil         = require( 'gulp-util' );
 const header        = require( 'gulp-header' );
 const rename        = require( 'gulp-rename' );
 const replace       = require( 'gulp-replace' );
-const source        = require( 'vinyl-source-stream');
+const source        = require( 'vinyl-source-stream' );
 const uglify        = require( 'gulp-uglify' );
 
 const _package      = require( './package.json' );
@@ -24,7 +24,7 @@ const distPath      = 'dist';  // final set of distribution files
 
 const majorVersion  = version.slice(0,1)
 
-const licenceLong   = '/*!\n' +
+const licence       = '/*!\n' +
                       ' * Styla bite-sized widget v' + version + '\n' +
                       ' * ' + homepage + '\n' +
                       ' *\n' +
@@ -36,7 +36,7 @@ const licenceLong   = '/*!\n' +
                       ' *' +
                       ' */\n';
 
-const licenceShort  = '/*! Styla Widget v' + version + ' | (c) ' + ( 2016 === year ? year : '2016-' + year ) + ' Styla GmbH | ' + homepage + '/blob/master/license.md */\n';
+const licenceMin    = '/*! Styla Widget v' + version + ' | (c) ' + ( 2016 === year ? year : '2016-' + year ) + ' Styla GmbH | ' + homepage + '/blob/master/license.md */\n';
 
 const layouts       = [ 'cards', 'horizontal', 'list', 'stories', 'tiles' ];
 
@@ -74,7 +74,7 @@ gulp.task( 'layouts', ['css', 'js'], function()
             .pipe( replace ('TMPL-VARIABLE-BASESTYLES', baseStyles ) )
             .pipe( replace ('TMPL-VARIABLE-SPECIFICSTYLES', 
                 fs.readFileSync( `${buildPath}/css/${layout}.css`, 'utf8' ) ) )
-            .pipe( header( licenceLong ) )
+            .pipe( header( licence ) )
             .pipe( rename( layout + '.js' ) )
             .pipe( gulp.dest( distPath ) )
             .pipe( rename( `${layout}.v${majorVersion}.js` ) )
@@ -83,6 +83,25 @@ gulp.task( 'layouts', ['css', 'js'], function()
 });
 
 
+gulp.task( 'layouts-min', ['css', 'js'], function()
+{
+    let baseStyles = fs.readFileSync( `${buildPath}/css/baseStyles.min.css`, 'utf8' );
+        
+    for (let layout of layouts) 
+    {
+        gulp.src( buildPath + '/js/baseWidget.tmpl.js' )
+            .pipe( replace( 'TMPL-VARIABLE-LAYOUT', layout ) )
+            .pipe( replace ('TMPL-VARIABLE-BASESTYLES', baseStyles ) )
+            .pipe( replace ('TMPL-VARIABLE-SPECIFICSTYLES', 
+                fs.readFileSync( `${buildPath}/css/${layout}.min.css`, 'utf8' ) ) )
+            .pipe( uglify() )
+            .pipe( header( licenceMin ) )
+            .pipe( rename( layout + '.min.js' ) )
+            .pipe( gulp.dest( distPath ) )
+            .pipe( rename( `${layout}.v${majorVersion}.min.js` ) )
+            .pipe( gulp.dest( distPath ) );
+    }
+});
 
 gulp.task( 'browserifyFiles', function()
 {
@@ -101,7 +120,6 @@ gulp.task( 'browserifyFiles', function()
             insertStyles( 'cards', 'baseWidget.js', '' );
         } );
 } );
-
 
 gulp.task( 'min', function()
 {
@@ -145,12 +163,12 @@ var insertStyles = function( target = 'list', file = 'list.min.js', suffix = '.m
 
 gulp.task( 'default', function()
 {
-    gulp.start( [ 'browserifyFiles', 'min' ] );
+    gulp.start( [ 'layouts', 'layouts-min' ] );
 
     gulp.src( [
         './src/index.html',
         './src/stage.html',
         './src/logotype.svg'
     ] )
-        .pipe( gulp.dest( 'dist' ) );
+        .pipe( gulp.dest( distPath ) );
 } );
