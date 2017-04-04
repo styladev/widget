@@ -122,7 +122,8 @@ class StylaWidget
                     tag         = false,
                     category    = false,
                     cta         = false,
-                    target      = document.body
+                    target      = document.body,
+                    urlParams    = true
                     } = {} )
     {
         target = this.checkTarget( target, minWidth );
@@ -151,6 +152,7 @@ class StylaWidget
         this.category       = category;
         this.cta            = cta;
         this.target         = target;
+        this.urlParams      = urlParams;
 
         const fetchLimit    = limit + offset;
 
