@@ -1,4 +1,4 @@
-Styla Widget  2.1.15
+Styla Widget  2.2.0
 
 =======
 
@@ -172,6 +172,10 @@ This project adheres to the [Contributor Covenant](http://contributor-covenant.o
 
 Change log
 ==========
+### 2.2.0
+    + truncate text after 220 characters
+    + replace h3 tags with spans for headlines
+    + make url tracking parameters optional
 
 ### 2.1.15
     + fix image positioning in tiles layout for firefox
