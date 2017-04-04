@@ -163,7 +163,9 @@ var StylaWidget = function () {
             _ref$cta = _ref.cta,
             cta = _ref$cta === undefined ? false : _ref$cta,
             _ref$target = _ref.target,
-            target = _ref$target === undefined ? document.body : _ref$target;
+            target = _ref$target === undefined ? document.body : _ref$target,
+            _ref$urlParams = _ref.urlParams,
+            urlParams = _ref$urlParams === undefined ? true : _ref$urlParams;
 
         _classCallCheck(this, StylaWidget);
 
@@ -192,6 +194,7 @@ var StylaWidget = function () {
         this.category = category;
         this.cta = cta;
         this.target = target;
+        this.urlParams = urlParams;
 
         var fetchLimit = limit + offset;
 
@@ -345,7 +348,7 @@ var Build = function () {
         value: function buildHeadline(title) {
             var create = this.create;
             var headlineWrapper = create('div', _classes2.default.HEADLINE_WRAPPER);
-            var headline = create('h3', _classes2.default.HEADLINE);
+            var headline = create('span', _classes2.default.HEADLINE);
 
             headline.textContent = title;
 
@@ -523,7 +526,7 @@ var Build = function () {
 
             var format = encodeURIComponent(context.format);
             var location = encodeURIComponent(window.location.href);
-            var parameters = '?styla_ref=' + location + '&styla_wdgt_var=' + format;
+            var parameters = context.urlParams ? '?styla_ref=' + location + '&styla_wdgt_var=' + format : '';
 
             var path = context.route.replace(/%2\$s_%3\$s/, slug);
 
@@ -558,8 +561,8 @@ var Build = function () {
 
             paragraph.innerHTML = description;
 
-            /* Magic: strips HTML from description */
-            paragraph.innerHTML = paragraph.textContent;
+            /* Magic: strips HTML and truncates text from description */
+            paragraph.innerHTML = paragraph.textContent.slice(0, 220);
 
             textWrapper.appendChild(paragraph);
 
@@ -926,6 +929,6 @@ module.exports = {
 'use strict';
 
 /* globals module */
-module.exports = '2.1.14';
+module.exports = '2.2.0';
 
 },{}]},{},[2]);

@@ -1,12 +1,12 @@
 /*!
- * Styla bite-sized widget v2.1.14
+ * Styla bite-sized widget v2.2.0
  * https://github.com/styladev/widget
  *
  * Copyright 2016-2017 Styla GmbH and other contributors
  * Released under the MIT license
  * https://github.com/styladev/widget/blob/master/license.md
  *
- * Date: Tue Feb 14 2017
+ * Date: Tue Apr 04 2017
  * */
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 (function (global){
@@ -173,7 +173,9 @@ var StylaWidget = function () {
             _ref$cta = _ref.cta,
             cta = _ref$cta === undefined ? false : _ref$cta,
             _ref$target = _ref.target,
-            target = _ref$target === undefined ? document.body : _ref$target;
+            target = _ref$target === undefined ? document.body : _ref$target,
+            _ref$urlParams = _ref.urlParams,
+            urlParams = _ref$urlParams === undefined ? true : _ref$urlParams;
 
         _classCallCheck(this, StylaWidget);
 
@@ -202,6 +204,7 @@ var StylaWidget = function () {
         this.category = category;
         this.cta = cta;
         this.target = target;
+        this.urlParams = urlParams;
 
         var fetchLimit = limit + offset;
 
@@ -328,7 +331,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     exchanged for css in the gulp build
  */
 var baseStyles = '#styla-widget p{margin:0}#styla-widget.styla-widget__wrapper{width:100%;height:100%}#styla-widget .styla-widget__container{box-sizing:border-box;position:relative;overflow:hidden;height:100%;width:100%;min-height:14em;font-size:14px}#styla-widget .styla-widget__story{margin-bottom:1em;position:relative}#styla-widget .styla-widget__link{position:absolute;width:100%;display:-moz-flex;display:-webkit-flex;display:flex;text-decoration:none;color:inherit}#styla-widget__link>div{display:inline-block}#styla-widget .styla-widget__image{max-height:100%;max-width:100%;height:100%;object-fit:contain}#styla-widget .styla-widget__textwrap{display:block;-moz-flex-grow:1;-webkit-flex-grow:1;flex-grow:1;max-height:100%;overflow:hidden;float:left}#styla-widget .styla-widget__headlinewrap{display:flex;flex-direction:column;-moz-justify-content:flex-end;-webkit-justify-content:flex-end;justify-content:flex-end}#styla-widget .styla-widget__headline,#styla-widget .styla-widget__title{line-height:1.25em;max-height:2.5em;overflow:hidden;margin-top:1em;margin-bottom:1em}#styla-widget .styla-widget__title{font-size:2em;text-align:center;margin-bottom:30px}#styla-widget .styla-widget__paragraph{font-size:1em;line-height:1.5em;overflow:hidden;position:relative;word-wrap:break-word}';
-var specificStyles = '#styla-widget.tiles .styla-widget__container{display:-moz-flex;display:-ms-flex;display:-webkit-flex;display:flex;-moz-flex-direction:row;-webkit-flex-direction:row;flex-direction:row;-moz-flex-wrap:wrap;-webkit-flex-wrap:wrap;flex-wrap:wrap;height:100%}#styla-widget.tiles .styla-widget__story{height:100%;min-height:14em;min-width:14em;display:block;float:left;-moz-flex-grow:1;-webkit-flex-grow:1;flex-grow:1;overflow:hidden}#styla-widget.tiles .styla-widget__link{height:100%;align-items:center}#styla-widget.tiles .styla-widget__imagewrap{display:block;position:absolute;width:100%;height:100%}#styla-widget.tiles .styla-widget__image{object-fit:cover;min-width:100%}#styla-widget.tiles .styla-widget__textwrap{position:absolute;box-sizing:border-box;display:block;bottom:0;width:100%;margin-bottom:-6.5em;height:12.5em;transition:margin .2s ease;padding:1em;background:linear-gradient(to bottom,rgba(0,0,0,0) 0,rgba(0,0,0,.65) 100%)}#styla-widget.tiles .styla-widget__story:hover .styla-widget__textwrap{margin-bottom:0}#styla-widget.tiles .styla-widget__headlinewrap{height:5em;display:-moz-flex;display:-ms-flex;display:-webkit-flex;display:flex;-moz-flex-direction:column;-webkit-flex-direction:column;flex-direction:column;-moz-justify-content:flex-end;-webkit-justify-content:flex-end;justify-content:flex-end}#styla-widget.tiles .styla-widget__headline{font-size:1.9em;line-height:1.25em;max-height:2.5em;overflow:hidden;margin:0 0 .25em;word-wrap:break-word;text-overflow:ellipsis;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;color:#fff!important;text-shadow:1px 1px 1px rgba(0,0,0,.65)}#styla-widget.tiles .styla-widget__paragraph{max-height:4.5em;color:#fff!important}#styla-widget.tiles .styla-widget__paragraph-after{color:#fff!important;line-height:1.5em}#styla-widget.tiles .styla-widget__calltoaction,#styla-widget.tiles .styla-widget__paragraph p+p{display:none}';
+var specificStyles = '#styla-widget.tiles .styla-widget__container{display:-moz-flex;display:-ms-flex;display:-webkit-flex;display:flex;-moz-flex-direction:row;-webkit-flex-direction:row;flex-direction:row;-moz-flex-wrap:wrap;-webkit-flex-wrap:wrap;flex-wrap:wrap;height:100%}#styla-widget.tiles .styla-widget__story{height:100%;min-height:14em;min-width:14em;display:block;float:left;-moz-flex-grow:1;-webkit-flex-grow:1;flex-grow:1;overflow:hidden}#styla-widget.tiles .styla-widget__link{height:100%;align-items:center}#styla-widget.tiles .styla-widget__imagewrap{display:block;position:absolute;width:100%;height:100%;top:0}#styla-widget.tiles .styla-widget__image{object-fit:cover;min-width:100%}#styla-widget.tiles .styla-widget__textwrap{position:absolute;box-sizing:border-box;display:block;bottom:0;width:100%;margin-bottom:-6.5em;height:12.5em;transition:margin .2s ease;padding:1em;background:linear-gradient(to bottom,rgba(0,0,0,0) 0,rgba(0,0,0,.65) 100%)}#styla-widget.tiles .styla-widget__story:hover .styla-widget__textwrap{margin-bottom:0}#styla-widget.tiles .styla-widget__headlinewrap{height:5em;display:-moz-flex;display:-ms-flex;display:-webkit-flex;display:flex;-moz-flex-direction:column;-webkit-flex-direction:column;flex-direction:column;-moz-justify-content:flex-end;-webkit-justify-content:flex-end;justify-content:flex-end}#styla-widget.tiles .styla-widget__headline{font-size:1.9em;line-height:1.25em;max-height:2.5em;overflow:hidden;margin:0 0 .25em;word-wrap:break-word;text-overflow:ellipsis;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;color:#fff!important;text-shadow:1px 1px 1px rgba(0,0,0,.65)}#styla-widget.tiles .styla-widget__paragraph{max-height:4.5em;color:#fff!important}#styla-widget.tiles .styla-widget__paragraph-after{color:#fff!important;line-height:1.5em}#styla-widget.tiles .styla-widget__calltoaction,#styla-widget.tiles .styla-widget__paragraph p+p{display:none}';
 var wrapperID = 'styla-widget';
 
 /* istanbul ignore next */
@@ -355,7 +358,7 @@ var Build = function () {
         value: function buildHeadline(title) {
             var create = this.create;
             var headlineWrapper = create('div', _classes2.default.HEADLINE_WRAPPER);
-            var headline = create('h3', _classes2.default.HEADLINE);
+            var headline = create('span', _classes2.default.HEADLINE);
 
             headline.textContent = title;
 
@@ -533,7 +536,7 @@ var Build = function () {
 
             var format = encodeURIComponent(context.format);
             var location = encodeURIComponent(window.location.href);
-            var parameters = '?styla_ref=' + location + '&styla_wdgt_var=' + format;
+            var parameters = context.urlParams ? '?styla_ref=' + location + '&styla_wdgt_var=' + format : '';
 
             var path = context.route.replace(/%2\$s_%3\$s/, slug);
 
@@ -568,8 +571,8 @@ var Build = function () {
 
             paragraph.innerHTML = description;
 
-            /* Magic: strips HTML from description */
-            paragraph.innerHTML = paragraph.textContent;
+            /* Magic: strips HTML and truncates text from description */
+            paragraph.innerHTML = paragraph.textContent.slice(0, 220);
 
             textWrapper.appendChild(paragraph);
 
@@ -936,6 +939,6 @@ module.exports = {
 'use strict';
 
 /* globals module */
-module.exports = '2.1.14';
+module.exports = '2.2.0';
 
 },{}]},{},[2]);
