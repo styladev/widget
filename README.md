@@ -1,4 +1,4 @@
-Styla Widget  2.1.15
+Styla Widget  2.2.0
 
 =======
 
@@ -89,6 +89,7 @@ new StylaWidget_List( {
     target      // (default: document.body) mount point of the widget. Accepts
                 //      DOM elements and selector strings
     cta         // (default: false) Add custom Call-To-Action string [cards layout only]
+    urlParams   // (default: true) Add tracking parameters to the story URL
 } );
 ```
 
@@ -174,6 +175,10 @@ This project adheres to the [Contributor Covenant](http://contributor-covenant.o
 
 Change log
 ==========
+### 2.2.0
+    + truncate text after 220 characters
+    + replace h3 tags with spans for headlines
+    + make url tracking parameters optional
 
 ### 2.1.15
     + fix image positioning in tiles layout for firefox

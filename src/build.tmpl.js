@@ -46,7 +46,7 @@ class Build
     {
         const create              = this.create;
         const headlineWrapper     = create( 'div', classes.HEADLINE_WRAPPER );
-        const headline            = create( 'h3',  classes.HEADLINE );
+        const headline            = create( 'span',  classes.HEADLINE );
 
         headline.textContent    = title;
 
@@ -219,7 +219,8 @@ class Build
 
         const layout        = encodeURIComponent( context.layout );
         const location      = encodeURIComponent( window.location.href );
-        const parameters    = `?styla_ref=${location}&styla_wdgt_var=${layout}`;
+        const parameters    = context.urlParams ?
+                                `?styla_ref=${location}&styla_wdgt_var=${layout}` : '';
 
         const path = context.route.replace( /%2\$s_%3\$s/, slug );
 
@@ -251,8 +252,8 @@ class Build
 
         paragraph.innerHTML         = description;
 
-        /* Magic: strips HTML from description */
-        paragraph.innerHTML         = paragraph.textContent;
+        /* Magic: strips HTML and truncates text from description */
+        paragraph.innerHTML         = paragraph.textContent.slice( 0, 220 );
 
         textWrapper.appendChild( paragraph );
 
