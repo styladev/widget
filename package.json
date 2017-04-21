@@ -12,15 +12,12 @@
     "url": "git+https://github.com/styladev/widget.git"
   },
   "scripts": {
-    "browserifyFiles": "gulp browserifyFiles",
     "build": "gulp && npm run doc",
     "clean": "gulp clean",
-    "css-min": "gulp css-min",
-    "doc": "docker -o dist/doc/ -i src --sidebar true --js dist/list.js -c manni && cp ./dist/doc/baseWidget.js.html ./dist/doc/index.html",
+    "doc": "docker --input_dir src --sidebar true --colour_scheme manni --output_dir dist/doc/ && cp ./dist/doc/baseWidget.tmpl.js.html ./dist/doc/index.html",
     "gulp": "gulp",
     "lint": "eslint ./src ./test --ext .js",
     "lintFix": "eslint ./src ./test --ext .js --fix",
-    "min": "gulp min",
     "stylelint": "stylelint './src/*.css'",
     "tags": "find . -type f -iregex '.*\\.js$' -not -path './node_modules/*' -not -path './build' -not -path './dist' -exec jsctags {} -f \\; | sed '/^$/d' | sort > tags",
     "test": "npm run lint && npm run stylelint && npm run test:unit:coverage:cli",
@@ -72,7 +69,7 @@
     "demo/"
   ],
   "homepage": "https://github.com/styladev/widget",
-  "main": "./dist/widget.min.js",
+  "main": "./dist/baseWidget.js",
   "keywords": [
     "styla",
     "widget",

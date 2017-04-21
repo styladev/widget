@@ -14,8 +14,8 @@ import { http } from 'microbejs';
 /*
     exchanged for css in the gulp build
  */
-const baseStyles        = 'TMPL-VARIABLE-BASESTYLES';
-const specificStyles    = 'TMPL-VARIABLE-SPECIFICSTYLES';
+const baseStyles        = `TMPL-VARIABLE-BASESTYLES`;     // eslint-disable-line
+const specificStyles    = `TMPL-VARIABLE-SPECIFICSTYLES`; // eslint-disable-line
 
 const wrapperID         = 'styla-widget';
 

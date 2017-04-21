@@ -60,12 +60,16 @@ gulp.task( 'js', function()
         .bundle()
         .on('error', gutil.log) 
         .pipe ( source( 'baseWidget.tmpl.js' ) ) // browserify destination name
-        .pipe ( gulp.dest( buildPath + '/js' ));
+        .pipe ( gulp.dest( buildPath + '/js' ) )
+        .pipe ( rename( 'baseWidget.js' ) )
+        .pipe ( gulp.dest ( distPath ) );
 });
 
 gulp.task( 'layouts', ['css', 'js'], function()
 {
-    let baseStyles = fs.readFileSync( `${buildPath}/css/baseStyles.css`, 'utf8' );
+    // we cannot use the original css files here, only the minified. 
+    // The original would be a multiline string which would need to be transformed.
+    let baseStyles = fs.readFileSync( `${buildPath}/css/baseStyles.min.css`, 'utf8' );
         
     for (let layout of layouts) 
     {
@@ -73,7 +77,7 @@ gulp.task( 'layouts', ['css', 'js'], function()
             .pipe( replace( 'TMPL-VARIABLE-LAYOUT', layout ) )
             .pipe( replace ('TMPL-VARIABLE-BASESTYLES', baseStyles ) )
             .pipe( replace ('TMPL-VARIABLE-SPECIFICSTYLES', 
-                fs.readFileSync( `${buildPath}/css/${layout}.css`, 'utf8' ) ) )
+                fs.readFileSync( `${buildPath}/css/${layout}.min.css`, 'utf8' ) ) ) // again, minified css
             .pipe( header( licence ) )
             .pipe( rename( layout + '.js' ) )
             .pipe( gulp.dest( distPath ) )
@@ -96,70 +100,11 @@ gulp.task( 'layouts-min', ['css', 'js'], function()
                 fs.readFileSync( `${buildPath}/css/${layout}.min.css`, 'utf8' ) ) )
             .pipe( uglify() )
             .pipe( header( licenceMin ) )
-            .pipe( rename( layout + '.min.js' ) )
-            .pipe( gulp.dest( distPath ) )
-            .pipe( rename( `${layout}.v${majorVersion}.min.js` ) )
+            .pipe( rename( `${layout}.v${majorVersion}.min.js` ) ) 
+                // ATTN: name.min.js (without v2) denotes the old v1 widget
             .pipe( gulp.dest( distPath ) );
     }
 });
-
-gulp.task( 'browserifyFiles', function()
-{
-    gulp.start( [ 'css-min' ] );
-
-    return browserify( './src/baseWidget.js' )
-        .transform( babelify )
-        .bundle()
-        .pipe( fs.createWriteStream( __dirname + '/dist/baseWidget.js' ) )
-        .on( 'finish', function()
-        {
-            insertStyles( 'list', 'baseWidget.js', '' );
-            insertStyles( 'stories', 'baseWidget.js', '' );
-            insertStyles( 'horizontal', 'baseWidget.js', '' );
-            insertStyles( 'tiles', 'baseWidget.js', '' );
-            insertStyles( 'cards', 'baseWidget.js', '' );
-        } );
-} );
-
-gulp.task( 'min', function()
-{
-    return browserify( './src/baseWidget.js' )
-        .transform( babelify )
-        .bundle()
-        .pipe( fs.createWriteStream( __dirname + '/dist/baseWidget.min.js' ) )
-        .on( 'finish', function()
-        {
-            insertStyles( 'list', 'baseWidget.min.js', `.v${majorVersion}.min` );
-            insertStyles( 'stories', 'baseWidget.min.js', `.v${majorVersion}.min` );
-            insertStyles( 'horizontal', 'baseWidget.min.js', `.v${majorVersion}.min` );
-            insertStyles( 'tiles', 'baseWidget.min.js', `.v${majorVersion}.min` );
-            insertStyles( 'cards', 'baseWidget.min.js', `.v${majorVersion}.min` );
-        } );
-} );
-
-
-var insertStyles = function( target = 'list', file = 'list.min.js', suffix = '.min', folder = 'dist' )
-{
-    let stylesCss   = fs.readFileSync( `./dist/baseStyles.min.css`, 'utf8' );
-    let specificCss = fs.readFileSync( `./dist/${target}.min.css`, 'utf8' );
-
-    let _g = gulp.src( `./${folder}/${file}` );
-
-    if ( suffix.endsWith( '.min' ) )
-    {
-        _g.pipe( uglify() ).pipe( header( licenceShort ) );
-    }
-    else
-    {
-        _g.pipe( header( licenceLong ) );
-    }
-
-    return _g.pipe( replace( 'styla-widget-css-goes-here', stylesCss ) )
-            .pipe( replace( 'styla-build-specific-css-goes-here', specificCss ) )
-            .pipe( replace( 'styla-widget-format-goes-here', target ) )
-            .pipe( rename( `${target}${suffix}.js` ) )
-            .pipe( gulp.dest( `./${folder}/` ) );
-};
 
 gulp.task( 'default', function()
 {

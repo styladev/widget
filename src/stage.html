@@ -20,8 +20,11 @@
                 height:                 100vh;
             }
 
-            .styla-widget__target,
-            .styla-widget__target2
+            .styla-widget__cards,
+            .styla-widget__list,
+            .styla-widget__tiles,
+            .styla-widget__list,
+            .styla-widget__stories,
             {
                 text-align:             left;
                 background:             #FFF;
@@ -38,7 +41,7 @@
         <h1>Stage widget</h1>
         <p>Displaying stories from <a href="http://oxid.stage.eu.magalog.net/magazine/">http://oxid.stage.eu.magalog.net/magazine/</a> </p>
 
-        <h2>Non minified version, latest version</h2>
+        <h2>Cards view, non-minified, latest</h2>
         <div class="styla-widget__cards" style="width: 90%;"></div>
         <script src="./cards.js"></script>
         <script>
@@ -52,11 +55,11 @@
             } );
         </script>
 
-        <h2>Non minified version, v2 version</h2>
-        <div class="styla-widget__cards" style="width: 90%;"></div>
+        <h2>Horizontal view, non-minified, v2</h2>
+        <div class="styla-widget__horizontal" style="width: 90%;"></div>
         <script src="./horizontal.v2.js"></script>
         <script>
-            new StylaWidget_Horizontal {
+            new StylaWidget_Horizontal( {
                 newTab  : true,
                 slug    : 'ci-oxid4',
                 api     : 'http://stage.magalog.net',
@@ -66,7 +69,7 @@
             } );
         </script>
 
-        <h2>Minified version, latest version</h2>
+        <h2>Tiles view, minified, v1</h2>
         <div class="styla-widget__tiles" style="width: 90%;"></div>
         <script src="./tiles.min.js"></script>
         <script>
@@ -79,15 +82,28 @@
             } );
         </script>
 
-        <h2>Minified version, v2 version</h2>
+        <h2>List view, minified, v2</h2>
         <div class="styla-widget__list" style="width: 90%;"></div>
         <script src="./list.v2.min.js"></script>
         <script>
-            new StylaWidget_List {
+            new StylaWidget_List( {
                 newTab  : true,
                 slug    : 'ci-oxid4',
                 api     : 'http://stage.magalog.net',
                 target  : '.styla-widget__list',
+                limit   : 4,
+            } );
+        </script>
+
+        <h2>Stories view, minified, v2<h2>
+        <div class="styla-widget__stories" style="width: 90%;"></div>
+        <script src="./stories.v2.min.js"></script>
+        <script>
+            new StylaWidget_List( {
+                newTab  : true,
+                slug    : 'ci-oxid4',
+                api     : 'http://stage.magalog.net',
+                target  : '.styla-widget__stories',
                 limit   : 4,
             } );
         </script>

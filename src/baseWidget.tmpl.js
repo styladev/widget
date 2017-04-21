@@ -16,7 +16,8 @@ import Build    from '/build.tmpl';
 import { http } from 'microbejs';
 
 let layout  = 'TMPL-VARIABLE-LAYOUT';
-layout      = layout[ 0 ].toUpperCase() + layout.slice( 1 ); // TODO this should be moved to gulpfile
+// TODO this logic should be moved to gulpfile
+layout      = layout[ 0 ].toUpperCase() + layout.slice( 1 );
 
 
 /**
