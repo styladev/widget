@@ -7,8 +7,10 @@
  * outwardly facing
  */
 
-import classes  from './classes.js';
-import { http } from 'microbejs';
+import classes  from '/classes';
+
+// needs to be imported like this for tests
+import { http } from 'microbejs/dist/microbe.http.min';
 
 
 /*

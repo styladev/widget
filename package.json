@@ -21,10 +21,10 @@
     "stylelint": "stylelint './src/*.css'",
     "tags": "find . -type f -iregex '.*\\.js$' -not -path './node_modules/*' -not -path './build' -not -path './dist' -exec jsctags {} -f \\; | sed '/^$/d' | sort > tags",
     "test": "npm run lint && npm run stylelint && npm run test:unit:coverage:cli",
-    "test:unit": "babel-node node_modules/.bin/_mocha ./test/test.js -R nyan -r ./test/test-setup",
+    "test:unit": "babel-node node_modules/.bin/_mocha --reporter nyan --require ./test/test-setup ./test/test.js",
     "test:unit:coverage": "npm run test:unit:coverage:cli && npm run test:unit:coverage:report",
     "test:unit:coverage:report": "open coverage/lcov-report/index.html",
-    "test:unit:coverage:cli": "babel-node node_modules/.bin/babel-istanbul cover _mocha -- -R spec -r ./test/test-setup",
+    "test:unit:coverage:cli": "babel-node node_modules/.bin/babel-istanbul cover _mocha -- --reporter spec --require ./test/test-setup",
     "versionBump": "node ./scripts/version_bump.js"
   },
   "devDependencies": {

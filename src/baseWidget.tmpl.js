@@ -1,4 +1,3 @@
-
 /* globals document, console, window */
 /**
  * Styla bite-sized widget
@@ -13,7 +12,8 @@ import version  from '/version';
 import classes  from '/classes';
 import Build    from '/build.tmpl';
 
-import { http } from 'microbejs';
+// needs to be imported like this for tests
+import { http } from 'microbejs/dist/microbe.http.min';
 
 let layout  = 'TMPL-VARIABLE-LAYOUT';
 // TODO this logic should be moved to gulpfile
