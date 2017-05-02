@@ -275,7 +275,7 @@ describe( 'buildStoryText', () =>
         assert.equal( children.length, 3, 'textWrapper has 3 children' );
 
         assert.equal( children[ 0 ].innerHTML,
-                            '<h3 class="styla-widget__headline">moon?</h3>',
+                            '<span class="styla-widget__headline">moon?</span>',
                             'headline is set right' );
         assert.equal( children[ 1 ].innerHTML, 'description ',
                                                 'description is set right' );
