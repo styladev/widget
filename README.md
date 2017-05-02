@@ -132,10 +132,12 @@ git clone git@github.com:styladev/widget.git
 cd widget
 npm install
 npm run build
-python -m SimpleHTTPServer
+python -m SimpleHTTPServer [port]
 ```
 
-then, find a demo page at `localhost:8080/dist/stage.html`
+then, find a demo page at `localhost:8000/dist/stage.html`
+
+To stop the server, press CTRL-C
 
 
 Releasing
