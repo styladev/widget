@@ -70,19 +70,26 @@ class Build
      */
     buildImage( images, title )
     {
-        const create              = this.create;
-        const imageWrapper        = create( 'div', classes.IMAGE_WRAPPER );
-        const imageSize           = this.context.imageSize;
-        const id                  = images[ 0 ].id;
-        const imgObj              = this.context.images[ id ];
+        const create                = this.create;
+        const imageWrapper          = create( 'div', classes.IMAGE_WRAPPER );
 
-        const url                 = this.getImageUrl( imgObj.fileName,
+        const imageSize             = this.context.imageSize;
+        const id                    = images[ 0 ].id;
+        const imgObj                = this.context.images[ id ];
+
+        const url                   = this.getImageUrl( imgObj.fileName,
                                                                     imageSize );
 
-        const image               = create( 'img', classes.IMAGE );
-        image.src               = url;
-        image.alt               = imgObj.caption || title;
-        image.title             = title;
+        /* The image is rendered as a background image on the wrapper element
+        since IE is lacking support for CSS object-fit. The actual image element
+        must still be rendered in order for flexbox to take up the space it needs,
+        but it is then hidden by CSS. */
+        imageWrapper.style.cssText  = `background-image: url(${url})`;
+
+        const image                 = create( 'img', classes.IMAGE );
+        image.src                   = url;
+        image.alt                   = imgObj.caption || title;
+        image.title                 = title;
 
         imageWrapper.appendChild( image );
 

@@ -41,6 +41,7 @@
     width:                              100%;
     height:                             100%;
     top:                                0;
+    background-size:                    cover;
 }
 
 #styla-widget.tiles .styla-widget__image

@@ -44,6 +44,7 @@
 {
     height:                             11em;
     width:                              100%;
+    background-size:                    cover;
 }
 
 #styla-widget.cards .styla-widget__image
