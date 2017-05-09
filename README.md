@@ -1,4 +1,4 @@
-Styla Widget  2.2.0
+Styla Widget  2.3.0
 
 =======
 
@@ -177,6 +177,9 @@ This project adheres to the [Contributor Covenant](http://contributor-covenant.o
 
 Change log
 ==========
+### 2.3.0
+    + images render as background images on the image wrapper element as a fallback for Internet Explorer
+
 ### 2.2.0
     + truncate text after 220 characters
     + replace h3 tags with spans for headlines
