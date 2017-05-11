@@ -3,7 +3,7 @@
  * ## classes.js
  *
  * this sets class constants throughout the widget for the sake of future
- * flexability
+ * flexibility
  */
 module.exports = {
     BASE_STYLES         : 'styla-widget__base-styling',

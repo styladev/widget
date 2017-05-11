@@ -10,6 +10,7 @@ Thumbs.db
 ehthumbs.db
 Desktop.ini
 $RECYCLE.BIN/
+tags
 
 # App specific
 
@@ -21,6 +22,7 @@ npm-debug.log
 demo/demoDist.js
 demo/local.html
 
+build/
 dist/
 
 dist/*.min.css

@@ -1,21 +1,24 @@
 
 /* globals document, window */
 /**
- * ## this.js
+ * ## build.js
  *
  * this contains methods to build the bite sized widget that do not need to be
  * outwardly facing
  */
 
-import classes  from './classes.js';
+import classes  from '/classes';
+
+// needs to be imported like this for tests
 import { http } from 'microbejs/dist/microbe.http.min';
 
 
 /*
     exchanged for css in the gulp build
  */
-const baseStyles        = 'styla-widget-css-goes-here';
-const specificStyles    = 'styla-build-specific-css-goes-here';
+const baseStyles        = `TMPL-VARIABLE-BASESTYLES`;     // eslint-disable-line
+const specificStyles    = `TMPL-VARIABLE-SPECIFICSTYLES`; // eslint-disable-line
+
 const wrapperID         = 'styla-widget';
 
 /* istanbul ignore next */
@@ -43,7 +46,7 @@ class Build
     {
         const create              = this.create;
         const headlineWrapper     = create( 'div', classes.HEADLINE_WRAPPER );
-        const headline            = create( 'h3',  classes.HEADLINE );
+        const headline            = create( 'span',  classes.HEADLINE );
 
         headline.textContent    = title;
 
@@ -67,19 +70,26 @@ class Build
      */
     buildImage( images, title )
     {
-        const create              = this.create;
-        const imageWrapper        = create( 'div', classes.IMAGE_WRAPPER );
-        const imageSize           = this.context.imageSize;
-        const id                  = images[ 0 ].id;
-        const imgObj              = this.context.images[ id ];
+        const create                = this.create;
+        const imageWrapper          = create( 'div', classes.IMAGE_WRAPPER );
 
-        const url                 = this.getImageUrl( imgObj.fileName,
+        const imageSize             = this.context.imageSize;
+        const id                    = images[ 0 ].id;
+        const imgObj                = this.context.images[ id ];
+
+        const url                   = this.getImageUrl( imgObj.fileName,
                                                                     imageSize );
 
-        const image               = create( 'img', classes.IMAGE );
-        image.src               = url;
-        image.alt               = imgObj.caption || title;
-        image.title             = title;
+        /* The image is rendered as a background image on the wrapper element
+        since IE is lacking support for CSS object-fit. The actual image element
+        must still be rendered in order for flexbox to take up the space it needs,
+        but it is then hidden by CSS. */
+        imageWrapper.style.cssText  = `background-image: url(${url})`;
+
+        const image                 = create( 'img', classes.IMAGE );
+        image.src                   = url;
+        image.alt                   = imgObj.caption || title;
+        image.title                 = title;
 
         imageWrapper.appendChild( image );
 
@@ -214,9 +224,10 @@ class Build
     {
         const context       = this.context;
 
-        const format        = encodeURIComponent( context.format );
+        const layout        = encodeURIComponent( context.layout );
         const location      = encodeURIComponent( window.location.href );
-        const parameters    = `?styla_ref=${location}&styla_wdgt_var=${format}`;
+        const parameters    = context.urlParams ?
+                                `?styla_ref=${location}&styla_wdgt_var=${layout}` : '';
 
         const path = context.route.replace( /%2\$s_%3\$s/, slug );
 
@@ -248,8 +259,8 @@ class Build
 
         paragraph.innerHTML         = description;
 
-        /* Magic: strips HTML from description */
-        paragraph.innerHTML         = paragraph.textContent;
+        /* Magic: strips HTML and truncates text from description */
+        paragraph.innerHTML         = paragraph.textContent.slice( 0, 220 );
 
         textWrapper.appendChild( paragraph );
 
@@ -325,7 +336,7 @@ class Build
         }
 
         const el        = this.buildStyleTag( css );
-        el.className    = `${classes.THEME_STYLES}  styla-widget__${context.format}`; // eslint-disable-line
+        el.className    = `${classes.THEME_STYLES}  styla-widget__${context.layout}`; // eslint-disable-line
 
         context.refs.themeStyle = el;
 
@@ -356,12 +367,12 @@ class Build
         if ( !context.refs.wrapper )
         {
             context.stories = stories;
-            const format    = context.format.toLowerCase();
+            const layout    = context.layout.toLowerCase();
 
             context.refs.container = this.create( 'DIV',
                             `${classes.CONTAINER}  styla-widget-${this.now}` );
             const wrapper   = context.refs.wrapper   = this.create( 'DIV',
-                                            `${classes.WRAPPER}  ${format}` );
+                                            `${classes.WRAPPER}  ${layout}` );
             wrapper.id      = wrapperID;
 
             const domainConfigAPI = `${context.api}/api/config/${context.slug}`;
@@ -472,7 +483,7 @@ class Build
         let el;
         const self        = this;
         const context     = this.context;
-        const formatCaps  = context.format.toUpperCase();
+        const layoutCaps  = context.layout.toUpperCase();
         const head        = document.head;
 
         /**
@@ -480,11 +491,11 @@ class Build
          *
          * @param {String} css style in css for tag insertion
          * @param {String} clss class to add to the baseStyle tag
-         * @param {String} format end format of the widget
+         * @param {String} layout layout of the widget
          *
          * @return {DOMElement} style tag
          */
-        function addBaseStyle( css, clss, format )
+        function addBaseStyle( css, clss, layout )
         {
             const baseStyle = head.querySelector( `.${clss}` );
 
@@ -493,7 +504,7 @@ class Build
                 el              = self.buildStyleTag( css );
                 el.className    = `${clss}  ${classes.STYLES}`;
 
-                context.refs[ `${format}Style` ] = el;
+                context.refs[ `${layout}Style` ] = el;
 
                 head.appendChild( el );
             }
@@ -509,8 +520,8 @@ class Build
                                  'base'
                             );
         arr[ 1 ] = addBaseStyle( specificStyles,
-                                classes[ `${formatCaps}_STYLES` ],
-                                context.format
+                                classes[ `${layoutCaps}_STYLES` ],
+                                context.layout
                             );
 
 
