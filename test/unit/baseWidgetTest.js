@@ -1,12 +1,6 @@
 /* globals describe, it, document, console */
-/*
- * no idea...   nothing working on this side.  maybe a jsdom issue?
- *
- * works in the browser
- *
- * https://github.com/tmpvar/jsdom/issues/1517
- */
-import BaseWidget   from '/baseWidget';
+
+import BaseWidget   from '/baseWidget.tmpl.js';
 
 import assert       from 'assert';
 import sinon        from 'sinon';
@@ -21,13 +15,6 @@ const stylaWidget = new BaseWidget( {
 const refs = stylaWidget.refs;
 
 
-/**
- * ## attach
- *
- * adds the styla widget to the DOM
- *
- * @return _Void_
- */
 describe( 'attach', () =>
 {
     it( 'should add the widget to it\'s previous target', () =>
@@ -61,13 +48,6 @@ describe( 'attach', () =>
 } );
 
 
-/**
- * ## checkTarget
- *
- * makes sure the target is a DOMelement and wide enough
- *
- * @return _Void_
- */
 describe( 'checkTarget', () =>
 {
     it( 'should change a string into a DOM element', () =>
@@ -101,15 +81,6 @@ describe( 'checkTarget', () =>
 } );
 
 
-/**
- * ## constructor
- *
- * grabs the feed from the api and starts everything
- *
- * @param {String} domain target domain to grab products from
- *
- * @return _Object_ this
- */
 describe( 'constructor', () =>
 {
     it( 'should not build without a slug', () =>
@@ -190,13 +161,6 @@ describe( 'constructor', () =>
 } );
 
 
-/**
- * ## destroy
- *
- * removes the styla widget from the DOM
- *
- * @return _Void_
- */
 describe( 'destroy', () =>
 {
     it( 'should remove the widget from the DOM', () =>

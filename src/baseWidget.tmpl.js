@@ -1,4 +1,3 @@
-
 /* globals document, console, window */
 /**
  * Styla bite-sized widget
@@ -11,12 +10,14 @@
 
 import version  from '/version';
 import classes  from '/classes';
-import Build    from '/build';
+import Build    from '/build.tmpl';
 
+// needs to be imported like this for tests
 import { http } from 'microbejs/dist/microbe.http.min';
 
-let format  = 'styla-widget-format-goes-here';
-format      = format[ 0 ].toUpperCase() + format.slice( 1 );
+let layout  = 'TMPL-VARIABLE-LAYOUT';
+// TODO this logic should be moved to gulpfile
+layout      = layout[ 0 ].toUpperCase() + layout.slice( 1 );
 
 
 /**
@@ -133,7 +134,7 @@ class StylaWidget
             throw 'Styla Widget error: No slug defined, cannot render widget';
         }
 
-        this.format         = format;
+        this.layout         = layout;
         this.refs           = {};
         this.api            = api;
         this.domain         = domain;
@@ -247,7 +248,7 @@ class StylaWidget
 
 StylaWidget.prototype.http = http;
 
-window[ `StylaWidget_${format}` ] = StylaWidget;
+window[ `StylaWidget_${layout}` ] = StylaWidget;
 
 Object.defineProperty( StylaWidget, 'version', {
     value : version

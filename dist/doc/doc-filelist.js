@@ -1,1 +1,1 @@
-var tree={"files":["baseStyles.css","baseWidget.js","build.js","cards.css","classes.js","horizontal.css","index.html","list.css","stage.html","stories.css","tiles.css","version.js"]};
+var tree={"files":["baseStyles.css","baseWidget.tmpl.js","build.tmpl.js","cards.css","classes.js","horizontal.css","index.html","list.css","stage.html","stories.css","tiles.css","version.js"]};

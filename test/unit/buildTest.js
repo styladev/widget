@@ -1,11 +1,10 @@
 /* globals document, describe, it */
-import Build        from '/build';
-import BaseWidget   from '/baseWidget';
+import Build        from '/build.tmpl';
+import BaseWidget   from '/baseWidget.tmpl';
 import classes      from '/classes';
 
 import domainConfig from '../domainConfig';
 import feed         from '../feed';
-
 
 import assert       from 'assert';
 import sinon        from 'sinon';
@@ -56,16 +55,6 @@ const stylaWidget = new BaseWidget( {
 const build  = new Build( stylaWidget, JSON.stringify( feed.stories ) );
 
 
-/**
- * ## buildHeadline - tests
- *
- * builds the headline and headline wrapper and fills the wrapper with the
- * element and text
- *
- * @param {String} title story headline
- *
- * @return _DOMElement_ headlineWrapper
- */
 describe( 'buildHeadline', () =>
 {
     const headlineWrapper = build.buildHeadline( 'moon?' );
@@ -88,17 +77,6 @@ describe( 'buildHeadline', () =>
 } );
 
 
-/**
- * ## buildImage - tests
- *
- * builds the headline and headline wrapper and fills the wrapper with the
- * element and text
- *
- * @param {Array} images array of images from the product api
- * @param {String} title story headline
- *
- * @return _DOMElement_ imageWrapper
- */
 describe( 'buildImage', () =>
 {
     const id              = feed.images[ 0 ].id;
@@ -135,17 +113,6 @@ describe( 'buildImage', () =>
 } );
 
 
-/**
- * ## buildStories - tests
- *
- * after recieving the story data, this parses and build the individual
- * stories
- *
- * @param {String} domainConfig JSON response from the product api
- * @param {Object} parsedDomainConfig parsed JSON object for testing
- *
- * @return {DOMElement} wrapper element
- */
 describe( 'buildStories', () =>
 {
     it( 'should correctly build the stories wrapper', () =>
@@ -192,20 +159,11 @@ describe( 'buildStories', () =>
 } );
 
 
-/**
- * ## buildStory
- *
- * builds each story off the retrieved json
- *
- * @param {Object} json image data
- *
- * @return _DOMElement_ outer story element
- */
 describe( 'buildStory', () =>
 {
     build.domainConfig      = domainConfig;
 
-    const id                  = Object.keys( stylaWidget.images )[ 0 ];
+    const id                = Object.keys( stylaWidget.images )[ 0 ];
 
     const storyObj = {
         title               : 'moon?',
@@ -228,7 +186,7 @@ describe( 'buildStory', () =>
     } );
 
 
-    it( 'should build correct story link with hashtag navigation', () =>
+    it( 'should build story link with hashtag navigation', () =>
     {
         let storyLink = story.childNodes;
         assert.equal( storyLink.length, 1, 'story has only one child' );
@@ -237,12 +195,12 @@ describe( 'buildStory', () =>
         assert.equal( storyLink.className, classes.STORY_LINK,
                                         'storyLink has correct class name' );
 
-        const href = storyLink.href.replace( /^https?:/, '' );
-        assert.equal( href, '//test#story/externalPermalink?styla_ref=about%3Ablank&styla_wdgt_var=Styla-widget-format-goes-here', 'storyLink has correct href' ); // eslint-disable-line
+        const href = storyLink.href.replace( /^\/\/test/, '' );
+        assert.equal( href.charAt( 0 ), '#', 'storyLink uses hashtag naviagtion' );
     } );
 
 
-    it( 'should build correct story link with pushstate true', () =>
+    it( 'should build story link with pushstate naviagtion', () =>
     {
         build.context.pushstate = '/';
 
@@ -250,9 +208,10 @@ describe( 'buildStory', () =>
 
         let storyLink   = story.childNodes;
         storyLink       = storyLink[ 0 ];
-        const href        = storyLink.href.replace( /^https?:/, '' );
 
-        assert.equal( href, '//test/story/externalPermalink?styla_ref=about%3Ablank&styla_wdgt_var=Styla-widget-format-goes-here', 'storyLink has correct href' ); // eslint-disable-line
+
+        const href = storyLink.href.replace( /^\/\/test/, '' );
+        assert.equal( href.charAt( 0 ), '/', 'storyLink uses slash navigation' );
 
         build.context.pushstate = '#';
     } );
@@ -283,15 +242,6 @@ describe( 'buildStory', () =>
 } );
 
 
-/**
- * ## buildStoryLink
- *
- * builds unique link for each story
- *
- * @param {String} slug for story
- *
- * @return {String} complete url
- */
 describe( 'buildStoryLink', () =>
 {
     const slug = 'slug';
@@ -300,23 +250,12 @@ describe( 'buildStoryLink', () =>
     it( 'should correctly build a story link', () =>
     {
         assert.equal( url,
-            '//test#story/slug?styla_ref=about%3Ablank&styla_wdgt_var=Styla-widget-format-goes-here', //eslint-disable-line
+            '//test#story/slug?styla_ref=about%3Ablank&styla_wdgt_var=TMPL-VARIABLE-LAYOUT', //eslint-disable-line
             'link has correct format' );
     } );
 } );
 
 
-/**
- * ## buildStoryText
- *
- * builds the story text (including headline and content), combines them
- * and returns the outer wrapper
- *
- * @param {String} title story headline
- * @param {String} description copy of the story to be inserted
- *
- * @return _DOMElement_ style element
- */
 describe( 'buildStoryText', () =>
 {
     const textWrapper = build.buildStoryText( 'moon?',
@@ -336,7 +275,7 @@ describe( 'buildStoryText', () =>
         assert.equal( children.length, 3, 'textWrapper has 3 children' );
 
         assert.equal( children[ 0 ].innerHTML,
-                            '<h3 class="styla-widget__headline">moon?</h3>',
+                            '<span class="styla-widget__headline">moon?</span>',
                             'headline is set right' );
         assert.equal( children[ 1 ].innerHTML, 'description ',
                                                 'description is set right' );
@@ -353,15 +292,6 @@ describe( 'buildStoryText', () =>
 } );
 
 
-/**
- * ## buildStyleTag
- *
- * builds a style tag and appends it to the DOM
- *
- * @param {Object} domain configuration of magazine
- *
- * @return _DOMElement_ style element
- */
 describe( 'buildStyleTag', () =>
 {
     it( 'should correctly build the styla tag', () =>
@@ -376,15 +306,6 @@ describe( 'buildStyleTag', () =>
 } );
 
 
-/**
- * ## compileStyles
- *
- * compiles the styles and returns them added to the style tag
- *
- * @param {Object} domain configuration of magazine
- *
- * @return _DOMElement_ style element
- */
 describe( 'compileStyles', () =>
 {
     it( 'should correctly build the style element', () =>
@@ -408,16 +329,6 @@ describe( 'compileStyles', () =>
 } );
 
 
-/**
- * ## constructor
- *
- * after recieving the story data this sends it to buildStories for
- * processing
- *
- * @param {String} res JSON response from the product api
- *
- * @return _DOMElement_ container element
- */
 describe( 'constructor', () =>
 {
     it( 'the build object should have a set context and domainConfig', () =>
@@ -432,16 +343,6 @@ describe( 'constructor', () =>
 } );
 
 
-/**
- * ## create
- *
- * creates an element with the supplied tagname and classname
- *
- * @param {String} _tag tagname
- * @param {String} _class className to add to the created element
- *
- * @return _DOMElement_ newly created element
- */
 describe( 'create', () =>
 {
     it( 'should create an object with the passed parameters', () =>
@@ -519,16 +420,6 @@ describe( 'getDescription', () =>
 } );
 
 
-/**
- * ## getImageUrl
- *
- * uses the filename and size to create the full image url
- *
- * @param {String} filename from the image data object
- * @param {Number or String} size width to grab from the server
- *
- * @return _String_ file name
- */
 describe( 'getImageUrl', () =>
 {
     it( 'should correctly set the image url', () =>
@@ -550,13 +441,6 @@ describe( 'getImageUrl', () =>
 } );
 
 
-/**
- * ## includeBaseStyles
- *
- * creates the base styles DOM element and adds it to the head
- *
- * @return _Void_
- */
 describe( 'includeBaseStyles', () =>
 {
     build.domainConfig  = domainConfig;
@@ -588,15 +472,6 @@ describe( 'includeBaseStyles', () =>
 } );
 
 
-/**
- * ## includeFonts
- *
- * includes the webfonts link element
- *
- * @param {Object} domain configuration of magazine
- *
- * @return _DOMElement_ link element
- */
 describe( 'includeFonts', () =>
 {
     it( 'should properly build the font link tag', () =>
@@ -623,15 +498,6 @@ describe( 'includeFonts', () =>
 } );
 
 
-/**
- * ## setDomain
- *
- * takes pieces of the domainConfig and builds the domain
- *
- * @param {Object} domainConfig main config object
- *
- * @return _String_ domain address
- */
 describe( 'setDomain', () =>
 {
     it( 'should pass the current domain if there is one', () =>

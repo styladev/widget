@@ -1,4 +1,4 @@
-Styla Widget  2.2.0
+Styla Widget  2.3.0
 
 =======
 
@@ -124,15 +124,20 @@ Animated GIFs will be displayed as still images to reduce loading time and the
 impact on performance of a client website.
 
 
-dev installation
+Dev installation
 ----------------
 
 ```
 git clone git@github.com:styladev/widget.git
 cd widget
-npm i
+npm install
 npm run build
+python -m SimpleHTTPServer [port]
 ```
+
+then, find a demo page at `localhost:8000/dist/stage.html`
+
+To stop the server, press CTRL-C
 
 
 Releasing
@@ -172,6 +177,9 @@ This project adheres to the [Contributor Covenant](http://contributor-covenant.o
 
 Change log
 ==========
+### 2.3.0
+    + images render as background images on the image wrapper element as a fallback for Internet Explorer
+
 ### 2.2.0
     + truncate text after 220 characters
     + replace h3 tags with spans for headlines

@@ -1,5 +1,6 @@
-#styla-widget.tiles .styla-widget__container
+#styla-widget.horizontal .styla-widget__container
 {
+    padding:                            1em;
     /* stylelint-disable */
     display:                            -moz-flex;
     display:                            -ms-flex;
@@ -7,69 +8,66 @@
     display:                            flex;
     /* stylelint-enable */
     -moz-flex-direction:                row;
+    -ms-flex-direction:                 row;
     -webkit-flex-direction:             row;
     flex-direction:                     row;
+
     -moz-flex-wrap:                     wrap;
+    -ms-flex-wrap:                      wrap;
     -webkit-flex-wrap:                  wrap;
     flex-wrap:                          wrap;
-    height:                             100%;
+
+    height:                             16em;
 }
 
-#styla-widget.tiles .styla-widget__story
+#styla-widget.horizontal .styla-widget__story
 {
-    height:                             100%;
-    min-height:                         14em;
-    min-width:                          14em;
+
+    margin:                             0 2em 1em;
+    height:                             14em;
+    width:                              24em;
     display:                            block;
     float:                              left;
     -moz-flex-grow:                     1;
+    -ms-flex-grow:                      1;
     -webkit-flex-grow:                  1;
     flex-grow:                          1;
-    overflow:                           hidden;
 }
 
-#styla-widget.tiles .styla-widget__link
+#styla-widget.horizontal .styla-widget__link
 {
-    height:                             100%;
+    height:                             14em;
+    top:                                50%;
+    margin-top:                         -7em;
     align-items:                        center;
 }
 
-#styla-widget.tiles .styla-widget__imagewrap
+#styla-widget.horizontal .styla-widget__imagewrap
 {
     display:                            block;
-    position:                           absolute;
-    width:                              100%;
+    -moz-flex-grow:                     1;
+    -ms-flex-grow:                      1;
+    -webkit-flex-grow:                  1;
+    flex-grow:                          1;
     height:                             100%;
-    top:                                0;
-    background-size:                    cover;
+    margin:                             0 6% 0 0;
+    -moz-flex:                          none;
+    -ms-flex:                           none;
+    -webkit-flex:                       none;
+    flex:                               none;
+    max-width:                          40%;
+    float:                              left;
 }
 
-#styla-widget.tiles .styla-widget__image
+#styla-widget.horizontal .styla-widget__textwrap
 {
-    object-fit:                         cover;
-    min-width:                          100%;
-}
-
-#styla-widget.tiles .styla-widget__textwrap
-{
-    position:                           absolute;
-    box-sizing:                         border-box;
     display:                            block;
-    bottom:                             0;
-    width:                              100%;
-    margin-bottom:                      -6.5em;
-    height:                             12.5em;
-    transition:                         margin 0.2s ease;
-    padding:                            1em;
-    background:                         linear-gradient( to bottom, rgba( 0,0,0,0 ) 0%,rgba( 0,0,0,0.65 ) 100% );
+    max-height:                         100%;
+    overflow:                           hidden;
+    float:                              left;
 }
 
-#styla-widget.tiles .styla-widget__story:hover .styla-widget__textwrap
-{
-    margin-bottom:                      0;
-}
-
-#styla-widget.tiles .styla-widget__headlinewrap
+#styla-widget.horizontal .styla-widget__headlinewrap
 {
     height:                             5em;
     /* stylelint-disable */
@@ -79,14 +77,16 @@
     display:                            flex;
     /* stylelint-enable */
     -moz-flex-direction:                column;
+    -ms-flex-direction:                 column;
     -webkit-flex-direction:             column;
     flex-direction:                     column;
     -moz-justify-content:               flex-end;
+    -ms-justify-content:                flex-end;
     -webkit-justify-content:            flex-end;
     justify-content:                    flex-end;
 }
 
-#styla-widget.tiles .styla-widget__headline
+#styla-widget.horizontal .styla-widget__headline
 {
     font-size:                          1.9em;
     line-height:                        1.25em;
@@ -99,30 +99,31 @@
     display:                            -webkit-box;
     -webkit-box-orient:                 vertical;
     -webkit-line-clamp:                 2;
-    color:                              #ffffff !important; /* Override Theme Styling */ /* stylelint-disable-line */
-    text-shadow:                        1px 1px 1px rgba( 0,0,0,0.65 );
 }
 
-#styla-widget.tiles .styla-widget__paragraph
+#styla-widget.horizontal .styla-widget__paragraph
 {
-    max-height:                         4.5em;
-    color:                              #ffffff !important; /* Override Theme Styling */ /* stylelint-disable-line */
+    font-size:                          1em;
+    line-height:                        1.5em;
+    max-height:                         7.5em;
+    overflow:                           hidden;
+    position:                           relative;
+    word-wrap:                          break-word;
 }
 
-#styla-widget.tiles .styla-widget__paragraph-after
+#styla-widget.horizontal .styla-widget__paragraph-after
 {
-    color:                              #ffffff !important; /* Override Theme Styling */ /* stylelint-disable-line */
     line-height:                        1.5em;
 }
 
 /* Multiple paragraphs causes issues when truncating the text */
-#styla-widget.tiles .styla-widget__paragraph p + p
+#styla-widget.horizontal .styla-widget__paragraph p + p
 {
     display:                            none;
 }
 
 /* This design has no support for call to action */
-#styla-widget.tiles .styla-widget__calltoaction
+#styla-widget.horizontal .styla-widget__calltoaction
 {
     display:                            none;
 }

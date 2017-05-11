@@ -1,17 +1,10 @@
 /* globals describe, it */
 import version      from '/version.js';
+import BaseWidget   from '/baseWidget.tmpl';
 import packageJson  from '../../package.json';
-
-import BaseWidget   from '/baseWidget';
 
 import assert       from 'assert';
 
-/*
- * ## version tests
- *
- * @test exists
- * @test matches the package file
- */
 describe( 'version', () =>
 {
     it( 'should match both the package.json and the widget', () =>

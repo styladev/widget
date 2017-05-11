@@ -1,10 +1,10 @@
 {
   "name": "stylaWidget",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "contributors": [
-    "Mouse Braun <mouse@styla.com>",
+    "Mouse Braun <mouse@knoblau.ch>",
     "Elias Liedholm <elias@styla.com>",
-    "Sven Ehlert <sven@styla.com" 
+    "Sven Ehlert <sven@styla.com>"
   ],
   "description": "small, bite-sized styla feeds",
   "repository": {
@@ -12,21 +12,19 @@
     "url": "git+https://github.com/styladev/widget.git"
   },
   "scripts": {
-    "browserifyFiles": "gulp browserifyFiles",
     "build": "gulp && npm run doc",
     "clean": "gulp clean",
-    "css-min": "gulp css-min",
-    "doc": "docker -o dist/doc/ -i src --sidebar true --js dist/list.js -c manni && cp ./dist/doc/baseWidget.js.html ./dist/doc/index.html",
-    "gulp": "mkdir -p ./dist && gulp",
+    "doc": "docker --input_dir src --sidebar true --colour_scheme manni --output_dir dist/doc/ && cp ./dist/doc/baseWidget.tmpl.js.html ./dist/doc/index.html",
+    "gulp": "gulp",
     "lint": "eslint ./src ./test --ext .js",
     "lintFix": "eslint ./src ./test --ext .js --fix",
-    "min": "gulp min",
     "stylelint": "stylelint './src/*.css'",
+    "tags": "find . -type f -iregex '.*\\.js$' -not -path './node_modules/*' -not -path './build' -not -path './dist' -exec jsctags {} -f \\; | sed '/^$/d' | sort > tags",
     "test": "npm run lint && npm run stylelint && npm run test:unit:coverage:cli",
-    "test:unit": "babel-node node_modules/.bin/_mocha ./test/test.js -R nyan -r ./test/test-setup",
+    "test:unit": "babel-node node_modules/.bin/_mocha --reporter nyan --require ./test/test-setup ./test/test.js",
     "test:unit:coverage": "npm run test:unit:coverage:cli && npm run test:unit:coverage:report",
     "test:unit:coverage:report": "open coverage/lcov-report/index.html",
-    "test:unit:coverage:cli": "babel-node node_modules/.bin/babel-istanbul cover _mocha -- -R spec -r ./test/test-setup",
+    "test:unit:coverage:cli": "babel-node node_modules/.bin/babel-istanbul cover _mocha -- --reporter spec --require ./test/test-setup",
     "versionBump": "node ./scripts/version_bump.js"
   },
   "devDependencies": {
@@ -42,19 +40,22 @@
     "docker": "git://github.com/nicolasbrugneaux/docker.git#patch-1",
     "eslint": "3.6.1",
     "gulp": "3.9.0",
+    "gulp-clean-css": "2.2.2",
     "gulp-header": "1.7.1",
-    "gulp-minify-css": "1.2.4",
     "gulp-rename": "1.2.2",
     "gulp-replace": "0.5.4",
     "gulp-uglify": "1.5.1",
+    "gulp-util": "3.0.8",
     "istanbul-coveralls": "1.0.3",
+    "jsctags": "5.1.1",
     "jsdom": "9.4.0",
     "microbejs": "0.5.2",
     "mocha": "2.5.3",
     "mocha-istanbul": "0.2.0",
     "promise": "7.1.1",
     "sinon": "1.17.4",
-    "stylelint": "7.3.1"
+    "stylelint": "7.3.1",
+    "vinyl-source-stream": "1.1.0"
   },
   "license": "MIT",
   "bugs": {
@@ -63,12 +64,12 @@
   "files": [
     "CODE_OF_CONDUCT.md",
     "README.md",
-    "liscence.md",
+    "license.md",
     "dist/",
     "demo/"
   ],
   "homepage": "https://github.com/styladev/widget",
-  "main": "./dist/widget.min.js",
+  "main": "./dist/baseWidget.js",
   "keywords": [
     "styla",
     "widget",
