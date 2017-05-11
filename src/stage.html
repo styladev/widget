@@ -14,32 +14,36 @@
         <style>
             body
             {
-                text-align:             center;
                 margin:                 0 auto;
                 background:             #eee;
                 height:                 100vh;
             }
 
+            h1,
+            h2
+            {
+                text-align:             center;
+            }
+
             .styla-widget__cards,
             .styla-widget__list,
             .styla-widget__tiles,
-            .styla-widget__list,
-            .styla-widget__stories,
+            .styla-widget__horizontal,
+            .styla-widget__stories
             {
                 text-align:             left;
                 background:             #FFF;
                 box-shadow:             3px 3px 0px #ccc;
                 height:                 24em;
-                top:                    5%;
                 position:               relative;
-                display:                inline-block;
-                margin:                 0 1em;
+                display:                block;
+                margin:                 0 auto;
             }
         </style>
     </head>
     <body>
         <h1>Stage widget</h1>
-        <p>Displaying stories from <a href="http://oxid.stage.eu.magalog.net/magazine/">http://oxid.stage.eu.magalog.net/magazine/</a> </p>
+        <p style="text-align:center">Displaying stories from <a href="http://oxid.stage.eu.magalog.net/magazine/">http://oxid.stage.eu.magalog.net/magazine/</a> </p>
 
         <h2>Cards view, non-minified, latest</h2>
         <div class="styla-widget__cards" style="width: 90%;"></div>
@@ -69,9 +73,9 @@
             } );
         </script>
 
-        <h2>Tiles view, minified, v1</h2>
+        <h2>Tiles view, minified, v2</h2>
         <div class="styla-widget__tiles" style="width: 90%;"></div>
-        <script src="./tiles.min.js"></script>
+        <script src="./tiles.v2.min.js"></script>
         <script>
             new StylaWidget_Tiles( {
                 newTab  : true,
@@ -83,7 +87,7 @@
         </script>
 
         <h2>List view, minified, v2</h2>
-        <div class="styla-widget__list" style="width: 90%;"></div>
+        <div class="styla-widget__list" style="width: 90%; height: 80vh;"></div>
         <script src="./list.v2.min.js"></script>
         <script>
             new StylaWidget_List( {
