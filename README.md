@@ -85,7 +85,7 @@ new StylaWidget_List( {
     storiesApi  // (default: false) manually set the exact api address to get
                 //      stories from
     tag         // (default: false) Filter stories by tag
-    category    // (default: false) Filter stories by category id
+    category    // (default: false) Filter stories by category slug
     target      // (default: document.body) mount point of the widget. Accepts
                 //      DOM elements and selector strings
     cta         // (default: false) Add custom Call-To-Action string [cards layout only]
