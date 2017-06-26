@@ -47,7 +47,7 @@
     "gulp-uglify": "1.5.1",
     "gulp-util": "3.0.8",
     "istanbul-coveralls": "1.0.3",
-    "jsctags": "5.1.1",
+    "jsctags": "5.2.0",
     "jsdom": "9.4.0",
     "microbejs": "0.5.2",
     "mocha": "2.5.3",
