@@ -1,12 +1,12 @@
 /*!
- * Styla bite-sized widget v2.3.0
+ * Styla bite-sized widget v2.3.1
  * https://github.com/styladev/widget
  *
  * Copyright 2016-2017 Styla GmbH and other contributors
  * Released under the MIT license
  * https://github.com/styladev/widget/blob/master/license.md
  *
- * Date: Thu May 11 2017
+ * Date: Wed Jun 28 2017
  * */
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 (function (global){
@@ -33,15 +33,15 @@ var _createClass = function () { function defineProperties(target, props) { for 
 // needs to be imported like this for tests
 
 
-var _version = require('/Users/elias/develop/widget/src/version');
+var _version = require('/Users/antonio/repos/widget/src/version');
 
 var _version2 = _interopRequireDefault(_version);
 
-var _classes = require('/Users/elias/develop/widget/src/classes');
+var _classes = require('/Users/antonio/repos/widget/src/classes');
 
 var _classes2 = _interopRequireDefault(_classes);
 
-var _build = require('/Users/elias/develop/widget/src/build.tmpl');
+var _build = require('/Users/antonio/repos/widget/src/build.tmpl');
 
 var _build2 = _interopRequireDefault(_build);
 
@@ -169,6 +169,8 @@ var StylaWidget = function () {
             imageSize = _ref$imageSize === undefined ? 400 : _ref$imageSize,
             _ref$storiesApi = _ref.storiesApi,
             storiesApi = _ref$storiesApi === undefined ? false : _ref$storiesApi,
+            _ref$ignoreFonts = _ref.ignoreFonts,
+            ignoreFonts = _ref$ignoreFonts === undefined ? false : _ref$ignoreFonts,
             _ref$tag = _ref.tag,
             tag = _ref$tag === undefined ? false : _ref$tag,
             _ref$category = _ref.category,
@@ -203,6 +205,7 @@ var StylaWidget = function () {
         this.imageSize = imageSize;
         this.slug = slug;
         this.storiesApi = storiesApi;
+        this.ignoreFonts = ignoreFonts;
         this.tag = tag;
         this.category = category;
         this.cta = cta;
@@ -304,7 +307,7 @@ Object.defineProperty(StylaWidget, 'version', {
 
 exports.default = StylaWidget;
 
-},{"/Users/elias/develop/widget/src/build.tmpl":3,"/Users/elias/develop/widget/src/classes":4,"/Users/elias/develop/widget/src/version":5,"microbejs/dist/microbe.http.min":1}],3:[function(require,module,exports){
+},{"/Users/antonio/repos/widget/src/build.tmpl":3,"/Users/antonio/repos/widget/src/classes":4,"/Users/antonio/repos/widget/src/version":5,"microbejs/dist/microbe.http.min":1}],3:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -323,7 +326,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 // needs to be imported like this for tests
 
 
-var _classes = require('/Users/elias/develop/widget/src/classes');
+var _classes = require('/Users/antonio/repos/widget/src/classes');
 
 var _classes2 = _interopRequireDefault(_classes);
 
@@ -847,16 +850,19 @@ var Build = function () {
     }, {
         key: 'includeFonts',
         value: function includeFonts() {
-            var el = document.createElement('link');
-            el.className = _classes2.default.FONT_LINK;
-            el.type = 'text/css';
-            el.rel = 'stylesheet';
-            var fontUrl = this.domainConfig.embed.customFontUrl;
-            el.href = fontUrl.indexOf('//') !== -1 ? fontUrl : '//' + fontUrl;
+            var ignoreFonts = this.context.ignoreFonts;
+            if (!ignoreFonts) {
+                var el = document.createElement('link');
+                el.className = _classes2.default.FONT_LINK;
+                el.type = 'text/css';
+                el.rel = 'stylesheet';
+                var fontUrl = this.domainConfig.embed.customFontUrl;
+                el.href = fontUrl.indexOf('//') !== -1 ? fontUrl : '//' + fontUrl;
 
-            document.head.appendChild(el);
+                document.head.appendChild(el);
 
-            return el;
+                return el;
+            }
         }
 
         /**
@@ -915,7 +921,7 @@ Build.prototype.http = _microbeHttp.http;
 
 exports.default = Build;
 
-},{"/Users/elias/develop/widget/src/classes":4,"microbejs/dist/microbe.http.min":1}],4:[function(require,module,exports){
+},{"/Users/antonio/repos/widget/src/classes":4,"microbejs/dist/microbe.http.min":1}],4:[function(require,module,exports){
 'use strict';
 
 /* globals module */
@@ -953,6 +959,6 @@ module.exports = {
 'use strict';
 
 /* globals module */
-module.exports = '2.3.0';
+module.exports = '2.3.1';
 
 },{}]},{},[2]);
