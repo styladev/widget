@@ -546,21 +546,22 @@ class Build
     includeFonts()
     {
         const ignoreFonts   = this.context.ignoreFonts;
-        const el            = document.createElement( 'link' );
-        el.className        = classes.FONT_LINK;
-        el.type             = 'text/css';
-        el.rel              = 'stylesheet';
-        const fontUrl       = this.domainConfig.embed.customFontUrl;
-        el.href             = fontUrl.indexOf( '//' ) !== -1 ?
-                            fontUrl :
-                            `//${fontUrl}`;
-
         if ( !ignoreFonts )
         {
+            const el            = document.createElement( 'link' );
+            el.className        = classes.FONT_LINK;
+            el.type             = 'text/css';
+            el.rel              = 'stylesheet';
+            const fontUrl       = this.domainConfig.embed.customFontUrl;
+            el.href             = fontUrl.indexOf( '//' ) !== -1 ?
+                                fontUrl :
+                                `//${fontUrl}`;
+
             document.head.appendChild( el );
+
+            return el;
         }
 
-        return el;
     }
 
 
