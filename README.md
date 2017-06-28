@@ -1,4 +1,4 @@
-Styla Widget  2.3.0
+Styla Widget  2.3.1
 
 =======
 
@@ -178,6 +178,9 @@ This project adheres to the [Contributor Covenant](http://contributor-covenant.o
 
 Change log
 ==========
+### 2.3.1
+    + added ignoreFonts parameter to avoid external font loading
+
 ### 2.3.0
     + images render as background images on the image wrapper element as a fallback for Internet Explorer
 
