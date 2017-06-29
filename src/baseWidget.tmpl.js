@@ -120,6 +120,7 @@ class StylaWidget
                     offset      = 0,
                     imageSize   = 400,
                     storiesApi  = false,
+                    ignoreFonts = false,
                     tag         = false,
                     category    = false,
                     cta         = false,
@@ -149,6 +150,7 @@ class StylaWidget
         this.imageSize      = imageSize;
         this.slug           = slug;
         this.storiesApi     = storiesApi;
+        this.ignoreFonts    = ignoreFonts;
         this.tag            = tag;
         this.category       = category;
         this.cta            = cta;

@@ -1,4 +1,4 @@
-Styla Widget  2.3.0
+Styla Widget  2.3.1
 
 =======
 
@@ -68,28 +68,29 @@ size isset to 14px, one story will be exactly 14 times that value, in this case
 
 ```js
 new StylaWidget_List( {
-    api         // (default: 'http://live.styla.com') base api url
-    domain      // (default: false) if filled, this manually sets the base url for links
-    ignore      // (default: false) story id to ignore when rendering (generally
-                //      this represents the story that you're on)
-    imageSize   // (default: 400) requested size (in pixels) of
-                //      the image
-    limit       // (default: 5) Amount of entries to retrieve. Please note that
-                //      the widget will only display the amount of stories that
-                //      actually fits within the space its given.
-    linkDomain  // (default: false) domain to send links to.  this is ONLY
-                //      necessary on domains that do not use the domainConfig
-    minWidth    // (default: 250) minimum width (in px) for the mount point of the widget
-    offset      // (default: 0) amount of entries to skip
-    slug        // (REQUIRED) Magazine name
-    storiesApi  // (default: false) manually set the exact api address to get
-                //      stories from
-    tag         // (default: false) Filter stories by tag
-    category    // (default: false) Filter stories by category slug
-    target      // (default: document.body) mount point of the widget. Accepts
-                //      DOM elements and selector strings
-    cta         // (default: false) Add custom Call-To-Action string [cards layout only]
-    urlParams   // (default: true) Add tracking parameters to the story URL
+    api             // (default: 'http://live.styla.com') base api url
+    domain          // (default: false) if filled, this manually sets the base url for links
+    ignore          // (default: false) story id to ignore when rendering (generally
+                    //      this represents the story that you're on)
+    imageSize       // (default: 400) requested size (in pixels) of
+                    //      the image
+    limit           // (default: 5) Amount of entries to retrieve. Please note that
+                    //      the widget will only display the amount of stories that
+                    //      actually fits within the space its given.
+    linkDomain      // (default: false) domain to send links to.  this is ONLY
+                    //      necessary on domains that do not use the domainConfig
+    minWidth        // (default: 250) minimum width (in px) for the mount point of the widget
+    offset          // (default: 0) amount of entries to skip
+    slug            // (REQUIRED) Magazine name
+    storiesApi      // (default: false) manually set the exact api address to get
+                    //      stories from
+    ignoreFonts     // (default: false) if set to true, external fonts will not be loaded
+    tag             // (default: false) Filter stories by tag
+    category        // (default: false) Filter stories by category id
+    target          // (default: document.body) mount point of the widget. Accepts
+                    //      DOM elements and selector strings
+    cta             // (default: false) Add custom Call-To-Action string [cards layout only]
+    urlParams       // (default: true) Add tracking parameters to the story URL
 } );
 ```
 
@@ -143,7 +144,7 @@ To stop the server, press CTRL-C
 Releasing
 --------
 
-When you release a new verion, commit it to dev (keeps dev upto date), commit it
+When you release a new version, commit it to dev (keeps dev upto date), commit it
 to master, then commit it to release. It must be released from the `release` branch.
 It is the *only* branch that commits the dist files
 
@@ -177,6 +178,9 @@ This project adheres to the [Contributor Covenant](http://contributor-covenant.o
 
 Change log
 ==========
+### 2.3.1
+    + added ignoreFonts parameter to avoid external font loading
+
 ### 2.3.0
     + images render as background images on the image wrapper element as a fallback for Internet Explorer
 
