@@ -1,4 +1,4 @@
-Styla Widget  2.3.0
+Styla Widget  2.4.0
 
 =======
 
@@ -177,6 +177,9 @@ This project adheres to the [Contributor Covenant](http://contributor-covenant.o
 
 Change log
 ==========
+### 2.4.0
+    + reduce headline font size in list and horizontal layout
+
 ### 2.3.0
     + images render as background images on the image wrapper element as a fallback for Internet Explorer
 
