@@ -1,5 +1,4 @@
-Styla Widget  2.3.1
-
+Styla Widget  2.4.0
 =======
 
 [![Build Status](https://travis-ci.org/styladev/widget.svg?branch=master)](https://travis-ci.org/styladev/widget)
@@ -178,6 +177,9 @@ This project adheres to the [Contributor Covenant](http://contributor-covenant.o
 
 Change log
 ==========
+
+### 2.4.0
+    + reduce headline font size in list and horizontal layout
 ### 2.3.1
     + added ignoreFonts parameter to avoid external font loading
 
