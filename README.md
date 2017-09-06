@@ -90,6 +90,7 @@ new StylaWidget_List( {
                     //      DOM elements and selector strings
     cta             // (default: false) Add custom Call-To-Action string [cards layout only]
     urlParams       // (default: true) Add tracking parameters to the story URL
+    imageApiDomain  // (default: "img.styla.com") the domain of the Image API
 } );
 ```
 
@@ -174,12 +175,15 @@ This project adheres to the [Contributor Covenant](http://contributor-covenant.o
 [Code of Conduct](https://github.com/styladev/widget/blob/master/CODE_OF_CONDUCT.md)
 
 
-
 Change log
 ==========
 
+### 2.4.1
+    + add the imageUrlDomain to distinguish between production and stage environments
+
 ### 2.4.0
     + reduce headline font size in list and horizontal layout
+
 ### 2.3.1
     + added ignoreFonts parameter to avoid external font loading
 

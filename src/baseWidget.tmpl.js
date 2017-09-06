@@ -97,7 +97,6 @@ class StylaWidget
         return target;
     }
 
-
     /**
      * ## constructor
      *
@@ -109,23 +108,24 @@ class StylaWidget
      */
     constructor( {
                     slug,
-                    api         = 'https://live.styla.com',
-                    domain      = false,
-                    iframe      = false,
-                    ignore      = false,
-                    limit       = 5,
-                    linkDomain  = false,
-                    minWidth    = 250,
-                    newTab      = false,
-                    offset      = 0,
-                    imageSize   = 400,
-                    storiesApi  = false,
-                    ignoreFonts = false,
-                    tag         = false,
-                    category    = false,
-                    cta         = false,
-                    target      = document.body,
-                    urlParams    = true
+                    api             = 'https://live.styla.com',
+                    domain          = false,
+                    iframe          = false,
+                    ignore          = false,
+                    limit           = 5,
+                    linkDomain      = false,
+                    minWidth        = 250,
+                    newTab          = false,
+                    offset          = 0,
+                    imageSize       = 400,
+                    storiesApi      = false,
+                    ignoreFonts     = false,
+                    tag             = false,
+                    category        = false,
+                    cta             = false,
+                    target          = document.body,
+                    urlParams       = true,
+                    imageApiDomain  = 'img.styla.com'
                     } = {} )
     {
         target = this.checkTarget( target, minWidth );
@@ -156,6 +156,7 @@ class StylaWidget
         this.cta            = cta;
         this.target         = target;
         this.urlParams      = urlParams;
+        this.imageApiDomain = imageApiDomain;
 
         const fetchLimit    = limit + offset;
 
