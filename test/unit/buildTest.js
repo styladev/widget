@@ -47,9 +47,10 @@ sinon.stub( Build.prototype.http, 'get', getStub );
 
 
 const stylaWidget = new BaseWidget( {
-    target : document.body,
-    slug   : 'braunhamburg',
-    domain : 'test'
+    target         : document.body,
+    slug           : 'braunhamburg',
+    domain         : 'test',
+    imageApiDomain : 'honeybee.stage.eu.magalog.net'
 } );
 
 const build  = new Build( stylaWidget, JSON.stringify( feed.stories ) );
@@ -422,12 +423,23 @@ describe( 'getDescription', () =>
 
 describe( 'getImageUrl', () =>
 {
+    it( 'should correctly assign the imageApiDomain parameter', () =>
+    {
+        assert.equal(
+            build.context.imageApiDomain,
+            'honeybee.stage.eu.magalog.net'
+        );
+    } );
+
     it( 'should correctly set the image url', () =>
     {
         const url = build.getImageUrl( 'moon', 399 );
 
-        assert.equal( url, '//img.styla.com/resizer/sfh_399x0/_moon?still',
-                                                'image url is set correctly' );
+        assert.equal(
+            url,
+            '//honeybee.stage.eu.magalog.net/resizer/sfh_399x0/_moon?still',
+            'image url is set correctly'
+        );
     } );
 
 
@@ -435,8 +447,11 @@ describe( 'getImageUrl', () =>
     {
         const url = build.getImageUrl( 'moon' );
 
-        assert.equal( url, '//img.styla.com/resizer/sfh_400x0/_moon?still',
-                                                'image url is set correctly' );
+        assert.equal(
+            url,
+            '//honeybee.stage.eu.magalog.net/resizer/sfh_400x0/_moon?still',
+            'image url is set correctly'
+        );
     } );
 } );
 

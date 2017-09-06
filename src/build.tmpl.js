@@ -1,4 +1,3 @@
-
 /* globals document, window */
 /**
  * ## build.js
@@ -465,7 +464,9 @@ class Build
      */
     getImageUrl( filename, imageSize = 400 )
     {
-        return `//img.styla.com/resizer/sfh_${imageSize}x0/_${filename}?still`;
+        const imageApiDomain = this.context.imageApiDomain;
+
+        return `//${imageApiDomain}/resizer/sfh_${imageSize}x0/_${filename}?still`;
     }
 
 
