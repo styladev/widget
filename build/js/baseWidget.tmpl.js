@@ -23,15 +23,15 @@ var _createClass = function () { function defineProperties(target, props) { for 
 // needs to be imported like this for tests
 
 
-var _version = require('/Users/antonio/repos/widget/src/version');
+var _version = require('/styla/widget/src/version');
 
 var _version2 = _interopRequireDefault(_version);
 
-var _classes = require('/Users/antonio/repos/widget/src/classes');
+var _classes = require('/styla/widget/src/classes');
 
 var _classes2 = _interopRequireDefault(_classes);
 
-var _build = require('/Users/antonio/repos/widget/src/build.tmpl');
+var _build = require('/styla/widget/src/build.tmpl');
 
 var _build2 = _interopRequireDefault(_build);
 
@@ -170,7 +170,9 @@ var StylaWidget = function () {
             _ref$target = _ref.target,
             target = _ref$target === undefined ? document.body : _ref$target,
             _ref$urlParams = _ref.urlParams,
-            urlParams = _ref$urlParams === undefined ? true : _ref$urlParams;
+            urlParams = _ref$urlParams === undefined ? true : _ref$urlParams,
+            _ref$imageApiDomain = _ref.imageApiDomain,
+            imageApiDomain = _ref$imageApiDomain === undefined ? 'img.styla.com' : _ref$imageApiDomain;
 
         _classCallCheck(this, StylaWidget);
 
@@ -201,6 +203,7 @@ var StylaWidget = function () {
         this.cta = cta;
         this.target = target;
         this.urlParams = urlParams;
+        this.imageApiDomain = imageApiDomain;
 
         var fetchLimit = limit + offset;
 
@@ -297,15 +300,14 @@ Object.defineProperty(StylaWidget, 'version', {
 
 exports.default = StylaWidget;
 
-},{"/Users/antonio/repos/widget/src/build.tmpl":3,"/Users/antonio/repos/widget/src/classes":4,"/Users/antonio/repos/widget/src/version":5,"microbejs/dist/microbe.http.min":1}],3:[function(require,module,exports){
+},{"/styla/widget/src/build.tmpl":3,"/styla/widget/src/classes":4,"/styla/widget/src/version":5,"microbejs/dist/microbe.http.min":1}],3:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-/* globals document, window */
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /* globals document, window */
 /**
  * ## build.js
  *
@@ -316,7 +318,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 // needs to be imported like this for tests
 
 
-var _classes = require('/Users/antonio/repos/widget/src/classes');
+var _classes = require('/styla/widget/src/classes');
 
 var _classes2 = _interopRequireDefault(_classes);
 
@@ -767,7 +769,9 @@ var Build = function () {
         value: function getImageUrl(filename) {
             var imageSize = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 400;
 
-            return '//img.styla.com/resizer/sfh_' + imageSize + 'x0/_' + filename + '?still';
+            var imageApiDomain = this.context.imageApiDomain;
+
+            return '//' + imageApiDomain + '/resizer/sfh_' + imageSize + 'x0/_' + filename + '?still';
         }
 
         /**
@@ -911,7 +915,7 @@ Build.prototype.http = _microbeHttp.http;
 
 exports.default = Build;
 
-},{"/Users/antonio/repos/widget/src/classes":4,"microbejs/dist/microbe.http.min":1}],4:[function(require,module,exports){
+},{"/styla/widget/src/classes":4,"microbejs/dist/microbe.http.min":1}],4:[function(require,module,exports){
 'use strict';
 
 /* globals module */
@@ -949,6 +953,6 @@ module.exports = {
 'use strict';
 
 /* globals module */
-module.exports = '2.3.1';
+module.exports = '2.4.1';
 
 },{}]},{},[2]);

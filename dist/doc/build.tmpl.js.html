@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="doc-style.css" />
   <script src="doc-filelist.js"></script>
   <script>
-    var relativeDir = "", thisFile = "Users/antonio/repos/widget//build.tmpl.js", defaultSidebar = true;
+    var relativeDir = "", thisFile = "styla/widget//build.tmpl.js", defaultSidebar = true;
   </script>
   <script src="doc-script.js"></script>
 </head>
@@ -982,7 +982,9 @@ manipulating the dom. At least remove it after use!</p>
         <td class="code highlight"><div class="highlight"><pre>
     <span class="nx">getImageUrl</span><span class="p">(</span> <span class="nx">filename</span><span class="p">,</span> <span class="nx">imageSize</span> <span class="o">=</span> <span class="mi">400</span> <span class="p">)</span>
     <span class="p">{</span>
-        <span class="k">return</span> <span class="err">`</span><span class="c1">//img.styla.com/resizer/sfh_${imageSize}x0/_${filename}?still`;</span>
+        <span class="kr">const</span> <span class="nx">imageApiDomain</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">context</span><span class="p">.</span><span class="nx">imageApiDomain</span><span class="p">;</span>
+
+        <span class="k">return</span> <span class="err">`</span><span class="c1">//${imageApiDomain}/resizer/sfh_${imageSize}x0/_${filename}?still`;</span>
     <span class="p">}</span>
 
 

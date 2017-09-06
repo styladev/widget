@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="doc-style.css" />
   <script src="doc-filelist.js"></script>
   <script>
-    var relativeDir = "", thisFile = "Users/antonio/repos/widget//baseWidget.tmpl.js", defaultSidebar = true;
+    var relativeDir = "", thisFile = "styla/widget//baseWidget.tmpl.js", defaultSidebar = true;
   </script>
   <script src="doc-script.js"></script>
 </head>
@@ -70,11 +70,11 @@
   <div class="details">
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>"Mouse Braun <a href="&#x6D;&#x61;&#105;l&#116;&#x6F;:&#x6D;o&#x75;&#x73;&#101;&#64;&#115;&#116;&#x79;&#x6C;a.&#x63;&#x6F;&#x6D;">&#x6D;o&#x75;&#x73;&#101;&#64;&#115;&#116;&#x79;&#x6C;a.&#x63;&#x6F;&#x6D;</a>"</span>
+      <span>"Mouse Braun <a href="&#109;&#x61;&#x69;&#108;&#x74;&#x6F;:&#x6D;&#x6F;&#117;&#115;&#101;&#x40;&#115;&#x74;&#121;&#x6C;&#97;&#x2E;&#99;&#x6F;&#109;">&#x6D;&#x6F;&#117;&#115;&#101;&#x40;&#115;&#x74;&#121;&#x6C;&#97;&#x2E;&#99;&#x6F;&#109;</a>"</span>
     </div>
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>"Elias Liedholm <a href="&#109;&#x61;i&#108;t&#111;:&#x65;&#x6C;&#x69;&#97;&#x73;&#x40;&#115;&#116;&#121;&#108;&#97;&#x2E;&#99;&#x6F;&#x6D;">&#x65;&#x6C;&#x69;&#97;&#x73;&#x40;&#115;&#116;&#121;&#108;&#97;&#x2E;&#99;&#x6F;&#x6D;</a>"</span>
+      <span>"Elias Liedholm <a href="&#109;&#97;&#105;&#108;&#x74;o:&#101;&#108;&#x69;&#97;&#x73;&#64;&#115;&#116;&#121;&#x6C;&#97;&#x2E;&#x63;&#x6F;&#109;">&#101;&#108;&#x69;&#97;&#x73;&#64;&#115;&#116;&#121;&#x6C;&#97;&#x2E;&#x63;&#x6F;&#109;</a>"</span>
     </div>
   </div>
 </div>
@@ -261,7 +261,6 @@ defined target or a new selector / el</p>
     <span class="p">}</span>
 
 
-
 </pre></div>
         </td>
       </tr>
@@ -297,23 +296,24 @@ defined target or a new selector / el</p>
         <td class="code highlight"><div class="highlight"><pre>
     <span class="nx">constructor</span><span class="p">(</span> <span class="p">{</span>
                     <span class="nx">slug</span><span class="p">,</span>
-                    <span class="nx">api</span>         <span class="o">=</span> <span class="s1">&#39;https://live.styla.com&#39;</span><span class="p">,</span>
-                    <span class="nx">domain</span>      <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
-                    <span class="nx">iframe</span>      <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
-                    <span class="nx">ignore</span>      <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
-                    <span class="nx">limit</span>       <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
-                    <span class="nx">linkDomain</span>  <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
-                    <span class="nx">minWidth</span>    <span class="o">=</span> <span class="mi">250</span><span class="p">,</span>
-                    <span class="nx">newTab</span>      <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
-                    <span class="nx">offset</span>      <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
-                    <span class="nx">imageSize</span>   <span class="o">=</span> <span class="mi">400</span><span class="p">,</span>
-                    <span class="nx">storiesApi</span>  <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
-                    <span class="nx">ignoreFonts</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
-                    <span class="nx">tag</span>         <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
-                    <span class="nx">category</span>    <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
-                    <span class="nx">cta</span>         <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
-                    <span class="nx">target</span>      <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">,</span>
-                    <span class="nx">urlParams</span>    <span class="o">=</span> <span class="kc">true</span>
+                    <span class="nx">api</span>             <span class="o">=</span> <span class="s1">&#39;https://live.styla.com&#39;</span><span class="p">,</span>
+                    <span class="nx">domain</span>          <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
+                    <span class="nx">iframe</span>          <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
+                    <span class="nx">ignore</span>          <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
+                    <span class="nx">limit</span>           <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
+                    <span class="nx">linkDomain</span>      <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
+                    <span class="nx">minWidth</span>        <span class="o">=</span> <span class="mi">250</span><span class="p">,</span>
+                    <span class="nx">newTab</span>          <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
+                    <span class="nx">offset</span>          <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+                    <span class="nx">imageSize</span>       <span class="o">=</span> <span class="mi">400</span><span class="p">,</span>
+                    <span class="nx">storiesApi</span>      <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
+                    <span class="nx">ignoreFonts</span>     <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
+                    <span class="nx">tag</span>             <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
+                    <span class="nx">category</span>        <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
+                    <span class="nx">cta</span>             <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
+                    <span class="nx">target</span>          <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">,</span>
+                    <span class="nx">urlParams</span>       <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>
+                    <span class="nx">imageApiDomain</span>  <span class="o">=</span> <span class="s1">&#39;img.styla.com&#39;</span>
                     <span class="p">}</span> <span class="o">=</span> <span class="p">{}</span> <span class="p">)</span>
     <span class="p">{</span>
         <span class="nx">target</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">checkTarget</span><span class="p">(</span> <span class="nx">target</span><span class="p">,</span> <span class="nx">minWidth</span> <span class="p">);</span>
@@ -344,6 +344,7 @@ defined target or a new selector / el</p>
         <span class="k">this</span><span class="p">.</span><span class="nx">cta</span>            <span class="o">=</span> <span class="nx">cta</span><span class="p">;</span>
         <span class="k">this</span><span class="p">.</span><span class="nx">target</span>         <span class="o">=</span> <span class="nx">target</span><span class="p">;</span>
         <span class="k">this</span><span class="p">.</span><span class="nx">urlParams</span>      <span class="o">=</span> <span class="nx">urlParams</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">imageApiDomain</span> <span class="o">=</span> <span class="nx">imageApiDomain</span><span class="p">;</span>
 
         <span class="kr">const</span> <span class="nx">fetchLimit</span>    <span class="o">=</span> <span class="nx">limit</span> <span class="o">+</span> <span class="nx">offset</span><span class="p">;</span>
 

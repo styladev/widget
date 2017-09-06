@@ -1,12 +1,12 @@
 /*!
- * Styla bite-sized widget v2.3.1
+ * Styla bite-sized widget v2.4.1
  * https://github.com/styladev/widget
  *
  * Copyright 2016-2017 Styla GmbH and other contributors
  * Released under the MIT license
  * https://github.com/styladev/widget/blob/master/license.md
  *
- * Date: Wed Jun 28 2017
+ * Date: Wed Sep 06 2017
  * */
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 (function (global){
@@ -33,15 +33,15 @@ var _createClass = function () { function defineProperties(target, props) { for 
 // needs to be imported like this for tests
 
 
-var _version = require('/Users/antonio/repos/widget/src/version');
+var _version = require('/styla/widget/src/version');
 
 var _version2 = _interopRequireDefault(_version);
 
-var _classes = require('/Users/antonio/repos/widget/src/classes');
+var _classes = require('/styla/widget/src/classes');
 
 var _classes2 = _interopRequireDefault(_classes);
 
-var _build = require('/Users/antonio/repos/widget/src/build.tmpl');
+var _build = require('/styla/widget/src/build.tmpl');
 
 var _build2 = _interopRequireDefault(_build);
 
@@ -180,7 +180,9 @@ var StylaWidget = function () {
             _ref$target = _ref.target,
             target = _ref$target === undefined ? document.body : _ref$target,
             _ref$urlParams = _ref.urlParams,
-            urlParams = _ref$urlParams === undefined ? true : _ref$urlParams;
+            urlParams = _ref$urlParams === undefined ? true : _ref$urlParams,
+            _ref$imageApiDomain = _ref.imageApiDomain,
+            imageApiDomain = _ref$imageApiDomain === undefined ? 'img.styla.com' : _ref$imageApiDomain;
 
         _classCallCheck(this, StylaWidget);
 
@@ -211,6 +213,7 @@ var StylaWidget = function () {
         this.cta = cta;
         this.target = target;
         this.urlParams = urlParams;
+        this.imageApiDomain = imageApiDomain;
 
         var fetchLimit = limit + offset;
 
@@ -307,15 +310,14 @@ Object.defineProperty(StylaWidget, 'version', {
 
 exports.default = StylaWidget;
 
-},{"/Users/antonio/repos/widget/src/build.tmpl":3,"/Users/antonio/repos/widget/src/classes":4,"/Users/antonio/repos/widget/src/version":5,"microbejs/dist/microbe.http.min":1}],3:[function(require,module,exports){
+},{"/styla/widget/src/build.tmpl":3,"/styla/widget/src/classes":4,"/styla/widget/src/version":5,"microbejs/dist/microbe.http.min":1}],3:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-/* globals document, window */
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /* globals document, window */
 /**
  * ## build.js
  *
@@ -326,7 +328,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 // needs to be imported like this for tests
 
 
-var _classes = require('/Users/antonio/repos/widget/src/classes');
+var _classes = require('/styla/widget/src/classes');
 
 var _classes2 = _interopRequireDefault(_classes);
 
@@ -340,7 +342,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     exchanged for css in the gulp build
  */
 var baseStyles = '#styla-widget p{margin:0}#styla-widget.styla-widget__wrapper{width:100%;height:100%}#styla-widget .styla-widget__container{box-sizing:border-box;position:relative;overflow:hidden;height:100%;width:100%;min-height:14em;font-size:14px}#styla-widget .styla-widget__story{margin-bottom:1em;position:relative}#styla-widget .styla-widget__link{position:absolute;width:100%;display:-moz-flex;display:-webkit-flex;display:flex;text-decoration:none;color:inherit}#styla-widget__link>div{display:inline-block}#styla-widget .styla-widget__imagewrap{background-repeat:no-repeat;background-position:50%;background-size:contain}#styla-widget .styla-widget__image{max-height:100%;max-width:100%;height:100%;object-fit:contain;opacity:0}#styla-widget .styla-widget__textwrap{display:block;-moz-flex-grow:1;-webkit-flex-grow:1;flex-grow:1;max-height:100%;overflow:hidden;float:left}#styla-widget .styla-widget__headlinewrap{display:flex;flex-direction:column;-moz-justify-content:flex-end;-webkit-justify-content:flex-end;justify-content:flex-end}#styla-widget .styla-widget__headline,#styla-widget .styla-widget__title{line-height:1.25em;max-height:2.5em;overflow:hidden;margin-top:1em;margin-bottom:1em}#styla-widget .styla-widget__title{font-size:2em;text-align:center;margin-bottom:30px}#styla-widget .styla-widget__paragraph{font-size:1em;line-height:1.5em;overflow:hidden;position:relative;word-wrap:break-word}'; // eslint-disable-line
-var specificStyles = '#styla-widget.horizontal .styla-widget__container{padding:1em;display:-moz-flex;display:-ms-flex;display:-webkit-flex;display:flex;-moz-flex-direction:row;-ms-flex-direction:row;-webkit-flex-direction:row;flex-direction:row;-moz-flex-wrap:wrap;-ms-flex-wrap:wrap;-webkit-flex-wrap:wrap;flex-wrap:wrap;height:16em}#styla-widget.horizontal .styla-widget__story{margin:0 2em 1em;height:14em;width:24em;display:block;float:left;-moz-flex-grow:1;-ms-flex-grow:1;-webkit-flex-grow:1;flex-grow:1}#styla-widget.horizontal .styla-widget__link{height:14em;top:50%;margin-top:-7em;align-items:center}#styla-widget.horizontal .styla-widget__imagewrap{display:block;-moz-flex-grow:1;-ms-flex-grow:1;-webkit-flex-grow:1;flex-grow:1;height:100%;margin:0 6% 0 0;-moz-flex:none;-ms-flex:none;-webkit-flex:none;flex:none;max-width:40%;float:left}#styla-widget.horizontal .styla-widget__textwrap{display:block;max-height:100%;overflow:hidden;float:left}#styla-widget.horizontal .styla-widget__headlinewrap{height:5em;display:-moz-flex;display:-ms-flex;display:-webkit-flex;display:flex;-moz-flex-direction:column;-ms-flex-direction:column;-webkit-flex-direction:column;flex-direction:column;-moz-justify-content:flex-end;-ms-justify-content:flex-end;-webkit-justify-content:flex-end;justify-content:flex-end}#styla-widget.horizontal .styla-widget__headline{font-size:1.9em;line-height:1.25em;max-height:2.5em;overflow:hidden;margin:0 0 .25em;word-wrap:break-word;text-overflow:ellipsis;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2}#styla-widget.horizontal .styla-widget__paragraph{font-size:1em;line-height:1.5em;max-height:7.5em;overflow:hidden;position:relative;word-wrap:break-word}#styla-widget.horizontal .styla-widget__paragraph-after{line-height:1.5em}#styla-widget.horizontal .styla-widget__calltoaction,#styla-widget.horizontal .styla-widget__paragraph p+p{display:none}'; // eslint-disable-line
+var specificStyles = '#styla-widget.horizontal .styla-widget__container{padding:1em;display:-moz-flex;display:-ms-flex;display:-webkit-flex;display:flex;-moz-flex-direction:row;-ms-flex-direction:row;-webkit-flex-direction:row;flex-direction:row;-moz-flex-wrap:wrap;-ms-flex-wrap:wrap;-webkit-flex-wrap:wrap;flex-wrap:wrap;height:16em}#styla-widget.horizontal .styla-widget__story{margin:0 2em 1em;height:14em;width:24em;display:block;float:left;-moz-flex-grow:1;-ms-flex-grow:1;-webkit-flex-grow:1;flex-grow:1}#styla-widget.horizontal .styla-widget__link{height:14em;top:50%;margin-top:-7em;align-items:center}#styla-widget.horizontal .styla-widget__imagewrap{display:block;-moz-flex-grow:1;-ms-flex-grow:1;-webkit-flex-grow:1;flex-grow:1;height:100%;margin:0 6% 0 0;-moz-flex:none;-ms-flex:none;-webkit-flex:none;flex:none;max-width:40%;float:left}#styla-widget.horizontal .styla-widget__textwrap{display:block;max-height:100%;overflow:hidden;float:left}#styla-widget.horizontal .styla-widget__headlinewrap{height:5em;display:-moz-flex;display:-ms-flex;display:-webkit-flex;display:flex;-moz-flex-direction:column;-ms-flex-direction:column;-webkit-flex-direction:column;flex-direction:column;-moz-justify-content:flex-end;-ms-justify-content:flex-end;-webkit-justify-content:flex-end;justify-content:flex-end}#styla-widget.horizontal .styla-widget__headline{font-size:1.6em;line-height:1.25em;max-height:2.5em;overflow:hidden;margin:0 0 .25em;word-wrap:break-word;text-overflow:ellipsis;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2}#styla-widget.horizontal .styla-widget__paragraph{font-size:1em;line-height:1.5em;max-height:7.5em;overflow:hidden;position:relative;word-wrap:break-word}#styla-widget.horizontal .styla-widget__paragraph-after{line-height:1.5em}#styla-widget.horizontal .styla-widget__calltoaction,#styla-widget.horizontal .styla-widget__paragraph p+p{display:none}'; // eslint-disable-line
 
 var wrapperID = 'styla-widget';
 
@@ -777,7 +779,9 @@ var Build = function () {
         value: function getImageUrl(filename) {
             var imageSize = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 400;
 
-            return '//img.styla.com/resizer/sfh_' + imageSize + 'x0/_' + filename + '?still';
+            var imageApiDomain = this.context.imageApiDomain;
+
+            return '//' + imageApiDomain + '/resizer/sfh_' + imageSize + 'x0/_' + filename + '?still';
         }
 
         /**
@@ -921,7 +925,7 @@ Build.prototype.http = _microbeHttp.http;
 
 exports.default = Build;
 
-},{"/Users/antonio/repos/widget/src/classes":4,"microbejs/dist/microbe.http.min":1}],4:[function(require,module,exports){
+},{"/styla/widget/src/classes":4,"microbejs/dist/microbe.http.min":1}],4:[function(require,module,exports){
 'use strict';
 
 /* globals module */
@@ -959,6 +963,6 @@ module.exports = {
 'use strict';
 
 /* globals module */
-module.exports = '2.3.1';
+module.exports = '2.4.1';
 
 },{}]},{},[2]);
