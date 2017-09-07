@@ -1,4 +1,4 @@
-Styla Widget  2.4.0
+Styla Widget  2.4.2
 =======
 
 [![Build Status](https://travis-ci.org/styladev/widget.svg?branch=master)](https://travis-ci.org/styladev/widget)
@@ -177,6 +177,9 @@ This project adheres to the [Contributor Covenant](http://contributor-covenant.o
 
 Change log
 ==========
+
+### 2.4.2
+    + related stories: set height of container and wrapper to initial value so it only takes the space it needs
 
 ### 2.4.1
     + add the imageUrlDomain to distinguish between production and stage environments
