@@ -1,3 +1,8 @@
+#styla-widget .styla-widget__container,
+#styla-widget.styla-widget__wrapper
+{
+    height:                             auto;
+}
 
 #styla-widget.stories .styla-widget__story
 {
