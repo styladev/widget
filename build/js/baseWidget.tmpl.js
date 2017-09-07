@@ -23,15 +23,15 @@ var _createClass = function () { function defineProperties(target, props) { for 
 // needs to be imported like this for tests
 
 
-var _version = require('/styla/widget/src/version');
+var _version = require('/Users/eliasliedholm/dev/widget/src/version');
 
 var _version2 = _interopRequireDefault(_version);
 
-var _classes = require('/styla/widget/src/classes');
+var _classes = require('/Users/eliasliedholm/dev/widget/src/classes');
 
 var _classes2 = _interopRequireDefault(_classes);
 
-var _build = require('/styla/widget/src/build.tmpl');
+var _build = require('/Users/eliasliedholm/dev/widget/src/build.tmpl');
 
 var _build2 = _interopRequireDefault(_build);
 
@@ -300,7 +300,7 @@ Object.defineProperty(StylaWidget, 'version', {
 
 exports.default = StylaWidget;
 
-},{"/styla/widget/src/build.tmpl":3,"/styla/widget/src/classes":4,"/styla/widget/src/version":5,"microbejs/dist/microbe.http.min":1}],3:[function(require,module,exports){
+},{"/Users/eliasliedholm/dev/widget/src/build.tmpl":3,"/Users/eliasliedholm/dev/widget/src/classes":4,"/Users/eliasliedholm/dev/widget/src/version":5,"microbejs/dist/microbe.http.min":1}],3:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -318,7 +318,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 // needs to be imported like this for tests
 
 
-var _classes = require('/styla/widget/src/classes');
+var _classes = require('/Users/eliasliedholm/dev/widget/src/classes');
 
 var _classes2 = _interopRequireDefault(_classes);
 
@@ -915,7 +915,7 @@ Build.prototype.http = _microbeHttp.http;
 
 exports.default = Build;
 
-},{"/styla/widget/src/classes":4,"microbejs/dist/microbe.http.min":1}],4:[function(require,module,exports){
+},{"/Users/eliasliedholm/dev/widget/src/classes":4,"microbejs/dist/microbe.http.min":1}],4:[function(require,module,exports){
 'use strict';
 
 /* globals module */
@@ -953,6 +953,6 @@ module.exports = {
 'use strict';
 
 /* globals module */
-module.exports = '2.4.1';
+module.exports = '2.4.2';
 
 },{}]},{},[2]);

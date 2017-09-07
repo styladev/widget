@@ -1,12 +1,12 @@
 /*!
- * Styla bite-sized widget v2.4.1
+ * Styla bite-sized widget v2.4.2
  * https://github.com/styladev/widget
  *
  * Copyright 2016-2017 Styla GmbH and other contributors
  * Released under the MIT license
  * https://github.com/styladev/widget/blob/master/license.md
  *
- * Date: Wed Sep 06 2017
+ * Date: Thu Sep 07 2017
  * */
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 (function (global){
@@ -33,15 +33,15 @@ var _createClass = function () { function defineProperties(target, props) { for 
 // needs to be imported like this for tests
 
 
-var _version = require('/styla/widget/src/version');
+var _version = require('/Users/eliasliedholm/dev/widget/src/version');
 
 var _version2 = _interopRequireDefault(_version);
 
-var _classes = require('/styla/widget/src/classes');
+var _classes = require('/Users/eliasliedholm/dev/widget/src/classes');
 
 var _classes2 = _interopRequireDefault(_classes);
 
-var _build = require('/styla/widget/src/build.tmpl');
+var _build = require('/Users/eliasliedholm/dev/widget/src/build.tmpl');
 
 var _build2 = _interopRequireDefault(_build);
 
@@ -310,7 +310,7 @@ Object.defineProperty(StylaWidget, 'version', {
 
 exports.default = StylaWidget;
 
-},{"/styla/widget/src/build.tmpl":3,"/styla/widget/src/classes":4,"/styla/widget/src/version":5,"microbejs/dist/microbe.http.min":1}],3:[function(require,module,exports){
+},{"/Users/eliasliedholm/dev/widget/src/build.tmpl":3,"/Users/eliasliedholm/dev/widget/src/classes":4,"/Users/eliasliedholm/dev/widget/src/version":5,"microbejs/dist/microbe.http.min":1}],3:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -328,7 +328,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 // needs to be imported like this for tests
 
 
-var _classes = require('/styla/widget/src/classes');
+var _classes = require('/Users/eliasliedholm/dev/widget/src/classes');
 
 var _classes2 = _interopRequireDefault(_classes);
 
@@ -925,7 +925,7 @@ Build.prototype.http = _microbeHttp.http;
 
 exports.default = Build;
 
-},{"/styla/widget/src/classes":4,"microbejs/dist/microbe.http.min":1}],4:[function(require,module,exports){
+},{"/Users/eliasliedholm/dev/widget/src/classes":4,"microbejs/dist/microbe.http.min":1}],4:[function(require,module,exports){
 'use strict';
 
 /* globals module */
@@ -963,6 +963,6 @@ module.exports = {
 'use strict';
 
 /* globals module */
-module.exports = '2.4.1';
+module.exports = '2.4.2';
 
 },{}]},{},[2]);

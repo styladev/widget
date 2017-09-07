@@ -1,12 +1,12 @@
 /*!
- * Styla bite-sized widget v2.4.1
+ * Styla bite-sized widget v2.4.2
  * https://github.com/styladev/widget
  *
  * Copyright 2016-2017 Styla GmbH and other contributors
  * Released under the MIT license
  * https://github.com/styladev/widget/blob/master/license.md
  *
- * Date: Wed Sep 06 2017
+ * Date: Thu Sep 07 2017
  * */
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 (function (global){
@@ -33,15 +33,15 @@ var _createClass = function () { function defineProperties(target, props) { for 
 // needs to be imported like this for tests
 
 
-var _version = require('/styla/widget/src/version');
+var _version = require('/Users/eliasliedholm/dev/widget/src/version');
 
 var _version2 = _interopRequireDefault(_version);
 
-var _classes = require('/styla/widget/src/classes');
+var _classes = require('/Users/eliasliedholm/dev/widget/src/classes');
 
 var _classes2 = _interopRequireDefault(_classes);
 
-var _build = require('/styla/widget/src/build.tmpl');
+var _build = require('/Users/eliasliedholm/dev/widget/src/build.tmpl');
 
 var _build2 = _interopRequireDefault(_build);
 
@@ -310,7 +310,7 @@ Object.defineProperty(StylaWidget, 'version', {
 
 exports.default = StylaWidget;
 
-},{"/styla/widget/src/build.tmpl":3,"/styla/widget/src/classes":4,"/styla/widget/src/version":5,"microbejs/dist/microbe.http.min":1}],3:[function(require,module,exports){
+},{"/Users/eliasliedholm/dev/widget/src/build.tmpl":3,"/Users/eliasliedholm/dev/widget/src/classes":4,"/Users/eliasliedholm/dev/widget/src/version":5,"microbejs/dist/microbe.http.min":1}],3:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -328,7 +328,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 // needs to be imported like this for tests
 
 
-var _classes = require('/styla/widget/src/classes');
+var _classes = require('/Users/eliasliedholm/dev/widget/src/classes');
 
 var _classes2 = _interopRequireDefault(_classes);
 
@@ -342,7 +342,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     exchanged for css in the gulp build
  */
 var baseStyles = '#styla-widget p{margin:0}#styla-widget.styla-widget__wrapper{width:100%;height:100%}#styla-widget .styla-widget__container{box-sizing:border-box;position:relative;overflow:hidden;height:100%;width:100%;min-height:14em;font-size:14px}#styla-widget .styla-widget__story{margin-bottom:1em;position:relative}#styla-widget .styla-widget__link{position:absolute;width:100%;display:-moz-flex;display:-webkit-flex;display:flex;text-decoration:none;color:inherit}#styla-widget__link>div{display:inline-block}#styla-widget .styla-widget__imagewrap{background-repeat:no-repeat;background-position:50%;background-size:contain}#styla-widget .styla-widget__image{max-height:100%;max-width:100%;height:100%;object-fit:contain;opacity:0}#styla-widget .styla-widget__textwrap{display:block;-moz-flex-grow:1;-webkit-flex-grow:1;flex-grow:1;max-height:100%;overflow:hidden;float:left}#styla-widget .styla-widget__headlinewrap{display:flex;flex-direction:column;-moz-justify-content:flex-end;-webkit-justify-content:flex-end;justify-content:flex-end}#styla-widget .styla-widget__headline,#styla-widget .styla-widget__title{line-height:1.25em;max-height:2.5em;overflow:hidden;margin-top:1em;margin-bottom:1em}#styla-widget .styla-widget__title{font-size:2em;text-align:center;margin-bottom:30px}#styla-widget .styla-widget__paragraph{font-size:1em;line-height:1.5em;overflow:hidden;position:relative;word-wrap:break-word}'; // eslint-disable-line
-var specificStyles = '#styla-widget.stories .styla-widget__story{overflow:hidden;height:5em}#styla-widget.stories .styla-widget__link{height:5em}#styla-widget.stories__link>div{display:inline-block}#styla-widget.stories .styla-widget__image,#styla-widget.stories .styla-widget__imagewrap{width:85px;object-fit:cover}#styla-widget.stories .styla-widget__imagewrap{margin:0 3% 0 0;height:100%}#styla-widget.stories .styla-widget__textwrap{width:calc(100% - 85px);display:block;flex-grow:1;max-height:100%;overflow:hidden;float:left}#styla-widget.stories .styla-widget__headlinewrap{min-height:2em;max-height:4em;display:flex;flex-direction:column;justify-content:flex-end}#styla-widget.stories .styla-widget__headline{font-size:1.4em;line-height:1.25em;max-height:2.5em;overflow:hidden;margin:0 0 .25em;word-wrap:break-word;text-overflow:ellipsis;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2}#styla-widget.stories .styla-widget__paragraph{font-size:1em;line-height:1.5em;height:3em;overflow:hidden;position:relative;word-wrap:break-word;text-overflow:ellipsis;display:inline}#styla-widget.stories .styla-widget__paragraph-after{display:inline}#styla-widget.stories .styla-widget__calltoaction{display:none}'; // eslint-disable-line
+var specificStyles = '#styla-widget .styla-widget__container,#styla-widget.styla-widget__wrapper{height:auto}#styla-widget.stories .styla-widget__story{overflow:hidden;height:5em}#styla-widget.stories .styla-widget__link{height:5em}#styla-widget.stories__link>div{display:inline-block}#styla-widget.stories .styla-widget__image,#styla-widget.stories .styla-widget__imagewrap{width:85px;object-fit:cover}#styla-widget.stories .styla-widget__imagewrap{margin:0 3% 0 0;height:100%}#styla-widget.stories .styla-widget__textwrap{width:calc(100% - 85px);display:block;flex-grow:1;max-height:100%;overflow:hidden;float:left}#styla-widget.stories .styla-widget__headlinewrap{min-height:2em;max-height:4em;display:flex;flex-direction:column;justify-content:flex-end}#styla-widget.stories .styla-widget__headline{font-size:1.4em;line-height:1.25em;max-height:2.5em;overflow:hidden;margin:0 0 .25em;word-wrap:break-word;text-overflow:ellipsis;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2}#styla-widget.stories .styla-widget__paragraph{font-size:1em;line-height:1.5em;height:3em;overflow:hidden;position:relative;word-wrap:break-word;text-overflow:ellipsis;display:inline}#styla-widget.stories .styla-widget__paragraph-after{display:inline}#styla-widget.stories .styla-widget__calltoaction{display:none}'; // eslint-disable-line
 
 var wrapperID = 'styla-widget';
 
@@ -925,7 +925,7 @@ Build.prototype.http = _microbeHttp.http;
 
 exports.default = Build;
 
-},{"/styla/widget/src/classes":4,"microbejs/dist/microbe.http.min":1}],4:[function(require,module,exports){
+},{"/Users/eliasliedholm/dev/widget/src/classes":4,"microbejs/dist/microbe.http.min":1}],4:[function(require,module,exports){
 'use strict';
 
 /* globals module */
@@ -963,6 +963,6 @@ module.exports = {
 'use strict';
 
 /* globals module */
-module.exports = '2.4.1';
+module.exports = '2.4.2';
 
 },{}]},{},[2]);
