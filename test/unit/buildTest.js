@@ -13,8 +13,8 @@ import sinon        from 'sinon';
 const getStub = url =>
 {
     let res = url === 'https://live.styla.com/api/config/braunhamburg' ?
-                    domainConfig :
-                    feed;
+        domainConfig :
+        feed;
     res     = JSON.stringify( res );
 
     return {
@@ -94,9 +94,9 @@ describe( 'buildImage', () =>
     it( 'should correctly build the imageWrapper', () =>
     {
         assert.ok( imageWrapper.nodeType === 1,
-                                            'imageWrapper is a dom element' );
+            'imageWrapper is a dom element' );
         assert.equal( imageWrapper.className, classes.IMAGE_WRAPPER,
-                                        'imageWrapper has correct class name' );
+            'imageWrapper has correct class name' );
     } );
 
 
@@ -108,7 +108,7 @@ describe( 'buildImage', () =>
 
         image = image[ 0 ];
         assert.equal( image.className, classes.IMAGE,
-                                            'image has correct class name' );
+            'image has correct class name' );
         assert.equal( image.title, 'moon?', 'image has correct title' );
     } );
 } );
@@ -122,14 +122,14 @@ describe( 'buildStories', () =>
 
         assert.ok( wrapper.nodeType === 1, 'Wrapper is a dom element' );
         assert.ok( wrapper.className.indexOf( classes.WRAPPER ) !== -1,
-                                            'Wrapper has correct class name' );
+            'Wrapper has correct class name' );
     } );
 
 
     it( 'should fail if no JSON is passed', () =>
     {
         assert.throws( build.buildStories,
-                        `Styla Widget error: Could not find magazine,
+            `Styla Widget error: Could not find magazine,
                         please check if slug is configured correctly.` );
     } );
 
@@ -140,8 +140,8 @@ describe( 'buildStories', () =>
         build.context.stories.images = false;
 
         assert.equal( build.buildStories( JSON.stringify( domainConfig ) ),
-                        false,
-                        'no images' );
+            false,
+            'no images' );
 
         build.context.stories.images = tempImages;
     } );
@@ -183,7 +183,7 @@ describe( 'buildStory', () =>
     {
         assert.ok( story.nodeType === 1, 'Story wrapper is a dom element' );
         assert.equal( story.className, classes.STORY,
-                                            'Wrapper has correct class name' );
+            'Wrapper has correct class name' );
     } );
 
 
@@ -194,7 +194,7 @@ describe( 'buildStory', () =>
         storyLink = storyLink[ 0 ];
 
         assert.equal( storyLink.className, classes.STORY_LINK,
-                                        'storyLink has correct class name' );
+            'storyLink has correct class name' );
 
         const href = storyLink.href.replace( /^\/\/test/, '' );
         assert.equal( href.charAt( 0 ), '#', 'storyLink uses hashtag naviagtion' );
@@ -226,7 +226,7 @@ describe( 'buildStory', () =>
         const storyLink = story.childNodes;
 
         assert.equal( storyLink[ 0 ].childNodes[ 2 ].className,
-                'styla-widget__calltoaction', 'Call To Action element exists' );
+            'styla-widget__calltoaction', 'Call To Action element exists' );
         assert.equal( storyLink[ 0 ].childNodes[ 2 ].innerHTML,
             'boop', 'Call to Action element is displaying the correct text' );
         build.context.cta = false;
@@ -260,13 +260,13 @@ describe( 'buildStoryLink', () =>
 describe( 'buildStoryText', () =>
 {
     const textWrapper = build.buildStoryText( 'moon?',
-                                '[{"type":"text","content":"description"}]' );
+        '[{"type":"text","content":"description"}]' );
 
     it( 'should correctly build the story wrapper', () =>
     {
         assert.ok( textWrapper.nodeType === 1, 'Wrapper is a dom element' );
         assert.equal( textWrapper.className, classes.TEXT_WRAPPER,
-                                            'Wrapper has correct class name' );
+            'Wrapper has correct class name' );
     } );
 
 
@@ -276,10 +276,10 @@ describe( 'buildStoryText', () =>
         assert.equal( children.length, 3, 'textWrapper has 3 children' );
 
         assert.equal( children[ 0 ].innerHTML,
-                            '<span class="styla-widget__headline">moon?</span>',
-                            'headline is set right' );
+            '<span class="styla-widget__headline">moon?</span>',
+            'headline is set right' );
         assert.equal( children[ 1 ].innerHTML, 'description ',
-                                                'description is set right' );
+            'description is set right' );
     } );
 
 
@@ -337,9 +337,9 @@ describe( 'constructor', () =>
         const b = build.constructor( stylaWidget, feed );
         assert.ok( typeof b.now === 'number', 'Build gets built' );
         assert.ok( b.context instanceof BaseWidget,
-                            'Build contains the context of a widget instance' );
+            'Build contains the context of a widget instance' );
         assert.ok( typeof b.domainConfig !== 'undefined',
-                                            'Build contains a domainConfig' );
+            'Build contains a domainConfig' );
     } );
 } );
 
@@ -468,7 +468,7 @@ describe( 'includeBaseStyles', () =>
             assert.ok( el.nodeType === 1, 'StyleTag is a dom element' );
 
             assert.ok( el.tagName === 'LINK' || el.tagName === 'STYLE',
-                                                'StyleTag is a style tag' );
+                'StyleTag is a style tag' );
             assert.ok( el.className !== '', 'StyleTag class is set' );
             assert.equal( el.type, 'text/css', 'StyleTag is a css tag' );
         } );
@@ -498,7 +498,7 @@ describe( 'includeFonts', () =>
         assert.equal( el.rel, 'stylesheet', 'font tag class is set' );
         assert.equal( el.type, 'text/css', 'font tag is a css tag' );
         assert.equal( el.href, domainConfig.embed.customFontUrl,
-                                        'font tag points to the right css' );
+            'font tag points to the right css' );
     } );
 
 
@@ -545,13 +545,13 @@ describe( 'setDomain', () =>
         let domain          = build.setDomain();
 
         assert.equal( domain, `${embed.magazineUrl}/${embed.rootPath}`,
-                                                        'domain is correct' );
+            'domain is correct' );
 
         build.domainConfig.embed.rootPath  = `/${embed.rootPath}`;
 
         domain          = build.setDomain();
         assert.equal( domain, `${embed.magazineUrl}${embed.rootPath}`,
-                                            'domain with a slash is fixed ' );
+            'domain with a slash is fixed ' );
     } );
 
 

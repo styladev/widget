@@ -1,4 +1,4 @@
-/* globals document, window */
+/* globals console, document, window */
 /**
  * ## build.js
  *
@@ -77,7 +77,7 @@ class Build
         const imgObj                = this.context.images[ id ];
 
         const url                   = this.getImageUrl( imgObj.fileName,
-                                                                    imageSize );
+            imageSize );
 
         /* The image is rendered as a background image on the wrapper element
         since IE is lacking support for CSS object-fit. The actual image element
@@ -123,9 +123,15 @@ class Build
         const resImages   = stories.images;
         const refs        = context.refs;
 
-        context.route     = domainConfigParsed.routes.story;
-        context.pushstate = domainConfigParsed.embed.pushstateDefault === false ? '#' : '/';
-        context.domain  = this.setDomain();
+
+
+        context.storyRouteOle = domainConfigParsed.routes && domainConfigParsed.routes.story;
+        context.storyRouteNle = domainConfigParsed.embed.routes &&
+                                domainConfigParsed.embed.routes.story &&
+                                domainConfigParsed.embed.routes.story.path;
+
+        context.pushstate     = domainConfigParsed.embed.pushstateDefault === false ? '#' : '/';
+        context.domain        = this.setDomain();
 
         refs.styles = this.includeBaseStyles();
 
@@ -226,9 +232,22 @@ class Build
         const layout        = encodeURIComponent( context.layout );
         const location      = encodeURIComponent( window.location.href );
         const parameters    = context.urlParams ?
-                                `?styla_ref=${location}&styla_wdgt_var=${layout}` : '';
+            `?styla_ref=${location}&styla_wdgt_var=${layout}` : '';
 
-        const path = context.route.replace( /%2\$s_%3\$s/, slug );
+        let path = undefined;
+        if ( context.storyRouteOle )
+        {
+            path = context.storyRouteOle.replace( /%2\$s_%3\$s/, slug );
+        }
+        if ( context.storyRouteNle )
+        {
+            // beware, in the new route object there's a `/` at the beginning
+            path = context.storyRouteNle.replace( /:storySlug/, slug ).substring( 1 );
+        }
+        if ( context.storyRouteOle && context.storyRouteNle )
+        {
+            console.warn( 'Both old and new routes defined in config. Ignoring old route.' );
+        }
 
         return `//${context.domain}${context.pushstate}${path}${parameters}`;
     }
@@ -369,16 +388,16 @@ class Build
             const layout    = context.layout.toLowerCase();
 
             context.refs.container = this.create( 'DIV',
-                            `${classes.CONTAINER}  styla-widget-${this.now}` );
+                `${classes.CONTAINER}  styla-widget-${this.now}` );
             const wrapper   = context.refs.wrapper   = this.create( 'DIV',
-                                            `${classes.WRAPPER}  ${layout}` );
+                `${classes.WRAPPER}  ${layout}` );
             wrapper.id      = wrapperID;
 
             const domainConfigAPI = `${context.api}/api/config/${context.slug}`;
 
             this.http.get( domainConfigAPI )
-                        .then( this.buildStories )
-                        .catch( reportError );
+                .then( this.buildStories )
+                .catch( reportError );
         }
 
         return this;
@@ -517,13 +536,13 @@ class Build
         let arr = new Array( 2 );
 
         arr[ 0 ] = addBaseStyle( css || baseStyles,
-                                `${classes.BASE_STYLES}`,
-                                 'base'
-                            );
+            `${classes.BASE_STYLES}`,
+            'base'
+        );
         arr[ 1 ] = addBaseStyle( specificStyles,
-                                classes[ `${layoutCaps}_STYLES` ],
-                                context.layout
-                            );
+            classes[ `${layoutCaps}_STYLES` ],
+            context.layout
+        );
 
 
         if ( this.domainConfig.embed.customFontUrl )
@@ -555,8 +574,8 @@ class Build
             el.rel              = 'stylesheet';
             const fontUrl       = this.domainConfig.embed.customFontUrl;
             el.href             = fontUrl.indexOf( '//' ) !== -1 ?
-                                fontUrl :
-                                `//${fontUrl}`;
+                fontUrl :
+                `//${fontUrl}`;
 
             document.head.appendChild( el );
 

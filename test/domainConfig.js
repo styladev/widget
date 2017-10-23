@@ -26,6 +26,11 @@ const domainConfig = {
         'rootElement'           : 'amazineEmbed',
         'productApiKey'         : '6321424181',
         'lang'                  : 'DE',
+        'routes'                : {
+            'story' : {
+                'path' : '/story/:storySlug'
+            }
+        },
         'stylaAnalyticsTracker' : 'UA-75512366-48',
         'googleTrackingAccount' : [ 'UA-28225899-2', 'UA-51795421-2' ],
         'customFontUrl'         : '//fonts.googleapis.com/css?family=Roboto:400,400italic,700',
