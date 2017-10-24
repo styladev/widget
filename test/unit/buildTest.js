@@ -7,14 +7,14 @@ import domainConfig from '../domainConfig';
 import feed         from '../feed';
 
 import assert       from 'assert';
+import clone        from 'clone';
 import sinon        from 'sinon';
 
 
 const getStub = url =>
 {
     let res = url === 'https://live.styla.com/api/config/braunhamburg' ?
-        domainConfig :
-        feed;
+        domainConfig : feed;
     res     = JSON.stringify( res );
 
     return {
@@ -45,7 +45,6 @@ const getStub = url =>
 
 sinon.stub( Build.prototype.http, 'get', getStub );
 
-
 const stylaWidget = new BaseWidget( {
     target         : document.body,
     slug           : 'braunhamburg',
@@ -53,13 +52,13 @@ const stylaWidget = new BaseWidget( {
     imageApiDomain : 'honeybee.stage.eu.magalog.net'
 } );
 
-const build  = new Build( stylaWidget, JSON.stringify( feed.stories ) );
 
 
 describe( 'buildHeadline', () =>
 {
+    const build           = new Build( stylaWidget, JSON.stringify( feed.stories ) );
     const headlineWrapper = build.buildHeadline( 'moon?' );
-    let headline        = headlineWrapper.childNodes;
+    let   headline        = headlineWrapper.childNodes;
 
     it( 'should correctly build the headlineWrapper', () =>
     {
@@ -80,14 +79,15 @@ describe( 'buildHeadline', () =>
 
 describe( 'buildImage', () =>
 {
-    const id              = feed.images[ 0 ].id;
+    const build  = new Build( stylaWidget, JSON.stringify( feed.stories ) );
 
-    const images          = {};
+    const id     = feed.images[ 0 ].id;
+    const images = {};
+
     feed.images.forEach( i => images[ i.id ] = i );
-
     build.context.images = images;
 
-    const imageWrapper    = build.buildImage( [ {
+    const imageWrapper   = build.buildImage( [ {
         id : id
     } ], 'moon?' );
 
@@ -103,7 +103,6 @@ describe( 'buildImage', () =>
     it( 'should correctly build the image tag', () =>
     {
         let image = imageWrapper.childNodes;
-
         assert.equal( image.length, 1, 'imageWrapper has only one child' );
 
         image = image[ 0 ];
@@ -116,9 +115,12 @@ describe( 'buildImage', () =>
 
 describe( 'buildStories', () =>
 {
+    const build  = new Build( stylaWidget, JSON.stringify( feed.stories ) );
+    const config = clone( domainConfig );
+
     it( 'should correctly build the stories wrapper', () =>
     {
-        const wrapper = build.buildStories( JSON.stringify( domainConfig ) );
+        const wrapper = build.buildStories( JSON.stringify( config ) );
 
         assert.ok( wrapper.nodeType === 1, 'Wrapper is a dom element' );
         assert.ok( wrapper.className.indexOf( classes.WRAPPER ) !== -1,
@@ -136,25 +138,22 @@ describe( 'buildStories', () =>
 
     it( 'should return nothing if there are no images', () =>
     {
-        const tempImages = build.context.stories.images;
         build.context.stories.images = false;
 
-        assert.equal( build.buildStories( JSON.stringify( domainConfig ) ),
+        assert.equal( build.buildStories( JSON.stringify( config ) ),
             false,
             'no images' );
-
-        build.context.stories.images = tempImages;
     } );
 
 
     it( 'should correctly determine the pushstateDefault', () =>
     {
-        domainConfig.embed.pushstateDefault = true;
-        build.buildStories( JSON.stringify( domainConfig ) );
+        config.embed.pushstateDefault = true;
+        build.buildStories( JSON.stringify( config ) );
         assert.equal(  build.context.pushstate, '/' );
 
-        domainConfig.embed.pushstateDefault = false;
-        build.buildStories( JSON.stringify( domainConfig ) );
+        config.embed.pushstateDefault = false;
+        build.buildStories( JSON.stringify( config ) );
         assert.equal(  build.context.pushstate, '#' );
     } );
 } );
@@ -162,9 +161,10 @@ describe( 'buildStories', () =>
 
 describe( 'buildStory', () =>
 {
-    build.domainConfig      = domainConfig;
+    const build         = new Build( stylaWidget, JSON.stringify( feed.stories ) );
+    build.domainConfig  = clone( domainConfig );
 
-    const id                = Object.keys( stylaWidget.images )[ 0 ];
+    const id            = Object.keys( stylaWidget.images )[ 0 ];
 
     const storyObj = {
         title               : 'moon?',
@@ -210,11 +210,8 @@ describe( 'buildStory', () =>
         let storyLink   = story.childNodes;
         storyLink       = storyLink[ 0 ];
 
-
         const href = storyLink.href.replace( /^\/\/test/, '' );
         assert.equal( href.charAt( 0 ), '/', 'storyLink uses slash navigation' );
-
-        build.context.pushstate = '#';
     } );
 
 
@@ -229,7 +226,6 @@ describe( 'buildStory', () =>
             'styla-widget__calltoaction', 'Call To Action element exists' );
         assert.equal( storyLink[ 0 ].childNodes[ 2 ].innerHTML,
             'boop', 'Call to Action element is displaying the correct text' );
-        build.context.cta = false;
     } );
 
 
@@ -245,8 +241,9 @@ describe( 'buildStory', () =>
 
 describe( 'buildStoryLink', () =>
 {
-    const slug = 'slug';
-    const url = build.buildStoryLink( slug );
+    const build  = new Build( stylaWidget, JSON.stringify( feed.stories ) );
+    const slug   = 'slug';
+    const url    = build.buildStoryLink( slug );
 
     it( 'should correctly build a story link', () =>
     {
@@ -259,6 +256,7 @@ describe( 'buildStoryLink', () =>
 
 describe( 'buildStoryText', () =>
 {
+    const build       = new Build( stylaWidget, JSON.stringify( feed.stories ) );
     const textWrapper = build.buildStoryText( 'moon?',
         '[{"type":"text","content":"description"}]' );
 
@@ -295,6 +293,8 @@ describe( 'buildStoryText', () =>
 
 describe( 'buildStyleTag', () =>
 {
+    const build  = new Build( stylaWidget, JSON.stringify( feed.stories ) );
+
     it( 'should correctly build the styla tag', () =>
     {
         const el = build.buildStyleTag( 'moon' );
@@ -309,9 +309,11 @@ describe( 'buildStyleTag', () =>
 
 describe( 'compileStyles', () =>
 {
+    const build  = new Build( stylaWidget, JSON.stringify( feed.stories ) );
+
     it( 'should correctly build the style element', () =>
     {
-        build.domainConfig = domainConfig;
+        build.domainConfig = clone( domainConfig );
         const el = build.compileStyles();
         assert.ok( el.nodeType === 1, 'Styles is a dom element' );
         assert.equal( el.textContent[ 0 ], '#', 'Styles css is set' );
@@ -324,14 +326,15 @@ describe( 'compileStyles', () =>
         const el = build.compileStyles();
 
         assert.equal( el.innerHTML, '', 'style el has no css' );
-
-        build.domainConfig = domainConfig;
     } );
 } );
 
 
 describe( 'constructor', () =>
 {
+    const build        = new Build( stylaWidget, JSON.stringify( feed.stories ) );
+    build.domainConfig = clone( domainConfig );
+
     it( 'the build object should have a set context and domainConfig', () =>
     {
         const b = build.constructor( stylaWidget, feed );
@@ -346,6 +349,8 @@ describe( 'constructor', () =>
 
 describe( 'create', () =>
 {
+    const build  = new Build( stylaWidget, JSON.stringify( feed.stories ) );
+
     it( 'should create an object with the passed parameters', () =>
     {
         const el = build.create( 'moon', 'doge' );
@@ -359,6 +364,7 @@ describe( 'create', () =>
 
 describe( 'getDescription', () =>
 {
+    const build        = new Build( stylaWidget, JSON.stringify( feed.stories ) );
     const storyTextArr = [
         {
             type : 'moon'
@@ -423,6 +429,8 @@ describe( 'getDescription', () =>
 
 describe( 'getImageUrl', () =>
 {
+    const build  = new Build( stylaWidget, JSON.stringify( feed.stories ) );
+
     it( 'should correctly assign the imageApiDomain parameter', () =>
     {
         assert.equal(
@@ -458,8 +466,10 @@ describe( 'getImageUrl', () =>
 
 describe( 'includeBaseStyles', () =>
 {
-    build.domainConfig  = domainConfig;
-    const elArr = build.includeBaseStyles( '#styla-widget' );
+
+    const build        = new Build( stylaWidget, JSON.stringify( feed.stories ) );
+    build.domainConfig = clone( domainConfig );
+    const elArr        = build.includeBaseStyles( '#styla-widget' );
 
     elArr.forEach( el =>
     {
@@ -479,16 +489,16 @@ describe( 'includeBaseStyles', () =>
     {
         build.domainConfig.embed.customFontUrl = false;
         const elArr = build.includeBaseStyles( '#styla-widget' );
-
         assert.equal( elArr.length, 0, 'font tag is not added' );
-
-        build.domainConfig.embed.customFontUrl = 'http://www.com/';
     } );
 } );
 
 
 describe( 'includeFonts', () =>
 {
+    const build        = new Build( stylaWidget, JSON.stringify( feed.stories ) );
+    build.domainConfig = clone( domainConfig );
+
     it( 'should properly build the font link tag', () =>
     {
         const el      = build.includeFonts();
@@ -504,7 +514,7 @@ describe( 'includeFonts', () =>
 
     it( 'should add // to font urls if it doesnt already have it', () =>
     {
-        build.domainConfig  = domainConfig;
+        build.domainConfig  = clone( domainConfig );
         build.domainConfig.embed.customFontUrl = 'moon';
         const el              = build.includeFonts();
 
@@ -515,6 +525,9 @@ describe( 'includeFonts', () =>
 
 describe( 'setDomain', () =>
 {
+    const build        = new Build( stylaWidget, JSON.stringify( feed.stories ) );
+    build.domainConfig = clone( domainConfig );
+
     it( 'should pass the current domain if there is one', () =>
     {
         const domain          = build.setDomain();
@@ -532,14 +545,13 @@ describe( 'setDomain', () =>
         const domain = build.setDomain();
 
         assert.equal( domain, 'moon', 'domain is correct' );
-
-        build.context.linkDomain    = false;
     } );
 
 
     it( 'should build a domain if there isn\'t one', () =>
     {
         build.context.domain = false;
+        build.context.linkDomain    = false;
 
         const embed           = build.domainConfig.embed;
         let domain          = build.setDomain();
@@ -563,9 +575,5 @@ describe( 'setDomain', () =>
 
         assert.throws( build.setDomain.bind( build ),
             /Styla Widget error: No domain defined or bad domain config./ );
-
-        build.domainConfig      = domainConfig;
-        build.context.domain    = `${domainConfig.embed.magazineUrl}/${domainConfig.embed.rootPath}`; // eslint-disable-line
-
     } );
 } );
