@@ -13,8 +13,7 @@ import sinon        from 'sinon';
 
 const getStub = url =>
 {
-    let res = url === 'https://live.styla.com/api/config/braunhamburg' ?
-        domainConfig : feed;
+    let res = ( /config/ ).test( url ) ?  domainConfig : feed;
     res     = JSON.stringify( res );
 
     return {
@@ -201,7 +200,7 @@ describe( 'buildStory', () =>
     } );
 
 
-    it( 'should build story link with pushstate naviagtion', () =>
+    it( 'should build story link with pushstate navigation', () =>
     {
         build.context.pushstate = '/';
 
@@ -212,6 +211,8 @@ describe( 'buildStory', () =>
 
         const href = storyLink.href.replace( /^\/\/test/, '' );
         assert.equal( href.charAt( 0 ), '/', 'storyLink uses slash navigation' );
+
+        build.context.pushstate = '#';
     } );
 
 
@@ -241,14 +242,82 @@ describe( 'buildStory', () =>
 
 describe( 'buildStoryLink', () =>
 {
-    const build  = new Build( stylaWidget, JSON.stringify( feed.stories ) );
-    const slug   = 'slug';
-    const url    = build.buildStoryLink( slug );
+    const build      = new Build( stylaWidget, JSON.stringify( feed.stories ) );
+    build.domainConfig  = clone( domainConfig );
+    const ignoreSlug = 'ignore-slug';
 
-    it( 'should correctly build a story link', () =>
+
+    it( 'should build a story link for old style routing', () =>
     {
+        build.context.routesOle = {
+            'story' : 'oldpath/%2$s_%3$s'
+        };
+        build.context.routesNle = undefined;
+
+        const url    = build.buildStoryLink( ignoreSlug );
+
         assert.equal( url,
-            '//test#story/slug?styla_ref=about%3Ablank&styla_wdgt_var=TMPL-VARIABLE-LAYOUT', //eslint-disable-line
+            '//test#oldpath/ignore-slug?styla_ref=about%3Ablank&styla_wdgt_var=TMPL-VARIABLE-LAYOUT', //eslint-disable-line
+            'link has correct format' );
+    } );
+
+    it( 'should build a story link for old style routing, in case both are defined', () =>
+    {
+        build.context.routesOle = {
+            'story' : 'oldpath/%2$s_%3$s'
+        };
+        build.context.routesNle = {
+            'story' : {
+                'path' : '/newpath/:storySlug'
+            }
+        };
+
+        const url    = build.buildStoryLink( ignoreSlug );
+
+        assert.equal( url,
+            '//test#oldpath/ignore-slug?styla_ref=about%3Ablank&styla_wdgt_var=TMPL-VARIABLE-LAYOUT', //eslint-disable-line
+            'link has correct format' );
+    } );
+
+    it( 'should build a story link for basic new style routing', () =>
+    {
+        build.context.routesOle = undefined;
+        build.context.routesNle = {
+            'story' : {
+                'path' : '/newpath/:storySlug'
+            }
+        };
+
+        const url = build.buildStoryLink( ignoreSlug );
+
+        assert.equal( url,
+            '//test#newpath/ignore-slug?styla_ref=about%3Ablank&styla_wdgt_var=TMPL-VARIABLE-LAYOUT', //eslint-disable-line
+            'link has correct format' );
+    } );
+
+    it( 'should build a story link for advanced new style routing', () =>
+    {
+        build.context.routesOle = undefined;
+        build.context.routesNle = {
+            'magazine' : {
+                'path' : '/testmagazine'
+            },
+            'story' : {
+                'path' : '/:categorySlug/:storySlug'
+            }
+        };
+        const categories = [ {
+            'slug' : 'use-category'
+        },
+            {
+                'slug' : 'ignore-category'
+            } ];
+
+
+        const url    = build.buildStoryLink( ignoreSlug, categories );
+
+        assert.equal( url,
+            '//test#testmagazine/use-category/ignore-slug?styla_ref=about%3Ablank&styla_wdgt_var=TMPL-VARIABLE-LAYOUT', //eslint-disable-line
             'link has correct format' );
     } );
 } );

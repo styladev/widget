@@ -125,13 +125,11 @@ class Build
 
 
 
-        context.storyRouteOle = domainConfigParsed.routes && domainConfigParsed.routes.story;
-        context.storyRouteNle = domainConfigParsed.embed.routes &&
-                                domainConfigParsed.embed.routes.story &&
-                                domainConfigParsed.embed.routes.story.path;
+        context.routesOle = domainConfigParsed.routes;
+        context.routesNle = domainConfigParsed.embed.routes;
 
-        context.pushstate     = domainConfigParsed.embed.pushstateDefault === false ? '#' : '/';
-        context.domain        = this.setDomain();
+        context.pushstate = domainConfigParsed.embed.pushstateDefault === false ? '#' : '/';
+        context.domain    = this.setDomain();
 
         refs.styles = this.includeBaseStyles();
 
@@ -161,12 +159,15 @@ class Build
      * matches ignore.  no matter what it will always build the number of
      * stories set in the limit
      *
-     * @param {Object} json image data
+     * @param {Object} json story data
      * @param {Number} i iterator
      *
      * @return {DOMElement} outer story element
      */
-    buildStory( { title, description, images, externalPermalink, id }, i = 0 )
+    buildStory(
+        { title, description, id, images, externalPermalink, boards:categories = [] },
+        i = 0
+    )
     {
         const context     = this.context;
 
@@ -185,7 +186,7 @@ class Build
             const story     = create( 'div',    classes.STORY );
             const storyLink = create( 'a',      classes.STORY_LINK );
 
-            storyLink.href  = this.buildStoryLink( externalPermalink );
+            storyLink.href  = this.buildStoryLink( externalPermalink, categories );
 
             story.appendChild( storyLink );
 
@@ -222,10 +223,11 @@ class Build
      * builds unique link for each story
      *
      * @param {String} slug for story
+     * @param {Array} categories A list of categories to which this slug belongs to
      *
      * @return {String} complete url
      */
-    buildStoryLink( slug )
+    buildStoryLink( slug, categories = [] )
     {
         const context       = this.context;
 
@@ -234,19 +236,30 @@ class Build
         const parameters    = context.urlParams ?
             `?styla_ref=${location}&styla_wdgt_var=${layout}` : '';
 
-        let path = undefined;
-        if ( context.storyRouteOle )
+        let path;
+        if ( context.routesNle )
         {
-            path = context.storyRouteOle.replace( /%2\$s_%3\$s/, slug );
-        }
-        if ( context.storyRouteNle )
-        {
+            // must match `getStoryPathname()` functionality from
+            // https://github.com/styladev/layoutEngine/blob/stage/app/utils/helperUtils.js#L150
+            const primaryCategorySlug =
+                ( categories[ 0 ] && categories[ 0 ].slug ) || 'no-category';
+
+            path = context.routesNle.magazine ? context.routesNle.magazine.path : '';
+
             // beware, in the new route object there's a `/` at the beginning
-            path = context.storyRouteNle.replace( /:storySlug/, slug ).substring( 1 );
+            path = ( path + context.routesNle.story.path
+                .replace( /:storySlug/, slug )
+                .replace( /:categorySlug/, primaryCategorySlug ) )
+                .substring( 1 );
+
         }
-        if ( context.storyRouteOle && context.storyRouteNle )
+        if ( context.routesOle )
         {
-            console.warn( 'Both old and new routes defined in config. Ignoring old route.' );
+            path = context.routesOle.story.replace( /%2\$s_%3\$s/, slug );
+        }
+        if ( context.routesOle && context.routesNle )
+        {
+            console.warn( 'Both old and new routes defined in config. Ignoring new route.' );
         }
 
         return `//${context.domain}${context.pushstate}${path}${parameters}`;
