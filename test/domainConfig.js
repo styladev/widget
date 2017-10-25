@@ -2,9 +2,7 @@
 const domainConfig = {
     'includeScripts' : [ 'braunhamburg' ],
     'routes'         : {
-        'trends'  : 'tag/%1$s',
-        'userTag' : 'tag/%2$s',
-        'story'   : 'story/%2$s_%3$s'
+        'story'   : 'testpath/%2$s_%3$s'
     },
     'shop'  : true,
     'popup' : {

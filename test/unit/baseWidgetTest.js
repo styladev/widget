@@ -74,7 +74,7 @@ describe( 'checkTarget', () =>
     {
         document.body.offsetWidth = 149;
         assert.throws( () => stylaWidget.checkTarget( document.body, 250 ),
-                    `Styla Widget error: Target element too small
+            `Styla Widget error: Target element too small
                                     to render widget ¯\\_(ツ)_/¯` );
         document.body.offsetWidth = 260;
     } );
@@ -86,7 +86,7 @@ describe( 'constructor', () =>
     it( 'should not build without a slug', () =>
     {
         assert.throws( () => new BaseWidget(),
-                'Styla Widget error: No slug defined, cannot render widget' );
+            'Styla Widget error: No slug defined, cannot render widget' );
     } );
 
 
