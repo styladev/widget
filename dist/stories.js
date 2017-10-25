@@ -1,12 +1,12 @@
 /*!
- * Styla bite-sized widget v2.4.2
+ * Styla bite-sized widget v2.5.0
  * https://github.com/styladev/widget
  *
  * Copyright 2016-2017 Styla GmbH and other contributors
  * Released under the MIT license
  * https://github.com/styladev/widget/blob/master/license.md
  *
- * Date: Thu Sep 07 2017
+ * Date: Wed Oct 25 2017
  * */
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 (function (global){
@@ -33,15 +33,15 @@ var _createClass = function () { function defineProperties(target, props) { for 
 // needs to be imported like this for tests
 
 
-var _version = require('/Users/eliasliedholm/dev/widget/src/version');
+var _version = require('/home/dukat/styla/code/widget/src/version');
 
 var _version2 = _interopRequireDefault(_version);
 
-var _classes = require('/Users/eliasliedholm/dev/widget/src/classes');
+var _classes = require('/home/dukat/styla/code/widget/src/classes');
 
 var _classes2 = _interopRequireDefault(_classes);
 
-var _build = require('/Users/eliasliedholm/dev/widget/src/build.tmpl');
+var _build = require('/home/dukat/styla/code/widget/src/build.tmpl');
 
 var _build2 = _interopRequireDefault(_build);
 
@@ -310,14 +310,14 @@ Object.defineProperty(StylaWidget, 'version', {
 
 exports.default = StylaWidget;
 
-},{"/Users/eliasliedholm/dev/widget/src/build.tmpl":3,"/Users/eliasliedholm/dev/widget/src/classes":4,"/Users/eliasliedholm/dev/widget/src/version":5,"microbejs/dist/microbe.http.min":1}],3:[function(require,module,exports){
+},{"/home/dukat/styla/code/widget/src/build.tmpl":3,"/home/dukat/styla/code/widget/src/classes":4,"/home/dukat/styla/code/widget/src/version":5,"microbejs/dist/microbe.http.min":1}],3:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /* globals document, window */
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /* globals console, document, window */
 /**
  * ## build.js
  *
@@ -328,7 +328,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 // needs to be imported like this for tests
 
 
-var _classes = require('/Users/eliasliedholm/dev/widget/src/classes');
+var _classes = require('/home/dukat/styla/code/widget/src/classes');
 
 var _classes2 = _interopRequireDefault(_classes);
 
@@ -449,7 +449,9 @@ var Build = function () {
             var resImages = stories.images;
             var refs = context.refs;
 
-            context.route = domainConfigParsed.routes.story;
+            context.routesOle = domainConfigParsed.routes;
+            context.routesNle = domainConfigParsed.embed.routes;
+
             context.pushstate = domainConfigParsed.embed.pushstateDefault === false ? '#' : '/';
             context.domain = this.setDomain();
 
@@ -481,7 +483,7 @@ var Build = function () {
          * matches ignore.  no matter what it will always build the number of
          * stories set in the limit
          *
-         * @param {Object} json image data
+         * @param {Object} json story data
          * @param {Number} i iterator
          *
          * @return {DOMElement} outer story element
@@ -492,9 +494,11 @@ var Build = function () {
         value: function buildStory(_ref) {
             var title = _ref.title,
                 description = _ref.description,
+                id = _ref.id,
                 images = _ref.images,
                 externalPermalink = _ref.externalPermalink,
-                id = _ref.id;
+                _ref$boards = _ref.boards,
+                categories = _ref$boards === undefined ? [] : _ref$boards;
             var i = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
 
             var context = this.context;
@@ -509,7 +513,7 @@ var Build = function () {
                 var story = create('div', _classes2.default.STORY);
                 var storyLink = create('a', _classes2.default.STORY_LINK);
 
-                storyLink.href = this.buildStoryLink(externalPermalink);
+                storyLink.href = this.buildStoryLink(externalPermalink, categories);
 
                 story.appendChild(storyLink);
 
@@ -544,6 +548,7 @@ var Build = function () {
          * builds unique link for each story
          *
          * @param {String} slug for story
+         * @param {Array} categories A list of categories to which this slug belongs to
          *
          * @return {String} complete url
          */
@@ -551,13 +556,31 @@ var Build = function () {
     }, {
         key: 'buildStoryLink',
         value: function buildStoryLink(slug) {
+            var categories = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+
             var context = this.context;
 
             var layout = encodeURIComponent(context.layout);
             var location = encodeURIComponent(window.location.href);
             var parameters = context.urlParams ? '?styla_ref=' + location + '&styla_wdgt_var=' + layout : '';
 
-            var path = context.route.replace(/%2\$s_%3\$s/, slug);
+            var path = void 0;
+            if (context.routesNle) {
+                // must match `getStoryPathname()` functionality from
+                // https://github.com/styladev/layoutEngine/blob/stage/app/utils/helperUtils.js#L150
+                var primaryCategorySlug = categories[0] && categories[0].slug || 'no-category';
+
+                path = context.routesNle.magazine ? context.routesNle.magazine.path : '';
+
+                // beware, in the new route object there's a `/` at the beginning
+                path = (path + context.routesNle.story.path.replace(/:storySlug/, slug).replace(/:categorySlug/, primaryCategorySlug)).substring(1);
+            }
+            if (context.routesOle) {
+                path = context.routesOle.story.replace(/%2\$s_%3\$s/, slug);
+            }
+            if (context.routesOle && context.routesNle) {
+                console.warn('Both old and new routes defined in config. Ignoring new route.');
+            }
 
             return '//' + context.domain + context.pushstate + path + parameters;
         }
@@ -925,7 +948,7 @@ Build.prototype.http = _microbeHttp.http;
 
 exports.default = Build;
 
-},{"/Users/eliasliedholm/dev/widget/src/classes":4,"microbejs/dist/microbe.http.min":1}],4:[function(require,module,exports){
+},{"/home/dukat/styla/code/widget/src/classes":4,"microbejs/dist/microbe.http.min":1}],4:[function(require,module,exports){
 'use strict';
 
 /* globals module */
@@ -963,6 +986,6 @@ module.exports = {
 'use strict';
 
 /* globals module */
-module.exports = '2.4.2';
+module.exports = '2.5.0';
 
 },{}]},{},[2]);
