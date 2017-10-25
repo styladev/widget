@@ -12,13 +12,13 @@ describe( 'version', () =>
         assert.ok( version, 'exists' );
         assert.equal( version, packageJson.version, 'versions match file' );
         assert.equal( version, BaseWidget.version,
-                                                'versions match BaseWidget' );
+            'versions match BaseWidget' );
     } );
 
 
     it( 'should be read only', () =>
     {
         assert.throws( () => BaseWidget.version = '2.0.0', Error,
-                                                'versions match BaseWidget' );
+            'versions match BaseWidget' );
     } );
 } );
