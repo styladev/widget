@@ -1,4 +1,4 @@
-Styla Widget  2.4.2
+Styla Widget  2.5.0
 =======
 
 The Styla Widget™ is a simple way to display stories from a Styla Magazine in a
@@ -142,7 +142,7 @@ To stop the server, press CTRL-C
 Releasing
 --------
 
-When you release a new version, commit it to dev (keeps dev upto date), commit it
+When you release a new version, commit it to stage, commit it
 to master, then commit it to release. It must be released from the `release` branch.
 It is the *only* branch that commits the dist files
 
@@ -175,6 +175,9 @@ This project adheres to the [Contributor Covenant](http://contributor-covenant.o
 
 Change log
 ==========
+
+### 2.5.0
+    + support new routing config
 
 ### 2.4.2
     + related stories: set height of container and wrapper to initial value so it only takes the space it needs
@@ -259,19 +262,6 @@ Change log
     + removed iframe option
     + removed newtab option
     + adds tracking parameters to URL
-
-### 1.3.3
-    + fix release
-
-### 1.3.2
-    + fixed tests
-
-### 1.3.1
-    + fix tile widget styling
-
-### 1.3.0
-    + fixed theme styling for related stories
-    + related stories uses square images
 
 Older Changes
 =============
