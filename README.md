@@ -1,4 +1,4 @@
-Styla Widget  2.5.0
+Styla Widget  2.5.1
 =======
 
 The Styla Widget™ is a simple way to display stories from a Styla Magazine in a
@@ -175,6 +175,9 @@ This project adheres to the [Contributor Covenant](http://contributor-covenant.o
 
 Change log
 ==========
+
+### 2.5.1
+    + support text-transform from theme 
 
 ### 2.5.0
     + support new routing config
