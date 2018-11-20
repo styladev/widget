@@ -351,6 +351,7 @@ class Build
                     text-decoration:    ${theme.htd};
                     letter-spacing:     ${theme.hls};
                     color:              ${theme.htc};
+                    text-transform:     ${theme.htt};
                 }
                 #styla-widget .styla-widget-${now} .${classes.PARAGRAPH},
                 #styla-widget .styla-widget-${now} .${classes.PARAGRAPH_AFTER},
