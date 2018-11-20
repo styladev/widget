@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>Styla Widgets</title>
+        <link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic" rel="stylesheet" type="text/css">
+
+        <style>
+            body
+            {
+                text-align:             left;
+                margin:                 0 5vw;
+                background:             #f7f6f4;
+                height:                 100vh;
+                font-family:            "Lato", sans-serif;
+                font-weight:            300;
+            }
+
+            a
+            {
+                color:                  #000;
+            }
+
+            h1, h2
+            {
+                text-transform:         uppercase;
+                font-weight:            bold;
+            }
+
+            ul > li
+            {
+                line-height:            1.5em;
+            }
+
+            hr
+            {
+                border-style:           solid;
+                border-top:             0;
+            }
+
+            .logotype {
+                display:                block;
+                width:                  5em;
+                height:                 5em;
+                background:             #000;
+                display:                flex;
+                align-items:            center;
+                text-align:             center;
+                float:                  left;
+                margin-right:           1.5em;
+            }
+
+            .logotype__image
+            {
+                display:                block;
+                margin:                 0 auto;
+                width:                  70%;
+            }
+
+            p:not(.target)
+            {
+                max-width:              370px;
+                line-height:            1.5em;
+            }
+
+            .target
+            {
+                text-align:             left;
+                background:             #FFF;
+                box-shadow:             3px 3px 0px #ccc;
+                position:               relative;
+                display:                inline-block;
+                margin:                 1em 0 2em;
+            }
+
+            .styla-widget__target-tiles--square
+            {
+                height:                 22.5vw;
+                width:                  90vw;
+                min-width:              16em;
+                min-height:             16em;
+            }
+
+            .styla-widget__target-tiles--portrait,
+            .styla-widget__target-tiles--horizontal
+            {
+                height:                 20em;
+                width:                  90vw;
+                min-width:              16em;
+                min-height:             16em;
+            }
+
+            .styla-widget__target-list--slim
+            {
+                height:                 900px;
+                width:                  300px;
+                max-width:              100%;
+                margin-right:           2em;
+            }
+
+            .styla-widget__target-list--wide
+            {
+                height:                 900px;
+                width:                  600px;
+                max-width:              100%;
+            }
+
+            .styla-widget__target-horizontal
+            {
+                width:                  90vw;
+                height:                 14em;
+            }
+
+            .styla-widget__target-cards
+            {
+                width:                  90vw;
+                padding:                0.5em 0;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="logotype">
+            <img src="logotype.svg" class="logotype__image">
+        </div>
+        <h1>Widgets</h1>
+        <br>
+        <p>In order to guide visitors to your magazine, you can include a widget (or more) on any page on your website. You can find a number of example widgets below.</p>
+        <h3>Style it according to your needs</h3>
+        <p>If you are interested in using a widget on your site, <br>we will gladly help you with adapting the widget <br>to meet your needs. Please contact your Styla account manager for more information on our widgets.</p>
+        <p><a href="#list">List</a> <a href="#horizontal">Horizontal</a> <a href="#tiles">Tiles</a> <a href="#cards">Cards</a></p>
+        <hr>
+
+        <a name="list"></a>
+        <h2>e.g. the List</h2>
+        <p>
+            Classy, clean and compatible. The List features stories in a vertically positioned layout.
+        </p>
+        <ul>
+            <li>Images keep their original ratio</li>
+            <li>Vertical layout</li>
+            <li>Adapts your content to the space it's given</li>
+            <li>Widths between 250 and 600 pixels</li>
+        </ul>
+        <div class="target styla-widget__target-list--slim"></div>
+        <div class="target styla-widget__target-list--wide"></div>
+        <hr>
+
+        <a name="horizontal"></a>
+        <h2 name="horizontal">e.g. the Horizontal</h2>
+        <p>
+            An alternative take on The List, features the same visually stunning layouts – now positioned horizontally.
+        </p>
+        <ul>
+            <li>Images keep their original ratio</li>
+            <li>Horizontal layout</li>
+            <li>Fixed height</li>
+        </ul>
+        <div class="target styla-widget__target-horizontal"></div>
+        <hr>
+
+        <a name="tiles"></a>
+        <h2>e.g. the Tiles</h2>
+        <p>
+            Let this modern layout strike you not only with its looks, but also
+            its versatility. It's the perfect alternative for giving your visual
+            content the attention it deserves.
+        </p>
+        <ul>
+            <li>Images are cropped to fill the space</li>
+        </ul>
+        <div class="target styla-widget__target-tiles--square"></div>
+        <div class="target styla-widget__target-tiles--portrait"></div>
+        <div class="target styla-widget__target-tiles--horizontal"></div>
+        <hr>
+
+        <a name="cards"></a>
+        <h2>e.g. the Cards</h2>
+        <p>
+            The Cards is a simple layout that's easy on the eyes. Its toned down
+            aesthetic leaves room for your content to do the talking, and it blends
+            well on a large variety of websites.
+        </p>
+        <ul>
+            <li>Images are cropped to fill the space</li>
+            <li>Custom call to action (read more)</li>
+        </ul>
+        <div class="target styla-widget__target-cards"></div>
+
+        <br>
+        <hr>
+        <br>
+        <b>Styla</b> | Content Marketing for e-Commerce | <a href="http://styla.com/">www.styla.com</a>
+        <br>
+        <br>
+    </body>
+
+
+    <script src="./list.v2.min.js"></script>
+    <script src="./tiles.v2.min.js"></script>
+    <script src="./horizontal.v2.min.js"></script>
+    <script src="./cards.v2.min.js"></script>
+    <script>
+        new StylaWidget_Tiles( {
+            newTab  : true,
+            slug    : 'consulting-beauty',
+            target  : '.styla-widget__target-tiles--square',
+            limit   : 4
+        } );
+
+        new StylaWidget_Tiles( {
+            newTab  : true,
+            slug    : 'styla-menfashion',
+            target  : '.styla-widget__target-tiles--portrait',
+            limit   : 8
+        } );
+
+        new StylaWidget_Tiles( {
+            newTab  : true,
+            slug    : 'styla-womenfashion',
+            target  : '.styla-widget__target-tiles--horizontal',
+            limit   : 3
+        } );
+
+        new StylaWidget_List( {
+            newTab  : true,
+            slug    : 'styla-homedecor',
+            target  : '.styla-widget__target-list--slim',
+            limit   : 4
+        } );
+
+        new StylaWidget_List( {
+            newTab  : true,
+            slug    : 'styla-beauty',
+            target  : '.styla-widget__target-list--wide',
+            limit   : 4
+        } );
+
+        new StylaWidget_Horizontal( {
+            newTab  : true,
+            slug    : 'styla-menfashion',
+            target  : '.styla-widget__target-horizontal',
+            limit   : 4
+        } );
+
+        new StylaWidget_Cards( {
+            newTab  : true,
+            slug    : 'booksandpaper',
+            target  : '.styla-widget__target-cards',
+            limit   : 4,
+            cta     : 'Read More'
+        } );
+    </script>
+</html>

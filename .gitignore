@@ -16,14 +16,13 @@ tags
 
 node_modules/
 .tmp
+build/
 config.js
 npm-debug.log
 
 demo/demoDist.js
-demo/local.html
 
-build/
-dist/
+demo/local.html
 
 dist/*.min.css
 coverage/

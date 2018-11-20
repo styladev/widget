@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+
+<!--
+
+    This page displays widgets which pulls its stories from a staging CI magazine.
+    It is intended for testing purposes only.
+
+-->
+
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>Styla Cards Widget Demo</title>
+        <style>
+            body
+            {
+                margin:                 0 auto;
+                background:             #eee;
+                height:                 100vh;
+            }
+
+            h1,
+            h2
+            {
+                text-align:             center;
+            }
+
+            .styla-widget__cards,
+            .styla-widget__list,
+            .styla-widget__tiles,
+            .styla-widget__horizontal,
+            .styla-widget__stories
+            {
+                text-align:             left;
+                background:             #FFF;
+                box-shadow:             3px 3px 0px #ccc;
+                height:                 24em;
+                position:               relative;
+                display:                block;
+                margin:                 0 auto;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Stage widget</h1>
+        <p style="text-align:center">Displaying stories from <a href="http://oxid.stage.eu.magalog.net/magazine/">http://oxid.stage.eu.magalog.net/magazine/</a> </p>
+
+        <h2>Cards view, non-minified, latest</h2>
+        <div class="styla-widget__cards" style="width: 90%;"></div>
+        <script src="./cards.js"></script>
+        <script>
+            new StylaWidget_Cards( {
+                newTab  : true,
+                slug    : 'ci-oxid4',
+                api     : 'http://frontend-gateway.stage.eu.magalog.net',
+                target  : '.styla-widget__cards',
+                limit   : 4,
+                cta     : 'Read more'
+            } );
+        </script>
+
+        <h2>Horizontal view, non-minified, v2</h2>
+        <div class="styla-widget__horizontal" style="width: 90%;"></div>
+        <script src="./horizontal.v2.js"></script>
+        <script>
+            new StylaWidget_Horizontal( {
+                newTab  : true,
+                slug    : 'ci-oxid4',
+                api     : 'http://frontend-gateway.stage.eu.magalog.net',
+                target  : '.styla-widget__horizontal',
+                limit   : 4,
+                cta     : 'Read more'
+            } );
+        </script>
+
+        <h2>Tiles view, minified, v2</h2>
+        <div class="styla-widget__tiles" style="width: 90%;"></div>
+        <script src="./tiles.v2.min.js"></script>
+        <script>
+            new StylaWidget_Tiles( {
+                newTab  : true,
+                slug    : 'ci-oxid4',
+                api     : 'http://frontend-gateway.stage.eu.magalog.net',
+                target  : '.styla-widget__tiles',
+                limit   : 4,
+            } );
+        </script>
+
+        <h2>List view, minified, v2</h2>
+        <div class="styla-widget__list" style="width: 90%; height: 80vh;"></div>
+        <script src="./list.v2.min.js"></script>
+        <script>
+            new StylaWidget_List( {
+                newTab  : true,
+                slug    : 'ci-oxid4',
+                api     : 'http://frontend-gateway.stage.eu.magalog.net',
+                target  : '.styla-widget__list',
+                limit   : 4,
+            } );
+        </script>
+
+        <h2>Stories view, minified, v2<h2>
+        <div class="styla-widget__stories" style="width: 90%;"></div>
+        <script src="./stories.v2.min.js"></script>
+        <script>
+            new StylaWidget_Stories( {
+                newTab  : true,
+                slug    : 'ci-oxid4',
+                api     : 'http://frontend-gateway.stage.eu.magalog.net',
+                target  : '.styla-widget__stories',
+                limit   : 4,
+            } );
+        </script>
+    </body>
+</html>
