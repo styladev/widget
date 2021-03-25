@@ -231,10 +231,13 @@ class Build
     {
         const context       = this.context;
 
-        const layout        = encodeURIComponent( context.layout );
-        const location      = encodeURIComponent( window.location.href );
-        const parameters    = context.urlParams ?
-            `?styla_ref=${location}&styla_wdgt_var=${layout}` : '';
+        /* Removed URL Query Parameters because of their SEO impact
+        ** and lack of use case by any current client
+        */
+        // const layout        = encodeURIComponent( context.layout );
+        // const location      = encodeURIComponent( window.location.href );
+        // const parameters    = context.urlParams ?
+        //     `?styla_ref=${location}&styla_wdgt_var=${layout}` : '';
 
         let path;
         if ( context.routesNle )
@@ -262,7 +265,7 @@ class Build
             console.warn( 'Both old and new routes defined in config. Ignoring new route.' );
         }
 
-        return `//${context.domain}${context.pushstate}${path}${parameters}`;
+        return `//${context.domain}${context.pushstate}${path}`;
     }
 
 
