@@ -257,7 +257,7 @@ describe( 'buildStoryLink', () =>
         const url    = build.buildStoryLink( ignoreSlug );
 
         assert.equal( url,
-            '//test#oldpath/ignore-slug?styla_ref=about%3Ablank&styla_wdgt_var=TMPL-VARIABLE-LAYOUT', //eslint-disable-line
+            '//test#oldpath/ignore-slug', //eslint-disable-line
             'link has correct format' );
     } );
 
@@ -275,7 +275,7 @@ describe( 'buildStoryLink', () =>
         const url    = build.buildStoryLink( ignoreSlug );
 
         assert.equal( url,
-            '//test#oldpath/ignore-slug?styla_ref=about%3Ablank&styla_wdgt_var=TMPL-VARIABLE-LAYOUT', //eslint-disable-line
+            '//test#oldpath/ignore-slug', //eslint-disable-line
             'link has correct format' );
     } );
 
@@ -291,7 +291,7 @@ describe( 'buildStoryLink', () =>
         const url = build.buildStoryLink( ignoreSlug );
 
         assert.equal( url,
-            '//test#newpath/ignore-slug?styla_ref=about%3Ablank&styla_wdgt_var=TMPL-VARIABLE-LAYOUT', //eslint-disable-line
+            '//test#newpath/ignore-slug, //eslint-disable-line
             'link has correct format' );
     } );
 
@@ -317,7 +317,7 @@ describe( 'buildStoryLink', () =>
         const url    = build.buildStoryLink( ignoreSlug, categories );
 
         assert.equal( url,
-            '//test#testmagazine/use-category/ignore-slug?styla_ref=about%3Ablank&styla_wdgt_var=TMPL-VARIABLE-LAYOUT', //eslint-disable-line
+            '//test#testmagazine/use-category/ignore-slug, //eslint-disable-line
             'link has correct format' );
     } );
 } );
