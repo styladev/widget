@@ -139,6 +139,9 @@ then, find a demo page at `localhost:8000/dist/stage.html`
 To stop the server, press CTRL-C
 
 
+
+>In case you get a `primordials is not defined` error when building, make sure you use an older version of Node (`10.*`). This library uses a legacy version of Gulp and there is a known uncompatibility between this version and Node > 10.
+
 Releasing
 --------
 
